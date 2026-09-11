@@ -142,7 +142,7 @@ export default function ProductosSection({ onPresupuesto }) {
                       <h3 className="font-display prod-title">{p.nombre}</h3>
                       <p className="prod-desc">{p.desc}</p>
                       <ul className="prod-specs">
-                        {p.specs.map((s) => <li key={s} className="prod-spec">{s}</li>)}
+                        {p.specs.filter((s) => s && String(s).trim()).map((s) => <li key={s} className="prod-spec">{s}</li>)}
                       </ul>
                       <div className="prod-actions">
                         <button onClick={() => onPresupuesto?.(p)} className="btn-primary">
@@ -155,16 +155,6 @@ export default function ProductosSection({ onPresupuesto }) {
                   ))}
                 </div>
 
-                {/* Foto activa dentro del producto */}
-                <div className="prod-dots" aria-hidden="true">
-                  {PRODUCTOS[activo].fotos.map((f, j) => (
-                    <span key={f.src + j} className={`prod-dot ${j === foto ? "is-active" : ""}`} />
-                  ))}
-                  <span className="prod-dots-label">
-                    Foto {foto + 1} de {PRODUCTOS[activo].fotos.length}
-                  </span>
-                </div>
-
                 {/* Índice de productos */}
                 <nav className="prod-nav" aria-label="Productos">
                   {PRODUCTOS.map((p, i) => (
@@ -174,7 +164,6 @@ export default function ProductosSection({ onPresupuesto }) {
                       aria-current={i === activo}
                       className={`prod-nav-item ${i === activo ? "is-active" : ""}`}
                     >
-                      <span className="prod-nav-bar" />
                       {p.nombre}
                     </button>
                   ))}
@@ -223,7 +212,7 @@ export default function ProductosSection({ onPresupuesto }) {
                 <h3 className="font-display prod-title">{p.nombre}</h3>
                 <p className="prod-desc">{p.desc}</p>
                 <ul className="prod-specs">
-                  {p.specs.map((s) => <li key={s} className="prod-spec">{s}</li>)}
+                  {p.specs.filter((s) => s && String(s).trim()).map((s) => <li key={s} className="prod-spec">{s}</li>)}
                 </ul>
               </div>
 

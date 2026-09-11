@@ -1,6 +1,7 @@
 import { useCallback, useState } from "react";
 import { Link } from "react-router-dom";
 import FotoDiferida from "@/components/FotoDiferida";
+import VentanaCorrediza, { FOTO_CORREDIZA } from "@/components/VentanaCorrediza";
 import { PRODUCTOS } from "@/content/catalogo";
 
 /*
@@ -28,19 +29,23 @@ export default function VitrinaProductos({ onPresupuesto }) {
     <section id="productos" data-testid="vitrina-productos" className="vitrina">
       {/* ── Mitad izquierda: foto a sangre + sigla gigante ── */}
       <div className={`vit-foto${p.fotos.length ? "" : " sin-foto"}`}>
-        {PRODUCTOS.map((prod, i) => prod.fotos[0] && (
-          <FotoDiferida
-            key={prod.id}
-            src={prod.fotos[0].src}
-            alt={`${prod.nombre} — ${prod.fotos[0].caption}`}
-            className={i === activo ? "is-active" : ""}
-          />
-        ))}
-
-        <p className="vit-volanta">
-          Productos
-          <span className="vit-regla" aria-hidden="true" />
-        </p>
+        {PRODUCTOS.map((prod, i) => {
+          const foto = prod.fotos[0];
+          if (!foto) return null;
+          const alt = foto.caption ? `${prod.nombre} — ${foto.caption}` : prod.nombre;
+          // La corrediza de PVC se abre arrastrando la hoja (ver VentanaCorrediza)
+          if (foto.src === FOTO_CORREDIZA) {
+            return <VentanaCorrediza key={prod.id} activa={i === activo} alt={alt} />;
+          }
+          return (
+            <FotoDiferida
+              key={prod.id}
+              src={foto.src}
+              alt={alt}
+              className={i === activo ? "is-active" : ""}
+            />
+          );
+        })}
 
         <span key={`s-${p.id}`} className="vit-sigla" aria-hidden="true">{p.sigla}</span>
         {p.fotos[0] && <span className="vit-pie">{p.fotos[0].caption}</span>}
@@ -71,17 +76,14 @@ export default function VitrinaProductos({ onPresupuesto }) {
 
         <div key={`f-${p.id}`} className="vit-ficha-interior">
           <p className="vit-linea">{p.linea}</p>
-          {p.destacado && <p className="vit-destacado">{p.destacado.chip}</p>}
 
           <h2 className="font-display vit-titulo">
             <span className="vit-titulo-liviano">{p.tituloLiviano}</span>{" "}
             <strong>{p.tituloFuerte}</strong>
           </h2>
 
-          <p className="vit-desc">{p.desc}</p>
-
           <ul className="vit-specs">
-            {p.specs.map((s) => <li key={s} className="vit-spec">{s}</li>)}
+            {p.specs.filter((s) => s && String(s).trim()).map((s) => <li key={s} className="vit-spec">{s}</li>)}
           </ul>
 
           <div className="vit-acciones">

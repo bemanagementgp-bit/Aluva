@@ -97,6 +97,7 @@ export const OBRAS = [
 // Catálogo: cada línea con su ficha y sus 3 fotos.
 export const PRODUCTOS = [
   {
+  
     id: "pvc",
     sigla: "PVC",
     tituloLiviano: "Ventanas y puertas de",
@@ -104,14 +105,9 @@ export const PRODUCTOS = [
     nombre: "Ventanas y puertas de PVC",
     linea: "Perfilería VEKA Clase A",
     desc: "La opción con mejor aislación. Fabricamos la ventana y también su doble vidriado hermético en nuestra planta, con perfilería VEKA Clase A: corta el frío, el calor y el ruido de la calle.",
+    // La vitrina de la home muestra solo esta linea; la descripcion completa va en la ficha.
+    resumen: "La mejor aislación, con DVH fabricado en planta propia.",
     specs: ["DVH de fabricación propia", "Cierre multipunto", "Foliado VEKA Spectral", "Símil madera"],
-    ficha: [
-      ["Perfil", "VEKA Clase A"],
-      ["Vidrio", "DVH de fabricación propia"],
-      ["Cierre", "Multipunto"],
-      ["Terminaciones", "Blanco, símil madera y foliado VEKA Spectral"],
-      ["Fabricación", "Planta propia, La Plata"],
-    ],
     aperturas: ["corrediza", "oscilobatiente", "batiente", "fijo", "puerta", "puerta-balcon"],
     idealPara: [
       ["Ambientes que dan a la calle", "El PVC con DVH es la opción que más corta el ruido."],
@@ -123,7 +119,6 @@ export const PRODUCTOS = [
     // el mercado" es afirmación de VEKA: no presentarlo como exclusivo de Aluva
     // sin confirmarlo.
     destacado: {
-      chip: "Foliado VEKA Spectral",
       etiqueta: "Nuevo acabado VEKA",
       liviano: "Foliado",
       fuerte: "VEKA Spectral",
@@ -132,10 +127,10 @@ export const PRODUCTOS = [
     },
     // encuadre "producto" = imagen sobre fondo blanco: se muestra entera, sin recortar.
     fotos: [
-      { src: "/photos/pvc-ventana-corrediza.webp", caption: "Ventana corrediza de dos hojas · PVC negro texturado" },
-      { src: "/photos/pvc-puerta-doble.webp", caption: "Puerta doble vidriada · PVC negro" },
-      { src: "/photos/pvc-puerta-corrediza.webp", caption: "Corrediza de PVC negro · paso al jardín" },
-      { src: "/photos/pvc-despiece-sistema.webp", caption: "El sistema completo: marco, hojas, DVH y herrajes", encuadre: "producto" },
+      { src: "/photos/pvc-ventana-corrediza.webp"},
+      { src: "/photos/pvc-puerta-doble.webp"},
+      { src: "/photos/pvc-puerta-corrediza.webp"},
+      { src: "/photos/pvc-despiece-sistema.webp"},
     ],
   },
   {
@@ -146,6 +141,8 @@ export const PRODUCTOS = [
     nombre: "Aberturas de aluminio",
     linea: "Líneas Módena, Herrero y A30",
     desc: "Perfiles más finos y una estética limpia para fachadas contemporáneas. Ideal para grandes paños vidriados donde se busca la mayor superficie de vidrio posible con la menor interrupción visual.",
+    // La vitrina de la home muestra solo esta linea; la descripcion completa va en la ficha.
+    resumen: "Perfil fino para grandes paños vidriados.",
     specs: ["Módena", "Herrero reforzado", "Anodizado y pintado", "Grandes luces"],
     ficha: [
       ["Líneas", "Módena, Herrero y A30"],
@@ -162,7 +159,7 @@ export const PRODUCTOS = [
       ["Presupuesto ajustado", "Si buscabas PVC económico, el aluminio rinde más."],
     ],
     fotos: [
-      { src: "/photos/aluminio-ventana-oscilobatiente.webp", caption: "Ventana oscilobatiente de aluminio negro · hoja abierta" },
+      { src: "/photos/aluminio-ventana-oscilobatiente.webp"},
     ],
   },
   {
@@ -173,6 +170,8 @@ export const PRODUCTOS = [
     nombre: "Vidriería y mamparas",
     linea: "DVH de fabricación propia",
     desc: "Vidrios, DVH y mamparas a medida. Fabricamos nuestro propio doble vidriado hermético, y resolvemos el vidriado en el momento o la reparación en taller, sin tercerizar.",
+    // La vitrina de la home muestra solo esta linea; la descripcion completa va en la ficha.
+    resumen: "Mamparas y vidrios a medida, con DVH propio.",
     specs: ["Mamparas a medida", "DVH de fabricación propia", "Laminado y templado", "Perfil y vidrio a elección"],
     ficha: [
       ["Mamparas", "A medida, con colocación propia"],
@@ -190,14 +189,13 @@ export const PRODUCTOS = [
     // La gente no sabe que fabrican mamparas a medida (brief): por eso la
     // mampara va primera y la línea la nombra.
     destacado: {
-      chip: "Mamparas a medida",
       etiqueta: "Fabricación y colocación propia",
       liviano: "Mamparas",
       fuerte: "hechas a la medida de tu baño",
       texto: "Las fabricamos a medida y las colocamos con nuestro equipo. En aluminio elegís el color del perfil y el del vidrio.",
     },
     fotos: [
-      { src: "/photos/vidrio-mampara-ducha.webp", caption: "Mampara corrediza en templado con perfil negro" },
+      { src: "/photos/vidrio-mampara-ducha.webp"},
       { src: "/photos/vidrio-cerramiento-cocina.webp", caption: "Cerramiento vidriado con perfilería negra · división de cocina" },
     ],
   },
@@ -206,12 +204,14 @@ export const PRODUCTOS = [
     // brief (los paneles WPC son un plan a futuro). SIN FOTOS TODAVÍA: la
     // vitrina y la ficha muestran un panel con la sigla hasta que las haya.
     id: "blindex",
-    sigla: "BLINDEX",
+    sigla: "BLIND",
     tituloLiviano: "Frentes de",
     tituloFuerte: "Blindex",
     nombre: "Frentes de Blindex y piel de vidrio",
     linea: "Vidrio templado para frentes y fachadas",
     desc: "Frentes y puertas de vidrio templado para locales, oficinas y accesos, y piel de vidrio para fachadas. Medimos en obra, cotizamos a medida y colocamos.",
+    // La vitrina de la home muestra solo esta linea; la descripcion completa va en la ficha.
+    resumen: "Frentes y puertas de vidrio templado.",
     specs: ["Vidrio templado", "Frentes comerciales", "Puertas de vidrio", "Piel de vidrio"],
     ficha: [
       ["Vidrio", "Templado de seguridad"],
@@ -225,7 +225,7 @@ export const PRODUCTOS = [
       ["Oficinas y accesos", "Puertas de vidrio templado, limpias y resistentes."],
       ["Fachadas", "Piel de vidrio para frentes completos."],
     ],
-    fotos: [{ src: "/photos/blindex.webp", caption: "Marca registrada de vidrio de seguridad laminado" },
+    fotos: [{ src: "/photos/blindex.webp"},
     { src: "/photos/blindex.webp", caption: "Marca registrada de vidrio de seguridad laminado" }],
   },
 ];

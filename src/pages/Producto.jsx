@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
 import FotoDiferida from "@/components/FotoDiferida";
-import Logo from "@/components/Logo";
 import Tipologia from "@/components/Tipologia";
+import Pie from "@/components/Pie";
+import BarraNav from "@/components/BarraNav";
+import VentanaCorrediza, { FOTO_CORREDIZA } from "@/components/VentanaCorrediza";
 import { PRODUCTOS, COMPARATIVA } from "@/content/catalogo";
 
 /*
@@ -28,10 +30,6 @@ export default function Producto() {
   const producto = PRODUCTOS.find((p) => p.id === id);
   const otras = PRODUCTOS.filter((p) => p.id !== id);
   const [activa, setActiva] = useState("linea");
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [id]);
 
   useEffect(() => {
     if (producto) document.title = `${producto.nombre} · Aluva`;
@@ -60,6 +58,7 @@ export default function Producto() {
   }
 
   const portada = producto.fotos[0];
+  const altPortada = portada?.caption ? `${producto.nombre} — ${portada.caption}` : producto.nombre;
   // La misma foto no se repite: si está de portada, no vuelve en la galería
   const resto = producto.fotos.slice(1).filter((f) => !portada || f.src !== portada.src);
   const comparativa = CON_COMPARATIVA.includes(producto.id);
@@ -81,18 +80,15 @@ export default function Producto() {
 
   return (
     <div className="pp" data-testid={`pagina-producto-${producto.id}`}>
-      <nav className="pp-nav">
-        <Link to="/" aria-label="Aluva, inicio"><Logo variant="light" size={28} /></Link>
-        <Link to="/#productos" className="pp-volver">
-          <span className="arrow" aria-hidden="true">←</span>
-          <span>Todas las líneas</span>
-        </Link>
-      </nav>
+      <BarraNav siempreSolida onPresupuesto={() => navigate(`/?consulta=${producto.id}#contacto`)} />
 
       {/* Portada */}
       <header className={`pp-portada${portada ? "" : " sin-foto"}`}>
         {portada
-          ? <img className="pp-portada-foto" src={portada.src} alt={`${producto.nombre} — ${portada.caption}`} decoding="async" />
+          ? (portada.src === FOTO_CORREDIZA
+              // La corrediza de PVC se abre arrastrando la hoja, como en la home
+              ? <VentanaCorrediza activa alt={altPortada} />
+              : <img className="pp-portada-foto" src={portada.src} alt={altPortada} decoding="async" />)
           : <span className="pp-portada-sigla" aria-hidden="true">{producto.sigla}</span>}
         <div className="pp-portada-texto">
           <p className="eyebrow" style={{ color: "var(--aluva-green-soft)" }}>{producto.linea}</p>
@@ -103,15 +99,15 @@ export default function Producto() {
       {/* Índice fijo de la ficha */}
       <nav className="pp-indice" aria-label="Secciones de la ficha">
         <div className="pp-indice-in">
-          {secciones.map((s) => (
+          {secciones.map((sec) => (
             <a
-              key={s.id}
-              href={`#${s.id}`}
-              className={`pp-indice-link${activa === s.id ? " is-active" : ""}`}
-              data-testid={`pp-indice-${s.id}`}
+              key={sec.id}
+              href={`#${sec.id}`}
+              className={`pp-indice-link${activa === sec.id ? " is-active" : ""}`}
+              data-testid={`pp-indice-${sec.id}`}
             >
-              <span className="pp-indice-n">{num(s.id)}</span>
-              {s.nombre}
+              <span className="pp-indice-n">{num(sec.id)}</span>
+              {sec.nombre}
             </a>
           ))}
         </div>
@@ -137,7 +133,7 @@ export default function Producto() {
               </dl>
             ) : (
               <ul className="pp-specs">
-                {producto.specs.map((s) => (
+                {producto.specs.filter((s) => s && String(s).trim()).map((s) => (
                   <li key={s} className="pp-spec">
                     <span className="pp-spec-n" aria-hidden="true" />
                     <span>{s}</span>
@@ -304,6 +300,8 @@ export default function Producto() {
           </div>
         </div>
       </section>
+
+      <Pie />
     </div>
   );
 }

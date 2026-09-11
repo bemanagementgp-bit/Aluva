@@ -1,4 +1,4 @@
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
 import SimuladorAberturas from "@/components/SimuladorAberturas";
@@ -8,7 +8,9 @@ import VitrinaProductos from "@/components/VitrinaProductos";
 import Proceso from "@/components/Proceso";
 import Profesionales from "@/components/Profesionales";
 import Faq from "@/components/Faq";
-import Logo from "@/components/Logo";
+import Pie from "@/components/Pie";
+import BarraNav from "@/components/BarraNav";
+import { sinSuavizado } from "@/lib/scroll";
 import ObrasSection from "@/components/ObrasSection";
 import { MOSTRAR_OBRAS, MOSTRAR_GALERIA_PRODUCTOS, PRODUCTOS } from "@/content/catalogo";
 import { useScrollReveal, useScrollProgress } from "@/hooks/useScrollReveal";
@@ -17,25 +19,15 @@ const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 const API = `${BACKEND_URL}/api`;
 
 export default function Landing() {
-  const navigate = useNavigate();
   const [modo, setModo] = useState(null);
   const [enviado, setEnviado] = useState(false);
   const [enviando, setEnviando] = useState(false);
   const scrollP = useScrollProgress();
-  const [navSolid, setNavSolid] = useState(false);
-  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const presupRef = useRef(null);
   const simuladorRef = useRef(null);
 
   const [fPresupuesto, setFPresupuesto] = useState({ nombre: "", telefono: "", email: "", tipo_documento: "DNI", dni: "", tipo: "", descripcion: "", mensaje: "", simulador_config: "" });
   const [fVisita, setFVisita] = useState({ nombre: "", telefono: "", email: "", tipo_documento: "DNI", dni: "", direccion: "", localidad: "", fecha: "", turno: "", mensaje: "" });
-
-  // Nav solid on scroll
-  useEffect(() => {
-    const onScroll = () => setNavSolid(window.scrollY > 40);
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
 
   const SIM_TIPO_TO_FORM = {
     "ventana-corrediza": "ventanas-pvc",
@@ -61,7 +53,7 @@ export default function Landing() {
     }
     const destino = location.hash.replace("#", "");
     if (!destino) return;
-    const t = setTimeout(() => document.getElementById(destino)?.scrollIntoView({ behavior: "instant", block: "start" }), 120);
+    const t = setTimeout(() => sinSuavizado(() => document.getElementById(destino)?.scrollIntoView({ block: "start" })), 120);
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search, location.hash]);
@@ -134,86 +126,16 @@ export default function Landing() {
         <div style={{ height: "100%", width: `${scrollP * 100}%`, background: "var(--aluva-green)", transition: "width .15s" }} />
       </div>
 
-      {/* NAV */}
-      <nav data-testid="main-nav" style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 50,
-        background: navSolid ? "var(--aluva-white)" : "transparent",
-        borderBottom: navSolid ? "1px solid var(--aluva-line)" : "1px solid transparent",
-        transition: "background .3s ease, border-color .3s ease",
-      }}>
-        <div style={{
-          maxWidth: 1280, margin: "0 auto", padding: "18px 32px",
-          display: "flex", alignItems: "center", justifyContent: "space-between", gap: 28,
-        }}>
-          <Logo variant="dark" size={30} />
-          <div className="nav-links" style={{ display: "flex", gap: 32, color: "var(--aluva-ink)" }}>
-            <a data-testid="nav-link-productos" href="#productos" className="nav-link" style={{ color: "inherit" }}>Productos</a>
-            <a data-testid="nav-link-proceso" href="#proceso" className="nav-link" style={{ color: "inherit" }}>Proceso</a>
-            <a data-testid="nav-link-profesionales" href="#profesionales" className="nav-link" style={{ color: "inherit" }}>Profesionales</a>
-            <a data-testid="nav-link-simulador" href="#simulador" className="nav-link" style={{ color: "inherit" }}>Simulador</a>
-            {MOSTRAR_OBRAS && <a data-testid="nav-link-trabajos" href="#trabajos" className="nav-link" style={{ color: "inherit" }}>Trabajos</a>}
-            <a data-testid="nav-link-contacto" href="#contacto" className="nav-link" style={{ color: "inherit" }}>Contacto</a>
-          </div>
-          <a
-            href="tel:+542214830222"
-            className="label nav-desktop-only"
-            style={{ color: "var(--aluva-ink)", textDecoration: "none", opacity: 0.85, whiteSpace: "nowrap" }}
-          >(221) 483-0222</a>
-          <button
-            data-testid="nav-staff-btn"
-            className="nav-desktop-only"
-            onClick={() => navigate("/login")}
-            style={{
-              padding: "10px 20px", borderRadius: 0,
-              background: navSolid ? "var(--aluva-paper)" : "rgba(255,255,255,0.12)", color: "var(--aluva-ink)",
-              fontWeight: 600, fontSize: 12.5, letterSpacing: "0.08em", textTransform: "uppercase",
-              border: "1px solid var(--aluva-line)", cursor: "pointer",
-              transition: "border-color .2s, background .2s",
-            }}
-          >Pedir presupuesto</button>
-          <button
-            data-testid="nav-burger"
-            className="nav-burger"
-            onClick={() => setMobileMenuOpen(true)}
-            aria-label="Abrir menú"
-            style={{
-              display: "none", flexDirection: "column", gap: 5, background: "none", border: "none", cursor: "pointer", padding: 8,
-            }}
-          >
-            <span style={{ width: 22, height: 2, background: "var(--aluva-ink)" }} />
-            <span style={{ width: 22, height: 2, background: "var(--aluva-ink)" }} />
-          </button>
-        </div>
-      </nav>
-
-      {/* MOBILE MENU */}
-      {mobileMenuOpen && (
-        <div style={{ position: "fixed", inset: 0, zIndex: 200, background: "var(--aluva-ink)", display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", padding: "18px 32px" }}>
-            <Logo variant="light" size={30} />
-            <button onClick={() => setMobileMenuOpen(false)} aria-label="Cerrar menú" style={{ background: "none", border: "none", color: "white", fontSize: 28, lineHeight: 1, cursor: "pointer" }}>×</button>
-          </div>
-          <div style={{ flex: 1, display: "flex", flexDirection: "column", justifyContent: "center", gap: 28, padding: "0 32px" }}>
-            {[
-              { href: "#productos", label: "Productos" },
-              { href: "#proceso", label: "Proceso" },
-              { href: "#profesionales", label: "Profesionales" },
-              { href: "#simulador", label: "Simulador" },
-              { href: "#faq", label: "Preguntas" },
-              { href: "#contacto", label: "Contacto" },
-            ].map(l => (
-              <a key={l.href} href={l.href} onClick={() => setMobileMenuOpen(false)} className="font-display" style={{ color: "white", textDecoration: "none", fontSize: 32, fontWeight: 700, letterSpacing: "var(--track-display)" }}>{l.label}</a>
-            ))}
-            <button onClick={() => { setMobileMenuOpen(false); navigate("/login"); }} className="nav-link" style={{ marginTop: 14, background: "none", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 0, padding: "12px 22px", color: "white", width: "fit-content", cursor: "pointer" }}>Acceso staff</button>
-          </div>
-        </div>
-      )}
+      {/* BARRA — compartida con las fichas de producto */}
+      <BarraNav onPresupuesto={() => { setModo("presupuesto"); setEnviado(false); presupRef.current?.scrollIntoView({ behavior: "smooth" }); }} />
 
       {/* HERO */}
-      <section data-testid="hero" style={{ position: "relative", minHeight: "100vh", overflow: "hidden", color: "var(--aluva-ink)", background: "var(--aluva-ink)" }}>
+      <section data-testid="hero" style={{ position: "relative", zIndex: 2, minHeight: "100vh", overflow: "hidden", color: "var(--aluva-ink)", background: "transparent" }}>
         {/* Campo de color de marca. Sin foto: mientras no haya imagenes propias
             de obra, una portada de color abre al instante y no compite con el
-            titulo. La muesca inferior sigue recortando este campo. */}
+            titulo. La muesca inferior sigue recortando este campo. El hero no
+            tiene fondo propio: la vitrina sube por debajo y lo que asoma por la
+            muesca es su foto y su ficha. */}
         <div className="hero-clip hero-campo" style={{ position: "absolute", inset: 0 }} />
 
         {/* Content */}
@@ -252,10 +174,6 @@ export default function Landing() {
           onClick={() => document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" })}
           aria-label="Ir a Productos"
         >
-          <span className="label">Descubrí</span>
-          <svg width="13" height="15" viewBox="0 0 13 15" fill="none" stroke="currentColor" strokeWidth="1.5" aria-hidden="true">
-            <path d="M6.5 1v12M1.5 8.5l5 5 5-5" strokeLinecap="round" strokeLinejoin="round" />
-          </svg>
         </button>
       </section>
 
@@ -487,46 +405,8 @@ export default function Landing() {
         </div>
       </section>
 
-      {/* FOOTER */}
-      <footer className="section section--ink" style={{ paddingBottom: 30 }}>
-        <div className="container">
-          <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-end", flexWrap: "wrap", gap: 24, paddingBottom: 48, borderBottom: "1px solid var(--line-ink)", marginBottom: 44 }}>
-            <h2 className="font-display section-title" style={{ margin: 0 }}>
-              Empezá tu proyecto hoy
-            </h2>
-            <a href="https://wa.me/5492216755077" target="_blank" rel="noopener noreferrer" className="btn-primary">
-              Escribinos por WhatsApp
-              <span className="arrow">→</span>
-            </a>
-          </div>
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(220px,1fr))", gap: 48, marginBottom: 44 }}>
-            <div>
-              <img src="/brand/marca-negativa-tagline-web.svg" alt="Aluva · Tecnología en aberturas" style={{ display: "block", width: "100%", maxWidth: 300, height: "auto", marginBottom: 22 }} />
-              <p style={{ color: "var(--on-ink-50)", fontSize: "var(--fs-meta)", lineHeight: 1.75, maxWidth: 260 }}>
-                Fabricación propia de aberturas en PVC y aluminio. Perfilería VEKA Clase A.
-              </p>
-            </div>
-            <div>
-              <p className="eyebrow" style={{ color: "var(--aluva-green-soft)", marginBottom: 16 }}><span className="eyebrow-num" style={{ color: "var(--aluva-green-soft)" }}>—</span>Productos</p>
-              {PRODUCTOS.map(p => (
-                <Link key={p.id} to={`/productos/${p.id}`} data-testid={`pie-producto-${p.id}`} style={{ color: "var(--on-ink-50)", fontSize: "var(--fs-meta)", display: "block", textDecoration: "none", margin: "0 0 10px" }}>{p.nombre}</Link>
-              ))}
-            </div>
-            <div>
-              <p className="eyebrow" style={{ color: "var(--aluva-green-soft)", marginBottom: 16 }}><span className="eyebrow-num" style={{ color: "var(--aluva-green-soft)" }}>—</span>Contacto</p>
-              <p style={{ color: "var(--on-ink-50)", fontSize: "var(--fs-meta)", margin: "0 0 10px" }}>(221) 483-0222</p>
-              <a href="https://wa.me/5492216755077" target="_blank" rel="noopener noreferrer" style={{ color: "var(--on-ink-50)", fontSize: "var(--fs-meta)", display: "block", textDecoration: "none", marginBottom: 10 }}>WhatsApp +54 9 221 675-5077</a>
-              <p style={{ color: "var(--on-ink-50)", fontSize: "var(--fs-meta)", margin: "0 0 10px" }}>info@aluva.com.ar</p>
-              <p style={{ color: "var(--on-ink-50)", fontSize: "var(--fs-meta)", margin: "0 0 10px" }}>7 N° 1714, La Plata, Buenos Aires</p>
-              <p style={{ color: "var(--on-ink-32)", fontSize: 12, margin: 0 }}>Atención lunes a viernes de 8 a 18hs</p>
-            </div>
-          </div>
-          <div style={{ borderTop: "1px solid var(--line-ink)", paddingTop: 22, display: "flex", justifyContent: "space-between", flexWrap: "wrap", gap: 12, alignItems: "center" }}>
-            <p style={{ color: "var(--on-ink-32)", fontSize: 12 }}>© {new Date().getFullYear()} Aluva · Todos los derechos reservados.</p>
-            <button onClick={() => navigate("/login")} className="label" style={{ color: "var(--on-ink-32)", background: "none", border: "none", cursor: "pointer", padding: 0 }}>Acceso staff</button>
-          </div>
-        </div>
-      </footer>
+      {/* PIE — compartido con las fichas de producto */}
+      <Pie />
     </div>
   );
 }

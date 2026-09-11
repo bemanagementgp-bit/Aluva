@@ -226,7 +226,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   letter-spacing: var(--track-label);
   text-transform: uppercase;
   color: var(--aluva-ink);
-  text-shadow: 0 1px 14px rgba(255, 255, 255, 0.55);
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0);
 }
 .vit-regla {
   display: block;
@@ -247,7 +247,6 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   line-height: 0.82;
   letter-spacing: -0.02em;
   color: rgba(255, 255, 255, 0.94);
-  text-shadow: 0 2px 40px rgba(14, 42, 26, 0.5);
   pointer-events: none;
   animation: vitEntra .55s cubic-bezier(.2, .7, .1, 1) both;
 }
@@ -870,28 +869,6 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   gap: 12px;
 }
 
-.prod-dots {
-  margin-top: 28px;
-  display: flex;
-  align-items: center;
-  gap: 7px;
-}
-.prod-dot {
-  width: 22px;
-  height: 3px;
-  background: var(--aluva-line);
-  transition: width .35s ease, background .35s ease;
-}
-.prod-dot.is-active { width: 42px; background: var(--aluva-green); }
-.prod-dots-label {
-  margin-left: 8px;
-  font-size: 10.5px;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--aluva-mute);
-}
-
 .prod-nav {
   margin-top: 24px;
   padding-top: 20px;
@@ -901,9 +878,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
   gap: 0;
 }
 .prod-nav-item {
-  display: flex;
-  align-items: center;
-  gap: 12px;
+  display: block;
   background: none;
   border: none;
   padding: 7px 0;
@@ -920,19 +895,7 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 }
 .prod-nav-item:hover { opacity: 1; color: var(--aluva-ink); }
 .prod-nav-item.is-active { opacity: 1; color: var(--aluva-ink); }
-.prod-nav-bar {
-  width: 24px;
-  height: 2px;
-  background: currentColor;
-  opacity: 0.35;
-  transition: width .3s ease, background .3s ease, opacity .3s ease;
-  flex: none;
-}
-.prod-nav-item.is-active .prod-nav-bar {
-  width: 44px;
-  background: var(--aluva-green);
-  opacity: 1;
-}
+  
 
 /* ── Pista horizontal (derecha) ── */
 .prod-viewport {
@@ -1667,19 +1630,6 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 
 /* ───────── Destacados de línea (Spectral, mamparas) ───────── */
 
-/* Chip en la vitrina: cuadradito verde y el nombre, sin caja */
-.vit-destacado {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  margin: 14px 0 0;
-  font-size: 12px;
-  font-weight: 600;
-  letter-spacing: 0.04em;
-  color: var(--on-ink);
-}
-.vit-destacado::before { content: ""; width: 8px; height: 8px; background: var(--aluva-green); }
-
 /* Banda a pleno verde en la ficha de producto */
 .pp-destacado { background: var(--aluva-green); color: var(--aluva-ink); padding: clamp(56px, 7vw, 92px) var(--gutter); }
 .pp-destacado-etq { margin: 0; color: var(--aluva-ink); opacity: 0.72; }
@@ -1983,4 +1933,588 @@ section.vitrina {
   .pp-ideal { grid-template-columns: minmax(0, 1fr); }
   .pp-ideal-item + .pp-ideal-item { padding-left: 0; border-left: none; border-top: 1px solid var(--aluva-line); margin-top: 26px; }
   .pp-ficha-fila { grid-template-columns: minmax(0, 1fr); gap: 4px; }
+}
+
+/* ───────── Barra: desplegable de Productos ─────────
+   Panel blanco a canto vivo con filete verde arriba. Un puente invisible entre
+   el botón y el panel evita que se cierre al bajar el mouse. */
+.navp { position: relative; display: inline-flex; }
+.navp-boton {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: inherit;
+  font-family: inherit;
+}
+.navp-flecha {
+  width: 6px;
+  height: 6px;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+  transition: transform .2s ease;
+}
+.navp.is-abierto .navp-boton { opacity: 1; }
+.navp.is-abierto .navp-flecha { transform: translateY(1px) rotate(225deg); }
+
+.navp-panel {
+  position: absolute;
+  top: 100%;
+  left: -20px;
+  z-index: 60;
+  width: 410px;
+  margin-top: 28px;
+  background: var(--aluva-white);
+  color: var(--aluva-ink);
+  border: 1px solid var(--aluva-line);
+  border-top: 2px solid var(--aluva-green);
+  box-shadow: 0 18px 40px rgba(14, 42, 26, 0.12);
+  animation: navpEntra .18s ease both;
+}
+.navp-panel::before { content: ""; position: absolute; left: 0; right: 0; top: -30px; height: 30px; }
+
+.navp-lista { list-style: none; margin: 0; padding: 6px 0; }
+.navp-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 18px;
+  color: var(--aluva-ink);
+  text-decoration: none;
+  transition: background .15s ease;
+}
+.navp-item:hover, .navp-item:focus-visible { background: var(--aluva-paper); outline: none; }
+.navp-nombre {
+  font-size: 14px;
+  font-weight: 500;
+  letter-spacing: var(--track-display);
+  min-width: 0;
+}
+.navp-ir { color: var(--aluva-green-dark); opacity: 0; transform: translateX(-4px); transition: opacity .15s ease, transform .15s ease; }
+.navp-item:hover .navp-ir, .navp-item:focus-visible .navp-ir { opacity: 1; transform: none; }
+.navp-todas {
+  display: block;
+  padding: 14px 18px;
+  border-top: 1px solid var(--aluva-line);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: var(--track-boton);
+  text-transform: uppercase;
+  color: var(--aluva-green-dark);
+  text-decoration: none;
+}
+.navp-todas:hover { background: var(--aluva-paper); }
+@keyframes navpEntra { from { opacity: 0; transform: translateY(-6px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .navp-panel { animation: none; } }
+
+/* Menú móvil: las líneas como subenlaces de Productos */
+.navm-sub { display: flex; flex-direction: column; gap: 14px; margin: -8px 0 4px; padding-left: 18px; border-left: 2px solid var(--aluva-green); }
+.navm-sub a { color: rgba(255, 255, 255, 0.78); font-size: 17px; font-weight: 400; text-decoration: none; }
+.navm-sub a:hover { color: var(--aluva-green-soft); }
+
+/* El panel cuelga justo del borde inferior de la barra (medido: con 28px se
+   montaba 9px sobre ella). El puente cubre el hueco completo hasta el boton. */
+.navp-panel { margin-top: 37px; }
+.navp-panel::before { top: -39px; height: 39px; }
+
+/* La entrada del desplegable solo desplaza, nunca oculta: si el navegador no
+   corre la animacion (modo ahorro, pestaña en segundo plano), el panel quedaba
+   clavado en opacidad 0, es decir, invisible. Esta definicion reemplaza a la
+   anterior porque la ultima @keyframes con el mismo nombre es la que vale. */
+@keyframes navpEntra { from { transform: translateY(-6px); } to { transform: none; } }
+
+/* Barra de la ficha: "Todas las líneas" + hamburguesa a la derecha. En
+   pantallas muy chicas se oculta el enlace: el menú ya lo cubre y no entran
+   las tres cosas en la barra. */
+.pp-nav-der { display: flex; align-items: center; gap: 16px; }
+@media (max-width: 560px) { .pp-volver { display: none; } }
+
+/* Fichas: la barra es la misma de la home, fija arriba. La ficha arranca
+   debajo de ella y el índice de secciones queda pegado a su borde inferior
+   (antes se pegaba a la barra propia de la ficha, que medía 61px). */
+.pp { --nav-h: 82px; padding-top: var(--nav-h); }
+@media (max-width: 860px) { .pp { --nav-h: 67px; } }
+.pp-indice { top: var(--nav-h); }
+.pp [data-seccion] { scroll-margin-top: calc(var(--nav-h) + 56px); }
+
+/* ───────── Vitrina: foto a pantalla completa ─────────
+   Pedido del cliente: la foto ocupa toda la seccion y la ficha es un bloque
+   verde oscuro apoyado abajo a la derecha, sobre la foto (patron de Hitachi CM).
+   Las fotos son casi todas verticales: con object-fit: cover a todo el ancho
+   solo se veia un tercio del producto. Ahora la foto nitida va a toda la
+   altura, entera, con los costados fundidos; detras, la misma foto ampliada y
+   difuminada completa el ancho. Un velo oscuro en la base hace legible la
+   sigla sobre fotos claras. */
+.vit-foto img.vit-fondo {
+  inset: -48px;
+  width: calc(100% + 96px);
+  height: calc(100% + 96px);
+  object-fit: cover;
+  opacity: 1;
+  filter: blur(30px) saturate(0.85) brightness(0.94);
+  transform: scale(1.06);
+  animation: vitFondo .7s cubic-bezier(.2, .7, .1, 1) both;
+}
+@keyframes vitFondo { from { opacity: 0.35; } to { opacity: 1; } }
+
+.vit-foto img.vit-nitida {
+  inset: auto;
+  top: 0;
+  left: 36%;
+  width: auto;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  transform: translateX(-50%);
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+  mask-image: linear-gradient(to right, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+
+.vit-foto::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: linear-gradient(to top, rgba(14, 42, 26, 0.6) 0%, rgba(14, 42, 26, 0.16) 32%, rgba(14, 42, 26, 0) 56%);
+}
+.vit-foto.sin-foto::after { display: none; }
+
+.vit-control { display: flex; align-items: center; justify-content: space-between; gap: 16px; }
+
+@media (min-width: 981px) {
+  .vitrina {
+    grid-template-columns: minmax(0, 1fr);
+    align-items: end;
+    justify-items: end;
+  }
+  .vit-foto { position: absolute; inset: 0; }
+  .vit-sigla { font-size: clamp(88px, min(12.5vw, 25vh), 210px); }
+  .vit-pie { top: 20px; bottom: auto; left: 22px; right: auto; text-align: left; }
+
+  .vit-ficha {
+    z-index: 4;
+    width: min(460px, 40%);
+    margin-right: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
+    padding: clamp(24px, 4vh, 40px) clamp(28px, 2.6vw, 40px) clamp(16px, 2.6vh, 24px);
+    align-items: stretch;
+    justify-content: flex-start;
+    gap: clamp(14px, 2.4vh, 24px);
+    text-align: left;
+    background: var(--aluva-ink);
+    border-top: 3px solid var(--aluva-green);
+  }
+  .vit-ficha-interior { max-width: none; }
+  .vit-specs { justify-content: flex-start; }
+  .vit-spec:first-child { padding-left: 0; }
+  .vit-acciones { justify-content: flex-start; }
+
+  .vit-control { padding-top: clamp(12px, 2vh, 18px); border-top: 1px solid var(--line-ink); }
+  .vit-flechas { position: static; transform: none; flex-direction: row; gap: 6px; }
+  .vit-flecha { width: 52px; height: 40px; }
+}
+
+/* Angosto: sigue la foto arriba y la ficha abajo. La foto nitida se centra, y
+   las flechas vuelven a apoyarse sobre el borde inferior de la foto: la ficha
+   deja de ser su referencia de posicion y la toma la seccion. */
+@media (max-width: 980px) {
+  .vit-foto img.vit-nitida { left: 50%; }
+  .vit-ficha { position: static; }
+  .vit-control { display: contents; }
+}
+@media (prefers-reduced-motion: reduce) { .vit-foto img.vit-fondo { animation: none; } }
+
+/* En el bloque angosto los cuatro datos no entran en una linea y el segundo
+   renglon arrancaba con un filete suelto: van en grilla de 2x2, con filete
+   arriba de cada dato en vez de entre ellos. */
+@media (min-width: 981px) {
+  .vit-specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 18px; }
+  .vit-spec, .vit-spec:first-child { padding: 7px 0; border-left: none; border-top: 1px solid var(--line-ink); }
+}
+
+/* ───────── Vitrina: foto 60% · ficha en columna 40% ─────────
+   Pedido del cliente (opcion B): la ficha deja de flotar sobre la foto y pasa
+   a ser una columna de alto completo pegada al borde derecho, con el filete
+   verde del lado de la foto. La foto ocupa solo el 60% restante: asi ya no
+   asoman restos de foto alrededor de la ficha, y las fotos verticales se
+   recortan menos que a todo el ancho. Las flechas se apoyan en la juntura,
+   arriba, como una pestaña de la columna. */
+@media (min-width: 981px) {
+  .vitrina {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    align-items: stretch;
+    justify-items: stretch;
+  }
+  .vit-foto { position: relative; inset: auto; grid-column: 1; grid-row: 1; }
+  .vit-sigla { font-size: clamp(72px, min(8vw, 19vh), 150px); }
+
+  .vit-ficha {
+    grid-column: 2;
+    grid-row: 1;
+    width: auto;
+    margin-right: 0;
+    padding: clamp(28px, 5vh, 56px) max(var(--gutter), calc((100vw - var(--maxw)) / 2 + var(--gutter))) clamp(22px, 4vh, 40px) clamp(32px, 3.4vw, 60px);
+    justify-content: center;
+    border-top: none;
+    border-left: 3px solid var(--aluva-green);
+  }
+
+  .vit-flechas {
+    position: absolute;
+    top: 0;
+    right: 40%;
+    left: auto;
+    bottom: auto;
+    transform: none;
+    flex-direction: row;
+    gap: 0;
+  }
+  .vit-flecha { width: 52px; height: 44px; background: var(--aluva-ink); border-color: var(--aluva-ink); }
+  .vit-flecha + .vit-flecha { border-left-color: var(--line-ink); }
+}
+
+/* Silueta inferior: la muesca del hero reflejada. Arriba el verde profundo
+   sube hacia la portada; aca baja hacia la seccion siguiente, con los mismos
+   valores (--hero-base en los laterales, --hero-notch en el centro, chaflanes
+   a 45 grados). Se superpone al margen superior de Proceso en vez de sumar
+   alto, y no intercepta clics. */
+.vit-silueta {
+  --sil-notch: 92px;
+  --sil-base: 34px;
+  position: relative;
+  z-index: 1;
+  height: var(--sil-notch);
+  margin-bottom: calc(-1 * var(--sil-notch));
+  background: var(--aluva-ink);
+  pointer-events: none;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% var(--sil-base),
+    calc(76% - var(--sil-base)) var(--sil-base),
+    calc(76% - var(--sil-notch)) var(--sil-notch),
+    calc(24% + var(--sil-notch)) var(--sil-notch),
+    calc(24% + var(--sil-base)) var(--sil-base),
+    0 var(--sil-base)
+  );
+}
+@media (max-width: 860px) {
+  .vit-silueta {
+    --sil-notch: 48px;
+    --sil-base: 18px;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% var(--sil-base),
+      calc(88% - var(--sil-base)) var(--sil-base),
+      calc(88% - var(--sil-notch)) var(--sil-notch),
+      calc(12% + var(--sil-notch)) var(--sil-notch),
+      calc(12% + var(--sil-base)) var(--sil-base),
+      0 var(--sil-base)
+    );
+  }
+}
+
+/* vit-silueta: solape de 1px. La vitrina termina en una fraccion de pixel
+   (medido: y = 646.39) y en esa fila el antialias mezclaba el verde con el
+   blanco de Proceso: se veia una linea clara entre la vitrina y la silueta.
+   Montada 1px sobre la vitrina, la fila queda cubierta de verde. */
+.vit-silueta { margin-top: -1px; }
+
+/* ───────── Vitrina: la foto llena la silueta ─────────
+   Pedido del cliente: del lado de la foto no quedan franjas verdes arriba y
+   abajo; la foto llega hasta el borde y ese borde tiene la forma de la muesca
+   del hero.
+   - Arriba: la vitrina sube --sil-notch por debajo del hero (el hero va encima,
+     z-index 2, y sin fondo propio), asi que por la muesca asoman la foto y la
+     ficha en vez de un verde plano.
+   - Abajo: la vitrina baja --sil-notch sobre el margen de Proceso y se recorta
+     con la misma muesca reflejada (reemplaza a .vit-silueta, que ya no se usa).
+   Los valores son los del hero (.hero-clip): si cambian alla, cambian aca.
+   El contenido de la ficha y la foto no pierden alto: la seccion crece lo mismo
+   que se superpone. */
+.vitrina { --sil-notch: 92px; --sil-base: 34px; }
+
+section.vitrina {
+  z-index: 1;
+  margin-top: calc(-1 * var(--sil-notch));
+  margin-bottom: calc(-1 * var(--sil-notch));
+  min-height: calc((100vh - var(--nav-h)) * var(--vit-escala) + 2 * var(--sil-notch));
+  min-height: calc((100svh - var(--nav-h)) * var(--vit-escala) + 2 * var(--sil-notch));
+  /* al saltar a #productos, el cuerpo de la vitrina queda justo bajo la barra,
+     como antes; la muesca de arriba queda detras de la barra */
+  scroll-margin-top: calc(var(--nav-h) - var(--sil-notch));
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% calc(100% - var(--sil-notch) + var(--sil-base)),
+    calc(76% - var(--sil-base)) calc(100% - var(--sil-notch) + var(--sil-base)),
+    calc(76% - var(--sil-notch)) 100%,
+    calc(24% + var(--sil-notch)) 100%,
+    calc(24% + var(--sil-base)) calc(100% - var(--sil-notch) + var(--sil-base)),
+    0 calc(100% - var(--sil-notch) + var(--sil-base))
+  );
+}
+
+@media (min-width: 981px) {
+  .vit-ficha {
+    padding-top: calc(var(--sil-notch) + clamp(28px, 5vh, 56px));
+    padding-bottom: calc(var(--sil-notch) + clamp(22px, 4vh, 40px));
+  }
+  /* la sigla sigue cortada por el borde, pero ahora el borde de los costados
+     esta (notch - base) mas arriba que el pie de la foto; el recorte la corta
+     justo en esa linea tambien donde la muesca baja */
+  .vit-sigla {
+    bottom: calc(var(--sil-notch) - var(--sil-base) + clamp(-26px, -3.4vh, -10px));
+    clip-path: inset(0 0 clamp(10px, 3.4vh, 26px) 0);
+  }
+  .vit-pie { top: calc(var(--sil-notch) - var(--sil-base) + 20px); }
+  /* las flechas viven en la muesca inferior, sobre la juntura: la muesca deja
+     de ser un adorno (el mismo criterio que la senal de scroll del hero) */
+  .vit-flechas { top: auto; bottom: 0; }
+}
+
+@media (max-width: 980px) {
+  /* angosto: la muesca de arriba cae sobre la foto y la de abajo sobre la ficha */
+  .vit-foto {
+    height: calc((100svh - var(--nav-h)) * var(--vit-escala) * 0.34 + var(--sil-notch));
+    min-height: calc(150px + var(--sil-notch));
+  }
+  .vit-flechas { top: calc((100svh - var(--nav-h)) * var(--vit-escala) * 0.34 + var(--sil-notch) - 44px); }
+  .vit-ficha { padding-bottom: calc(18px + var(--sil-notch)); }
+}
+
+@media (max-width: 860px) {
+  .vitrina { --sil-notch: 48px; --sil-base: 18px; }
+  section.vitrina {
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% calc(100% - var(--sil-notch) + var(--sil-base)),
+      calc(88% - var(--sil-base)) calc(100% - var(--sil-notch) + var(--sil-base)),
+      calc(88% - var(--sil-notch)) 100%,
+      calc(12% + var(--sil-notch)) 100%,
+      calc(12% + var(--sil-base)) calc(100% - var(--sil-notch) + var(--sil-base)),
+      0 calc(100% - var(--sil-notch) + var(--sil-base))
+    );
+  }
+}
+
+
+/* ───────── Vitrina: la sigla es del blanco de abajo ─────────
+   Pedido del cliente: la palabra tiene que ser el mismo blanco que la seccion
+   que sigue a la foto (Proceso, #fff). Antes iba al 94% y la foto se
+   transparentaba: se notaba la costura donde las letras tocan ese blanco.
+   Opaca y del mismo tono, el corte contra el borde desaparece y las letras se
+   leen como parte del blanco de abajo. */
+.vit-sigla { color: var(--aluva-white); }
+
+/* ───────── Vitrina: ventana corrediza (PVC) ─────────
+   La primera foto de PVC se abre arrastrando la hoja (VentanaCorrediza.jsx).
+   Esta foto va entera, ajustada al ancho, y no recortada como las demas: si
+   no, la manija y el marco quedaban afuera. Arriba y abajo de la foto el fondo
+   repite la pared y el piso de la misma foto (colores medidos en sus bordes),
+   y el borde de la imagen se funde con ese fondo. */
+.vit-ventana {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .7s cubic-bezier(.2, .7, .1, 1);
+  filter: saturate(0.9) contrast(1.03);
+  background:
+    linear-gradient(to right, #d9cbbb, #d7cbbc 50%, #cec3b5) top / 100% 50% no-repeat,
+    linear-gradient(to right, #dbcec1, #d6cabc 50%, #d1c5b8) bottom / 100% 50% no-repeat;
+}
+.vit-ventana.is-active { opacity: 1; pointer-events: auto; }
+
+.vit-ventana-marco {
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 100%;
+  aspect-ratio: 1448 / 1086;
+  transform: translateY(-50%);
+}
+.vit-foto .vit-ventana img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  opacity: 1;
+  filter: none;
+  transition: none;
+  pointer-events: none;
+}
+.vit-foto .vit-ventana img.vit-ventana-base {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+}
+
+/* La hoja: se arrastra en horizontal; en pantallas tactiles el scroll vertical
+   sigue funcionando aunque el dedo arranque sobre ella */
+.vit-ventana-hoja {
+  position: absolute;
+  aspect-ratio: 691 / 532;
+  cursor: grab;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+  -webkit-touch-callout: none;
+  transition: transform .55s cubic-bezier(.2, .7, .1, 1), filter .3s ease;
+}
+.vit-ventana-hoja.is-arrastrando { cursor: grabbing; transition: none; }
+.vit-ventana-hoja:focus { outline: none; }
+.vit-ventana-hoja:focus-visible { outline: 2px solid var(--aluva-green); outline-offset: 4px; }
+
+/* Invitacion: mientras nadie la toco, la hoja se corre un poco y vuelve */
+.vit-ventana.is-active:not(.is-tocada) .vit-ventana-hoja {
+  animation: vitInvita 2.4s cubic-bezier(.45, 0, .2, 1) 1.4s 2;
+}
+@keyframes vitInvita {
+  0%, 100% { transform: translateX(0); }
+  40%, 55% { transform: translateX(9%); }
+}
+
+.vit-ventana-pista {
+  position: absolute;
+  z-index: 3;
+  left: 22px;
+  top: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  background: var(--aluva-ink);
+  border-left: 3px solid var(--aluva-green);
+  color: var(--on-ink);
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  pointer-events: none;
+  animation: vitEntra .5s cubic-bezier(.2, .7, .1, 1) .6s both;
+}
+.vit-ventana-pista i { font-style: normal; color: var(--aluva-green); animation: vitPista 1.6s ease-in-out infinite; }
+@keyframes vitPista { 0%, 100% { transform: none; } 50% { transform: translateX(4px); } }
+@media (min-width: 981px) {
+  .vit-ventana-pista { top: calc(var(--sil-notch) - var(--sil-base) + 20px); }
+}
+@media (max-width: 980px) {
+  .vit-ventana-pista { top: calc(var(--sil-notch) + 10px); left: var(--gutter); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vit-ventana-hoja { transition: none; }
+  .vit-ventana.is-active:not(.is-tocada) .vit-ventana-hoja,
+  .vit-ventana-pista, .vit-ventana-pista i { animation: none; }
+}
+
+/* Las fotos de la vitrina no reciben el puntero: las de las otras lineas
+   estan apiladas encima (invisibles, en opacidad 0) y se quedaban con los
+   clics, asi que no se podia agarrar la hoja de la ventana corrediza. */
+.vit-foto > img { pointer-events: none; }
+
+/* ───────── Ficha de PVC: la portada es la ventana corrediza ─────────
+   La misma ventana que se abre en la vitrina de la home. El velo y el titulo
+   quedan encima de la foto, asi que dejan pasar el puntero para que la hoja
+   se pueda agarrar tambien debajo del texto (son solo texto, sin enlaces). */
+.pp-portada::after { pointer-events: none; }
+.pp-portada-texto { pointer-events: none; }
+.pp-portada .vit-ventana { filter: saturate(0.86) contrast(1.04); }
+.pp-portada .vit-ventana img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  max-width: none;
+  object-fit: fill;
+  pointer-events: none;
+}
+.pp-portada .vit-ventana img.vit-ventana-base {
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+  mask-image: linear-gradient(to bottom, transparent 0, #000 10%, #000 90%, transparent 100%);
+}
+.pp-portada .vit-ventana-pista {
+  top: 24px;
+  left: max(var(--gutter), calc((100% - var(--maxw)) / 2 + var(--gutter)));
+}
+
+/* ───────── Ventana corrediza: senal sutil ─────────
+   Pedido del cliente: algo sutil que indique que la ventana se mueve. En vez
+   del cartel con texto, un recuadro chico con una flecha lima sobre el
+   montante de la manija, apenas arriba de ella: va con la hoja y desaparece
+   al primer toque. Canto vivo, como el resto del sitio. */
+.vit-ventana-agarre {
+  position: absolute;
+  left: 8.8%;
+  top: 29%;
+  width: 26px;
+  height: 26px;
+  display: grid;
+  place-items: center;
+  transform: translate(-50%, -50%);
+  background: rgba(14, 42, 26, 0.72);
+  border: 1px solid rgba(90, 200, 15, 0.55);
+  color: var(--aluva-green);
+  pointer-events: none;
+  animation: vitAgarre 2.4s ease-in-out infinite;
+}
+.vit-ventana-agarre svg { display: block; animation: vitAgarreFlecha 2.4s ease-in-out infinite; }
+@keyframes vitAgarre { 0%, 100% { opacity: 0.7; } 50% { opacity: 1; } }
+@keyframes vitAgarreFlecha { 0%, 100% { transform: none; } 50% { transform: translateX(2px); } }
+@media (max-width: 980px) {
+  .vit-ventana-agarre { width: 22px; height: 22px; }
+  .vit-ventana-agarre svg { width: 12px; height: 8px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vit-ventana-agarre, .vit-ventana-agarre svg { animation: none; opacity: 1; }
+}
+
+/* ───────── Ventana corrediza: el texto, una sola vez ─────────
+   "Deslizá para abrir la ventana" aparece pegado al recuadro de la flecha la
+   primera vez que la ventana entra en pantalla (una vez por visitante), y el
+   amague de la hoja ocurre solo en ese momento. Despues queda solo el recuadro. */
+.vit-ventana-texto {
+  position: absolute;
+  left: calc(8.8% + 17px);
+  top: 29%;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  background: rgba(14, 42, 26, 0.72);
+  color: var(--on-ink);
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: var(--track-label);
+  text-transform: uppercase;
+  white-space: nowrap;
+  pointer-events: none;
+  transform: translateY(-50%);
+  animation: vitTexto 5.2s ease both;
+}
+@keyframes vitTexto {
+  0% { opacity: 0; transform: translate(-6px, -50%); }
+  8%, 86% { opacity: 1; transform: translate(0, -50%); }
+  100% { opacity: 0; transform: translate(0, -50%); }
+}
+@media (max-width: 980px) {
+  .vit-ventana-texto { left: calc(8.8% + 15px); height: 22px; padding: 0 8px; font-size: 9.5px; }
+}
+
+/* el amague de la hoja: una sola vez, junto con el texto */
+.vit-ventana.is-active:not(.is-tocada) .vit-ventana-hoja { animation: none; }
+.vit-ventana.is-active.is-invita:not(.is-tocada) .vit-ventana-hoja {
+  animation: vitInvita 2.4s cubic-bezier(.45, 0, .2, 1) .6s 1;
+}
+@media (prefers-reduced-motion: reduce) {
+  .vit-ventana-texto { animation: none; }
+  .vit-ventana.is-active.is-invita:not(.is-tocada) .vit-ventana-hoja { animation: none; }
 }
