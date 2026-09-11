@@ -1,0 +1,15 @@
+{
+  "short_name": "Aluva",
+  "name": "Aluva · Tecnología en aberturas",
+  "description": "Fabricación propia de aberturas de PVC y aluminio a medida en La Plata.",
+  "lang": "es-AR",
+  "start_url": "/",
+  "display": "standalone",
+  "theme_color": "#0e2a1a",
+  "background_color": "#f6f4ef",
+  "icons": [
+    { "src": "/favicon.svg", "type": "image/svg+xml", "sizes": "any", "purpose": "any" },
+    { "src": "/brand/icon-192.png", "type": "image/png", "sizes": "192x192" },
+    { "src": "/brand/icon-512.png", "type": "image/png", "sizes": "512x512" }
+  ]
+}
