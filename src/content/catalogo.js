@@ -108,6 +108,15 @@ export const PRODUCTOS = [
     // La vitrina de la home muestra solo esta linea; la descripcion completa va en la ficha.
     resumen: "La mejor aislación, con DVH fabricado en planta propia.",
     specs: ["DVH de fabricación propia", "Cierre multipunto", "Foliado VEKA Spectral", "Símil madera"],
+    // Franja de credenciales bajo la portada de la ficha (datos confirmados)
+    credenciales: [["Perfilería", "VEKA Clase A"], ["DVH", "Fabricación propia"], ["Asesoramiento", "Capacitados por VEKA"], ["Medición", "En obra"]],
+    ficha: [
+      ["Perfilería", "VEKA Clase A"],
+      ["Vidrio", "DVH de fabricación propia"],
+      ["Cierre", "Multipunto"],
+      ["Terminaciones", "Blanco, símil madera y VEKA Spectral"],
+      ["Fabricación", "Planta propia, La Plata"],
+    ],
     aperturas: ["corrediza", "oscilobatiente", "batiente", "fijo", "puerta", "puerta-balcon"],
     idealPara: [
       ["Ambientes que dan a la calle", "El PVC con DVH es la opción que más corta el ruido."],
@@ -130,7 +139,7 @@ export const PRODUCTOS = [
       { src: "/photos/pvc-ventana-corrediza.webp"},
       { src: "/photos/pvc-puerta-doble.webp"},
       { src: "/photos/pvc-puerta-corrediza.webp"},
-      { src: "/photos/pvc-despiece-sistema.webp"},
+      { src: "/photos/pvc-despiece-sistema.webp", encuadre: "producto" },
     ],
   },
   {
@@ -144,6 +153,7 @@ export const PRODUCTOS = [
     // La vitrina de la home muestra solo esta linea; la descripcion completa va en la ficha.
     resumen: "Perfil fino para grandes paños vidriados.",
     specs: ["Módena", "Herrero reforzado", "Anodizado y pintado", "Grandes luces"],
+    credenciales: [["Líneas", "Módena, Herrero y A30"], ["Fabricación", "Planta propia, La Plata"], ["Vidrio", "DVH de fabricación propia"], ["Medición", "En obra"]],
     ficha: [
       ["Líneas", "Módena, Herrero y A30"],
       ["Terminación", "Anodizado o pintado"],
@@ -173,6 +183,7 @@ export const PRODUCTOS = [
     // La vitrina de la home muestra solo esta linea; la descripcion completa va en la ficha.
     resumen: "Mamparas y vidrios a medida, con DVH propio.",
     specs: ["Mamparas a medida", "DVH de fabricación propia", "Laminado y templado", "Perfil y vidrio a elección"],
+    credenciales: [["DVH", "Fabricación propia"], ["Mamparas", "A medida"], ["Colocación", "Equipo propio"], ["Taller", "Vidriado en el momento"]],
     ficha: [
       ["Mamparas", "A medida, con colocación propia"],
       ["Perfil de mampara", "Color a elección"],
@@ -213,6 +224,7 @@ export const PRODUCTOS = [
     // La vitrina de la home muestra solo esta linea; la descripcion completa va en la ficha.
     resumen: "Frentes y puertas de vidrio templado.",
     specs: ["Vidrio templado", "Frentes comerciales", "Puertas de vidrio", "Piel de vidrio"],
+    credenciales: [["Vidrio", "Templado de seguridad"], ["Aplicaciones", "Frentes, puertas y fachadas"], ["Medición", "En obra, a medida"], ["Colocación", "A cargo nuestro"]],
     ficha: [
       ["Vidrio", "Templado de seguridad"],
       ["Aplicaciones", "Frentes comerciales, puertas y fachadas"],
