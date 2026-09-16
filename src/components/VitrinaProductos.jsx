@@ -26,6 +26,7 @@ export default function VitrinaProductos({ onPresupuesto }) {
   }, [total]);
 
   return (
+    <>
     <section id="productos" data-testid="vitrina-productos" className="vitrina">
       {/* ── Mitad izquierda: foto a sangre + sigla gigante ── */}
       <div className={`vit-foto${p.fotos.length ? "" : " sin-foto"}`}>
@@ -101,5 +102,10 @@ export default function VitrinaProductos({ onPresupuesto }) {
         </span>
       </div>
     </section>
+
+    {/* Filete verde claro bajo la muesca inferior: separa la vitrina de la
+        sección siguiente, igual que el del hero la separa de la portada */}
+    <div className="vit-filete" aria-hidden="true" />
+    </>
   );
 }

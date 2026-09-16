@@ -130,12 +130,15 @@ export default function Landing() {
       <BarraNav onPresupuesto={() => { setModo("presupuesto"); setEnviado(false); presupRef.current?.scrollIntoView({ behavior: "smooth" }); }} />
 
       {/* HERO */}
-      <section data-testid="hero" style={{ position: "relative", zIndex: 2, minHeight: "100vh", overflow: "hidden", color: "var(--aluva-ink)", background: "transparent" }}>
+      <section data-testid="hero" style={{ position: "relative", zIndex: 3, minHeight: "100vh", overflow: "hidden", color: "var(--aluva-ink)", background: "transparent" }}>
         {/* Campo de color de marca. Sin foto: mientras no haya imagenes propias
             de obra, una portada de color abre al instante y no compite con el
             titulo. La muesca inferior sigue recortando este campo. El hero no
             tiene fondo propio: la vitrina sube por debajo y lo que asoma por la
             muesca es su foto y su ficha. */}
+        {/* Filete verde claro que separa la portada de la vitrina: la misma
+            silueta del campo, corrida hacia abajo y pintada debajo de él */}
+        <div className="hero-clip hero-filete" aria-hidden="true" style={{ position: "absolute", inset: 0 }} />
         <div className="hero-clip hero-campo" style={{ position: "absolute", inset: 0 }} />
 
         {/* Content */}

@@ -1369,19 +1369,10 @@ section[id], footer[id] { scroll-margin-top: 84px; }
 
 .proc {
   position: relative;
+  padding-top: clamp(36px, 4vw, 54px);
   padding-bottom: 0;
-}
-
-.proc::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: clamp(20px, 4vw, 52px);
-  right: clamp(20px, 4vw, 52px);
-  height: 2px;
-  background: linear-gradient(90deg, rgba(121, 182, 128, 0), rgba(121, 182, 128, 0.9), rgba(121, 182, 128, 0));
-  box-shadow: 0 0 18px rgba(121, 182, 128, 0.18);
-  pointer-events: none;
+  border-top: 1px solid rgba(109, 151, 115, 0.42);
+  box-shadow: inset 0 1px 0 rgba(109, 151, 115, 0.08);
 }
 
 .proc-cabecera {
@@ -2626,3 +2617,57 @@ html::-webkit-scrollbar-thumb:hover {
 
 @media (max-width: 1200px) { .pro-perfil { opacity: 0.22; } }
 @media (max-width: 980px) { .pro-perfil { display: none; } }
+
+/* ───────── Hero: filete entre la portada y la vitrina ─────────
+   Pedido del cliente: una linea verde clara que separe la primera seccion de
+   la segunda. La vitrina sube por debajo del hero, asi que la linea sigue la
+   silueta de la muesca: es el mismo recorte del campo, corrido 3px hacia abajo
+   y pintado debajo de el; lo que asoma es el filete. */
+.hero-filete {
+  background: var(--aluva-green-soft);
+  transform: translateY(3px);
+  pointer-events: none;
+}
+
+/* ───────── Vitrina: filete inferior ─────────
+   El mismo filete verde claro del hero, abajo: sigue la muesca reflejada con
+   la que termina la vitrina. Va debajo de la vitrina (capas: hero 3, vitrina
+   2, filete 1), ocupa la misma franja que la muesca y no suma alto. */
+section.vitrina { z-index: 2; }
+.vit-filete {
+  --sil-notch: 92px;
+  --sil-base: 34px;
+  position: relative;
+  z-index: 1;
+  height: var(--sil-notch);
+  margin-bottom: calc(-1 * var(--sil-notch));
+  background: var(--aluva-green-soft);
+  transform: translateY(3px);
+  pointer-events: none;
+  clip-path: polygon(
+    0 0,
+    100% 0,
+    100% var(--sil-base),
+    calc(76% - var(--sil-base)) var(--sil-base),
+    calc(76% - var(--sil-notch)) 100%,
+    calc(24% + var(--sil-notch)) 100%,
+    calc(24% + var(--sil-base)) var(--sil-base),
+    0 var(--sil-base)
+  );
+}
+@media (max-width: 860px) {
+  .vit-filete {
+    --sil-notch: 48px;
+    --sil-base: 18px;
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% var(--sil-base),
+      calc(88% - var(--sil-base)) var(--sil-base),
+      calc(88% - var(--sil-notch)) 100%,
+      calc(12% + var(--sil-notch)) 100%,
+      calc(12% + var(--sil-base)) var(--sil-base),
+      0 var(--sil-base)
+    );
+  }
+}
