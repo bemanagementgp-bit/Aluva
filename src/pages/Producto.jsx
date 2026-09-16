@@ -195,10 +195,10 @@ export default function Producto() {
       )}
 
       {/* Presupuesto, con el acceso directo para profesionales */}
-      <section id="presupuesto" data-seccion className="section section--ink pp-cta">
+      <section id="presupuesto" data-seccion className="section pp-cta pp-cta--verde">
         <div className="container pp-cta-grid">
           <div>
-            <p className="eyebrow" style={{ color: "var(--aluva-green-soft)" }}>
+            <p className="eyebrow">
               <span className="eyebrow-num">{num("presupuesto")}</span>Presupuesto
             </p>
             <h2 className="font-display section-title">Pedí tu presupuesto de {producto.nombre.toLowerCase()}.</h2>

@@ -2782,3 +2782,19 @@ section.vitrina { z-index: 2; }
   .pp-gal--3 .pp-gal-item:first-child { grid-row: auto; }
   .pp-gal-item img { height: auto; aspect-ratio: 4 / 3; }
 }
+
+/* ───────── Ficha: presupuesto en verde de marca ─────────
+   Pedido del cliente: el bloque de presupuesto no puede ser del mismo color
+   que el pie (los dos eran verde profundo y se leian como un solo bloque).
+   Va a pleno verde de marca con texto oscuro: un llamado claro, separado del
+   pie. El boton pasa a oscuro para no perderse sobre el verde. */
+.pp-cta--verde { background: var(--aluva-green); color: var(--aluva-ink); }
+.pp-cta--verde .eyebrow { color: var(--aluva-ink); }
+.pp-cta--verde .section-lead { color: rgba(14, 42, 26, 0.78); }
+.pp-cta--verde .btn-primary { background: var(--aluva-ink); border-color: var(--aluva-ink); color: var(--aluva-white); }
+.pp-cta--verde .btn-primary:hover { background: #14351f; border-color: #14351f; }
+.pp-cta--verde .pp-cta-pro { border-top-color: var(--aluva-ink); }
+.pp-cta--verde .pp-cta-pro .label { color: var(--aluva-ink); }
+.pp-cta--verde .pp-cta-pro-txt { color: rgba(14, 42, 26, 0.78); }
+.pp-cta--verde .pp-cta-pro-link { color: var(--aluva-ink); box-shadow: inset 0 -1px 0 rgba(14, 42, 26, 0.35); }
+.pp-cta--verde .pp-cta-pro-link:hover { color: var(--aluva-ink); box-shadow: inset 0 -2px 0 var(--aluva-ink); }

@@ -27,7 +27,7 @@ export default function VitrinaProductos({ onPresupuesto }) {
 
   return (
     <>
-    <section id="productos" data-testid="vitrina-productos" className="vitrina">
+    <section id="productos" data-testid="vitrina-productos" data-nav="oscuro" className="vitrina">
       {/* ── Mitad izquierda: foto a sangre + sigla gigante ── */}
       <div className={`vit-foto${p.fotos.length ? "" : " sin-foto"}`}>
         {PRODUCTOS.map((prod, i) => {

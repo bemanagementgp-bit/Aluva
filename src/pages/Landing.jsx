@@ -130,7 +130,7 @@ export default function Landing() {
       <BarraNav onPresupuesto={() => { setModo("presupuesto"); setEnviado(false); presupRef.current?.scrollIntoView({ behavior: "smooth" }); }} />
 
       {/* HERO */}
-      <section data-testid="hero" style={{ position: "relative", zIndex: 3, minHeight: "100vh", overflow: "hidden", color: "var(--aluva-ink)", background: "transparent" }}>
+      <section data-testid="hero" data-nav="claro" style={{ position: "relative", zIndex: 3, minHeight: "100vh", overflow: "hidden", color: "var(--aluva-ink)", background: "transparent" }}>
         {/* Campo de color de marca. Sin foto: mientras no haya imagenes propias
             de obra, una portada de color abre al instante y no compite con el
             titulo. La muesca inferior sigue recortando este campo. El hero no
