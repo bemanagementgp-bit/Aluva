@@ -1367,7 +1367,22 @@ section[id], footer[id] { scroll-margin-top: 84px; }
    por un filete blanco; en angosto, carrusel deslizable con la foto siguiente
    asomando por el borde. */
 
-.proc { padding-bottom: 0; }
+.proc {
+  position: relative;
+  padding-bottom: 0;
+}
+
+.proc::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: clamp(20px, 4vw, 52px);
+  right: clamp(20px, 4vw, 52px);
+  height: 2px;
+  background: linear-gradient(90deg, rgba(121, 182, 128, 0), rgba(121, 182, 128, 0.9), rgba(121, 182, 128, 0));
+  box-shadow: 0 0 18px rgba(121, 182, 128, 0.18);
+  pointer-events: none;
+}
 
 .proc-cabecera {
   display: flex;
@@ -2518,3 +2533,96 @@ section.vitrina {
   .vit-ventana-texto { animation: none; }
   .vit-ventana.is-active.is-invita:not(.is-tocada) .vit-ventana-hoja { animation: none; }
 }
+
+/* ───────── Ventana corrediza: aviso sutil ─────────
+   Pedido del cliente: un recuadro super sutil que diga que la ventana se
+   desliza. Reemplaza al recuadro oscuro con flecha y al texto temporal: va
+   centrado sobre el vidrio de la hoja (se mueve con ella), blanco translucido,
+   filete finisimo y texto en minuscula. Queda hasta el primer toque y se
+   desvanece; el componente recuerda que ya se uso y no vuelve a mostrarlo. */
+.vit-ventana-aviso {
+  position: absolute;
+  left: 51.8%;
+  top: 50%;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 12px;
+  transform: translate(-50%, -50%);
+  background: rgba(255, 255, 255, 0.45);
+  border: 1px solid rgba(14, 42, 26, 0.16);
+  color: rgba(14, 42, 26, 0.75);
+  font-size: 12px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  animation: vitAviso .8s ease .8s forwards;
+}
+.vit-ventana-aviso.is-oculto { animation: vitAvisoSale .35s ease forwards; }
+.vit-ventana-aviso i {
+  font-style: normal;
+  color: var(--aluva-green-dark);
+  animation: vitPista 1.8s ease-in-out infinite;
+}
+@keyframes vitAviso { from { opacity: 0; } to { opacity: 1; } }
+@keyframes vitAvisoSale { from { opacity: 1; } to { opacity: 0; } }
+.vit-ventana-aviso-corto { display: none; }
+@media (max-width: 980px) {
+  .vit-ventana-aviso { gap: 6px; padding: 5px 9px; font-size: 10.5px; }
+  .vit-ventana-aviso-largo { display: none; }
+  .vit-ventana-aviso-corto { display: inline; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vit-ventana-aviso { animation: none; opacity: 1; }
+  .vit-ventana-aviso.is-oculto { animation: none; opacity: 0; }
+  .vit-ventana-aviso i { animation: none; }
+}
+html {
+  scrollbar-color: #2e7e00 #00ff73;
+  scrollbar-width: thin;
+}
+
+html::-webkit-scrollbar {
+  width: 12px;
+}
+
+html::-webkit-scrollbar-track {
+  background: #e8f0e9;
+}
+
+html::-webkit-scrollbar-thumb {
+  background: #689223;
+  border-radius: 999px;
+}
+
+html::-webkit-scrollbar-thumb:hover {
+  background: #39f300;
+}
+/* ───────── Profesionales: el perfil, unico elemento grafico ─────────
+   Pedido del cliente: menos elementos. La seccion vuelve a ser la de antes
+   (palabra gigante, titular, cuatro razones y contacto) y suma una sola pieza
+   visual: el despiece del sistema de PVC pasado a dibujo de linea, al costado,
+   tenue y fundido hacia el texto. Aporta el tono tecnico de obra sin sumar
+   texto ni alto: va en posicion absoluta, asi la seccion no crece. */
+.pro { position: relative; }
+.pro-in { position: relative; z-index: 1; }
+
+.pro-perfil {
+  position: absolute;
+  top: 50%;
+  right: -4%;
+  width: min(50%, 760px);
+  height: min(72%, 560px);
+  transform: translateY(-50%);
+  object-fit: contain;
+  object-position: right center;
+  opacity: 0.34;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 45%);
+  mask-image: linear-gradient(to right, transparent 0, #000 45%);
+}
+
+@media (max-width: 1200px) { .pro-perfil { opacity: 0.22; } }
+@media (max-width: 980px) { .pro-perfil { display: none; } }

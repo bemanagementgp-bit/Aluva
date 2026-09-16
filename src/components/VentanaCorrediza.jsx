@@ -17,6 +17,10 @@ import { useEffect, useRef, useState } from "react";
   La foto va entera (ajustada al ancho) y no recortada como las demás: si no,
   la manija y el marco quedaban afuera del cuadro.
 
+  Sobre el vidrio de la hoja, un aviso muy sutil ("Deslizá para abrir la
+  ventana") queda hasta que el visitante la corre por primera vez; después no
+  vuelve, ni en la home ni en la ficha.
+
   Las medidas son de esta foto en particular, en píxeles de la imagen de
   1448 × 1086: si se cambia la foto, hay que regenerar las capas.
 */
@@ -31,11 +35,9 @@ const RECORRIDO = 526;
 const pct = (v, total) => `${(v / total) * 100}%`;
 const acotar = (v) => Math.min(1, Math.max(0, v));
 
-// El texto "Deslizá para abrir la ventana" se muestra una sola vez por
-// visitante (en la home o en la ficha, la que vea primero)
-const CLAVE_TEXTO = "aluva:ventana-texto-visto";
-const textoYaVisto = () => { try { return window.localStorage.getItem(CLAVE_TEXTO) === "1"; } catch { return false; } };
-const marcarTextoVisto = () => { try { window.localStorage.setItem(CLAVE_TEXTO, "1"); } catch { /* sin almacenamiento: vale solo por esta visita */ } };
+const CLAVE_AVISO = "aluva:ventana-aviso-visto";
+const avisoYaVisto = () => { try { return window.localStorage.getItem(CLAVE_AVISO) === "1"; } catch { return false; } };
+const marcarAvisoVisto = () => { try { window.localStorage.setItem(CLAVE_AVISO, "1"); } catch { /* sin almacenamiento: vale solo por esta visita */ } };
 
 export default function VentanaCorrediza({ activa, alt }) {
   const marco = useRef(null);
@@ -44,10 +46,10 @@ export default function VentanaCorrediza({ activa, alt }) {
   const [arrastrando, setArrastrando] = useState(false);
   const [tocada, setTocada] = useState(false);
   const [enVista, setEnVista] = useState(false);
-  const [textoVisto, setTextoVisto] = useState(textoYaVisto);
+  const [avisoVisto] = useState(avisoYaVisto);
 
-  // El texto espera a que la ventana esté en pantalla: la vitrina carga
-  // activa debajo del hero y, si no, el texto se iba antes de que alguien lo viera
+  // El amague de la hoja espera a que la ventana esté en pantalla: la vitrina
+  // carga activa debajo del hero y, si no, ocurría sin que nadie lo viera
   useEffect(() => {
     const el = marco.current;
     if (!el || typeof IntersectionObserver === "undefined") { setEnVista(true); return undefined; }
@@ -56,16 +58,14 @@ export default function VentanaCorrediza({ activa, alt }) {
     return () => io.disconnect();
   }, []);
 
-  const textoVisible = activa && enVista && !tocada && !textoVisto;
-  useEffect(() => {
-    if (!textoVisible) return undefined;
-    marcarTextoVisto();
-    const t = setTimeout(() => setTextoVisto(true), 5400);
-    return () => clearTimeout(t);
-  }, [textoVisible]);
-
   // Al pasar a otra línea, la ventana se vuelve a cerrar
   useEffect(() => { if (!activa) setApertura(0); }, [activa]);
+
+  const tocar = () => {
+    if (tocada) return;
+    setTocada(true);
+    marcarAvisoVisto();
+  };
 
   const alBajar = (e) => {
     if (!activa || (e.pointerType === "mouse" && e.button !== 0)) return;
@@ -73,7 +73,7 @@ export default function VentanaCorrediza({ activa, alt }) {
     // La captura hace que el arrastre siga aunque el puntero salga de la hoja;
     // si el navegador la rechaza (puntero ya liberado), el arrastre anda igual
     try { e.currentTarget.setPointerCapture(e.pointerId); } catch { /* sin captura */ }
-    setTocada(true);
+    tocar();
   };
 
   const alMover = (e) => {
@@ -110,56 +110,54 @@ export default function VentanaCorrediza({ activa, alt }) {
     else if (e.key === "Enter" || e.key === " ") v = apertura > 0.5 ? 0 : 1;
     if (v === null) return;
     e.preventDefault();
-    setTocada(true);
+    tocar();
     setApertura(acotar(v));
   };
 
   const porcentaje = Math.round(apertura * 100);
   const sombra = Math.min(1, apertura * 4) * 0.3;
+  const invita = activa && enVista && !tocada && !avisoVisto;
 
   return (
-    <>
-      <div className={`vit-ventana${activa ? " is-active" : ""}${tocada ? " is-tocada" : ""}${textoVisible ? " is-invita" : ""}`} aria-hidden={!activa}>
-        <div ref={marco} className="vit-ventana-marco">
-          <img src="/photos/pvc-corrediza-base.webp" alt={alt} className="vit-ventana-base" decoding="async" draggable="false" />
-          <div
-            className={`vit-ventana-hoja${arrastrando ? " is-arrastrando" : ""}`}
-            role="slider"
-            tabIndex={activa ? 0 : -1}
-            aria-label="Abrir la ventana corrediza"
-            aria-valuemin={0}
-            aria-valuemax={100}
-            aria-valuenow={porcentaje}
-            aria-valuetext={porcentaje ? `Abierta ${porcentaje}%` : "Cerrada"}
-            data-testid="ventana-hoja"
-            style={{
-              left: pct(HOJA.x, ANCHO),
-              top: pct(HOJA.y, ALTO),
-              width: pct(HOJA.w, ANCHO),
-              transform: `translateX(${((apertura * RECORRIDO) / HOJA.w) * 100}%)`,
-              filter: sombra ? `drop-shadow(10px 0 12px rgba(0, 0, 0, ${sombra.toFixed(2)}))` : "none",
-            }}
-            onPointerDown={alBajar}
-            onPointerMove={alMover}
-            onPointerUp={alSoltar}
-            onPointerCancel={alCancelar}
-            onKeyDown={alTeclado}
-          >
-            <img src="/photos/pvc-corrediza-hoja.webp" alt="" decoding="async" draggable="false" />
-            {/* Señal de que la hoja se mueve: sobre el montante de la manija, se va al primer toque */}
-            {!tocada && (
-              <span className="vit-ventana-agarre" aria-hidden="true">
-                <svg viewBox="0 0 16 10" width="14" height="9">
-                  <path d="M1 5h12M9.5 1.5 13 5l-3.5 3.5" fill="none" stroke="currentColor" strokeWidth="1.6" />
-                </svg>
-              </span>
-            )}
-            {textoVisible && (
-              <span className="vit-ventana-texto" aria-hidden="true">Deslizá para abrir la ventana</span>
-            )}
-          </div>
+    <div
+      className={`vit-ventana${activa ? " is-active" : ""}${tocada ? " is-tocada" : ""}${invita ? " is-invita" : ""}`}
+      aria-hidden={!activa}
+    >
+      <div ref={marco} className="vit-ventana-marco">
+        <img src="/photos/pvc-corrediza-base.webp" alt={alt} className="vit-ventana-base" decoding="async" draggable="false" />
+        <div
+          className={`vit-ventana-hoja${arrastrando ? " is-arrastrando" : ""}`}
+          role="slider"
+          tabIndex={activa ? 0 : -1}
+          aria-label="Abrir la ventana corrediza"
+          aria-valuemin={0}
+          aria-valuemax={100}
+          aria-valuenow={porcentaje}
+          aria-valuetext={porcentaje ? `Abierta ${porcentaje}%` : "Cerrada"}
+          data-testid="ventana-hoja"
+          style={{
+            left: pct(HOJA.x, ANCHO),
+            top: pct(HOJA.y, ALTO),
+            width: pct(HOJA.w, ANCHO),
+            transform: `translateX(${((apertura * RECORRIDO) / HOJA.w) * 100}%)`,
+            filter: sombra ? `drop-shadow(10px 0 12px rgba(0, 0, 0, ${sombra.toFixed(2)}))` : "none",
+          }}
+          onPointerDown={alBajar}
+          onPointerMove={alMover}
+          onPointerUp={alSoltar}
+          onPointerCancel={alCancelar}
+          onKeyDown={alTeclado}
+        >
+          <img src="/photos/pvc-corrediza-hoja.webp" alt="" decoding="async" draggable="false" />
+          {!avisoVisto && (
+            <span className={`vit-ventana-aviso${tocada ? " is-oculto" : ""}`} aria-hidden="true" data-testid="ventana-aviso">
+              <span className="vit-ventana-aviso-largo">Deslizá para abrir la ventana</span>
+              <span className="vit-ventana-aviso-corto">Deslizá para abrir</span>
+              <i>→</i>
+            </span>
+          )}
         </div>
       </div>
-    </>
+    </div>
   );
 }
