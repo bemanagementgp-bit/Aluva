@@ -2,6 +2,7 @@ import "@/App.css";
 import { useLayoutEffect } from "react";
 import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { sinSuavizado } from "@/lib/scroll";
+import SeoRuta from "@/components/SeoRuta";
 import Landing from "@/pages/Landing";
 import Login from "@/pages/Login";
 import Producto from "@/pages/Producto";
@@ -19,15 +20,27 @@ function ScrollArriba() {
   return null;
 }
 
-function App() {
+// Las rutas van aparte del enrutador: en el navegador se montan dentro de
+// BrowserRouter y en el build (scripts/prerender.mjs) dentro de StaticRouter,
+// para escribir cada página como HTML real que los buscadores leen sin JS.
+export function Rutas() {
   return (
-    <BrowserRouter>
+    <>
       <ScrollArriba />
+      <SeoRuta />
       <Routes>
         <Route path="/" element={<Landing />} />
         <Route path="/productos/:id" element={<Producto />} />
         <Route path="/login" element={<Login />} />
       </Routes>
+    </>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      <Rutas />
     </BrowserRouter>
   );
 }

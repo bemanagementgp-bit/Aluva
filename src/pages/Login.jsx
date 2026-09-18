@@ -9,7 +9,7 @@ export default function Login() {
 
   return (
     <div style={{ minHeight: "100vh", display: "grid", placeItems: "center", background: "var(--aluva-ink)", padding: 24 }}>
-      <div style={{ width: "100%", maxWidth: 420, background: "white", borderRadius: 0, padding: 40, boxShadow: "0 30px 80px rgba(0,0,0,0.3)" }}>
+      <div style={{ width: "100%", maxWidth: 420, background: "white", borderRadius: "var(--r-card)", padding: 40, boxShadow: "0 30px 80px rgba(0,0,0,0.3)" }}>
         <Logo variant="dark" size={38} style={{ marginBottom: 24 }} />
         <h1 className="font-display" style={{ fontSize: 26, fontWeight: 400, margin: 0, letterSpacing: "var(--track-display)" }}>Acceso staff</h1>
         <p style={{ color: "var(--aluva-mute)", marginTop: 6, fontSize: 14 }}>Próximamente. Volvé al sitio mientras tanto.</p>

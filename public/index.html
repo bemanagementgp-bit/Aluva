@@ -1,12 +1,13 @@
 <!doctype html>
-<html lang="es">
+<html lang="es-AR">
     <head>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta name="theme-color" content="#0e2a1a" />
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+        <!-- Tipografías de marca: LG EI Text y LG EI Headline, servidas desde el sitio -->
+        <link rel="preload" href="%PUBLIC_URL%/fonts/lgei-text-regular.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="preload" href="%PUBLIC_URL%/fonts/lgei-headline-bold.woff2" as="font" type="font/woff2" crossorigin />
+        <link rel="stylesheet" href="%PUBLIC_URL%/fonts/fonts.css" />
         <!--
         manifest.json provides metadata used when your web app is installed on a
         user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
@@ -20,8 +21,13 @@
         work correctly both with client-side routing and a non-root public URL.
         Learn how to configure a non-root public URL by running `npm run build`.
         -->
-        <title>Aluva · Tecnología en aberturas</title>
-        <meta name="description" content="Fabricación propia de aberturas de PVC y aluminio a medida en La Plata. Perfilería VEKA Clase A. Probá cómo quedan en tu casa con el simulador." />
+        <!-- Cabecera de SEO de la home. En el build, scripts/prerender.mjs la
+             reemplaza por la de cada página (fuente: src/content/seo.js). -->
+        <title>Aberturas de PVC y aluminio en La Plata | Aluva</title>
+        <meta name="description" content="Fabricamos aberturas de PVC y aluminio a medida en La Plata: ventanas VEKA Clase A, DVH propio, vidriería, mamparas y frentes de Blindex. Medición sin cargo." />
+        <meta name="robots" content="index, follow, max-image-preview:large" />
+        <meta name="geo.region" content="AR-B" />
+        <meta name="geo.placename" content="La Plata" />
 
         <!-- Identidad: el simbolo de marca (ventana) en lima sobre tinta, para que
              se recorte igual en pestañas claras y oscuras. -->
@@ -35,8 +41,9 @@
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="es_AR" />
         <meta property="og:site_name" content="Aluva" />
-        <meta property="og:title" content="Aluva · Tecnología en aberturas" />
-        <meta property="og:description" content="Fabricación propia de aberturas de PVC y aluminio a medida en La Plata. Perfilería VEKA Clase A." />
+        <meta property="og:title" content="Aberturas de PVC y aluminio en La Plata | Aluva" />
+        <meta property="og:description" content="Fabricamos aberturas de PVC y aluminio a medida en La Plata: ventanas VEKA Clase A, DVH propio, vidriería, mamparas y frentes de Blindex." />
+        <meta property="og:url" content="https://www.aluva.com.ar/" />
         <meta property="og:image" content="https://www.aluva.com.ar/brand/og-aluva.jpg" />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
@@ -44,7 +51,14 @@
         <script>window.addEventListener("error",function(e){if(e.error instanceof DOMException&&e.error.name==="DataCloneError"&&e.message&&e.message.includes("PerformanceServerTiming")){e.stopImmediatePropagation();e.preventDefault()}},true);</script>
     </head>
     <body>
-        <noscript>You need to enable JavaScript to run this app.</noscript>
+        <noscript>
+            <p>Aluva · Tecnología en aberturas. Fabricamos aberturas de PVC y aluminio a medida en La Plata.
+            <a href="/productos/pvc">Ventanas y puertas de PVC</a> ·
+            <a href="/productos/aluminio">Aberturas de aluminio</a> ·
+            <a href="/productos/vidrieria">Vidriería y mamparas</a> ·
+            <a href="/productos/blindex">Frentes de Blindex</a>.
+            Calle 7 N° 1714, La Plata · (221) 483-0222 · info@aluva.com.ar</p>
+        </noscript>
         <div id="root"></div>
         <!--
       This HTML file is a template.

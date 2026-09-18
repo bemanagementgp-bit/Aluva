@@ -36,7 +36,6 @@ export default function Profesionales() {
           {PROFESIONALES.map((p) => (
             <li key={p.titulo} className="pro-punto">
               <p className="label pro-punto-etq">{p.titulo}</p>
-              <p className="pro-punto-txt">{p.texto}</p>
             </li>
           ))}
         </ul>
@@ -60,8 +59,6 @@ export default function Profesionales() {
             WhatsApp +54 9 221 675-5077
           </a>
         </div>
-
-        <p className="pro-zona">Trabajamos en La Plata y alrededores.</p>
       </div>
     </section>
   );

@@ -8,7 +8,9 @@ import { FAQ } from "@/content/catalogo";
   para que la sección no crezca sin control.
 */
 export default function Faq() {
-  const [abierta, setAbierta] = useState(0);
+  // Todas cerradas al entrar: la seccion se ve limpia y el texto igual esta
+  // en el HTML para los buscadores.
+  const [abierta, setAbierta] = useState(-1);
 
   return (
     <section id="faq" data-testid="faq" className="section section--white">

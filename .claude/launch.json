@@ -4,8 +4,22 @@
     {
       "name": "aluva-dev",
       "runtimeExecutable": "npm",
-      "runtimeArgs": ["start"],
+      "runtimeArgs": [
+        "start"
+      ],
       "port": 3000
+    },
+    {
+      "name": "aluva-build",
+      "runtimeExecutable": "python",
+      "runtimeArgs": [
+        "-m",
+        "http.server",
+        "5055",
+        "--directory",
+        "build"
+      ],
+      "port": 5055
     }
   ]
 }

@@ -142,26 +142,10 @@ export default function BarraNav({ siempreSolida = false, onPresupuesto }) {
 
           <div className="nav-desktop-only" style={{ display: "flex", alignItems: "center", gap: 8 }}>
             <button
-              onClick={iniciarSesion}
-              style={{
-                padding: "8px 12px",
-                fontSize: 11.5,
-                letterSpacing: "0.08em",
-                textTransform: "uppercase",
-                border: `1px solid ${t.login}`,
-                background: "transparent",
-                color: "inherit",
-                cursor: "pointer",
-                transition: transicion,
-              }}
-            >
-              Iniciar Sesión
-            </button>
-
-            <button
               onClick={pedirPresupuesto}
               style={{
-                padding: "8px 12px",
+                padding: "9px 16px",
+                borderRadius: 999,
                 fontSize: 11.5,
                 letterSpacing: "0.08em",
                 textTransform: "uppercase",
@@ -173,6 +157,24 @@ export default function BarraNav({ siempreSolida = false, onPresupuesto }) {
               }}
             >
               Pedir presupuesto
+            </button>
+
+            <button
+              onClick={iniciarSesion}
+              style={{
+                padding: "9px 16px",
+                borderRadius: 999,
+                fontSize: 11.5,
+                letterSpacing: "0.08em",
+                textTransform: "uppercase",
+                border: `1px solid ${t.login}`,
+                background: "transparent",
+                color: "inherit",
+                cursor: "pointer",
+                transition: transicion,
+              }}
+            >
+              Staff
             </button>
           </div>
 

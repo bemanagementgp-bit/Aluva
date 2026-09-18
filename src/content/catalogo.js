@@ -110,6 +110,14 @@ export const PRODUCTOS = [
     specs: ["DVH de fabricación propia", "Cierre multipunto", "Foliado VEKA Spectral", "Símil madera"],
     // Franja de credenciales bajo la portada de la ficha (datos confirmados)
     credenciales: [["Perfilería", "VEKA Clase A"], ["DVH", "Fabricación propia"], ["Asesoramiento", "Capacitados por VEKA"], ["Medición", "En obra"]],
+    // Sección "Colores y medidas" de la home. Los hex de Spectral son tonos de
+    // referencia para la muestra en pantalla, no los valores de VEKA.
+    render: "corrediza",
+    colores: [
+      { titulo: "Estándar", items: [["Blanco", "#f3f3ef"], ["Símil madera", "madera"]] },
+      { titulo: "VEKA Spectral · ultramate", items: [["Blanco ultramate", "#ecebe6"], ["Gris antracita", "#383e42"], ["Gris ultramate", "#8c8f8f"], ["Negro grafito", "#2b2b2c"], ["Umbra", "#4f463d"], ["Verde pino", "#2e3f35"], ["Marrón sepia", "#4a3a2e"]] },
+    ],
+    medidas: "A medida de cada vano",
     ficha: [
       ["Perfilería", "VEKA Clase A"],
       ["Vidrio", "DVH de fabricación propia"],
@@ -154,6 +162,11 @@ export const PRODUCTOS = [
     resumen: "Perfil fino para grandes paños vidriados.",
     specs: ["Módena", "Herrero reforzado", "Anodizado y pintado", "Grandes luces"],
     credenciales: [["Líneas", "Módena, Herrero y A30"], ["Fabricación", "Planta propia, La Plata"], ["Vidrio", "DVH de fabricación propia"], ["Medición", "En obra"]],
+    render: "oscilobatiente",
+    colores: [
+      { titulo: "Terminación", items: [["Anodizado", null], ["Pintado", null]] },
+    ],
+    medidas: "A medida de cada vano",
     ficha: [
       ["Líneas", "Módena, Herrero y A30"],
       ["Terminación", "Anodizado o pintado"],
@@ -184,6 +197,12 @@ export const PRODUCTOS = [
     resumen: "Mamparas y vidrios a medida, con DVH propio.",
     specs: ["Mamparas a medida", "DVH de fabricación propia", "Laminado y templado", "Perfil y vidrio a elección"],
     credenciales: [["DVH", "Fabricación propia"], ["Mamparas", "A medida"], ["Colocación", "Equipo propio"], ["Taller", "Vidriado en el momento"]],
+    render: "mampara",
+    colores: [
+      { titulo: "Vidrio", items: [["DVH", null], ["Laminado", null], ["Templado", null]] },
+      { titulo: "Perfil de mampara", items: [["Color a elección", null]] },
+    ],
+    medidas: "A medida de cada espacio",
     ficha: [
       ["Mamparas", "A medida, con colocación propia"],
       ["Perfil de mampara", "Color a elección"],
@@ -225,6 +244,11 @@ export const PRODUCTOS = [
     resumen: "Frentes y puertas de vidrio templado.",
     specs: ["Vidrio templado", "Frentes comerciales", "Puertas de vidrio", "Piel de vidrio"],
     credenciales: [["Vidrio", "Templado de seguridad"], ["Aplicaciones", "Frentes, puertas y fachadas"], ["Medición", "En obra, a medida"], ["Colocación", "A cargo nuestro"]],
+    render: "frente",
+    colores: [
+      { titulo: "Vidrio", items: [["Templado de seguridad", null]] },
+    ],
+    medidas: "A medida, con medición en obra",
     ficha: [
       ["Vidrio", "Templado de seguridad"],
       ["Aplicaciones", "Frentes comerciales, puertas y fachadas"],

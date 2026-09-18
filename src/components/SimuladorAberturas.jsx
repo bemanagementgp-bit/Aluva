@@ -323,7 +323,7 @@ export default function SimuladorAberturas({ onPedirPresupuesto }) {
                   background: tipo === t.id ? "var(--aluva-ink)" : "var(--aluva-paper)",
                   color: tipo === t.id ? "white" : "var(--aluva-ink)",
                   border: "none", borderRadius: 0,
-                  fontSize: 12, fontFamily: "'Inter',sans-serif", fontWeight: 600,
+                  fontSize: 12, fontFamily: "inherit", fontWeight: 600,
                   cursor: "pointer", transition: "all .2s",
                   textAlign: "left", lineHeight: 1.2,
                 }}
@@ -373,7 +373,7 @@ export default function SimuladorAberturas({ onPedirPresupuesto }) {
                   background: vidrio.label === v.label ? "var(--aluva-ink)" : "var(--aluva-paper)",
                   color: vidrio.label === v.label ? "white" : "var(--aluva-ink)",
                   border: "none", borderRadius: 0,
-                  fontSize: 12, fontFamily: "'Inter',sans-serif", fontWeight: 600,
+                  fontSize: 12, fontFamily: "inherit", fontWeight: 600,
                   cursor: "pointer", transition: "all .2s",
                 }}
               >

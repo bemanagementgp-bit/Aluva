@@ -46,7 +46,7 @@ export default function MenuMovil({ abierto, onCerrar }) {
         <button
           onClick={() => { onCerrar(); navigate("/login"); }}
           className="nav-link"
-          style={{ marginTop: 14, background: "none", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 0, padding: "12px 22px", color: "white", width: "fit-content", cursor: "pointer" }}
+          style={{ marginTop: 14, background: "none", border: "1px solid rgba(255,255,255,0.3)", borderRadius: 999, padding: "12px 22px", color: "white", width: "fit-content", cursor: "pointer" }}
         >
           Acceso staff
         </button>

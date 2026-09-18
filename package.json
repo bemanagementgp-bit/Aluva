@@ -59,6 +59,7 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+    "postbuild": "node scripts/prerender.mjs",
     "test": "craco test",
     "dev": "craco start"
   },
@@ -80,12 +81,14 @@
     "@emergentbase/visual-edits": "https://assets.emergent.sh/npm/emergentbase-visual-edits-1.0.8.tgz",
     "@eslint/js": "^9.23.0",
     "autoprefixer": "^10.4.20",
+    "esbuild": "^0.25.12",
     "eslint": "^8.57.1",
     "eslint-plugin-import": "2.31.0",
     "eslint-plugin-jsx-a11y": "6.10.2",
     "eslint-plugin-react": "7.37.4",
     "eslint-plugin-react-hooks": "5.2.0",
     "globals": "15.15.0",
+    "imagetracerjs": "^1.2.6",
     "postcss": "^8.4.49",
     "tailwindcss": "^3.4.17"
   },

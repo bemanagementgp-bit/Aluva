@@ -1,12 +1,12 @@
 import { useLocation } from "react-router-dom";
 import { useEffect, useRef, useState } from "react";
 import axios from "axios";
-import SimuladorAberturas from "@/components/SimuladorAberturas";
 import Reveal from "@/components/Reveal";
 import ProductosSection from "@/components/ProductosSection";
 import VitrinaProductos from "@/components/VitrinaProductos";
 import Proceso from "@/components/Proceso";
 import Profesionales from "@/components/Profesionales";
+import VariantesProductos from "@/components/VariantesProductos";
 import Faq from "@/components/Faq";
 import Pie from "@/components/Pie";
 import BarraNav from "@/components/BarraNav";
@@ -24,18 +24,9 @@ export default function Landing() {
   const [enviando, setEnviando] = useState(false);
   const scrollP = useScrollProgress();
   const presupRef = useRef(null);
-  const simuladorRef = useRef(null);
 
   const [fPresupuesto, setFPresupuesto] = useState({ nombre: "", telefono: "", email: "", tipo_documento: "DNI", dni: "", tipo: "", descripcion: "", mensaje: "", simulador_config: "" });
   const [fVisita, setFVisita] = useState({ nombre: "", telefono: "", email: "", tipo_documento: "DNI", dni: "", direccion: "", localidad: "", fecha: "", turno: "", mensaje: "" });
-
-  const SIM_TIPO_TO_FORM = {
-    "ventana-corrediza": "ventanas-pvc",
-    "ventana-oscilo": "ventanas-pvc",
-    "ventana-banderola": "ventanas-aluminio",
-    "puerta-balcon": "ventanas-aluminio",
-    "puerta": "puertas-aluminio",
-  };
 
   // Enlaces desde las fichas de producto. /?consulta=pvc#contacto abre el
   // formulario con la línea ya elegida; /#productos o /#contacto bajan a esa
@@ -57,14 +48,6 @@ export default function Landing() {
     return () => clearTimeout(t);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [location.search, location.hash]);
-
-  const goPresupuestoConSim = (config) => {
-    const tipoForm = SIM_TIPO_TO_FORM[config.tipo] || "otro";
-    const txt = `Configuración del simulador:\n- Tipo: ${config.tipo}\n- Perfil: ${config.color_perfil}\n- Vidrio: ${config.vidrio}`;
-    setModo("presupuesto");
-    setFPresupuesto(f => ({ ...f, tipo: tipoForm, descripcion: txt, simulador_config: JSON.stringify(config) }));
-    setTimeout(() => presupRef.current?.scrollIntoView({ behavior: "smooth", block: "start" }), 80);
-  };
 
   const enviarSolicitud = async (payload) => {
     const fd = new FormData();
@@ -141,17 +124,37 @@ export default function Landing() {
         <div className="hero-clip hero-filete" aria-hidden="true" style={{ position: "absolute", inset: 0 }} />
         <div className="hero-clip hero-campo" style={{ position: "absolute", inset: 0 }} />
 
+        {/* Foto de portada a sangre; el velo aclara solo la franja izquierda,
+            que es la zona mas tranquila de la imagen, donde va el texto */}
+        <img
+          className="hero-foto"
+          src="/photos/hero-corredizas.webp"
+          alt="Ambiente con puertas corredizas de gran tamaño abiertas a un patio"
+          decoding="async"
+          fetchPriority="high"
+        />
+        <span className="hero-velo" aria-hidden="true" />
+
+
+
         {/* Content */}
         <div className="hero-content">
           <Reveal className="hero-block">
-            <p className="eyebrow" style={{ color: "var(--aluva-green-dark)" }}>Fabricación propia · Perfilería VEKA Clase A</p>
+            <p className="eyebrow" style={{ color: "var(--aluva-green-dark)" }}>
+              Fabricación propia
+              {/* el chevrón del logo, como separador de marca */}
+              <svg className="marca-chevron" viewBox="82 83 161 113" width="13" height="9" aria-hidden="true" focusable="false">
+                <polygon points="242.79 163.89 210.48 196.2 130.38 116.11 152.04 159.07 114.91 196.2 82.6 163.89 162.69 83.8 242.79 163.89" />
+              </svg>
+              VEKA Clase A
+            </p>
 
             <h1 className="font-display" style={{
               fontSize: "var(--fs-display)",
               fontWeight: 400, lineHeight: "var(--lh-display)", letterSpacing: "var(--track-display)",
-              margin: "26px 0 0", maxWidth: "20ch",
+              margin: "26px 0 0", maxWidth: "17ch",
             }}>
-              Aberturas de PVC y aluminio, fabricadas a medida.
+              Aberturas de PVC y aluminio a medida en La Plata.
             </h1>
 
           </Reveal>
@@ -162,8 +165,8 @@ export default function Landing() {
                 Pedir presupuesto
                 <span className="arrow">→</span>
               </button>
-              <button data-testid="hero-cta-simulador" onClick={() => simuladorRef.current?.scrollIntoView({ behavior: "smooth" })} className="link-cta">
-                <span>Probar el simulador</span>
+              <button data-testid="hero-cta-productos" onClick={() => document.getElementById("productos")?.scrollIntoView({ behavior: "smooth" })} className="link-cta">
+                <span>Ver productos</span>
                 <span className="arrow">→</span>
               </button>
             </div>
@@ -209,30 +212,9 @@ export default function Landing() {
       {/* PROFESIONALES — arquitectos, estudios y constructoras */}
       <Profesionales />
 
-      {/* SIMULADOR */}
-      <section id="simulador" ref={simuladorRef} data-testid="simulador-section" className="section section--paper">
-        <div className="container">
-          <Reveal style={{ marginBottom: 46 }}>
-            <p className="eyebrow"><span className="eyebrow-num">04</span>Simulador interactivo</p>
-            <h2 className="font-display section-title">
-              Probá la abertura antes de instalarla.
-            </h2>
-            <p className="section-lead">
-              Subí una foto de tu casa, arrastrá la ventana o puerta sobre el lugar exacto y elegí color de perfil, vidrio y tipo de apertura. Tu visualización en segundos.
-            </p>
-          </Reveal>
-
-          <Reveal delay={2}>
-            <div style={{ background: "var(--aluva-white)", border: "1px solid var(--aluva-line)", borderRadius: "var(--r-card)", padding: 26 }}>
-              <SimuladorAberturas onPedirPresupuesto={goPresupuestoConSim} />
-            </div>
-          </Reveal>
-
-          <Reveal delay={3} style={{ marginTop: 24, color: "var(--aluva-mute)", fontSize: "var(--fs-meta)", textAlign: "center" }}>
-            La simulación es orientativa. Las medidas finales y características técnicas se confirman en la visita de medición.
-          </Reveal>
-        </div>
-      </section>
+      {/* COLORES Y MEDIDAS — reemplaza al simulador: las cuatro líneas con sus
+          variantes de color, medidas y tipologías */}
+      <VariantesProductos />
 
       {/* OBRAS — oculta hasta tener obras reales con foto propia */}
       {MOSTRAR_OBRAS && <ObrasSection />}
@@ -262,10 +244,10 @@ export default function Landing() {
             <h2 className="font-display section-title" style={{ margin: "16px auto 12px" }}>
               ¿En qué te podemos ayudar?
             </h2>
-            <p className="section-lead" style={{ margin: "12px auto 0" }}>Elegí la opción que mejor se adapte a tu necesidad.</p>
+            
           </Reveal>
 
-          <Reveal delay={1} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 1, marginBottom: 40, background: "var(--aluva-line)" }}>
+          <Reveal delay={1} style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(280px,1fr))", gap: 12, marginBottom: 40 }}>
             <ModoCard
               testId="modo-presupuesto"
               selected={modo === "presupuesto"}
@@ -325,7 +307,7 @@ export default function Landing() {
                 <textarea className="al-input" rows={2} value={fPresupuesto.mensaje} onChange={e => setFPresupuesto({ ...fPresupuesto, mensaje: e.target.value })} placeholder="¿Algo más que quieras contarnos?" style={{ resize: "vertical" }} />
               </Field>
               {fPresupuesto.simulador_config && (
-                <div style={{ background: "var(--aluva-paper)", border: "1px solid var(--aluva-line)", padding: 13, borderRadius: 0, fontSize: 13, color: "var(--aluva-mute)" }}>
+                <div style={{ background: "var(--aluva-paper)", border: "1px solid var(--aluva-line)", padding: 13, borderRadius: "var(--r-campo)", fontSize: 13, color: "var(--aluva-mute)" }}>
                   Configuración del simulador adjuntada a tu pedido.
                 </div>
               )}
@@ -392,7 +374,7 @@ export default function Landing() {
           )}
 
           {enviado && (
-            <div data-testid="form-success" style={{ background: "white", border: "1px solid var(--aluva-line)", borderRadius: 0, padding: "52px 32px", textAlign: "center" }}>
+            <div data-testid="form-success" style={{ background: "white", border: "1px solid var(--aluva-line)", borderRadius: "var(--r-card)", padding: "52px 32px", textAlign: "center" }}>
               <div style={{ width: 56, height: 56, margin: "0 auto 22px", border: "1px solid var(--aluva-green)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                 <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="var(--aluva-green)" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
               </div>
@@ -425,7 +407,8 @@ function ModoCard({ selected, onClick, title, desc, testId }) {
         textAlign: "left", padding: 26, cursor: "pointer",
         background: selected ? "var(--aluva-green)" : "white",
         color: "var(--aluva-ink)",
-        border: "none",
+        borderRadius: "var(--r-card)",
+        border: selected ? "1px solid var(--aluva-green)" : "1px solid var(--aluva-line)",
         transition: "background .2s ease, color .2s ease",
         display: "block", width: "100%", boxSizing: "border-box",
       }}

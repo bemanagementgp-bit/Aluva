@@ -1,0 +1,46 @@
+/*
+  Tipografías de marca de Aluva (licencia web confirmada por el cliente).
+
+  LG EI Text: texto e interfaz, en Light (300), Regular (400), SemiBold (600)
+  y Bold (700). LG EI Headline: solo Bold (700), para las palabras de impacto.
+
+  Los .woff2 están recortados al alfabeto latino (español completo, comillas,
+  guiones, flechas, € y ®): los originales traen más de 14.000 glifos y pesan
+  ~2 MB cada uno; así pesan ~15 KB. Los originales están en /originales/fuentes.
+  A la Headline le falta la flecha →: el navegador la toma de LG EI Text.
+*/
+@font-face {
+  font-family: "LG EI Text";
+  src: url("/fonts/lgei-text-light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LG EI Text";
+  src: url("/fonts/lgei-text-regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LG EI Text";
+  src: url("/fonts/lgei-text-semibold.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LG EI Text";
+  src: url("/fonts/lgei-text-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "LG EI Headline";
+  src: url("/fonts/lgei-headline-bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
+  font-display: swap;
+}

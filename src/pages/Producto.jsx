@@ -26,11 +26,6 @@ export default function Producto() {
   const producto = PRODUCTOS.find((p) => p.id === id);
   const [activa, setActiva] = useState("ficha");
 
-  useEffect(() => {
-    if (producto) document.title = `${producto.nombre} · Aluva`;
-    return () => { document.title = "Aluva · Tecnología en aberturas"; };
-  }, [producto]);
-
   // El índice marca la sección que está a la vista
   useEffect(() => {
     if (!producto || typeof IntersectionObserver === "undefined") return;

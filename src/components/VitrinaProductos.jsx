@@ -7,10 +7,10 @@ import { PRODUCTOS } from "@/content/catalogo";
 /*
   Vitrina de productos — patrón "Product Range" de Hitachi CM.
 
-  Pantalla partida: la foto ocupa la mitad izquierda a sangre y la sigla de la
-  línea entra en tamaño enorme por el borde inferior, cortada por el viewport.
-  La mitad derecha es un panel oscuro con la ficha centrada. Entre las dos
-  mitades, las flechas en recuadro; abajo, los puntos de paginado.
+  Pantalla partida: la foto ocupa la mitad izquierda a sangre y la mitad
+  derecha es un panel oscuro con la ficha centrada. Entre las dos mitades, las
+  flechas en recuadro; abajo, los puntos de paginado. (La sigla gigante sobre
+  la foto se quitó a pedido del cliente.)
 
   Los recursos que hacen a ese diseño y que se reusan en el resto del sitio:
   la volanta centrada con su filete corto, el titular de peso mixto y las
@@ -48,8 +48,6 @@ export default function VitrinaProductos({ onPresupuesto }) {
           );
         })}
 
-        <span key={`s-${p.id}`} className="vit-sigla" aria-hidden="true">{p.sigla}</span>
-        {p.fotos[0] && <span className="vit-pie">{p.fotos[0].caption}</span>}
       </div>
 
       {/* ── Flechas, sobre la juntura de las dos mitades ── */}
