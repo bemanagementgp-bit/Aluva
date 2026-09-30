@@ -19,28 +19,10 @@ CONTACTO = {
     "email": "ventas@aluva.com.ar",
     "direccion": "La Plata, Buenos Aires",
     "horario": "Lun a Vie 8 a 17 h · Sáb 9 a 13 h",
-    "instagram": "https://instagram.com/",
     "sitio": "https://aluva.com.ar",
 }
 
 
-def U(pid, w=1600):
-    """Foto complementaria de Unsplash (licencia libre para uso comercial)."""
-    return f"https://images.unsplash.com/photo-{pid}?auto=format&fit=crop&w={w}&q=80"
-
-
-UNS = {
-    "casa": "1766603636700-e9d80473f40f",
-    "esquina": "1710883734891-93709398496d",
-    "pileta": "1660361338517-8c8fbb3ac264",
-    "cubo": "1712799430351-8baa17927177",
-    "ducha": "1609280069904-ab36feb3f20c",
-    "ducha2": "1641432355514-75617e1f7663",
-    "fachada": "1481026469463-66327c86e544",
-    "fachada2": "1554469384-e58fac16e23a",
-    "moderna": "1591474200742-8e512e6f98f8",
-    "acero": "1759367973838-2ad5eabd1f28",
-}
 
 # ---------------------------------------------------------------------------
 # Iconos
@@ -147,7 +129,8 @@ def header(active):
     </ol>
   </div>
   <div class="mnav__foot">
-    <a class="btn btn--lime" href="#" data-wa>{WA} Escribinos por WhatsApp</a>
+    <a class="btn btn--lime" href="contacto.html">Pedí presupuesto <span class="arr">→</span></a>
+    <a class="btn btn--ghost" href="#" data-wa>{WA} Escribinos por WhatsApp</a>
     <a class="btn btn--white" href="staff.html">Acceso staff</a>
     <span class="small">{CONTACTO['direccion']} · {CONTACTO['horario']}</span>
   </div>
@@ -173,13 +156,11 @@ def footer():
         <li><a href="tel:{CONTACTO['tel_link']}">{CONTACTO['tel_visible']}</a></li>
         <li><a href="#" data-wa>WhatsApp</a></li>
         <li><a href="mailto:{CONTACTO['email']}">{CONTACTO['email']}</a></li>
-        <li><a href="{CONTACTO['instagram']}" target="_blank" rel="noopener">Instagram</a></li>
         <li><span class="small">{CONTACTO['direccion']}</span></li>
       </ul></div>
     </div>
     <div class="ftr__bottom">
       <span>© <span data-year>2026</span> Aluva · Tecnología en aberturas. La Plata, Buenos Aires.</span>
-      <span>Algunas fotos de ambiente: <a href="https://unsplash.com" target="_blank" rel="noopener">Unsplash</a></span>
     </div>
   </div>
 </footer>

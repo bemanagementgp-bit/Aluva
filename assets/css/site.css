@@ -955,3 +955,38 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 .staff__card .link-arrow { color: #2f7a0a; }
 .proc__fig img[src*="local-aluva"] { object-position: 50% 36%; }
 .tl__img img[src*="local-aluva"] { object-position: 50% 34% !important; }
+
+/* ==========================================================================
+   Ajustes responsive (QA en 320–2560 px)
+   ========================================================================== */
+/* Casillas ocultas del formulario: sin ancho fantasma */
+.pick input { width: 1px; height: 1px; margin: 0; clip-path: inset(50%); }
+/* El logo nunca se achica en el header */
+.hdr__logo { flex: 0 0 auto; }
+.hdr__cta { flex: 0 0 auto; }
+.hdr__logo { display: inline-flex; align-items: center; min-height: 44px; }
+/* Pantallas angostas: el botón de presupuesto pasa al menú (y está en cada portada) */
+@media (max-width: 520px) { .hdr__cta .btn--lime { display: none !important; } }
+@media (max-width: 400px) {
+  .hdr__in { padding: 0 8px 0 14px; gap: 10px; }
+  .hdr__logo img { height: 22px; }
+  .hdr__cta .btn--lime { display: none; }
+}
+/* "PROFESIONALES" siempre entra en una línea */
+@media (max-width: 480px) {
+  .pro .pro-palabra { font-size: clamp(28px, 10.4vw, 48px); }
+}
+@media (max-width: 820px) {
+  /* Lista de líneas del inicio: descripción a todo el ancho */
+  .page-inicio .line-row { grid-template-columns: 1fr 48px; }
+  /* Botones de portada por encima del WhatsApp flotante */
+  .hero { padding-bottom: 104px; }
+  .cover__in { padding-bottom: 104px; }
+  .showcase .vit:last-child .vit__label { padding-right: 70px; }
+}
+/* Portadas: crecen si el contenido no entra (pantallas bajas / apaisado) */
+.cover, .hero { height: auto; min-height: 100svh; }
+@media (max-height: 520px) and (orientation: landscape) {
+  .cover, .hero { min-height: 520px; }
+  .showcase { height: 600px; min-height: 0; }
+}
