@@ -1,0 +1,245 @@
+/* ═══════════════════════════════════════════════════════════════════════════
+   Sección "Profesionales" — CSS autocontenido
+
+   En la web de Aluva estas reglas están repartidas en ocho lugares distintos
+   de App.css, porque se fueron agregando en tandas. Acá están juntas, en
+   orden, y con los tokens que necesitan declarados arriba: el archivo se copia
+   y funciona sin depender de la hoja de estilos del proyecto.
+
+   Si lo pegás en un proyecto que YA tiene estos tokens, borrá el bloque
+   :root y listo.
+   ═══════════════════════════════════════════════════════════════════════════ */
+
+.pro {
+  /* ── Color ──
+     La marca es verde y blanco. Los neutros no son grises: son blancos con
+     una gota de verde, para que no aparezca un tercer color por la ventana. */
+  --pro-green: #5ac80f;        /* verde pleno de marca */
+  --pro-green-soft: #c1f08b;   /* el acento sobre fondo oscuro */
+  --pro-ink: #0e2a1a;          /* verde casi negro: el fondo */
+  --pro-on-ink: #ffffff;
+  --pro-on-ink-72: rgba(255, 255, 255, 0.74);
+  --pro-line: rgba(255, 255, 255, 0.14);
+
+  /* ── Medidas ──
+     Un solo gutter y un solo aire vertical, los mismos del resto del sitio. */
+  --pro-gutter: clamp(20px, 4vw, 32px);
+  --pro-maxw: 1280px;
+  --pro-y: clamp(96px, 10vw, 168px);
+
+  /* ── Tipografía ──
+     El display va apretado (tracking negativo) y con el renglón ajustado: es
+     lo que separa un display de un título grande. Las etiquetas, al revés:
+     muy espaciadas, que es lo que les da el aire industrial. */
+  --pro-fs-h2: clamp(32px, 4.4vw, 62px);
+  --pro-fs-body: 15.5px;
+  --pro-fs-label: 12px;
+  --pro-track-display: -0.028em;
+  --pro-track-label: 0.16em;
+  --pro-track-boton: 0.075em;
+  --pro-lh-h2: 1.05;
+
+  /* La tipografía de marca, con respaldo: sin ella la sección se ve igual de
+     ordenada, solo que más neutra. */
+  --pro-font: "LG EI Text", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+  --pro-font-display: "LG EI Headline", "LG EI Text", system-ui, -apple-system, "Segoe UI", Arial, sans-serif;
+
+  position: relative;
+  overflow: hidden;   /* el perfil del costado sangra a propósito y acá se corta */
+  padding: var(--pro-y) var(--pro-gutter);
+  background: var(--pro-ink);
+  color: var(--pro-on-ink);
+  font-family: var(--pro-font);
+  line-height: 1.65;
+}
+
+.pro-in {
+  position: relative;
+  z-index: 1;          /* por encima del perfil decorativo */
+  width: 100%;
+  max-width: var(--pro-maxw);
+  margin: 0 auto;
+}
+
+/* ── El perfil del sistema, al costado ──
+   Decorativo. Va al 34% y con una máscara que lo funde por la izquierda, para
+   que no le pelee al texto. Sale del borde derecho a propósito. */
+.pro-perfil {
+  position: absolute;
+  top: 50%;
+  right: -4%;
+  width: min(50%, 760px);
+  height: min(72%, 560px);
+  transform: translateY(-50%);
+  object-fit: contain;
+  object-position: right center;
+  opacity: 0.34;
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent 0, #000 45%);
+  mask-image: linear-gradient(to right, transparent 0, #000 45%);
+}
+
+/* ── La volanta ── */
+.pro-volanta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  font-size: var(--pro-fs-label);
+  font-weight: 600;
+  letter-spacing: var(--pro-track-label);
+  text-transform: uppercase;
+  color: var(--pro-green-soft);
+}
+.pro-volanta-num {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  opacity: 0.75;
+}
+
+/* ── La palabra gigante ──
+   El recurso central de la sección. El margen izquierdo negativo compensa el
+   espacio lateral del glifo, para que la P arranque alineada con el resto de
+   la columna y no un pelo adentro. */
+.pro-palabra {
+  display: block;
+  margin: 30px 0 0 -0.035em;
+  font-family: var(--pro-font-display);
+  font-size: clamp(30px, 9.2vw, 134px);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.02em;
+  text-transform: uppercase;
+  white-space: nowrap;   /* nunca parte en dos renglones */
+  color: var(--pro-green);
+}
+
+.pro-regla {
+  display: block;
+  width: 38px;
+  height: 3px;
+  margin: 30px 0 0;
+  border-radius: 999px;   /* remata redondeado, como el trazo del logo */
+  background: var(--pro-green);
+}
+
+/* ── El titular ──
+   Peso mixto: liviano el arranque, semibold lo que importa. */
+.pro-bajada {
+  margin: 28px 0 0;
+  max-width: 22ch;
+  font-family: var(--pro-font);
+  font-size: var(--pro-fs-h2);
+  font-weight: 300;
+  line-height: var(--pro-lh-h2);
+  letter-spacing: var(--pro-track-display);
+  text-wrap: balance;
+}
+.pro-bajada strong { font-family: var(--pro-font-display); font-weight: 600; }
+
+/* ── Las cuatro razones ──
+   Fila de cuatro separadas por filetes, sin cajas: se leen como datos y no
+   como tarjetas. */
+.pro-puntos {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  margin: clamp(44px, 5vw, 64px) 0 0;
+  padding: 0;
+  list-style: none;
+  border-top: 1px solid var(--pro-line);
+}
+.pro-punto { padding: 26px 24px 0 0; }
+.pro-punto + .pro-punto { padding-left: 24px; border-left: 1px solid var(--pro-line); }
+.pro-punto-etq {
+  margin: 0;
+  font-size: var(--pro-fs-label);
+  font-weight: 700;   /* la etiqueta va más pesada que la volanta, a propósito */
+  letter-spacing: var(--pro-track-label);
+  line-height: 1;
+  text-transform: uppercase;
+  color: var(--pro-green-soft);
+}
+/* Solo se usa si mostrás también la explicación de cada punto */
+.pro-punto-txt {
+  margin: 12px 0 0;
+  font-size: var(--pro-fs-body);
+  line-height: 1.6;
+  color: var(--pro-on-ink-72);
+}
+
+/* ── Las dos acciones ── */
+.pro-acciones {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 28px;
+  margin-top: clamp(44px, 5vw, 60px);
+}
+.pro-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 16px 30px;
+  border: 1px solid var(--pro-green);
+  border-radius: 999px;
+  background: var(--pro-green);
+  color: var(--pro-ink);
+  font-family: inherit;
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: var(--pro-track-boton);
+  text-transform: uppercase;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .25s ease, transform .25s cubic-bezier(.2,.7,.1,1);
+}
+.pro-btn:hover { background: #67d818; transform: translateY(-1px); }
+.pro-btn:active { transform: translateY(0); }
+.pro-flecha { transition: transform .3s cubic-bezier(.2,.7,.1,1); }
+.pro-btn:hover .pro-flecha { transform: translateX(4px); }
+
+/* El segundo camino va como texto con filete, no como segundo botón: dos
+   botones del mismo peso compiten y ninguno gana. */
+.pro-link {
+  color: var(--pro-on-ink);
+  font-size: 12.5px;
+  font-weight: 600;
+  letter-spacing: var(--pro-track-boton);
+  text-transform: uppercase;
+  text-decoration: none;
+  border-bottom: 1px solid var(--pro-line);
+  transition: border-color .2s ease, color .2s ease;
+}
+.pro-link:hover { color: var(--pro-green-soft); border-bottom-color: var(--pro-green); }
+
+/* ── Angosto ──
+   A 980 pasa a dos columnas, a 560 a una. El perfil decorativo desaparece:
+   en pantalla chica no hay lugar y compite con el texto. */
+@media (max-width: 1200px) { .pro-perfil { opacity: 0.22; } }
+
+@media (max-width: 980px) {
+  .pro-perfil { display: none; }
+  .pro-puntos { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .pro-punto { padding: 18px 12px 18px 0; border-left: none; }
+  .pro-punto + .pro-punto { padding-left: 0; border-left: none; }
+  .pro-punto:nth-child(even) { padding: 18px 0 18px 12px; border-left: 1px solid var(--pro-line); }
+  .pro-punto:nth-child(n+3) { border-top: 1px solid var(--pro-line); }
+  .pro-acciones { margin-top: 28px; gap: 8px 24px; }
+}
+
+@media (max-width: 560px) {
+  .pro-puntos { grid-template-columns: minmax(0, 1fr); }
+  .pro-punto,
+  .pro-punto + .pro-punto,
+  .pro-punto:nth-child(even) { padding: 18px 0; border-left: none; }
+  .pro-punto + .pro-punto { border-top: 1px solid var(--pro-line); }
+  .pro-acciones { align-items: stretch; flex-direction: column; }
+  .pro-btn { justify-content: center; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pro-btn, .pro-flecha, .pro-link { transition: none; }
+  .pro-btn:hover { transform: none; }
+  .pro-btn:hover .pro-flecha { transform: none; }
+}
