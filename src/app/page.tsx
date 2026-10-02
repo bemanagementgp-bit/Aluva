@@ -34,7 +34,7 @@ export default function Inicio() {
         </div>
       </section>
 
-      <section className="section section--paper">
+      <section className="section section--paper s-lineas">
         <div className="wrap">
           <Eyebrow n="02">Qué fabricamos</Eyebrow>
           <h2 className="h-lg rv">Cuatro líneas,<br />una fábrica.</h2>

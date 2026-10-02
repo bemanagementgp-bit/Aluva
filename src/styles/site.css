@@ -1015,3 +1015,18 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 .hdr { background: #002828; }
 .hdr.on-light { background: #fff; }
 .hdr.on-light .btn--white { background: #fff; }
+
+/* ==========================================================================
+   Titulares en minúscula (tal como están escritos). Solo "Qué fabricamos"
+   conserva las mayúsculas. Las etiquetas chicas siguen en mayúscula.
+   ========================================================================== */
+.h-giant, .h-xl, .h-lg, .h-md, .hero__title, .cover__title, .pro .pro-palabra, .next__t, .ftr__big,
+.pillar h3, .sys h3, .proc__item h3, .step__c h3, .tl__item h3, .term__head h3, .vit__body h3, .vit__label,
+.staff__card h1, .tipo__diagram .dg-name, .anat__list b {
+  text-transform: none;
+  letter-spacing: -.02em;
+}
+.h-giant, .h-xl, .h-lg, .hero__title, .cover__title, .pro .pro-palabra, .next__t, .ftr__big { line-height: 1; }
+.h-md, .pillar h3, .sys h3, .proc__item h3, .step__c h3, .tl__item h3, .term__head h3, .vit__body h3 { line-height: 1.1; }
+/* Excepción: "Qué fabricamos" */
+.s-lineas .h-lg { text-transform: uppercase; letter-spacing: -.01em; line-height: .95; }

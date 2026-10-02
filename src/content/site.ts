@@ -59,6 +59,7 @@ export interface Producto {
   galT: string;
   gallery: FotoGaleria[];
   faq: [string, string][];
+  ctaT: string;
   cta: string;
 }
 
@@ -95,6 +96,7 @@ export const PRODUCTOS: Producto[] = [
       ["¿El DVH lo hacen ustedes?", "Sí. Fabricamos el doble vidriado hermético en nuestra planta, junto con la ventana."],
       ["¿Conviene PVC o aluminio?", "El PVC aísla mejor y es la opción para quien busca confort térmico y acústico. El aluminio permite perfiles más finos y paños más grandes. En la consulta te decimos cuál conviene para tu caso."],
     ],
+    ctaT: "Tus aberturas de PVC, a medida.",
     cta: "Medimos tus vanos y fabricamos tus aberturas de PVC en nuestra planta de La Plata.",
   },
   {
@@ -127,6 +129,7 @@ export const PRODUCTOS: Producto[] = [
       ["¿Puede llevar DVH?", "Sí. El vidrio puede ser simple o DVH, que fabricamos en nuestra planta."],
       ["¿Conviene aluminio o PVC?", "El aluminio permite perfiles más finos y paños más grandes, y rinde más si el presupuesto es ajustado. El PVC aísla mejor. En la consulta te decimos cuál conviene para tu caso."],
     ],
+    ctaT: "Tus aberturas de aluminio, a medida.",
     cta: "Líneas Módena, Herrero y A30 a medida. Te visitamos, medimos y cotizamos.",
   },
   {
@@ -159,6 +162,7 @@ export const PRODUCTOS: Producto[] = [
       ["¿Qué diferencia hay entre laminado y templado?", "El laminado tiene una lámina entre dos vidrios que los mantiene unidos si se rompe. El templado es más resistente y, si se rompe, se fragmenta en trozos pequeños sin filo."],
       ["¿Reparan vidrios?", "Sí. Traés la hoja al taller y la vidriamos en el momento."],
     ],
+    ctaT: "Tu vidrio, a medida.",
     cta: "Contanos qué vidrio necesitás. Pasá por el taller o pedinos una visita.",
   },
   {
@@ -191,6 +195,7 @@ export const PRODUCTOS: Producto[] = [
       ["¿Hacen piel de vidrio?", "Sí, para frentes y fachadas completas. Medimos en obra y cotizamos a medida."],
       ["¿Cuánto tarda?", "Depende del proyecto. Te damos un plazo concreto al confirmar la medición."],
     ],
+    ctaT: "Tu vidrio templado, a medida.",
     cta: "Frentes, puertas y piel de vidrio a medida. Medimos, fabricamos y colocamos.",
   },
 ];

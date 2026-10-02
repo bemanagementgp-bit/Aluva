@@ -165,7 +165,7 @@ export default async function Linea({ params }: Props) {
         </div>
       </section>
 
-      <Cta title={`Tu ${p.name}, a medida.`} text={p.cta} light />
+      <Cta title={p.ctaT} text={p.cta} light />
     </Shell>
   );
 }
