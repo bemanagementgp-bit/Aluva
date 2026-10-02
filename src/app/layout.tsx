@@ -11,7 +11,7 @@ export const metadata: Metadata = {
   openGraph: { type: "website", locale: "es_AR", images: ["/brand/og-aluva.jpg"] },
 };
 
-export const viewport: Viewport = { themeColor: "#0d2a1e" };
+export const viewport: Viewport = { themeColor: "#002828" };
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (

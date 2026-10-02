@@ -16,7 +16,7 @@
      una gota de verde, para que no aparezca un tercer color por la ventana. */
   --pro-green: #5ac80f;        /* verde pleno de marca */
   --pro-green-soft: #c1f08b;   /* el acento sobre fondo oscuro */
-  --pro-ink: #0e2a1a;          /* verde casi negro: el fondo */
+  --pro-ink: #002828;          /* verde casi negro: el fondo */
   --pro-on-ink: #ffffff;
   --pro-on-ink-72: rgba(255, 255, 255, 0.74);
   --pro-line: rgba(255, 255, 255, 0.14);

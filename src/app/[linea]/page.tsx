@@ -69,7 +69,7 @@ function Especial({ slug }: { slug: Slug }) {
           <div className="rv" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginTop: 50, maxWidth: 720 }}>
             {sw.map(([c, n]) => (
               <div key={n} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
-                <span style={{ display: "block", aspectRatio: "1", borderRadius: "var(--r-box)", background: c, border: "1px solid rgba(13,42,30,.15)" }} />
+                <span style={{ display: "block", aspectRatio: "1", borderRadius: "var(--r-box)", background: c, border: "1px solid rgba(0,40,40,.15)" }} />
                 <b style={{ fontSize: 12, letterSpacing: ".12em", textTransform: "uppercase" }}>{n}</b>
               </div>
             ))}
