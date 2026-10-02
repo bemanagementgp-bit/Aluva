@@ -18,7 +18,7 @@ export default function Header({ active }: { active: Seccion }) {
   const dropRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const cur = (k: Seccion) => (k === active ? { "aria-current": "page" as const } : {});
-  const prodActive = ["productos", "pvc", "aluminio", "vidrieria", "templados"].includes(active);
+  const prodActive = ["productos", "pvc", "templados", "aluminio", "vidrieria"].includes(active);
 
   // Tono según la sección que queda debajo de la barra
   useEffect(() => {

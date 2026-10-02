@@ -8,7 +8,7 @@ import { CONTACTO, waLink } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contacto · Pedí tu presupuesto | Aluva La Plata",
-  description: "Pedí presupuesto de aberturas de PVC, aluminio, DVH, mamparas y vidrio templado en La Plata. Respondemos por WhatsApp.",
+  description: "Pedí presupuesto de aberturas de PVC, vidrio templado, aluminio, DVH y mamparas en La Plata. Respondemos por WhatsApp.",
 };
 
 export default function Contacto() {

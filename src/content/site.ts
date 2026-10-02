@@ -16,7 +16,7 @@ export const CONTACTO = {
 export const waLink = (texto = "Hola Aluva, quiero hacer una consulta.") =>
   `https://wa.me/${CONTACTO.whatsapp}?text=${encodeURIComponent(texto)}`;
 
-export type Slug = "pvc" | "aluminio" | "vidrieria" | "templados";
+export type Slug = "pvc" | "templados" | "aluminio" | "vidrieria";
 
 export interface Linea {
   slug: Slug;
@@ -28,9 +28,9 @@ export interface Linea {
 
 export const LINEAS: Linea[] = [
   { slug: "pvc", name: "PVC", short: "La mejor aislación, con perfilería VEKA y DVH fabricado en planta propia.", vit: "/photos/portada-pvc.jpg", chips: ["VEKA Clase A", "DVH propio", "Cierre multipunto", "Símil madera"] },
+  { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado de seguridad.", vit: "/photos/portada-blindex.jpg", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
   { slug: "aluminio", name: "Aluminio", short: "Líneas Módena, Herrero y A30: livianas, resistentes y aptas para aberturas grandes.", vit: "/photos/portada-aluminio.jpg", chips: ["Módena", "Herrero", "A30", "Grandes paños"] },
   { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.", vit: "/photos/esc-vidrieria-1.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
-  { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado de seguridad.", vit: "/photos/portada-blindex.jpg", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
 ];
 
 /** Pilar: ícono, título, texto y foto de fondo opcional. */

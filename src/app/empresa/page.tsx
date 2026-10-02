@@ -5,7 +5,7 @@ import { Cta, Eyebrow, Pillars } from "@/components/blocks";
 
 export const metadata: Metadata = {
   title: "Empresa · Fábrica de aberturas en La Plata | Aluva",
-  description: "Conocé Aluva: fábrica de aberturas de PVC y aluminio, vidriería y vidrio templado en La Plata. Nuestro proceso y servicio para profesionales.",
+  description: "Conocé Aluva: fábrica de aberturas de PVC, vidrio templado, aluminio y vidriería en La Plata. Nuestro proceso y servicio para profesionales.",
 };
 
 const PASOS = [
@@ -24,7 +24,7 @@ export default function Empresa() {
           <Eyebrow n="01">Nosotros</Eyebrow>
           <div className="phero__row">
             <h1 className="h-giant"><span>Fábrica</span></h1>
-            <p className="lead">Aberturas de PVC y aluminio, vidriería y templados. La Plata.</p>
+            <p className="lead">Aberturas de PVC, templados, aluminio y vidriería. La Plata.</p>
           </div>
         </div>
       </section>
