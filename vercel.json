@@ -1,30 +1,4 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "framework": null,
-  "installCommand": "echo 'Sitio estático: sin dependencias'",
-  "buildCommand": "echo 'Sitio estático: HTML ya generado'",
-  "outputDirectory": ".",
-  "headers": [
-    {
-      "source": "/(photos|og|brand|fonts|assets)/(.*)",
-      "headers": [
-        {
-          "key": "Cache-Control",
-          "value": "public, max-age=604800"
-        }
-      ]
-    }
-  ],
-  "redirects": [
-    {
-      "source": "/blindex.html",
-      "destination": "/templados.html",
-      "permanent": true
-    },
-    {
-      "source": "/blindex",
-      "destination": "/templados.html",
-      "permanent": true
-    }
-  ]
+  "framework": "nextjs"
 }
