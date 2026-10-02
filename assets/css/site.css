@@ -990,3 +990,28 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
   .cover, .hero { min-height: 520px; }
   .showcase { height: 600px; min-height: 0; }
 }
+
+/* ==========================================================================
+   Header: barra clásica a todo el ancho
+   ========================================================================== */
+.hdr { top: 0; padding: 0; background: rgba(13, 42, 30, .97); border-bottom: 1px solid rgba(198, 242, 156, .12); transition: background .35s, border-color .35s; }
+.hdr__in, .hdr.on-light .hdr__in, .menu-open .hdr .hdr__in {
+  max-width: var(--max); height: 72px; padding: 0 var(--gutter); margin: 0 auto;
+  background: transparent; border: 0; border-radius: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+.hdr.on-light { background: rgba(255, 255, 255, .98); border-bottom-color: rgba(14, 21, 18, .1); }
+.menu-open .hdr { background: var(--deep); border-bottom-color: rgba(198, 242, 156, .12); }
+/* Enlaces: texto plano con subrayado de la sección activa */
+.nav { gap: 4px; }
+.nav > a, .nav__drop > button { border-radius: 0; background: none !important; padding: 26px 14px; position: relative; opacity: .8; }
+.nav > a:hover, .nav__drop > button:hover { opacity: 1; }
+.nav > a::after, .nav__drop > button::after { content: ""; position: absolute; left: 14px; right: 14px; bottom: 18px; height: 2px; background: var(--lime); transform: scaleX(0); transform-origin: left; transition: transform .3s var(--ease); }
+.nav > a:hover::after, .nav__drop > button:hover::after, .nav > a[aria-current="page"]::after, .nav__drop.is-current > button::after { transform: scaleX(1); }
+.nav > a[aria-current="page"], .nav__drop.is-current > button { opacity: 1; color: var(--ink); }
+.hdr.on-light .nav > a[aria-current="page"], .hdr.on-light .nav__drop.is-current > button { color: var(--paper-ink); }
+.mega { top: 100%; border-radius: 0 0 var(--r-box) var(--r-box); }
+.mega::before { inset: -10px 0 auto 0; height: 10px; }
+@media (max-width: 400px) { .hdr__in, .hdr.on-light .hdr__in { height: 64px; } }
+.hdr { background: #0d2a1e; }
+.hdr.on-light { background: #fff; }
+.hdr.on-light .btn--white { background: #fff; }

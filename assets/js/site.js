@@ -131,12 +131,12 @@ addEventListener("DOMContentLoaded", () => requestAnimationFrame(() => document.
       svg: () => `<svg viewBox="-10 -10 320 180">${frame(300, 160)}${sash(8, 8, 284, 144, "anim-tilt")}<circle class="dg-hinge" cx="60" cy="152" r="5"/><circle class="dg-hinge" cx="240" cy="152" r="5"/></svg>`
     },
     fijo: {
-      name: "Paño fijo", img: "photos/tipo-fijo.webp", mats: ["PVC", "Aluminio", "Vidriería", "Blindex"],
+      name: "Paño fijo", img: "photos/tipo-fijo.webp", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
       txt: "Grandes superficies de vidrio sin hojas móviles. Máxima luz, vistas limpias y la mejor relación aislación / costo.",
       svg: () => `<svg viewBox="-10 -10 320 320"><defs><clipPath id="cf"><rect x="20" y="20" width="260" height="260"/></clipPath></defs>${frame()}${sash(8, 8, 284, 284)}<g clip-path="url(#cf)"><rect class="anim-glint" x="20" y="-40" width="60" height="400" fill="rgba(238,246,232,.22)"/></g></svg>`
     },
     puerta: {
-      name: "Puerta", img: "photos/tipo-puerta.webp", mats: ["PVC", "Blindex"],
+      name: "Puerta", img: "photos/tipo-puerta.webp", mats: ["PVC", "Templados"],
       txt: "Puertas de PVC con cierre multipunto, y puertas de vidrio templado para locales y oficinas.",
       svg: () => `<svg viewBox="-10 -10 200 320">${frame(180, 300)}<g class="anim-swing"><rect class="dg-sash" x="8" y="8" width="164" height="292" rx="3"/><rect class="dg-glass" x="28" y="28" width="124" height="120"/><rect x="140" y="160" width="8" height="46" rx="3" fill="#eef6e8"/></g></svg>`
     },
@@ -146,12 +146,12 @@ addEventListener("DOMContentLoaded", () => requestAnimationFrame(() => document.
       svg: () => `<svg viewBox="-10 -10 320 320">${frame()}${sash(8, 8, 142, 284, "anim-swing")}${sash(150, 8, 142, 284, "anim-swing swing-r")}<line x1="150" y1="8" x2="150" y2="292" stroke="#c6f29c" stroke-width="2"/></svg>`
     },
     frente: {
-      name: "Frente vidriado", img: "photos/tipo-frente.webp", mats: ["Blindex"],
+      name: "Frente vidriado", img: "photos/tipo-frente.webp", mats: ["Templados"],
       txt: "Frentes comerciales y vidrieras de locales en vidrio templado, con puertas de acceso integradas.",
       svg: () => `<svg viewBox="-10 -10 340 240">${frame(320, 220)}${sash(8, 8, 100, 204)}${sash(110, 8, 100, 204, "anim-swing")}${sash(212, 8, 100, 204)}</svg>`
     },
     piel: {
-      name: "Piel de vidrio", img: "photos/tipo-piel.webp", mats: ["Blindex"],
+      name: "Piel de vidrio", img: "photos/tipo-piel.webp", mats: ["Templados"],
       txt: "Fachadas continuas de vidrio para frentes completos de locales, edificios y oficinas.",
       svg: () => {
         let g = "";

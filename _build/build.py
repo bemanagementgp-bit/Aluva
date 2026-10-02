@@ -53,9 +53,9 @@ ICONS = {
 
 LINEAS = [
     {"slug": "pvc", "name": "PVC", "short": "La mejor aislación, con perfilería VEKA y DVH fabricado en planta propia.", "img": "photos/linea-pvc.webp", "vit": "photos/portada-pvc.jpg", "mega": "photos/producto-pvc.webp"},
-    {"slug": "aluminio", "name": "Aluminio", "short": "Líneas Módena, Herrero y A30: perfil fino para grandes paños vidriados.", "img": "photos/linea-aluminio.webp", "vit": "photos/portada-aluminio.jpg", "mega": "photos/producto-aluminio.webp"},
-    {"slug": "vidrieria", "name": "Vidriería", "short": "Mamparas y vidrios a medida, con DVH de fabricación propia.", "img": "photos/linea-vidrieria.webp", "vit": "photos/esc-vidrieria-1.webp", "mega": "photos/detalle-vidrieria.webp"},
-    {"slug": "blindex", "name": "Blindex", "short": "Frentes y puertas de vidrio templado, y piel de vidrio para fachadas.", "img": "photos/linea-blindex.webp", "vit": "photos/portada-blindex.jpg", "mega": "photos/producto-blindex.webp"},
+    {"slug": "aluminio", "name": "Aluminio", "short": "Líneas Módena, Herrero y A30: livianas, resistentes y aptas para aberturas grandes.", "img": "photos/linea-aluminio.webp", "vit": "photos/portada-aluminio.jpg", "mega": "photos/producto-aluminio.webp"},
+    {"slug": "vidrieria", "name": "Vidriería", "short": "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.", "img": "photos/linea-vidrieria.webp", "vit": "photos/esc-vidrieria-1.webp", "mega": "photos/detalle-vidrieria.webp"},
+    {"slug": "templados", "name": "Templados", "short": "Frentes, puertas y paños de vidrio templado de seguridad.", "img": "photos/linea-blindex.webp", "vit": "photos/portada-blindex.jpg", "mega": "photos/producto-blindex.webp"},
 ]
 
 
@@ -93,13 +93,13 @@ def header(active):
         f'<a href="{l["slug"]}.html"><b>{l["name"]}</b><small>{l["short"]}</small></a>'
         for l in LINEAS
     )
-    prod_active = active in ("productos", "pvc", "aluminio", "vidrieria", "blindex")
+    prod_active = active in ("productos", "pvc", "aluminio", "vidrieria", "templados")
     sub = "".join(f'<a href="{l["slug"]}.html">{l["name"]}</a>' for l in LINEAS)
     return f"""<body class="page-{active}">
 <a class="sr-only" href="#main" style="position:absolute;left:-9999px">Saltar al contenido</a>
 <header class="hdr">
   <div class="hdr__in">
-    <a class="hdr__logo" href="index.html" aria-label="Aluva — inicio"><img class="logo-d" src="brand/marca-negativa-tagline-web.svg" alt="Aluva · Tecnología en aberturas" width="200" height="30"><img class="logo-l" src="brand/marca-negro-tagline.svg" alt="" width="200" height="30"></a>
+    <a class="hdr__logo" href="index.html" aria-label="Aluva — inicio"><img class="logo-d" src="brand/marca-negativa-tagline-web.svg" alt="Aluva · Tecnología en aberturas" width="200" height="30"><img class="logo-l" src="brand/marca-negro-tagline-web.svg" alt="" width="200" height="30"></a>
     <nav class="nav" aria-label="Principal">
       <a href="index.html"{cur("inicio")}>Inicio</a>
       <div class="nav__drop{' is-current' if prod_active else ''}">
@@ -342,11 +342,11 @@ def page_index():
   <div class="hero__media"><img src="photos/portada-inicio.jpg" alt="Pared de ventanales con perfiles negros con vista a la ciudad" fetchpriority="high"></div>
   <div class="hero__sash hero__sash--l"></div><div class="hero__sash hero__sash--r"></div>
   <div class="wrap">
-    {eyebrow("01", "PVC · Aluminio · Vidrio · Blindex")}
+    {eyebrow("01", "PVC · Aluminio · Vidrio · Templados")}
     <div class="hero__grid">
       <h1 class="hero__title"><span class="row"><span>Aberturas</span></span><span class="row">a medida</span></h1>
       <div class="hero__side">
-        <p class="lead">Fábrica de aberturas de PVC y aluminio, vidriería y Blindex en La Plata.</p>
+        <p class="lead">Fábrica de aberturas de PVC y aluminio, vidriería y templados en La Plata.</p>
         <div class="btn-row">
           <a class="btn btn--lime" href="productos.html">Ver productos <span class="arr">→</span></a>
           <a class="btn btn--ghost" href="contacto.html">Pedí presupuesto</a>
@@ -400,7 +400,7 @@ def page_index():
     <figure class="b1 rv"><img src="photos/local-aluva.jpg" alt="Frente del local de Aluva en La Plata" loading="lazy" style="object-position:50% 40%"><span class="bento__n">01</span><figcaption><b>Nuestro local</b><small>Showroom · La Plata</small></figcaption></figure>
     <figure class="b2 rv rv-d1"><img src="og/producto-pvc.jpg" alt="Puerta corrediza de PVC símil madera hacia la pileta" loading="lazy"><span class="bento__n">02</span><figcaption><b>PVC</b><small>Corrediza símil madera</small></figcaption></figure>
     <figure class="b3 rv rv-d2"><img src="og/producto-aluminio.jpg" alt="Corrediza de aluminio de tres hojas hacia el balcón" loading="lazy"><span class="bento__n">03</span><figcaption><b>Aluminio</b><small>Corrediza de tres hojas</small></figcaption></figure>
-    <figure class="b4 rv"><img src="photos/det-blindex-1.webp" alt="Puerta de vidrio templado con manijón" loading="lazy"><span class="bento__n">04</span><figcaption><b>Blindex</b><small>Puerta de templado</small></figcaption></figure>
+    <figure class="b4 rv"><img src="photos/det-blindex-1.webp" alt="Puerta de vidrio templado con manijón" loading="lazy"><span class="bento__n">04</span><figcaption><b>Templados</b><small>Puerta de templado</small></figcaption></figure>
     <figure class="b5 rv rv-d1"><img src="photos/mampara-ducha-negra.jpg" alt="Mampara de ducha con perfil negro" loading="lazy"><span class="bento__n">05</span><figcaption><b>Mamparas</b><small>Perfil negro a medida</small></figcaption></figure>
     <figure class="b6 rv rv-d2"><img src="og/producto-vidrieria.jpg" alt="Cerramiento vidriado de balcón" loading="lazy" style="object-position:right bottom"><span class="bento__n">06</span><figcaption><b>Vidriería</b><small>Cerramiento de balcón</small></figcaption></figure>
   </div>
@@ -409,7 +409,7 @@ def page_index():
 {cta()}
 """
     write("index.html", head("Aluva · Aberturas de PVC y aluminio a medida en La Plata",
-                             "Fábrica de aberturas de PVC y aluminio a medida, vidriería, DVH, mamparas y frentes de Blindex en La Plata.")
+                             "Fábrica de aberturas de PVC y aluminio a medida, vidriería, DVH, mamparas y frentes de vidrio templado en La Plata.")
           + header("inicio") + body + footer())
 
 
@@ -421,7 +421,7 @@ def page_productos():
         "pvc": ["VEKA Clase A", "DVH propio", "Cierre multipunto", "Símil madera"],
         "aluminio": ["Módena", "Herrero", "A30", "Grandes paños"],
         "vidrieria": ["Mamparas", "DVH propio", "Laminado", "Templado"],
-        "blindex": ["Frentes", "Puertas", "Piel de vidrio", "Templado"],
+        "templados": ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"],
     }
     vits = "".join(
         f"""<a class="vit{' is-active' if i == 0 else ''}" href="{l['slug']}.html" aria-expanded="{'true' if i == 0 else 'false'}">
@@ -459,7 +459,7 @@ def page_productos():
       <div class="tipo__photo"><img src="photos/tipo-corrediza.webp" alt="" loading="lazy"></div>
       <div class="tipo__info">
         <p></p>
-        <div class="mat">{''.join(f'<span class="chip" data-m="{m}">{m}</span>' for m in ["PVC", "Aluminio", "Vidriería", "Blindex"])}</div>
+        <div class="mat">{''.join(f'<span class="chip" data-m="{m}">{m}</span>' for m in ["PVC", "Aluminio", "Vidriería", "Templados"])}</div>
       </div>
     </div>
   </div>
@@ -474,7 +474,7 @@ def page_productos():
 {cta("Cotizá tu obra.", "Planos o medidas aproximadas.")}
 """
     write("productos.html", head("Nuestras aberturas | Aluva La Plata",
-                                 "Aberturas de PVC, aluminio, vidriería DVH y Blindex a medida. Explorá tipologías y encontrá la abertura ideal.")
+                                 "Aberturas de PVC, aluminio, vidriería DVH y vidrio templado a medida. Explorá tipologías y encontrá la abertura ideal.")
           + header("productos") + body + footer())
 
 
@@ -663,11 +663,11 @@ PRODUCTS = [
         "slug": "aluminio", "name": "Aluminio", "og": "og/producto-aluminio.jpg",
         "title": "Aberturas de aluminio a medida en La Plata | Aluva",
         "desc": "Aberturas de aluminio a medida en La Plata: líneas Módena, Herrero y A30, en blanco, anodizado o negro, con DVH de fabricación propia.",
-        "lead": "Líneas Módena, Herrero y A30. Perfil fino para grandes paños vidriados.",
+        "lead": "Líneas Módena, Herrero y A30. Livianas, resistentes y aptas para aberturas grandes.",
         "cover": "photos/portada-aluminio.jpg", "cover_alt": "Ventana corrediza de aluminio negro con vista a los árboles",
         "why_t": "Más vidrio,<br>menos marco.",
         "pillars": [
-            ("sun", "Más vidrio", "Perfiles esbeltos para paños grandes y más luz."),
+            ("sun", "Más luz", "Marcos de poca sección: más superficie de vidrio."),
             ("shield", "Cierre hermético", "Burletes de EPDM y opción de DVH."),
             ("palette", "Tres terminaciones", "Blanco, anodizado o negro."),
             ("tools", "Rinde el presupuesto", "Si buscabas PVC económico, el aluminio rinde más."),
@@ -679,7 +679,7 @@ PRODUCTS = [
             ("cut:photos/al-oscilobatiente.jpg", "Oscilobatientes", "Ventilación segura y apertura total."),
             ("photos/tipo-batiente.webp", "Batientes", "Abren como una puerta, con cierre hermético."),
             ("photos/tipo-banderola.webp", "Banderolas", "Ventilación superior para baños y cocinas."),
-            ("photos/tipo-fijo.webp", "Paños fijos", "Grandes luces con perfil fino."),
+            ("photos/tipo-fijo.webp", "Paños fijos", "Para aberturas de gran tamaño."),
             ("photos/tipo-puerta-balcon.webp", "Puerta balcón", "Conecta interior y exterior."),
         ],
         "gal_t": "Aluminio de cerca.",
@@ -696,7 +696,7 @@ PRODUCTS = [
         "slug": "vidrieria", "name": "Vidriería", "og": "og/producto-vidrieria.jpg",
         "title": "Vidriería y mamparas a medida en La Plata | Aluva",
         "desc": "Vidriería y mamparas a medida en La Plata: DVH de fabricación propia, laminado y templado, con colocación y taller propios.",
-        "lead": "Mamparas y vidrios a medida, con DVH de fabricación propia.",
+        "lead": "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.",
         "cover": "photos/esc-vidrieria-1.webp", "cover_alt": "Ducha con paño fijo de vidrio sobre pared de mármol",
         "why_t": "Vidrio a la<br>medida exacta.",
         "pillars": [
@@ -723,11 +723,11 @@ PRODUCTS = [
             ("¿Qué diferencia hay entre laminado y templado?", "El laminado tiene una lámina entre dos vidrios que los mantiene unidos si se rompe. El templado es más resistente y, si se rompe, se fragmenta en trozos pequeños sin filo."),
             ("¿Reparan vidrios?", "Sí. Traés la hoja al taller y la vidriamos en el momento."),
         ],
-        "cta": "Mamparas, DVH y vidrios a medida. Pasá por el taller o pedinos una visita.",
+        "cta": "Contanos qué vidrio necesitás. Pasá por el taller o pedinos una visita.",
     },
     {
-        "slug": "blindex", "name": "Blindex", "og": "og/producto-blindex.jpg",
-        "title": "Frentes de Blindex y piel de vidrio en La Plata | Aluva",
+        "slug": "templados", "name": "Templados", "og": "og/producto-blindex.jpg",
+        "title": "Vidrio templado: frentes, puertas y piel de vidrio en La Plata | Aluva",
         "desc": "Frentes comerciales, puertas de vidrio templado y piel de vidrio para fachadas, a medida en La Plata. Medición en obra y colocación propia.",
         "lead": "Frentes y puertas de vidrio templado, y piel de vidrio para fachadas.",
         "cover": "photos/portada-blindex.jpg", "cover_alt": "Puerta de vidrio templado esmerilado con manija",
@@ -751,7 +751,7 @@ PRODUCTS = [
         "gal_t": "Templado de cerca.",
         "gallery": [("og/producto-blindex.jpg", "Nuestro local", False), ("photos/det-blindex-1.webp", "Puerta de templado", True), ("photos/det-blindex-2.webp", "Canto del paño", True), ("photos/frente-comercial.jpg", "Frente comercial", False), ("photos/mampara-division.jpg", "Oficina", True), ("photos/esc-blindex-3.webp", "Piel de vidrio", True)],
         "faq": [
-            ("¿Blindex es una marca?", "Sí, aunque en Argentina se usa como sinónimo de vidrio templado."),
+            ("¿Es lo mismo que Blindex?", "Blindex es una marca registrada de vidrio templado; en el uso cotidiano se le dice así a cualquier templado. Nosotros trabajamos vidrio templado de seguridad."),
             ("¿Se puede cortar después de templado?", "No: el vidrio se corta y perfora antes del templado. Por eso medimos en obra con precisión."),
             ("¿Hacen piel de vidrio?", "Sí, para frentes y fachadas completas. Medimos en obra y cotizamos a medida."),
             ("¿Cuánto tarda?", "Depende del proyecto. Te damos un plazo concreto al confirmar la medición."),
@@ -781,7 +781,7 @@ def page_empresa():
   {eyebrow("01", "Nosotros")}
   <div class="phero__row">
     <h1 class="h-giant"><span>Fábrica</span></h1>
-    <p class="lead">Aberturas de PVC y aluminio, vidriería y Blindex. La Plata.</p>
+    <p class="lead">Aberturas de PVC y aluminio, vidriería y templados. La Plata.</p>
   </div>
 </div></section>
 
@@ -808,7 +808,7 @@ def page_empresa():
 {cta("Visitá la fábrica.", "Muestras de perfiles, vidrios y herrajes.")}
 """
     write("empresa.html", head("Empresa · Fábrica de aberturas en La Plata | Aluva",
-                               "Conocé Aluva: fábrica de aberturas de PVC y aluminio, vidriería y Blindex en La Plata. Nuestro proceso y servicio para profesionales.")
+                               "Conocé Aluva: fábrica de aberturas de PVC y aluminio, vidriería y vidrio templado en La Plata. Nuestro proceso y servicio para profesionales.")
           + header("empresa") + body + footer())
 
 
@@ -816,7 +816,7 @@ def page_empresa():
 # CONTACTO
 # ---------------------------------------------------------------------------
 def page_contacto():
-    prods = [("pvc", "PVC"), ("alu", "Aluminio"), ("dvh", "DVH / Vidrios"), ("mam", "Mamparas"), ("bli", "Blindex"), ("otr", "Otro")]
+    prods = [("pvc", "PVC"), ("alu", "Aluminio"), ("dvh", "DVH / Vidrios"), ("mam", "Mamparas"), ("tem", "Templados"), ("otr", "Otro")]
     picks = "".join(f'<input type="checkbox" id="p-{k}" name="producto" value="{v}"><label for="p-{k}">{v}</label>' for k, v in prods)
     body = f"""
 <section class="phero blueprint"><div class="wrap">
@@ -857,7 +857,7 @@ def page_contacto():
 </div></section>
 """
     write("contacto.html", head("Contacto · Pedí tu presupuesto | Aluva La Plata",
-                                "Pedí presupuesto de aberturas de PVC, aluminio, DVH, mamparas y Blindex en La Plata. Respondemos por WhatsApp.")
+                                "Pedí presupuesto de aberturas de PVC, aluminio, DVH, mamparas y vidrio templado en La Plata. Respondemos por WhatsApp.")
           + header("contacto") + body + footer())
 
 
