@@ -58,7 +58,7 @@ export default function Inicio() {
           <Eyebrow n="03">Por qué Aluva</Eyebrow>
           <h2 className="h-lg rv">No revendemos.<br />Fabricamos.</h2>
           <Pillars items={[
-            ["factory", "Fábrica propia", "Planta en La Plata.", "/photos/det-pvc-1.webp"],
+            ["factory", "Fábrica propia", "Planta en La Plata.", "/photos/det-pvc-perfil.webp"],
             ["ruler", "Medición en obra", "Relevamiento al milímetro.", "/photos/medicion-cinta.jpg"],
             ["thermo", "DVH propio", "Fabricado en planta.", "/photos/dvh-perfiles.jpg"],
             ["tools", "Instalación", "Con equipo propio.", "/og/producto-aluminio.jpg"],
