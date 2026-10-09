@@ -142,7 +142,7 @@ export const PRODUCTOS: Producto[] = [
       ["/photos/tip-alu-fijo.webp", "Paño fijo", "Vidrio fijo, para grandes superficies."],
     ],
     galT: "Aluminio de cerca.",
-    gallery: [["/photos/det-aluminio-corrediza.webp", "Corrediza de aluminio", false], ["/photos/det-aluminio-2.webp", "Herraje de proyectante", true], ["/photos/esc-aluminio-2.webp", "Corrediza al balcón", false], ["/photos/al-puerta.jpg", "Puerta de aluminio", true]],
+    gallery: [["/photos/aluminio-corrediza.jpg", "Corrediza de aluminio", false], ["/photos/det-aluminio-2.webp", "Herraje de proyectante", true], ["/photos/esc-aluminio-2.webp", "Corrediza al balcón", false], ["/photos/al-puerta.jpg", "Puerta de aluminio", true]],
     faq: [
       ["¿Qué líneas trabajan?", "A30, Módena y Herrero. Te recomendamos la que corresponde según el tamaño del vano y el uso."],
       ["¿Qué terminaciones hay?", "Blanco, anodizado y negro, en anodizado o pintado."],
