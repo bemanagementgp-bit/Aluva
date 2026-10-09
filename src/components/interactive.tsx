@@ -1,5 +1,5 @@
 "use client";
-/* Componentes con interacción: galería arrastrable, vitrinas, tipologías, anatomía y configurador DVH. */
+/* Componentes con interacción: galería arrastrable, vitrinas, tipologías, componentes del sistema y configurador DVH. */
 import Link from "next/link";
 import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Arrow, ArrowL } from "./Icon";
@@ -13,28 +13,106 @@ const useFinePointer = () => {
 };
 
 /* ---------- Galería arrastrable ---------- */
+/*
+  El carrusel gira sin fin. No hay forma de lograrlo con una sola tanda de
+  fotos: el scroll nativo termina donde termina el contenido. Así que se
+  dibujan tres tandas seguidas, se arranca parado en la del medio, y cada vez
+  que el scroll se aleja del centro se lo corre una tanda entera para el otro
+  lado. El salto es una asignación directa, sin animación, y cae justo sobre la
+  foto gemela: para el que mira no pasó nada, pero siempre quedan fotos de
+  sobra a los dos lados.
+
+  Dos cuidados, cada uno de un problema real:
+
+  - El arrastre guarda de dónde partió el scroll al apoyar el dedo. Si se gira
+    en medio del arrastre hay que correr ese punto de partida lo mismo que el
+    scroll, o la foto pega un salto bajo el dedo.
+
+  - Las flechas animan hacia una posición absoluta. Girar con esa animación en
+    curso deja el destino viejo y la animación se vuelve para atrás. Por eso se
+    recentra ANTES de animar y se deja de girar mientras dura.
+
+  Si una tanda entera entrara en pantalla no habría nada que girar, y además se
+  verían las copias al lado de los originales. En ese caso se dibuja una sola
+  tanda y el carrusel queda como antes.
+*/
 export function DragGallery({ n, title, items, light }: { n: string; title: string; items: FotoGaleria[]; light: boolean }) {
   const ref = useRef<HTMLDivElement>(null);
   const [dragging, setDragging] = useState(false);
+  const [gira, setGira] = useState(true);
   const st = useRef({ down: false, sx: 0, sl: 0, moved: false });
+  const paso = useRef(0);       // ancho de una tanda; 0 = sin giro
+  const animando = useRef(0);   // temporizador de la animación de las flechas
+  const girarRef = useRef<() => void>(() => {});
+
+  const tandas = gira ? 3 : 1;
 
   useEffect(() => {
-    const el = ref.current!;
+    const el = ref.current;
+    if (!el) return;
+
+    const medir = (inicial: boolean) => {
+      const h = el.children;
+      if (h.length < items.length * 2) { paso.current = 0; return; }
+      const p = (h[items.length] as HTMLElement).offsetLeft - (h[0] as HTMLElement).offsetLeft;
+      if (p <= el.clientWidth) { paso.current = 0; setGira(false); return; }
+      paso.current = p;
+      // dejarlo siempre dentro de la tanda del medio, en [p, 2p)
+      el.scrollLeft = inicial ? p : ((el.scrollLeft % p) + p) % p + p;
+    };
+
+    const girar = () => {
+      const p = paso.current;
+      if (!p || animando.current) return;
+      const x = el.scrollLeft;
+      // margen cómodo: media tanda a la izquierda, una entera a la derecha.
+      // Mientras esté ahí no se toca nada, para no pelearle al scroll-snap.
+      if (x >= p * 0.5 && x < p * 2) return;
+      // Se normaliza de una, no restando una tanda: con un envión fuerte el
+      // scroll puede quedar a varias tandas y restando de a una haría falta un
+      // evento por tanda para volver.
+      const dentro = ((x % p) + p) % p + p; // siempre cae en [p, 2p)
+      st.current.sl += dentro - x;
+      el.scrollLeft = dentro;
+    };
+    girarRef.current = girar;
+
     const move = (e: PointerEvent) => {
       const s = st.current; if (!s.down) return;
       const d = e.clientX - s.sx;
       if (Math.abs(d) > 4) { s.moved = true; setDragging(true); }
       el.scrollLeft = s.sl - d;
+      girar();
     };
     const up = () => { if (st.current.down) { st.current.down = false; setDragging(false); } };
+
+    medir(true);
+    const ro = new ResizeObserver(() => medir(false));
+    ro.observe(el);
+    el.addEventListener("scroll", girar, { passive: true });
     addEventListener("pointermove", move);
     addEventListener("pointerup", up);
-    return () => { removeEventListener("pointermove", move); removeEventListener("pointerup", up); };
-  }, []);
+    return () => {
+      ro.disconnect();
+      el.removeEventListener("scroll", girar);
+      removeEventListener("pointermove", move);
+      removeEventListener("pointerup", up);
+      clearTimeout(animando.current);
+    };
+  }, [items, gira]);
 
   const step = (dir: number) => {
     const el = ref.current!;
     const w = (el.firstElementChild as HTMLElement | null)?.offsetWidth ?? 400;
+    const p = paso.current;
+    if (p) {
+      // recentrar primero: así un paso nunca se sale de las tres tandas y la
+      // animación no necesita que giremos abajo suyo
+      const dentro = ((el.scrollLeft % p) + p) % p + p;
+      if (Math.abs(dentro - el.scrollLeft) > 1) el.scrollLeft = dentro;
+      clearTimeout(animando.current);
+      animando.current = window.setTimeout(() => { animando.current = 0; girarRef.current(); }, 600);
+    }
     el.scrollBy({ left: dir * (w + 18), behavior: "smooth" });
   };
 
@@ -54,9 +132,16 @@ export function DragGallery({ n, title, items, light }: { n: string; title: stri
         onPointerDown={(e) => { if (e.pointerType !== "mouse") return; st.current = { down: true, sx: e.clientX, sl: ref.current!.scrollLeft, moved: false }; }}
         onClickCapture={(e) => { if (st.current.moved) e.preventDefault(); }}
       >
-        {items.map(([src, alt, tall], i) => (
-          <figure key={i} className={tall ? "tall" : ""}><img src={src} alt={alt} loading="lazy" /><figcaption>{alt}</figcaption></figure>
-        ))}
+        {Array.from({ length: tandas }, (_, t) =>
+          items.map(([src, alt, tall], i) => (
+            // las copias no se leen: para un lector de pantalla la galería
+            // tiene las fotos que dice tener, una sola vez
+            <figure key={`${t}-${i}`} className={tall ? "tall" : ""} aria-hidden={t > 0 || undefined}>
+              <img src={src} alt={t === 0 ? alt : ""} loading="lazy" />
+              <figcaption>{alt}</figcaption>
+            </figure>
+          )),
+        )}
       </div>
     </section>
   );
@@ -198,15 +283,23 @@ export function Tipologias() {
   );
 }
 
-/* ---------- Anatomía de la ventana de PVC (puntos para tocar) ---------- */
+/* ---------- Componentes de la ventana de PVC (puntos para tocar) ----------
+
+   Quedaron cuatro. El cliente sacó tres en la revisión del 2026-10-06:
+
+   - "Zócalo con drenaje": el drenaje no es una pieza aparte, así que pasó a la
+     descripción del marco, que es donde están las cámaras y los refuerzos.
+   - "Alféizar": es obra, no parte de la ventana de PVC.
+   - "Perfil de acople": tampoco pertenece al sistema.
+
+   Los puntos del dibujo se numeran por posición en esta lista, así que sacar
+   una entrada saca su punto y renumera el resto solo: no hay que tocar nada más.
+*/
 const PIEZAS: [number, number, string, string][] = [
-  [50, 6, "Marco multicámara", "Perfil de PVC con cámaras internas que frenan el paso del frío y del calor."],
-  [13, 58, "Hoja", "La parte móvil, soldada a inglete en sus cuatro esquinas para un cierre continuo."],
-  [25, 38, "Doble vidriado hermético", "Dos vidrios con cámara de aire deshidratado: el corazón de la aislación."],
+  [50, 6, "Marco multicámara", "Perfil de PVC con cámaras de aire internas de aislación térmica y acústica, refuerzos galvanizados y drenajes."],
+  [13, 58, "Hoja", "Perfil de PVC con cámaras de aire internas de aislación térmica y acústica y refuerzos galvanizados. Soldada a inglete en sus cuatro esquinas para un cierre estanco."],
+  [25, 38, "DVH", "Dos o más hojas de vidrio con cámara de aire seco. Mayor aislación térmica y acústica."],
   [37, 27, "Burletes perimetrales", "Juntas de goma que sellan contra agua, viento y polvo."],
-  [47, 73, "Zócalo con drenaje", "Perfil inferior que evacúa el agua de lluvia hacia afuera."],
-  [40, 90, "Alféizar", "Terminación exterior que protege el muro y aleja el agua de la ventana."],
-  [94, 45, "Perfil de acople", "Permite unir ventanas y paños para formar grandes composiciones."],
 ];
 
 export function Anatomia() {

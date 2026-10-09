@@ -27,9 +27,11 @@ export interface Linea {
 }
 
 export const LINEAS: Linea[] = [
-  { slug: "pvc", name: "PVC", short: "La mejor aislación, con perfilería VEKA y DVH fabricado en planta propia.", vit: "/photos/portada-pvc.jpg", chips: ["VEKA Clase A", "DVH propio", "Cierre multipunto", "Símil madera"] },
+  { slug: "pvc", name: "PVC", short: "La mejor aislación, con DVH fabricado en planta propia.", vit: "/photos/portada-pvc.jpg", chips: ["Perfilería multicámara", "DVH propio", "Cierre multipunto", "Símil madera"] },
   { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado de seguridad.", vit: "/photos/portada-blindex.jpg", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
-  { slug: "aluminio", name: "Aluminio", short: "Líneas Módena, Herrero y A30: livianas, resistentes y aptas para aberturas grandes.", vit: "/photos/portada-aluminio.jpg", chips: ["Módena", "Herrero", "A30", "Grandes paños"] },
+  // Las líneas de aluminio van siempre A30, Módena, Herrero: es el orden de
+  // mejor a peor que pidió el cliente, no alfabético. Vale en todo el sitio.
+  { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero: livianas, resistentes y aptas para aberturas grandes.", vit: "/photos/portada-aluminio.jpg", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
   { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.", vit: "/photos/esc-vidrieria-1.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
 ];
 
@@ -69,32 +71,49 @@ export const PRODUCTOS: Producto[] = [
   {
     slug: "pvc", name: "PVC", og: "/og/producto-pvc.jpg",
     title: "Ventanas y puertas de PVC a medida en La Plata | Aluva",
-    desc: "Ventanas y puertas de PVC con perfilería VEKA Clase A y DVH de fabricación propia, a medida en La Plata.",
-    lead: "Perfilería VEKA Clase A con DVH fabricado en nuestra planta.",
+    desc: "Ventanas y puertas de PVC con perfilería multicámara y DVH de fabricación propia, a medida en La Plata.",
+    lead: "Perfilería multicámara con DVH fabricado en nuestra planta.",
     cover: "/photos/portada-pvc.jpg", coverAlt: "Puerta corrediza de marco blanco que da a un balcón",
     whyT: ["La mejor", "aislación."],
     pillars: [
-      ["thermo", "Aislación térmica", "Menos horas de calefacción y aire."],
-      ["sound", "Silencio adentro", "La opción que más corta el ruido de la calle."],
+      ["thermo", "Eficiencia energética", "Mayor eficiencia de energía en calefacción y refrigeración."],
+      ["sound", "Aislación acústica", "Alta reducción del ruido exterior."],
       ["layers", "DVH propio", "Fabricado en nuestra planta."],
       ["leaf", "Sin mantenimiento", "Foliados de fábrica: no se pintan ni se descascaran."],
     ],
     sysEyebrow: "Tipologías", sysT: ["Una abertura", "para cada vano."],
+    /* Las nueve tipologías que el cliente confirmó el 2026-10-06 como las que
+       hay hoy en el local de City Bell. Antes había seis, y dos de aquellas
+       ("Ventana corrediza" y "Puerta corrediza", las corredizas genéricas) no
+       estaban en su lista: las reemplazan Patagónica y Monoriel, que son las
+       corredizas que efectivamente venden.
+
+       Las fotos de patagónica, monoriel y banderola son lo más parecido que hay
+       en el repositorio, no la tipología exacta. Están marcadas abajo. */
+    /* Las seis tip-*.webp salen de scripts/fotos-tipologias.mjs: mismo lienzo,
+       mismo fondo y misma escala, para que la grilla se lea como un catálogo y
+       no como nueve fotos sueltas.
+
+       Las tres que siguen con foto de ambiente son las que no tienen recorte
+       posible. Están marcadas y esperan foto propia. */
     systems: [
-      ["cut:/photos/pvc-corrediza-blanca.webp", "Ventana corrediza", "Práctica y sin ocupar espacio."],
-      ["cut:/photos/pvc-corrediza-3hojas.jpg", "Corrediza de tres hojas", "Para vanos anchos."],
-      ["/photos/pvc-puerta-corrediza.webp", "Puerta corrediza", "Hacia galerías, patios y balcones."],
-      ["/photos/pvc-puerta-doble.webp", "Puerta balcón", "Dos hojas batientes."],
-      ["cut:/photos/pvc-oscilobatiente-abierta.jpg", "Oscilobatiente", "Ventila inclinada o abre por completo."],
-      ["/photos/tipo-fijo.webp", "Paño fijo", "Más luz, sin hojas móviles."],
+      ["/photos/tip-proyectante.webp", "Proyectante", "Abre hacia afuera, con eje arriba."],
+      ["/photos/tip-banderola.webp", "Banderola", "Vuelca hacia adentro, con eje abajo."],
+      ["/photos/tip-patagonica.webp", "Patagónica", "Dos hojas: una corre por delante de la fija."],
+      ["/photos/tip-puerta-balcon.webp", "Puerta balcón", "Dos hojas batientes, a piso."],
+      ["/photos/tip-rebatible.webp", "Rebatible", "Abre de costado, sobre bisagras laterales."],
+      ["/photos/tip-monoriel.webp", "Monoriel", "Una hoja sobre un riel; el resto, paño fijo."],
+      ["/photos/tip-corrediza-3hojas.webp", "Puerta corrediza de tres hojas", "Tres hojas sobre riel, para vanos anchos."],
+      ["/photos/tip-oscilobatiente.webp", "Oscilobatiente", "Vuelca para ventilar o abre de costado."],
+      ["/photos/tip-fijo.webp", "Paño fijo", "Vidrio fijo, sin hojas que abran."],
     ],
     galT: "PVC de cerca.",
-    gallery: [["/og/producto-pvc.jpg", "Puerta corrediza", false], ["/photos/det-pvc-2.webp", "Manija sobre hoja en nogal", true], ["/photos/det-pvc-4.webp", "Terminaciones foliadas", true], ["/photos/esc-pvc-2.webp", "Cocina", false], ["/photos/det-pvc-1.webp", "Perfil multicámara", true], ["/photos/det-pvc-3.webp", "Cierre multipunto", true]],
+    gallery: [["/og/producto-pvc.jpg", "Puerta corrediza", false], ["/photos/det-pvc-2.webp", "Manija sobre hoja en nogal", true], ["/photos/det-pvc-foliado.webp", "Terminaciones foliadas", true], ["/photos/esc-pvc-2.webp", "Cocina", false], ["/photos/det-pvc-perfil.webp", "Perfil multicámara", true], ["/photos/det-pvc-3.webp", "Cierre multipunto", true]],
     faq: [
-      ["¿Qué perfilería usan?", "VEKA Clase A. Estamos capacitados por VEKA para fabricar e instalar sus sistemas."],
-      ["¿Qué terminaciones hay?", "Blanco, roble dorado, nogal y VEKA Spectral, un foliado ultramate, sedoso al tacto y sin reflejos."],
+      ["¿Qué perfilería usan?", "Perfilería multicámara de primera línea, con refuerzo interno de acero galvanizado. Estamos capacitados por los fabricantes para fabricar e instalar sus sistemas."],
+      ["¿Qué colores hay?", "Blanco, roble dorado, nogal y Spectral, un foliado ultramate, sedoso al tacto y sin reflejos."],
       ["¿El DVH lo hacen ustedes?", "Sí. Fabricamos el doble vidriado hermético en nuestra planta, junto con la ventana."],
-      ["¿Conviene PVC o aluminio?", "El PVC aísla mejor y es la opción para quien busca confort térmico y acústico. El aluminio permite perfiles más finos y paños más grandes. En la consulta te decimos cuál conviene para tu caso."],
+      ["¿Conviene PVC o aluminio?", "La elección del tipo de abertura adecuada para tu proyecto depende de varios factores, desde su funcionalidad hasta sus prestaciones, y cada una puede ser más eficaz en distintos escenarios. Contactanos para un asesoramiento específico a tu caso."],
     ],
     ctaT: "Tus aberturas de PVC, a medida.",
     cta: "Medimos tus vanos y fabricamos tus aberturas de PVC en nuestra planta de La Plata.",
@@ -102,35 +121,36 @@ export const PRODUCTOS: Producto[] = [
   {
     slug: "aluminio", name: "Aluminio", og: "/og/producto-aluminio.jpg",
     title: "Aberturas de aluminio a medida en La Plata | Aluva",
-    desc: "Aberturas de aluminio a medida en La Plata: líneas Módena, Herrero y A30, en blanco, anodizado o negro, con DVH de fabricación propia.",
-    lead: "Líneas Módena, Herrero y A30. Livianas, resistentes y aptas para aberturas grandes.",
+    desc: "Aberturas de aluminio a medida en La Plata: líneas A30, Módena y Herrero, en blanco, anodizado o negro, con DVH de fabricación propia.",
+    lead: "Líneas A30, Módena y Herrero. Livianas, resistentes y aptas para aberturas grandes.",
     cover: "/photos/portada-aluminio.jpg", coverAlt: "Ventana corrediza de aluminio negro con vista a los árboles",
     whyT: ["Más vidrio,", "menos marco."],
     pillars: [
-      ["sun", "Más luz", "Marcos de poca sección: más superficie de vidrio."],
+      ["sun", "Más luz", "Perfil compacto: más superficie de vidrio."],
       ["shield", "Cierre hermético", "Burletes de EPDM y opción de DVH."],
       ["palette", "Tres terminaciones", "Blanco, anodizado o negro."],
       ["tools", "Rinde el presupuesto", "Si buscabas PVC económico, el aluminio rinde más."],
     ],
     sysEyebrow: "Tipologías", sysT: ["Una abertura", "para cada vano."],
     systems: [
-      ["/photos/tipo-corrediza.webp", "Corredizas", "Uno o varios rieles, también en gran formato."],
-      ["cut:/photos/al-oscilobatiente.jpg", "Oscilobatientes", "Ventilación segura y apertura total."],
-      ["/photos/tipo-batiente.webp", "Batientes", "Abren como una puerta, con cierre hermético."],
-      ["/photos/tipo-banderola.webp", "Banderolas", "Ventilación superior para baños y cocinas."],
-      ["/photos/tipo-fijo.webp", "Paños fijos", "Para aberturas de gran tamaño."],
-      ["/photos/tipo-puerta-balcon.webp", "Puerta balcón", "Conecta interior y exterior."],
+      ["/photos/tip-alu-proyectante.webp", "Proyectante", "Abre hacia afuera, con eje arriba."],
+      ["/photos/tip-alu-corrediza.webp", "Corrediza", "Hojas sobre riel, sin llegar al piso."],
+      ["/photos/tip-alu-puerta-balcon.webp", "Puerta balcón", "Corrediza de tres vías, a piso y de gran tamaño."],
+      ["/photos/tip-alu-desplazable.webp", "Desplazable", "Abre hacia afuera sobre tijeras; el vidrio se limpia desde adentro."],
+      ["/photos/tip-alu-oscilobatiente.webp", "Oscilobatiente", "Vuelca para ventilar o abre de costado."],
+      ["/photos/tip-alu-banderola.webp", "Banderola", "Vuelca desde abajo, para ventilación alta."],
+      ["/photos/tip-alu-fijo.webp", "Paño fijo", "Vidrio fijo, para grandes superficies."],
     ],
     galT: "Aluminio de cerca.",
-    gallery: [["/og/producto-aluminio.jpg", "Corrediza de tres hojas", false], ["/photos/det-aluminio-2.webp", "Herraje de proyectante", true], ["/photos/det-aluminio-4.webp", "Proyectante abierta", true], ["/photos/esc-aluminio-2.webp", "Comedor", false], ["/photos/det-aluminio-3.webp", "Encuentro de marco y hoja", true], ["/photos/det-aluminio-1.webp", "Perfil y burlete", true]],
+    gallery: [["/photos/det-aluminio-corrediza.webp", "Corrediza de tres hojas", false], ["/photos/det-aluminio-2.webp", "Herraje de proyectante", true], ["/photos/esc-aluminio-2.webp", "Corrediza al balcón", false], ["/photos/det-aluminio-3.webp", "Dintel de una puerta balcón", true]],
     faq: [
-      ["¿Qué líneas trabajan?", "Módena, Herrero y A30. Te recomendamos la que corresponde según el tamaño del vano y el uso."],
+      ["¿Qué líneas trabajan?", "A30, Módena y Herrero. Te recomendamos la que corresponde según el tamaño del vano y el uso."],
       ["¿Qué terminaciones hay?", "Blanco, anodizado y negro, en anodizado o pintado."],
       ["¿Puede llevar DVH?", "Sí. El vidrio puede ser simple o DVH, que fabricamos en nuestra planta."],
-      ["¿Conviene aluminio o PVC?", "El aluminio permite perfiles más finos y paños más grandes, y rinde más si el presupuesto es ajustado. El PVC aísla mejor. En la consulta te decimos cuál conviene para tu caso."],
+      ["¿Conviene aluminio o PVC?", "La elección del tipo de abertura adecuada para tu proyecto depende de varios factores, desde su funcionalidad hasta sus prestaciones, y cada una puede ser más eficaz en distintos escenarios. Contactanos para un asesoramiento específico a tu caso."],
     ],
     ctaT: "Tus aberturas de aluminio, a medida.",
-    cta: "Líneas Módena, Herrero y A30 a medida. Te visitamos, medimos y cotizamos.",
+    cta: "Líneas A30, Módena y Herrero a medida. Te visitamos, medimos y cotizamos.",
   },
   {
     slug: "vidrieria", name: "Vidriería", og: "/og/producto-vidrieria.jpg",
@@ -142,15 +162,15 @@ export const PRODUCTOS: Producto[] = [
     pillars: [
       ["layers", "DVH propio", "Fabricado en nuestra planta."],
       ["ruler", "Mamparas a medida", "Para tu espacio, no de catálogo."],
-      ["shield", "Laminado y templado", "Vidrios de seguridad."],
+      ["shield", "Vidrios de seguridad", "Templados y laminados."],
       ["tools", "Taller propio", "Vidriado en el momento y reparación."],
     ],
     sysEyebrow: "Soluciones", sysT: ["Vidrio para", "cada espacio."],
     systems: [
       ["/photos/vidrieria-mampara-corrediza.png", "Mamparas corredizas", "A medida, con perfil a elección."],
-      ["/photos/mampara-ducha-fija.jpg", "Paños fijos de ducha", "Templado o laminado."],
-      ["/photos/mampara-ducha-negra.jpg", "Mamparas batientes", "Con colocación propia."],
-      ["/photos/vidrio-cerramiento-cocina.webp", "Divisiones interiores", "Separan sin quitar luz."],
+      ["/photos/mampara-ducha-fija.jpg", "Paños fijos de ducha", "En vidrio templado o laminado."],
+      ["/photos/mampara-ducha-negra.jpg", "Mamparas batientes", "Medición, fabricación y colocación propias."],
+      ["/photos/vidrio-cerramiento-cocina.webp", "Divisiones interiores", "Separan ambientes sin restar luz."],
       ["cut:/photos/dvh-perfiles.jpg", "Doble vidriado hermético", "Fabricado en nuestra planta."],
       ["/photos/det-vidrieria-1.webp", "Taller", "Traés la hoja y la vidriamos en el momento."],
     ],
@@ -181,11 +201,11 @@ export const PRODUCTOS: Producto[] = [
     sysEyebrow: "Aplicaciones", sysT: ["Frentes, puertas", "y fachadas."],
     systems: [
       ["/photos/frente-comercial.jpg", "Frentes comerciales", "Vidrieras y accesos de locales."],
-      ["/photos/blindex.webp", "Puertas de vidrio", "Templado, limpias y resistentes."],
-      ["/photos/esc-blindex-3.webp", "Piel de vidrio", "Para frentes y fachadas completas."],
-      ["/photos/mampara-division.jpg", "Oficinas y accesos", "Separan con vidrio templado."],
-      ["/photos/det-blindex-2.webp", "Paños fijos", "Vidrio templado a medida."],
-      ["/photos/det-blindex-1.webp", "Puertas con tirador", "Sin marco, solo vidrio y herraje."],
+      ["/photos/blindex.webp", "Puertas de vidrio", "Hoja entera de vidrio templado."],
+      ["/photos/esc-blindex-3.webp", "Piel de vidrio", "Fachadas y frentes completos en vidrio."],
+      ["/photos/mampara-division.jpg", "Oficinas y accesos", "Divisiones y puertas en vidrio templado."],
+      ["/photos/det-blindex-2.webp", "Paños fijos", "Vidrio templado cortado a medida."],
+      ["/photos/det-blindex-1.webp", "Puertas con tirador", "Sin marco: vidrio, herraje y tirador."],
     ],
     galT: "Templado de cerca.",
     gallery: [["/og/producto-blindex.jpg", "Nuestro local", false], ["/photos/det-blindex-1.webp", "Puerta de templado", true], ["/photos/det-blindex-2.webp", "Canto del paño", true], ["/photos/frente-comercial.jpg", "Frente comercial", false], ["/photos/mampara-division.jpg", "Oficina", true], ["/photos/esc-blindex-3.webp", "Piel de vidrio", true]],
@@ -204,20 +224,20 @@ export const PROCESO = [
   { img: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Consulta", d: "Asesoramiento y presupuesto.", dato: "Respuesta en 24 h hábiles" },
   { img: "/photos/proceso-medicion.webp", alt: "Operario midiendo un paño de vidrio", t: "Medición", d: "Relevamiento de vanos en obra.", dato: "En tu obra, sin cargo" },
   { img: "/photos/proceso-fabricacion.webp", alt: "Perfil sujeto en la máquina de la planta", t: "Fabricación", d: "Corte, armado y control en planta.", dato: "En planta propia" },
-  { img: "/photos/proceso-obra.webp", alt: "Ambiente con la abertura corrediza instalada", t: "Instalación", d: "Colocación, sellado y regulación.", dato: "Con posventa" },
+  { img: "/photos/proceso-instalacion.webp", alt: "Ambiente con la abertura corrediza instalada", t: "Instalación", d: "Colocación, sellado y regulación.", dato: "Con posventa" },
 ];
 
 export const TERMINACIONES = [
   {
-    nombre: "PVC", href: "/pvc", sub: "Perfilería VEKA", items: [
+    nombre: "PVC", href: "/pvc", sub: "Perfilería multicámara", items: [
       ["Blanco", "linear-gradient(135deg,#fbfbf8,#e6e6e0)"],
       ["Roble dorado", "repeating-linear-gradient(100deg,#b07a40 0 6px,#a26e37 6px 9px,#b8844a 9px 16px)"],
       ["Nogal", "repeating-linear-gradient(100deg,#6a4a2e 0 6px,#5c3f26 6px 9px,#72523a 9px 16px)"],
-      ["VEKA Spectral", "linear-gradient(135deg,#40464b,#2f3438)"],
+      ["Spectral", "linear-gradient(135deg,#40464b,#2f3438)"],
     ],
   },
   {
-    nombre: "Aluminio", href: "/aluminio", sub: "Módena · Herrero · A30", items: [
+    nombre: "Aluminio", href: "/aluminio", sub: "A30 · Módena · Herrero", items: [
       ["Blanco", "linear-gradient(135deg,#fafaf6,#e4e4de)"],
       ["Anodizado", "linear-gradient(135deg,#d3d6d9,#a7abaf 55%,#c4c7ca)"],
       ["Negro", "linear-gradient(135deg,#2a2c2e,#141516)"],

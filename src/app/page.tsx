@@ -34,7 +34,7 @@ export default function Inicio() {
         </div>
       </section>
 
-      <section className="section section--paper s-lineas">
+      <section id="que-fabricamos" className="section--fx section--hondo section section--paper s-lineas">
         <div className="wrap">
           <Eyebrow n="02">Qué fabricamos</Eyebrow>
           <h2 className="h-lg rv">Cuatro líneas,<br />una fábrica.</h2>
@@ -53,7 +53,7 @@ export default function Inicio() {
         </div>
       </section>
 
-      <section className="section">
+      <section id="por-que" className="section--fx section--aire section">
         <div className="wrap">
           <Eyebrow n="03">Por qué Aluva</Eyebrow>
           <h2 className="h-lg rv">No revendemos.<br />Fabricamos.</h2>
@@ -88,7 +88,7 @@ export default function Inicio() {
 
       <Profesionales />
 
-      <section className="section section--paper">
+      <section id="obras" className="section--fx section--brillo section section--paper">
         <div className="wrap">
           <Eyebrow n="06">Obras e inspiración</Eyebrow>
           <div className="proc__head">

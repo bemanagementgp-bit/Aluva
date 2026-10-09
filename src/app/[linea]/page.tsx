@@ -29,11 +29,11 @@ const imgStyle = { width: "100%", height: "100%", objectFit: "cover" } as const;
 function Especial({ slug }: { slug: Slug }) {
   if (slug === "pvc") {
     return (
-      <section className="section" id="anatomia">
+      <section className="section--fx section--aire section" id="componentes">
         <div className="wrap">
-          <Eyebrow n="02">Anatomía de una ventana</Eyebrow>
+          <Eyebrow n="02">Componentes de una ventana</Eyebrow>
           <div className="sec-title">
-            <h2 className="h-lg rv">Anatomía<br />del sistema.</h2>
+            <h2 className="h-lg rv">Componentes<br />del sistema.</h2>
             <p className="small">Tocá cada punto.</p>
           </div>
           <Anatomia />
@@ -62,10 +62,10 @@ function Especial({ slug }: { slug: Slug }) {
   if (slug === "aluminio") {
     const sw: [string, string][] = [["#f4f4f0", "Blanco"], ["#b9bdc1", "Anodizado"], ["#1b1d1f", "Negro"]];
     return (
-      <section className="section">
+      <section id="lineas" className="section--fx section--aire section">
         <div className="wrap">
           <Eyebrow n="02">Líneas y terminaciones</Eyebrow>
-          <h2 className="h-lg rv">Módena, Herrero<br />y A30.</h2>
+          <h2 className="h-lg rv">A30, Módena<br />y Herrero.</h2>
           <div className="rv" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginTop: 50, maxWidth: 720 }}>
             {sw.map(([c, n]) => (
               <div key={n} style={{ display: "flex", flexDirection: "column", gap: 10 }}>
@@ -75,13 +75,13 @@ function Especial({ slug }: { slug: Slug }) {
             ))}
           </div>
           <div className="split" style={{ marginTop: 60, gap: 18, alignItems: "stretch" }}>
-            <figure className="clip" style={{ ...figStyle, aspectRatio: "4/5" }}><img src="/photos/det-aluminio-1.webp" alt="Perfil de aluminio de cerca, con su burlete y la manija" loading="lazy" style={imgStyle} /></figure>
+            <figure className="clip" style={{ ...figStyle, aspectRatio: "4/5" }}><img src="/photos/aluminio-ventana-oscilobatiente.webp" alt="Ventana de aluminio negro abierta, en un ambiente" loading="lazy" style={imgStyle} /></figure>
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
               <figure className="clip" style={{ ...figStyle, flex: 1, minHeight: 260 }}><img src="/photos/det-aluminio-3.webp" alt="Esquina del marco, con el canto y el burlete" loading="lazy" style={imgStyle} /></figure>
               <div style={{ background: "var(--bg-2)", color: "var(--ink)", borderRadius: "var(--r-box)", padding: 28 }}>
                 <h3 className="h-md" style={{ marginBottom: 6 }}>Ficha</h3>
                 <dl className="specs">
-                  <div><dt>Líneas</dt><dd>Módena, Herrero y A30</dd></div>
+                  <div><dt>Líneas</dt><dd>A30, Módena y Herrero</dd></div>
                   <div><dt>Terminación</dt><dd>Anodizado o pintado</dd></div>
                   <div><dt>Vidrio</dt><dd>Simple o DVH de fabricación propia</dd></div>
                 </dl>
@@ -93,7 +93,7 @@ function Especial({ slug }: { slug: Slug }) {
     );
   }
   return (
-    <section className="section">
+    <section id="templado" className="section--fx section--hondo section">
       <div className="wrap">
         <Eyebrow n="02">Vidrio templado</Eyebrow>
         <h2 className="h-lg rv">Solo vidrio.<br />Nada más.</h2>
@@ -133,7 +133,7 @@ export default async function Linea({ params }: Props) {
         </div>
       </section>
 
-      <section className="section section--paper">
+      <section id="beneficios" className="section--fx section--brillo section section--paper">
         <div className="wrap">
           <Eyebrow n="01">Beneficios</Eyebrow>
           <h2 className="h-lg rv"><Lines lines={p.whyT} /></h2>
@@ -143,7 +143,7 @@ export default async function Linea({ params }: Props) {
 
       <Especial slug={p.slug} />
 
-      <section className="section section--paper">
+      <section className="section section--paper section--plano">
         <div className="wrap">
           <Eyebrow n="03">{p.sysEyebrow}</Eyebrow>
           <h2 className="h-lg rv"><Lines lines={p.sysT} /></h2>

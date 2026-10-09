@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import type { ReactNode } from "react";
 import "@/styles/site.css";
 import "@/styles/profesionales.css";
+import Intro from "@/components/Intro";
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://aluva.vercel.app"),
@@ -19,7 +20,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <link rel="preload" href="/fonts/lgei-headline-bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body>{children}</body>
+      <body><Intro />{children}</body>
     </html>
   );
 }
