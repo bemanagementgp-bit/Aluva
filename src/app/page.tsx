@@ -8,7 +8,7 @@ const OBRAS = [
   { c: "b1", d: "", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
   { c: "b2", d: " rv-d1", src: "/og/producto-pvc.jpg", alt: "Puerta corrediza de PVC símil madera hacia la pileta", t: "PVC", sub: "Corrediza símil madera" },
   { c: "b3", d: " rv-d2", src: "/photos/frente-comercial.jpg", alt: "Frente comercial de vidrio templado", t: "Templados", sub: "Frente comercial" },
-  { c: "b4", d: "", src: "/og/producto-aluminio.jpg", alt: "Corrediza de aluminio de tres hojas hacia el balcón", t: "Aluminio", sub: "Corrediza de tres hojas" },
+  { c: "b4", d: "", src: "/og/producto-aluminio.jpg", alt: "Corrediza de aluminio hacia el balcón", t: "Aluminio", sub: "Corrediza al balcón" },
   { c: "b5", d: " rv-d1", src: "/photos/mampara-ducha-negra.jpg", alt: "Mampara de ducha con perfil negro", t: "Mamparas", sub: "Perfil negro a medida" },
   { c: "b6", d: " rv-d2", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
 ];

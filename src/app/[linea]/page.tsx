@@ -77,7 +77,7 @@ function Especial({ slug }: { slug: Slug }) {
           <div className="split" style={{ marginTop: 60, gap: 18, alignItems: "stretch" }}>
             <figure className="clip" style={{ ...figStyle, aspectRatio: "4/5" }}><img src="/photos/aluminio-ventana-oscilobatiente.webp" alt="Ventana de aluminio negro abierta, en un ambiente" loading="lazy" style={imgStyle} /></figure>
             <div style={{ display: "flex", flexDirection: "column", gap: 18 }}>
-              <figure className="clip" style={{ ...figStyle, flex: 1, minHeight: 260 }}><img src="/photos/det-aluminio-3.webp" alt="Esquina del marco, con el canto y el burlete" loading="lazy" style={imgStyle} /></figure>
+              <figure className="clip" style={{ ...figStyle, flex: 1, minHeight: 260 }}><img src="/photos/tipo-corrediza.webp" alt="Corrediza de aluminio negro en un ambiente" loading="lazy" style={imgStyle} /></figure>
               <div style={{ background: "var(--bg-2)", color: "var(--ink)", borderRadius: "var(--r-box)", padding: 28 }}>
                 <h3 className="h-md" style={{ marginBottom: 6 }}>Ficha</h3>
                 <dl className="specs">
