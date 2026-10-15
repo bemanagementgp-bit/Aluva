@@ -163,8 +163,8 @@ export function Vitrinas({ lineas }: { lineas: Linea[] }) {
           onFocus={() => setAct(i)}
           onClick={(e) => { if (i !== act) { e.preventDefault(); setAct(i); } }}
         >
-          <img src={l.vit} alt={`Aberturas de ${l.name}`} />
-          <span className="vit__n">0{i + 1} / 04</span>
+          <img src={l.vit} alt={l.name} />
+          <span className="vit__n">0{i + 1} / 0{lineas.length}</span>
           <span className="vit__label">{l.name}</span>
           <div className="vit__body">
             <h3>{l.name}</h3><p>{l.short}</p>
@@ -193,12 +193,12 @@ const TIPOS: Record<string, Tipo> = {
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /></svg>,
   },
   batiente: {
-    name: "Batiente", img: "/photos/tipo-batiente.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Batiente", img: "/photos/tipo-batiente-real.jpg", mats: ["PVC", "Aluminio", "Vidriería"],
     txt: "Abre girando sobre bisagras laterales, como una puerta. Da ventilación total y el mejor cierre hermético: la opción más eficiente en aislación.",
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} cls="anim-swing" /><Sash x={150} y={8} w={142} h={284} cls="anim-swing swing-r" /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /><Hinge cx={292} cy={60} /><Hinge cx={292} cy={240} /></svg>,
   },
   oscilobatiente: {
-    name: "Oscilobatiente", img: "/photos/tipo-oscilobatiente.webp", mats: ["PVC", "Aluminio"],
+    name: "Oscilobatiente", img: "/photos/tipo-oscilobatiente-real.jpg", mats: ["PVC", "Aluminio"],
     txt: "Dos movimientos en un mismo manijón: se inclina desde arriba para ventilar con seguridad, o abre como batiente para limpiar y ventilar a fondo.",
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={284} h={284} cls="anim-oscilo" /><rect x={268} y={130} width={8} height={40} rx={3} fill="#eef6e8" /></svg>,
   },
@@ -208,12 +208,12 @@ const TIPOS: Record<string, Tipo> = {
     svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilt" /><Hinge cx={60} cy={152} /><Hinge cx={240} cy={152} /></svg>,
   },
   fijo: {
-    name: "Paño fijo", img: "/photos/tipo-fijo.webp", mats: ["PVC", "Templados", "Aluminio", "Vidriería"],
+    name: "Paño fijo", img: "/photos/tipo-fijo-real.jpg", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
     txt: "Grandes superficies de vidrio sin hojas móviles. Máxima luz, vistas limpias y la mejor relación aislación / costo.",
     svg: <svg viewBox="-10 -10 320 320"><defs><clipPath id="cf"><rect x={20} y={20} width={260} height={260} /></clipPath></defs><Frame /><Sash x={8} y={8} w={284} h={284} /><g clipPath="url(#cf)"><rect className="anim-glint" x={20} y={-40} width={60} height={400} fill="rgba(238,246,232,.22)" /></g></svg>,
   },
   puerta: {
-    name: "Puerta", img: "/photos/tipo-puerta.webp", mats: ["PVC", "Templados"],
+    name: "Puerta", img: "/photos/tipo-puerta-real.jpg", mats: ["PVC", "Templados"],
     txt: "Puertas de PVC con cierre multipunto, y puertas de vidrio templado para locales y oficinas.",
     svg: <svg viewBox="-10 -10 200 320"><Frame w={180} h={300} /><g className="anim-swing"><rect className="dg-sash" x={8} y={8} width={164} height={292} rx={3} /><rect className="dg-glass" x={28} y={28} width={124} height={120} /><rect x={140} y={160} width={8} height={46} rx={3} fill="#eef6e8" /></g></svg>,
   },
@@ -242,7 +242,7 @@ const TIPOS: Record<string, Tipo> = {
   },
 };
 
-const MATERIALES = ["PVC", "Templados", "Aluminio", "Vidriería"];
+const MATERIALES = ["PVC", "Aluminio", "Vidriería", "Templados"];
 
 export function Tipologias() {
   const keys = Object.keys(TIPOS);

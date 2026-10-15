@@ -16,7 +16,7 @@ export const CONTACTO = {
 export const waLink = (texto = "Hola Aluva, quiero hacer una consulta.") =>
   `https://wa.me/${CONTACTO.whatsapp}?text=${encodeURIComponent(texto)}`;
 
-export type Slug = "pvc" | "templados" | "aluminio" | "vidrieria";
+export type Slug = "pvc" | "aluminio" | "vidrieria" | "templados" | "revestimientos";
 
 export interface Linea {
   slug: Slug;
@@ -28,11 +28,12 @@ export interface Linea {
 
 export const LINEAS: Linea[] = [
   { slug: "pvc", name: "PVC", short: "La mejor aislación, con DVH fabricado en planta propia.", vit: "/photos/portada-pvc.jpg", chips: ["Perfilería multicámara", "DVH propio", "Cierre multipunto", "Símil madera"] },
-  { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado de seguridad.", vit: "/photos/portada-blindex.jpg", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
   // Las líneas de aluminio van siempre A30, Módena, Herrero: es el orden de
   // mejor a peor que pidió el cliente, no alfabético. Vale en todo el sitio.
   { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero: livianas, resistentes y aptas para aberturas grandes.", vit: "/photos/portada-aluminio.jpg", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
   { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.", vit: "/photos/esc-vidrieria-1.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
+  { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado de seguridad.", vit: "/photos/portada-blindex.jpg", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
+  { slug: "revestimientos", name: "Revestimientos", short: "Wall panel para fachadas, deck para exteriores y parasoles de PVC.", vit: "/photos/revestimiento-fachada.webp", chips: ["Wall panel", "Deck", "Parasol", "Sin mantenimiento"] },
 ];
 
 /** Pilar: ícono, título, texto y foto de fondo opcional. */
@@ -217,6 +218,36 @@ export const PRODUCTOS: Producto[] = [
     ],
     ctaT: "Tu vidrio templado, a medida.",
     cta: "Frentes, puertas y piel de vidrio a medida. Medimos, fabricamos y colocamos.",
+  },
+  {
+    slug: "revestimientos", name: "Revestimientos", og: "/photos/revestimiento-fachada.webp",
+    title: "Revestimientos de PVC: wall panel, deck y parasoles en La Plata | Aluva",
+    desc: "Revestimientos de PVC en La Plata: wall panel para fachadas, deck para exteriores y perfiles parasol. Medición y colocación propias.",
+    lead: "Wall panel para fachadas, deck para exteriores y perfiles parasol, en PVC.",
+    cover: "/photos/revestimiento-fachada.webp", coverAlt: "Fachada revestida con wall panel negro",
+    whyT: ["Terminación", "de fachada."],
+    pillars: [
+      ["leaf", "Sin mantenimiento", "No se pintan, no se pudren ni se descascaran."],
+      ["drop", "Para exterior", "Resisten la intemperie."],
+      ["palette", "Aspecto de madera", "Texturas y colores símil madera."],
+      ["tools", "Colocación propia", "Medimos y colocamos con nuestro equipo."],
+    ],
+    sysEyebrow: "Productos", sysT: ["Tres formas", "de revestir."],
+    systems: [
+      ["/photos/revestimiento-muestra.webp", "Wall panel", "Listones para revestir fachadas y paredes exteriores."],
+      ["/photos/revest-deck.jpg", "Deck", "Tablas para pisos exteriores, galerías y bordes de pileta."],
+      ["/photos/revest-parasol.jpg", "Parasol", "Perfiles para quiebravistas, cercos y protección solar."],
+    ],
+    galT: "Revestimientos de cerca.",
+    gallery: [["/photos/revestimiento-fachada.webp", "Fachada con wall panel", true], ["/photos/revest-wallpanel.jpg", "Wall panel en colores", true], ["/photos/det-pvc-1.webp", "Perfiles de deck y parasol", true], ["/photos/revestimiento-muestra.webp", "Muestra de wall panel", true]],
+    faq: [
+      ["¿Son de PVC?", "Sí. Son perfiles de PVC pensados para exterior, distintos de los de las aberturas."],
+      ["¿Necesitan mantenimiento?", "No se pintan ni se barnizan: alcanza con limpiarlos con agua."],
+      ["¿Los colocan ustedes?", "Sí. Medimos en obra y colocamos con nuestro equipo."],
+      ["¿Qué colores hay?", "Hay varias terminaciones símil madera y lisas. Te mostramos las muestras en el local."],
+    ],
+    ctaT: "Tu revestimiento, a medida.",
+    cta: "Wall panel, deck y parasoles. Te visitamos, medimos y cotizamos.",
   },
 ];
 

@@ -7,10 +7,10 @@ import { LINEAS, PROCESO } from "@/content/site";
 const OBRAS = [
   { c: "b1", d: "", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
   { c: "b2", d: " rv-d1", src: "/og/producto-pvc.jpg", alt: "Puerta corrediza de PVC símil madera hacia la pileta", t: "PVC", sub: "Corrediza símil madera" },
-  { c: "b3", d: " rv-d2", src: "/photos/frente-comercial.jpg", alt: "Frente comercial de vidrio templado", t: "Templados", sub: "Frente comercial" },
-  { c: "b4", d: "", src: "/photos/aluminio-corrediza.jpg", alt: "Corrediza de aluminio negro de tres hojas", t: "Aluminio", sub: "Corrediza de tres hojas" },
-  { c: "b5", d: " rv-d1", src: "/photos/mampara-ducha-negra.jpg", alt: "Mampara de ducha con perfil negro", t: "Mamparas", sub: "Perfil negro a medida" },
-  { c: "b6", d: " rv-d2", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
+  { c: "b3", d: " rv-d2", src: "/photos/aluminio-corrediza.jpg", alt: "Corrediza de aluminio negro de tres hojas", t: "Aluminio", sub: "Corrediza de tres hojas" },
+  { c: "b4", d: "", src: "/photos/mampara-ducha-negra.jpg", alt: "Mampara de ducha con perfil negro", t: "Mamparas", sub: "Perfil negro a medida" },
+  { c: "b5", d: " rv-d1", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
+  { c: "b6", d: " rv-d2", src: "/photos/frente-comercial.jpg", alt: "Frente comercial de vidrio templado", t: "Templados", sub: "Frente comercial" },
 ];
 
 export default function Inicio() {
@@ -20,11 +20,11 @@ export default function Inicio() {
         <div className="hero__media"><img src="/photos/portada-inicio.jpg" alt="Pared de ventanales con perfiles negros con vista a la ciudad" fetchPriority="high" /></div>
         <div className="hero__sash hero__sash--l" /><div className="hero__sash hero__sash--r" />
         <div className="wrap">
-          <Eyebrow n="01">PVC · Templados · Aluminio · Vidrio</Eyebrow>
+          <Eyebrow n="01">PVC · Aluminio · Vidrio · Templados</Eyebrow>
           <div className="hero__grid">
             <h1 className="hero__title"><span className="row"><span>Aberturas</span></span><span className="row">a medida</span></h1>
             <div className="hero__side">
-              <p className="lead">Fábrica de aberturas de PVC, templados, aluminio y vidriería en La Plata.</p>
+              <p className="lead">Fábrica de aberturas de PVC y aluminio, vidriería y templados en La Plata.</p>
               <div className="btn-row">
                 <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
                 <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
@@ -37,7 +37,7 @@ export default function Inicio() {
       <section id="que-fabricamos" className="section--fx section--hondo section section--paper s-lineas">
         <div className="wrap">
           <Eyebrow n="02">Qué fabricamos</Eyebrow>
-          <h2 className="h-lg rv">Cuatro líneas,<br />una fábrica.</h2>
+          <h2 className="h-lg rv">Cinco líneas,<br />una fábrica.</h2>
           <div style={{ height: 8 }} />
           <div className="lines">
             {LINEAS.map((l, i) => (

@@ -6,15 +6,15 @@ import { Tipologias, Vitrinas } from "@/components/interactive";
 import { LINEAS, TERMINACIONES } from "@/content/site";
 
 export const metadata: Metadata = {
-  title: "Nuestras aberturas | Aluva La Plata",
-  description: "Aberturas de PVC, vidrio templado, aluminio y vidriería DVH a medida. Explorá tipologías y encontrá la abertura ideal.",
+  title: "Nuestros productos | Aluva La Plata",
+  description: "Aberturas de PVC y aluminio, vidriería DVH, vidrio templado y revestimientos a medida. Explorá tipologías y encontrá la abertura ideal.",
 };
 
 export default function Productos() {
   return (
     <Shell active="productos">
       <section className="showcase">
-        <h1 className="showcase__title">Nuestras aberturas</h1>
+        <h1 className="showcase__title">Nuestros productos</h1>
         <Vitrinas lineas={LINEAS} />
       </section>
 

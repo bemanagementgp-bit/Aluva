@@ -92,6 +92,20 @@ function Especial({ slug }: { slug: Slug }) {
       </section>
     );
   }
+  if (slug === "revestimientos") {
+    return (
+      <section id="revestimientos" className="section">
+        <div className="wrap">
+          <Eyebrow n="02">Wall panel</Eyebrow>
+          <h2 className="h-lg rv">La fachada,<br />terminada.</h2>
+          <div className="split" style={{ marginTop: 48, gap: 18 }}>
+            <figure className="clip" style={{ ...figStyle, aspectRatio: "4/5" }}><img src="/photos/revestimiento-fachada.webp" alt="Fachada revestida con wall panel negro" loading="lazy" style={imgStyle} /></figure>
+            <figure className="clip" style={{ ...figStyle, aspectRatio: "4/5" }}><img src="/photos/revest-wallpanel.jpg" alt="Listones de wall panel en distintos colores" loading="lazy" style={imgStyle} /></figure>
+          </div>
+        </div>
+      </section>
+    );
+  }
   return (
     <section id="templado" className="section--fx section--hondo section">
       <div className="wrap">
@@ -123,7 +137,7 @@ export default async function Linea({ params }: Props) {
       <section className="cover">
         <img className="cover__img" src={p.cover} alt={p.coverAlt} fetchPriority="high" />
         <div className="wrap cover__in">
-          <div className="phero__crumbs"><Link href="/">Inicio</Link><span>/</span><Link href="/productos">Aberturas</Link><span>/</span><span>{p.name}</span></div>
+          <div className="phero__crumbs"><Link href="/">Inicio</Link><span>/</span><Link href="/productos">Productos</Link><span>/</span><span>{p.name}</span></div>
           <h1 className="cover__title">{p.name}</h1>
           <p className="cover__lead">{p.lead}</p>
           <div className="btn-row">

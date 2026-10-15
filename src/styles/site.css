@@ -1368,3 +1368,28 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
+
+/* ==========================================================================
+   Nuestros productos: fotos más visibles (cinco líneas)
+   ========================================================================== */
+.showcase .vit img, .showcase .vit.is-active img { filter: none; transform: none; }
+.showcase .vit:not(.is-active) img { filter: brightness(.86) saturate(.95); }
+.showcase .vit.is-active { flex: 2.4; }
+.showcase .vit::after { background: linear-gradient(180deg, rgba(0,28,28,.35) 0%, rgba(0,28,28,0) 18%, rgba(0,28,28,0) 62%, rgba(0,28,28,.72) 100%); }
+.showcase .vit:not(.is-active)::after { background: linear-gradient(180deg, rgba(0,28,28,.35) 0%, rgba(0,28,28,0) 22%, rgba(0,28,28,0) 55%, rgba(0,28,28,.6) 100%); }
+.showcase .vit__label { text-shadow: 0 2px 14px rgba(0,0,0,.45); }
+.showcase .vit:hover img { transform: scale(1.03); transition: transform 1.2s var(--ease); }
+@media (max-width: 820px) { .showcase .vit.is-active { flex: 4 1 0 !important; } }
+
+/* Formulario: adjuntar archivos */
+.file-in { position: absolute; width: 1px; height: 1px; opacity: 0; pointer-events: none; }
+.field .file-btn { display: inline-flex; align-items: center; gap: 8px; align-self: flex-start; padding: 12px 18px; border: 1px dashed var(--line-2); border-radius: var(--r-btn); cursor: pointer; font-size: 14.5px; font-weight: 600; letter-spacing: 0; text-transform: none; color: var(--ink); transition: border-color .2s, background .2s; }
+.field .file-btn:hover { border-color: var(--lime); background: rgba(90,200,15,.06); }
+.file-in:focus-visible + .file-btn { outline: 2px solid var(--lime); outline-offset: 2px; }
+.file-list { list-style: none; margin: 4px 0 0; padding: 0; display: grid; gap: 4px; font-size: 13.5px; color: var(--muted); }
+.file-list li::before { content: "· "; color: var(--lime); }
+.file-hint, .opt-label { font-size: 12.5px; color: var(--muted); text-transform: none; letter-spacing: 0; font-weight: 400; }
+/* Nombres largos de producto en celulares chicos */
+.cover__title { overflow-wrap: anywhere; }
+@media (max-width: 400px) { .cover__title { font-size: clamp(34px, 11vw, 48px); } }
+.drag-hint { flex-wrap: wrap; }
