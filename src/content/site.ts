@@ -23,16 +23,18 @@ export interface Linea {
   name: string;
   short: string;
   vit: string;
+  /** encuadre de la foto en la vitrina (object-position) */
+  vitPos?: string;
   chips: string[];
 }
 
 export const LINEAS: Linea[] = [
-  { slug: "pvc", name: "PVC", short: "La mejor aislación, con DVH fabricado en planta propia.", vit: "/photos/portada-pvc.jpg", chips: ["Perfilería multicámara", "DVH propio", "Cierre multipunto", "Símil madera"] },
+  { slug: "pvc", name: "PVC", short: "La mejor aislación, con DVH fabricado en planta propia.", vit: "/photos/portada-pvc-fabrica.jpg", chips: ["Perfilería multicámara", "DVH propio", "Cierre multipunto", "Símil madera"] },
   // Las líneas de aluminio van siempre A30, Módena, Herrero: es el orden de
   // mejor a peor que pidió el cliente, no alfabético. Vale en todo el sitio.
-  { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero: livianas, resistentes y aptas para aberturas grandes.", vit: "/photos/portada-aluminio.jpg", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
-  { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado de seguridad.", vit: "/photos/portada-blindex.jpg", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
-  { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.", vit: "/photos/esc-vidrieria-1.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
+  { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero: livianas, resistentes y aptas para aberturas grandes.", vit: "/photos/portada-aluminio.jpg", vitPos: "14% 50%", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
+  { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado de seguridad.", vit: "/photos/det-blindex-1.webp", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
+  { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.", vit: "/photos/mampara-ducha-negra.jpg", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
   { slug: "revestimientos", name: "Revestimientos", short: "Wall panel para fachadas, deck para exteriores y parasoles de PVC.", vit: "/photos/revestimiento-fachada.webp", chips: ["Wall panel", "Deck", "Parasol", "Sin mantenimiento"] },
 ];
 

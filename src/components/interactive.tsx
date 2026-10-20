@@ -163,7 +163,7 @@ export function Vitrinas({ lineas }: { lineas: Linea[] }) {
           onFocus={() => setAct(i)}
           onClick={(e) => { if (i !== act) { e.preventDefault(); setAct(i); } }}
         >
-          <img src={l.vit} alt={l.name} />
+          <img src={l.vit} alt={l.name} style={l.vitPos ? { objectPosition: l.vitPos } : undefined} />
           <span className="vit__n">0{i + 1} / 0{lineas.length}</span>
           <span className="vit__label">{l.name}</span>
           <div className="vit__body">
