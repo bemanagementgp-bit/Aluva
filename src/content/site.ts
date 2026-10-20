@@ -148,7 +148,7 @@ export const PRODUCTOS: Producto[] = [
       ["¿Qué líneas trabajan?", "A30, Módena y Herrero. Te recomendamos la que corresponde según el tamaño del vano y el uso."],
       ["¿Qué terminaciones hay?", "Blanco, anodizado y negro, en anodizado o pintado."],
       ["¿Puede llevar DVH?", "Sí. El vidrio puede ser simple o DVH, que fabricamos en nuestra planta."],
-      ["¿Conviene aluminio o PVC?", "La elección del tipo de abertura adecuada para tu proyecto depende de varios factores, desde su funcionalidad hasta sus prestaciones, y cada una puede ser más eficaz en distintos escenarios. Contactanos para un asesoramiento específico a tu caso."],
+      ["¿Conviene PVC o aluminio?", "La elección del tipo de abertura adecuada para tu proyecto depende de varios factores, desde su funcionalidad hasta sus prestaciones, y cada una puede ser más eficaz en distintos escenarios. Contactanos para un asesoramiento específico a tu caso."],
     ],
     ctaT: "Tus aberturas de aluminio, a medida.",
     cta: "Líneas A30, Módena y Herrero a medida. Te visitamos, medimos y cotizamos.",
