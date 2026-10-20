@@ -16,7 +16,7 @@ export const CONTACTO = {
 export const waLink = (texto = "Hola Aluva, quiero hacer una consulta.") =>
   `https://wa.me/${CONTACTO.whatsapp}?text=${encodeURIComponent(texto)}`;
 
-export type Slug = "pvc" | "aluminio" | "vidrieria" | "templados" | "revestimientos";
+export type Slug = "pvc" | "aluminio" | "templados" | "vidrieria" | "revestimientos";
 
 export interface Linea {
   slug: Slug;
@@ -31,8 +31,8 @@ export const LINEAS: Linea[] = [
   // Las líneas de aluminio van siempre A30, Módena, Herrero: es el orden de
   // mejor a peor que pidió el cliente, no alfabético. Vale en todo el sitio.
   { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero: livianas, resistentes y aptas para aberturas grandes.", vit: "/photos/portada-aluminio.jpg", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
-  { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.", vit: "/photos/esc-vidrieria-1.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
   { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado de seguridad.", vit: "/photos/portada-blindex.jpg", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
+  { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.", vit: "/photos/esc-vidrieria-1.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
   { slug: "revestimientos", name: "Revestimientos", short: "Wall panel para fachadas, deck para exteriores y parasoles de PVC.", vit: "/photos/revestimiento-fachada.webp", chips: ["Wall panel", "Deck", "Parasol", "Sin mantenimiento"] },
 ];
 
@@ -154,39 +154,6 @@ export const PRODUCTOS: Producto[] = [
     cta: "Líneas A30, Módena y Herrero a medida. Te visitamos, medimos y cotizamos.",
   },
   {
-    slug: "vidrieria", name: "Vidriería", og: "/og/producto-vidrieria.jpg",
-    title: "Vidriería y mamparas a medida en La Plata | Aluva",
-    desc: "Vidriería y mamparas a medida en La Plata: DVH de fabricación propia, laminado y templado, con colocación y taller propios.",
-    lead: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.",
-    cover: "/photos/esc-vidrieria-1.webp", coverAlt: "Ducha con paño fijo de vidrio sobre pared de mármol",
-    whyT: ["Vidrio a la", "medida exacta."],
-    pillars: [
-      ["layers", "DVH propio", "Fabricado en nuestra planta."],
-      ["ruler", "Mamparas a medida", "Para tu espacio, no de catálogo."],
-      ["shield", "Vidrios de seguridad", "Templados y laminados."],
-      ["tools", "Taller propio", "Vidriado en el momento y reparación."],
-    ],
-    sysEyebrow: "Soluciones", sysT: ["Vidrio para", "cada espacio."],
-    systems: [
-      ["/photos/vidrieria-mampara-corrediza.png", "Mamparas corredizas", "A medida, con perfil a elección."],
-      ["/photos/mampara-ducha-fija.jpg", "Paños fijos de ducha", "En vidrio templado o laminado."],
-      ["/photos/mampara-ducha-negra.jpg", "Mamparas batientes", "Medición, fabricación y colocación propias."],
-      ["/photos/vidrio-cerramiento-cocina.webp", "Divisiones interiores", "Separan ambientes sin restar luz."],
-      ["cut:/photos/dvh-perfiles.jpg", "Doble vidriado hermético", "Fabricado en nuestra planta."],
-      ["/photos/det-vidrieria-1.webp", "Taller", "Traés la hoja y la vidriamos en el momento."],
-    ],
-    galT: "Vidrio de cerca.",
-    gallery: [["/og/producto-vidrieria.jpg", "Cerramiento vidriado", false], ["/photos/det-vidrieria-3.webp", "Baranda de vidrio", true], ["/photos/det-vidrieria-2.webp", "Anclaje de baranda", true], ["/photos/dvh-cerramiento.jpg", "Cerramiento vidriado", true], ["/photos/esc-vidrieria-2.webp", "Mampara corrediza", false], ["/photos/vidrio-mampara-ducha.webp", "Mampara", true]],
-    faq: [
-      ["¿Hacen mamparas a medida?", "Sí. Las fabricamos a la medida de tu baño y las colocamos con nuestro equipo. En aluminio elegís el color del perfil y el del vidrio."],
-      ["¿Puedo poner DVH en mis ventanas actuales?", "En muchas aberturas sí, adaptando el contravidrio. Lo evaluamos en la visita de medición."],
-      ["¿Qué diferencia hay entre laminado y templado?", "El laminado tiene una lámina entre dos vidrios que los mantiene unidos si se rompe. El templado es más resistente y, si se rompe, se fragmenta en trozos pequeños sin filo."],
-      ["¿Reparan vidrios?", "Sí. Traés la hoja al taller y la vidriamos en el momento."],
-    ],
-    ctaT: "Tu vidrio, a medida.",
-    cta: "Contanos qué vidrio necesitás. Pasá por el taller o pedinos una visita.",
-  },
-  {
     slug: "templados", name: "Templados", og: "/og/producto-blindex.jpg",
     title: "Vidrio templado: frentes, puertas y piel de vidrio en La Plata | Aluva",
     desc: "Frentes comerciales, puertas de vidrio templado y piel de vidrio para fachadas, a medida en La Plata. Medición en obra y colocación propia.",
@@ -218,6 +185,39 @@ export const PRODUCTOS: Producto[] = [
     ],
     ctaT: "Tu vidrio templado, a medida.",
     cta: "Frentes, puertas y piel de vidrio a medida. Medimos, fabricamos y colocamos.",
+  },
+  {
+    slug: "vidrieria", name: "Vidriería", og: "/og/producto-vidrieria.jpg",
+    title: "Vidriería y mamparas a medida en La Plata | Aluva",
+    desc: "Vidriería y mamparas a medida en La Plata: DVH de fabricación propia, laminado y templado, con colocación y taller propios.",
+    lead: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético hecho en nuestra planta.",
+    cover: "/photos/esc-vidrieria-1.webp", coverAlt: "Ducha con paño fijo de vidrio sobre pared de mármol",
+    whyT: ["Vidrio a la", "medida exacta."],
+    pillars: [
+      ["layers", "DVH propio", "Fabricado en nuestra planta."],
+      ["ruler", "Mamparas a medida", "Para tu espacio, no de catálogo."],
+      ["shield", "Vidrios de seguridad", "Templados y laminados."],
+      ["tools", "Taller propio", "Vidriado en el momento y reparación."],
+    ],
+    sysEyebrow: "Soluciones", sysT: ["Vidrio para", "cada espacio."],
+    systems: [
+      ["/photos/vidrieria-mampara-corrediza.png", "Mamparas corredizas", "A medida, con perfil a elección."],
+      ["/photos/mampara-ducha-fija.jpg", "Paños fijos de ducha", "En vidrio templado o laminado."],
+      ["/photos/mampara-ducha-negra.jpg", "Mamparas batientes", "Medición, fabricación y colocación propias."],
+      ["/photos/vidrio-cerramiento-cocina.webp", "Divisiones interiores", "Separan ambientes sin restar luz."],
+      ["cut:/photos/dvh-perfiles.jpg", "Doble vidriado hermético", "Fabricado en nuestra planta."],
+      ["/photos/det-vidrieria-1.webp", "Taller", "Traés la hoja y la vidriamos en el momento."],
+    ],
+    galT: "Vidrio de cerca.",
+    gallery: [["/og/producto-vidrieria.jpg", "Cerramiento vidriado", false], ["/photos/det-vidrieria-3.webp", "Baranda de vidrio", true], ["/photos/det-vidrieria-2.webp", "Anclaje de baranda", true], ["/photos/dvh-cerramiento.jpg", "Cerramiento vidriado", true], ["/photos/esc-vidrieria-2.webp", "Mampara corrediza", false], ["/photos/vidrio-mampara-ducha.webp", "Mampara", true]],
+    faq: [
+      ["¿Hacen mamparas a medida?", "Sí. Las fabricamos a la medida de tu baño y las colocamos con nuestro equipo. En aluminio elegís el color del perfil y el del vidrio."],
+      ["¿Puedo poner DVH en mis ventanas actuales?", "En muchas aberturas sí, adaptando el contravidrio. Lo evaluamos en la visita de medición."],
+      ["¿Qué diferencia hay entre laminado y templado?", "El laminado tiene una lámina entre dos vidrios que los mantiene unidos si se rompe. El templado es más resistente y, si se rompe, se fragmenta en trozos pequeños sin filo."],
+      ["¿Reparan vidrios?", "Sí. Traés la hoja al taller y la vidriamos en el momento."],
+    ],
+    ctaT: "Tu vidrio, a medida.",
+    cta: "Contanos qué vidrio necesitás. Pasá por el taller o pedinos una visita.",
   },
   {
     slug: "revestimientos", name: "Revestimientos", og: "/photos/revestimiento-fachada.webp",

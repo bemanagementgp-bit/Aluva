@@ -17,7 +17,7 @@ import { waLink } from "@/content/site";
 const MAX_ARCHIVOS = 5;
 const MAX_MB = 15;
 const RATE = { max: 3, ventana: 10 * 60e3, espera: 30e3, minLlenado: 3e3 };
-const PRODUCTOS: [string, string][] = [["pvc", "PVC"], ["alu", "Aluminio"], ["dvh", "DVH / Vidrios"], ["mam", "Mamparas"], ["tem", "Templados"], ["rev", "Revestimientos"], ["otr", "Otro"]];
+const PRODUCTOS: [string, string][] = [["pvc", "PVC"], ["alu", "Aluminio"], ["tem", "Templados"], ["dvh", "DVH / Vidrios"], ["mam", "Mamparas"], ["rev", "Revestimientos"], ["otr", "Otro"]];
 
 function rateLimit(clave: string): { ok: true; registrar: () => void } | { ok: false; seg: number } {
   const k = "aluva-envios-" + clave;

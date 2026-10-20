@@ -20,7 +20,7 @@ function Footer({ light }: { light: boolean }) {
             <h4>Productos</h4>
             <ul>
               {LINEAS.map((l) => <li key={l.slug}><Link href={`/${l.slug}`}>{l.name}</Link></li>)}
-              <li><Link href="/productos">Todas las aberturas</Link></li>
+              <li><Link href="/productos">Todos los productos</Link></li>
             </ul>
           </div>
           <div>

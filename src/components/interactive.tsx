@@ -208,7 +208,7 @@ const TIPOS: Record<string, Tipo> = {
     svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilt" /><Hinge cx={60} cy={152} /><Hinge cx={240} cy={152} /></svg>,
   },
   fijo: {
-    name: "Paño fijo", img: "/photos/tipo-fijo-real.jpg", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
+    name: "Paño fijo", img: "/photos/tipo-fijo-real.jpg", mats: ["PVC", "Aluminio", "Templados", "Vidriería"],
     txt: "Grandes superficies de vidrio sin hojas móviles. Máxima luz, vistas limpias y la mejor relación aislación / costo.",
     svg: <svg viewBox="-10 -10 320 320"><defs><clipPath id="cf"><rect x={20} y={20} width={260} height={260} /></clipPath></defs><Frame /><Sash x={8} y={8} w={284} h={284} /><g clipPath="url(#cf)"><rect className="anim-glint" x={20} y={-40} width={60} height={400} fill="rgba(238,246,232,.22)" /></g></svg>,
   },
@@ -242,7 +242,7 @@ const TIPOS: Record<string, Tipo> = {
   },
 };
 
-const MATERIALES = ["PVC", "Aluminio", "Vidriería", "Templados"];
+const MATERIALES = ["PVC", "Aluminio", "Templados", "Vidriería"];
 
 export function Tipologias() {
   const keys = Object.keys(TIPOS);
