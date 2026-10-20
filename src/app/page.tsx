@@ -17,14 +17,14 @@ export default function Inicio() {
   return (
     <Shell active="inicio" lightFooter>
       <section className="hero">
-        <div className="hero__media"><img src="/photos/portada-inicio.jpg" alt="Pared de ventanales con perfiles negros con vista a la ciudad" fetchPriority="high" /></div>
+        <div className="hero__media"><img src="/photos/portada-pvc-fabrica.jpg" alt="Ventana corrediza de PVC blanco de tres hojas en la fábrica, junto a perfiles y maquinaria" fetchPriority="high" /></div>
         <div className="hero__sash hero__sash--l" /><div className="hero__sash hero__sash--r" />
         <div className="wrap">
           <Eyebrow n="01">PVC · Aluminio · Templados · Vidrio</Eyebrow>
           <div className="hero__grid">
             <h1 className="hero__title"><span className="row"><span>Aberturas</span></span><span className="row">a medida</span></h1>
             <div className="hero__side">
-              <p className="lead">Fábrica de aberturas de PVC y aluminio, templados y vidriería en La Plata.</p>
+              <p className="lead">Fabricamos e instalamos aberturas de PVC y aluminio, templados y vidriería en La Plata.</p>
               <div className="btn-row">
                 <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
                 <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>

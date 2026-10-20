@@ -898,13 +898,15 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 .pillar--img p, .section--paper .pillar--img p { color: #d6e2d8; }
 
 /* Portada del inicio: foto protagonista, sin velo de color */
-.page-inicio .hero__media img { object-position: 50% 55%; filter: contrast(1.05); }
+.page-inicio .hero__media img { object-position: 50% 40%; filter: contrast(1.03); }
 .page-inicio .hero__media::after { background:
   linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 55%, rgba(5,14,10,.72) 100%),
   linear-gradient(90deg, rgba(5,14,10,.55) 0%, rgba(5,14,10,0) 45%); }
 @media (max-width: 820px) {
-  .page-inicio .hero__media img { object-position: 62% 50%; }
-  .page-inicio .hero__media::after { background: linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 20%, rgba(5,14,10,.25) 40%, rgba(5,14,10,.85) 72%, rgba(5,14,10,.95) 100%); }
+  /* En vertical la foto ocupa la parte de arriba para que se vea la abertura entera */
+  .page-inicio .hero__media { background: #06110d; }
+  .page-inicio .hero__media img { height: 80vw; margin-top: 64px; object-position: 50% 50%; }
+  .page-inicio .hero__media::after { background: linear-gradient(180deg, rgba(5,14,10,0) 0, rgba(5,14,10,0) calc(80vw - 40px), #06110d calc(80vw + 64px)); }
 }
 @media (min-width: 821px) {
   .page-inicio .hero__media::after { background:
