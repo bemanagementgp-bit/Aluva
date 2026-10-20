@@ -17,7 +17,7 @@ export default function Inicio() {
   return (
     <Shell active="inicio" lightFooter>
       <section className="hero">
-        <div className="hero__media"><img src="/photos/portada-pvc-fabrica.jpg" alt="Ventana corrediza de PVC blanco de tres hojas en la fábrica, junto a perfiles y maquinaria" fetchPriority="high" /></div>
+        <div className="hero__media"><img src="/photos/portada-inicio-proyectantes.jpg" alt="Ventanas proyectantes de aluminio negro abiertas hacia el jardín" fetchPriority="high" /></div>
         <div className="hero__sash hero__sash--l" /><div className="hero__sash hero__sash--r" />
         <div className="wrap">
           <Eyebrow n="01">PVC · Aluminio · Templados · Vidrio</Eyebrow>
