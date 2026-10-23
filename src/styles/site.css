@@ -155,14 +155,22 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   clip-path: inset(0 0 100% 0); transition: clip-path .7s var(--ease); overflow-y: auto; }
 .menu-open .mnav { clip-path: inset(0 0 0 0); }
 .menu-open { overflow: hidden; }
-.mnav ol { list-style: none; margin: 0; padding: 0; counter-reset: m; }
-.mnav li { border-bottom: 1px solid var(--line); }
-.mnav li a { display: flex; align-items: baseline; gap: 16px; padding: 14px 0; font-family: var(--head); text-transform: uppercase; font-size: clamp(28px, 7vw, 44px); line-height: 1; }
-.mnav li a::before { counter-increment: m; content: "0" counter(m); font-family: var(--text); font-size: 12px; color: var(--mint); letter-spacing: .1em; }
-.mnav li a[aria-current="page"] { color: var(--lime); }
-.mnav__sub { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 18px 0 8px; }
-.mnav__sub a { padding: 12px 14px; border: 1px solid var(--line); border-radius: 3px; font-weight: 600; font-size: 15px; }
-.mnav__foot { margin-top: 32px; display: flex; flex-direction: column; gap: 14px; }
+/* Menú de celular: lista simple; Productos se despliega con un toque */
+.mnav ul { list-style: none; margin: 0; padding: 0; }
+.mnav__list > li { border-bottom: 1px solid var(--line); }
+.mnav__list > li > a, .mnav__toggle { display: flex; align-items: center; justify-content: space-between; width: 100%; padding: 18px 0; font-family: var(--head); font-size: 24px; line-height: 1.1; color: var(--ink); background: none; border: 0; text-align: left; cursor: pointer; }
+.mnav__toggle svg { width: 22px; height: 22px; color: var(--mint); transition: transform .3s var(--ease); }
+.is-open > .mnav__toggle svg { transform: rotate(180deg); }
+.mnav a[aria-current="page"], .mnav__toggle .is-current { color: var(--lime); }
+.mnav__sub { padding: 0 0 14px; }
+.mnav__sub a { display: block; padding: 11px 0 11px 16px; border-left: 2px solid var(--line); font-size: 17px; color: #d4e2d7; }
+.mnav__sub a[aria-current="page"] { border-left-color: var(--lime); }
+.mnav__sub .mnav__all { color: var(--mint); font-size: 15px; }
+.mnav__foot { margin-top: 32px; display: flex; flex-direction: column; gap: 18px; }
+.mnav__foot .btn { justify-content: center; }
+.mnav__links { display: flex; gap: 24px; font-size: 15px; font-weight: 600; }
+.mnav__links a { display: inline-flex; align-items: center; gap: 8px; padding: 6px 0; }
+.mnav__links svg { width: 18px; height: 18px; color: var(--lime); }
 
 /* ---------- Hero Inicio ---------- */
 .hero { min-height: 100svh; position: relative; display: flex; align-items: flex-end; padding: 120px 0 56px; overflow: hidden; }
@@ -173,12 +181,6 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
   linear-gradient(180deg, rgba(0,28,28,.6) 0%, rgba(0,28,28,.3) 30%, rgba(0,28,28,.62) 62%, rgba(0,40,40,1) 100%),
   linear-gradient(90deg, rgba(0,28,28,.75) 0%, rgba(0,28,28,0) 60%); }
 /* dos hojas que se corren como una ventana corrediza al cargar */
-.hero__sash { position: absolute; top: 0; bottom: 0; width: 50.5%; background: var(--bg); z-index: 1; transition: transform 1.6s var(--ease) .15s; }
-.hero__sash::after { content: ""; position: absolute; top: 0; bottom: 0; width: 3px; background: var(--lime); }
-.hero__sash--l { left: 0; } .hero__sash--l::after { right: 0; }
-.hero__sash--r { right: 0; } .hero__sash--r::after { left: 0; }
-.is-loaded .hero__sash--l { transform: translateX(-101%); }
-.is-loaded .hero__sash--r { transform: translateX(101%); }
 .hero .wrap { position: relative; z-index: 2; }
 .hero__title { font-family: var(--head); text-transform: uppercase; font-size: clamp(42px, 7vw, 108px); line-height: .9; margin: 0 0 30px; letter-spacing: -.015em; }
 .hero__title .row { display: block; overflow: hidden; }
@@ -588,7 +590,6 @@ a.ccard:hover { border-color: var(--lime); }
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
   .rv { opacity: 1; transform: none; }
   .clip { clip-path: none; }
-  .hero__sash { display: none; }
   .hero__title .row > span, .phero .h-giant > span { transform: none; }
 }
 
@@ -812,7 +813,7 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 /* Botones y controles */
 .btn, .opt, .pick label, .drag-nav button, .burger, .wa,
 .field input, .field textarea, .field select,
-.tipo__list button, .mnav__sub a, .mega a { border-radius: var(--r-btn); }
+.tipo__list button, .mega a { border-radius: var(--r-btn); }
 
 /* Piezas chicas */
 .chip, .hs, .anat__list li::before, .faq summary i, .checks li::before,
@@ -1313,65 +1314,48 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 }
 
 /* ==========================================================================
-   Intro: el sitio se abre con la forma del logo
-   --------------------------------------------------------------------------
-   Dos capas. Debajo, lima pleno. Encima, una cortina verde oscuro con un hueco
-   con la silueta del galón. El hueco crece: primero se ve la marca en lima
-   sobre verde, después el lima inunda, y por último la cortina entera se va y
-   queda el sitio.
-
-   ── Dos cosas que se probaron y fallaron ──
-
-   1. Que el hueco revelara LA PÁGINA. Se veía bien sobre portadas claras y se
-      rompía sobre las oscuras: lo que asomaba por el recorte tenía casi el
-      tono de la cortina, media marca se perdía y parecía cortada. Un efecto
-      que depende de lo que haya detrás no sirve cuando detrás hay cuatro
-      portadas distintas y una es nocturna. Revelando una capa propia, el
-      contraste es siempre el mismo.
-
-   2. Que el galón CRECIERA como figura sólida. No llena nunca: es un galón, no
-      es convexo, y al escalar crecen también la muesca y el aire de los
-      costados. Siempre queda verde alrededor. Da igual cuánto se agrande.
-
-   El tamaño final del hueco está medido, no estimado: hace falta que la zona
-   maciza del centro del isotipo tape la pantalla entera, y eso recién pasa
-   bastante más allá de lo que parece a ojo.
+   Intro: cortina verde con la marca y línea de progreso (ver Intro.tsx)
+   La cortina sube con un filo lima abajo. Sin JavaScript se va sola por
+   la animación de respaldo.
    ========================================================================== */
-
 .intro {
   position: fixed; inset: 0; z-index: 9999;
-  background: var(--lime);
-  animation: introSeVa .4s ease-in 1.5s forwards;
-}
-@keyframes introSeVa { to { opacity: 0; visibility: hidden; } }
-
-.intro::before {
-  content: ""; position: absolute; inset: 0;
+  display: grid; place-items: center;
   background: var(--bg);
-  -webkit-mask-image: url(/brand/icon-principal.svg), linear-gradient(#000, #000);
-          mask-image: url(/brand/icon-principal.svg), linear-gradient(#000, #000);
-  -webkit-mask-position: center, center;
-          mask-position: center, center;
-  -webkit-mask-repeat: no-repeat, no-repeat;
-          mask-repeat: no-repeat, no-repeat;
-  -webkit-mask-composite: xor;
-          mask-composite: exclude;
-  animation: introAbre 1.5s cubic-bezier(.6, 0, .3, 1) both;
+  animation: introRespaldo .5s ease 6s forwards;
+  transition: transform .95s cubic-bezier(.76, 0, .24, 1) .18s;
 }
-@keyframes introAbre {
-  0%   { -webkit-mask-size: 0 auto, 100% 100%;          mask-size: 0 auto, 100% 100%; }
-  /* tamaño de reposo en vmin, no en px: 160 fijos son discretos en un monitor
-     y enormes en un teléfono */
-  14%  { -webkit-mask-size: clamp(112px, 17vmin, 200px) auto, 100% 100%;  mask-size: clamp(112px, 17vmin, 200px) auto, 100% 100%; }
-  30%  { -webkit-mask-size: clamp(112px, 17vmin, 200px) auto, 100% 100%;  mask-size: clamp(112px, 17vmin, 200px) auto, 100% 100%; }
-  100% { -webkit-mask-size: 3400vmax auto, 100% 100%;   mask-size: 3400vmax auto, 100% 100%; }
+.intro::after {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
+  background: var(--lime); transform: scaleX(0); transform-origin: left;
+  transition: transform .35s var(--ease);
 }
+@keyframes introRespaldo { to { opacity: 0; visibility: hidden; } }
+.intro__marca { display: grid; justify-items: center; gap: 22px; animation: introMarca .7s var(--ease) .05s both; transition: opacity .3s, transform .45s var(--ease); }
+.intro__marca img { width: clamp(170px, 22vw, 240px); height: auto; }
+@keyframes introMarca { from { opacity: 0; transform: translateY(10px); } }
+.intro__barra { display: block; width: clamp(120px, 14vw, 160px); height: 2px; background: rgba(198, 242, 156, .16); overflow: hidden; }
+.intro__barra > span { display: block; height: 100%; background: var(--lime); transform: scaleX(0); transform-origin: left; animation: introAvance 2.6s cubic-bezier(.2, .7, .3, 1) .25s forwards; }
+@keyframes introAvance { to { transform: scaleX(.86); } }
 
-/* Mientras corre no se scrollea: la cortina es fija y si la página se mueve
-   abajo, al levantarse aparece en un lugar distinto del que se entró. */
+.intro.is-saliendo { transform: translateY(-101%); }
+.intro.is-saliendo::after { transform: scaleX(1); }
+.intro.is-saliendo .intro__marca { opacity: 0; transform: translateY(-14px); }
+.intro.is-saliendo .intro__barra > span { animation: none; transform: scaleX(1); transition: transform .2s; }
+
+/* Mientras corre no se scrollea: si la página se mueve abajo, al subir la
+   cortina aparece en un lugar distinto del que se entró. */
 html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 
 @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
+
+/* Entrada de la portada del inicio, en cascada, cuando sube la cortina */
+.page-inicio .hero .eyebrow, .page-inicio .hero__side > * { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.is-loaded .page-inicio .hero .eyebrow, .is-loaded .page-inicio .hero__side > * { opacity: 1; transform: none; }
+.is-loaded .page-inicio .hero .eyebrow { transition-delay: .2s; }
+.is-loaded .page-inicio .hero__side > :nth-child(1) { transition-delay: .45s; }
+.is-loaded .page-inicio .hero__side > :nth-child(2) { transition-delay: .6s; }
+@media (prefers-reduced-motion: reduce) { .page-inicio .hero .eyebrow, .page-inicio .hero__side > * { opacity: 1; transform: none; } }
 
 /* ==========================================================================
    Nuestros productos: fotos más visibles (cinco líneas)

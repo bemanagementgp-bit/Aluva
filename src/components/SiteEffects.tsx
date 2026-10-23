@@ -2,6 +2,7 @@
 /* Efectos de página: animación de entrada, aparición al hacer scroll y parallax de bandas. */
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
+import { EVENTO_INTRO } from "./Intro";
 
 export default function SiteEffects() {
   const pathname = usePathname();
@@ -9,7 +10,11 @@ export default function SiteEffects() {
   useEffect(() => {
     const root = document.documentElement;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const raf = requestAnimationFrame(() => root.classList.add("is-loaded"));
+    // Entrada de la portada: si la cortina de carga está puesta, espera a que suba
+    const entrar = () => root.classList.add("is-loaded");
+    const conIntro = !!document.querySelector(".intro") && !root.classList.contains("is-loaded");
+    const raf = conIntro ? 0 : requestAnimationFrame(entrar);
+    if (conIntro) addEventListener(EVENTO_INTRO, entrar, { once: true });
 
     // Aparición al entrar en pantalla
     const els = document.querySelectorAll<HTMLElement>(".rv, .clip");
@@ -36,6 +41,7 @@ export default function SiteEffects() {
 
     return () => {
       cancelAnimationFrame(raf);
+      removeEventListener(EVENTO_INTRO, entrar);
       io?.disconnect();
       removeEventListener("scroll", onScroll);
     };

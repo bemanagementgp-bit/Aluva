@@ -9,6 +9,8 @@ const viejas: [string, string][] = [
 
 const nextConfig: NextConfig = {
   reactStrictMode: true,
+  // Permite compilar pruebas en otra carpeta sin pisar la de `npm run dev`
+  distDir: process.env.NEXT_DIST_DIR || ".next",
   async redirects() {
     return [
       ...viejas.map(([v, n]) => ({ source: `/${v}.html`, destination: n, permanent: true })),

@@ -15,6 +15,7 @@ export default function Header({ active }: { active: Seccion }) {
   const [light, setLight] = useState(false);
   const [menu, setMenu] = useState(false);
   const [drop, setDrop] = useState(false);
+  const [sub, setSub] = useState(false);
   const dropRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const cur = (k: Seccion) => (k === active ? { "aria-current": "page" as const } : {});
@@ -44,6 +45,7 @@ export default function Header({ active }: { active: Seccion }) {
   }, [menu]);
 
   useEffect(() => { setMenu(false); setDrop(false); }, [pathname]);
+  useEffect(() => { if (!menu) setSub(false); }, [menu]);
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => { if (e.key === "Escape") { setMenu(false); setDrop(false); } };
@@ -82,27 +84,30 @@ export default function Header({ active }: { active: Seccion }) {
           </div>
         </div>
       </header>
-      <div className="mnav" aria-label="Menú">
-        <div>
-          <ol>
-            <li><Link href="/" {...cur("inicio")}>Inicio</Link></li>
-            <li><Link href="/productos" {...cur("productos")}>Productos</Link></li>
-          </ol>
-          <div className="mnav__sub">
-            {LINEAS.map((l) => <Link key={l.slug} href={`/${l.slug}`}>{l.name}</Link>)}
-          </div>
-          <ol start={3} style={{ counterReset: "m 2" }}>
-            <li><Link href="/empresa" {...cur("empresa")}>Empresa</Link></li>
-            <li><Link href="/contacto" {...cur("contacto")}>Contacto</Link></li>
-          </ol>
-        </div>
+      <nav className="mnav" aria-label="Menú">
+        <ul className="mnav__list">
+          <li><Link href="/" {...cur("inicio")}>Inicio</Link></li>
+          <li className={sub ? "is-open" : undefined}>
+            <button type="button" className="mnav__toggle" aria-expanded={sub} aria-controls="mnav-productos" onClick={() => setSub((s) => !s)}>
+              <span className={prodActive ? "is-current" : undefined}>Productos</span><Chev />
+            </button>
+            <ul className="mnav__sub" id="mnav-productos" hidden={!sub}>
+              {LINEAS.map((l) => <li key={l.slug}><Link href={`/${l.slug}`} {...cur(l.slug)}>{l.name}</Link></li>)}
+              <li><Link className="mnav__all" href="/productos" {...cur("productos")}>Ver todos los productos →</Link></li>
+            </ul>
+          </li>
+          <li><Link href="/empresa" {...cur("empresa")}>Empresa</Link></li>
+          <li><Link href="/contacto" {...cur("contacto")}>Contacto</Link></li>
+        </ul>
         <div className="mnav__foot">
           <Link className="btn btn--lime" href="/contacto">Pedí presupuesto <span className="arr">→</span></Link>
-          <a className="btn btn--ghost" href={waLink()} target="_blank" rel="noopener"><WA /> Escribinos por WhatsApp</a>
-          <Link className="btn btn--white" href="/staff">Acceso staff</Link>
+          <div className="mnav__links">
+            <a href={waLink()} target="_blank" rel="noopener"><WA /> WhatsApp</a>
+            <Link href="/staff">Acceso staff</Link>
+          </div>
           <span className="small">{CONTACTO.direccion} · {CONTACTO.horario}</span>
         </div>
-      </div>
+      </nav>
     </>
   );
 }
