@@ -261,7 +261,7 @@ export const PROCESO = [
   { img: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Consulta", d: "Asesoramiento y presupuesto.", dato: "Respuesta en 24 h hábiles" },
   { img: "/photos/proceso-medicion.webp", alt: "Operario midiendo un paño de vidrio", t: "Medición", d: "Relevamiento en obra con personal propio.", dato: "En tu obra, sin cargo" },
   { img: "/photos/proceso-fabricacion.webp", alt: "Perfil sujeto en la máquina de la planta", t: "Fabricación", d: "Corte, armado y control en planta.", dato: "En planta propia" },
-  { img: "/photos/proceso-instalacion.webp", alt: "Ambiente con la abertura corrediza instalada", t: "Instalación", d: "Colocación profesional con personal calificado.", dato: "Con posventa" },
+  { img: "/photos/instalacion-obra.webp", alt: "Corrediza símil madera recién instalada, con las herramientas de colocación en el piso", t: "Instalación", d: "Colocación profesional con personal calificado.", dato: "Con posventa" },
 ];
 
 export const TERMINACIONES = [

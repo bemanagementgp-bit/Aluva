@@ -12,7 +12,7 @@ const PASOS = [
   ["01", "Consulta", "Asesoramiento técnico y presupuesto estimado.", "/photos/local-aluva.jpg"],
   ["02", "Medición", "Relevamiento en obra y presupuesto final.", "/photos/proceso-medicion.webp"],
   ["03", "Fabricación", "Corte, armado, herrajes y control en planta.", "/photos/proceso-fabricacion.webp"],
-  ["04", "Instalación", "Colocación, sellado y regulación con equipo propio.", "/photos/proceso-instalacion.webp"],
+  ["04", "Instalación", "Colocación, sellado y regulación con equipo propio.", "/photos/instalacion-obra.webp"],
 ];
 
 export default function Empresa() {
