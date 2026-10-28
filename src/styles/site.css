@@ -1432,3 +1432,22 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 @media (max-width: 820px) { .explora ul { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px) { .explora ul { grid-template-columns: 1fr; } }
 @media (max-width: 820px) { .page-inicio .hero__title { margin-bottom: 4px; } }
+
+/* Empresa: 01 Nosotros (texto y tres datos) y 02 Fábrica sobre la foto del local */
+.nos { display: grid; grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr); gap: 40px; margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); align-items: start; }
+.nos > p { margin: 0; font-size: clamp(17px, 1.4vw, 20px); line-height: 1.55; color: #d7e6d9; max-width: 52ch; }
+.nos__datos { margin: 0; display: grid; gap: 0; }
+.nos__datos > div { display: flex; align-items: baseline; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+.nos__datos > div:first-child { padding-top: 0; }
+.nos__datos dt { font-family: var(--head); font-weight: 700; font-size: clamp(22px, 2vw, 30px); letter-spacing: -.02em; color: var(--lime); min-width: 7.5em; }
+.nos__datos dd { margin: 0; color: var(--muted); font-size: 15px; }
+.band--fabrica { height: min(72vh, 680px); }
+.band--fabrica::after { background: linear-gradient(180deg, rgba(0,28,28,0) 25%, rgba(0,28,28,.85) 100%); }
+.band--fabrica .band__cap { max-width: none; right: var(--gutter); text-transform: none; font-family: inherit; font-size: inherit; text-shadow: none; }
+.band--fabrica .h-giant { font-size: clamp(44px, 8vw, 116px); margin: 14px 0 12px; text-shadow: 0 6px 30px rgba(0,0,0,.4); }
+.band--fabrica .band__cap p { margin: 0; font-size: 17px; color: #d7e6d9; max-width: 46ch; }
+.cta .btn-row svg { width: 18px; height: 18px; }
+@media (max-width: 820px) {
+  .nos { grid-template-columns: 1fr; gap: 28px; margin-top: 40px; }
+  .nos__datos dt { min-width: 6.5em; }
+}

@@ -5,7 +5,7 @@ import { Cta, Eyebrow, Pillars, Profesionales } from "@/components/blocks";
 import { LINEAS, PROCESO } from "@/content/site";
 
 /* Fotos de obra propias que mandó el cliente (revisión del 2026-10-28):
-   PVC, Aluminio y Mamparas. Templados espera la suya.
+   PVC, Aluminio, Mamparas y Templados.
    PVC y Aluminio van arriba y grandes: son los productos principales y tienen
    que pesar más que vidriería, mamparas y templados, que van en la fila de
    abajo junto al local. */
@@ -14,7 +14,7 @@ const OBRAS = [
   { c: "b2", d: " rv-d1", src: "/photos/obra-aluminio.webp", alt: "Corrediza de aluminio blanco hacia un balcón", t: "Aluminio", sub: "Corrediza al balcón" },
   { c: "b3", d: "", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
   { c: "b4", d: " rv-d1", src: "/photos/obra-mampara.webp", alt: "Paño de vidrio esmerilado en un baño de mármol", t: "Mamparas", sub: "Vidrio esmerilado a medida" },
-  { c: "b5", d: " rv-d2", src: "/photos/det-blindex-1.webp", alt: "Puerta de vidrio templado con tirador", t: "Templados", sub: "Puerta de templado" },
+  { c: "b5", d: " rv-d2", src: "/photos/obra-templado.webp", alt: "Puerta de vidrio templado con tirador en un hall", t: "Templados", sub: "Puerta de templado" },
   { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
 ];
 

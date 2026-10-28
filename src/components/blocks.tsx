@@ -1,7 +1,7 @@
 /* Bloques que se repiten entre páginas (componentes de servidor). */
 import Link from "next/link";
 import { Fragment, type ReactNode } from "react";
-import { Icon, WA } from "./Icon";
+import { Icon, IPin, WA } from "./Icon";
 import { waLink, type Pilar } from "@/content/site";
 
 /** Une líneas de un título con <br> (["Más luz.", "Más vista."]). */
@@ -16,8 +16,11 @@ export const Eyebrow = ({ n, children }: { n: string; children: ReactNode }) => 
 /** Clase de sección: las páginas alternan verde oscuro y blanco (light). */
 export const sec = (base: string, light: boolean) => (light ? `${base} section--paper` : base);
 
-/** @param href  destino del botón; en cada producto lleva ?producto= para que el formulario ya lo tenga tildado */
-export function Cta({ title = "¿Tenés una obra?", text = "Medición, fabricación e instalación.", light = false, href = "/contacto" }: { title?: string; text?: string; light?: boolean; href?: string }) {
+/**
+ * @param href  destino del botón; en cada producto lleva ?producto= para que el formulario ya lo tenga tildado
+ * @param maps  si viene, suma un botón "Cómo llegar" a Google Maps
+ */
+export function Cta({ title = "¿Tenés una obra?", text = "Medición, fabricación e instalación.", light = false, href = "/contacto", maps }: { title?: string; text?: string; light?: boolean; href?: string; maps?: string }) {
   return (
     <section className={sec("section--tight", light)}>
       <div className="wrap">
@@ -29,6 +32,7 @@ export function Cta({ title = "¿Tenés una obra?", text = "Medición, fabricaci
             <div className="btn-row">
               <Link className="btn btn--lime" href={href}>Pedí tu presupuesto <span className="arr">→</span></Link>
               <a className="btn btn--ghost" href={waLink()} target="_blank" rel="noopener"><WA /> WhatsApp</a>
+              {maps && <a className="btn btn--ghost" href={maps} target="_blank" rel="noopener"><IPin /> Cómo llegar</a>}
             </div>
           </div>
         </div>

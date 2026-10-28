@@ -11,6 +11,8 @@ export const CONTACTO = {
   email: "ventas@aluva.com.ar",
   direccion: "La Plata, Buenos Aires", // TODO: dirección real
   horario: "Lun a Vie 8 a 17 h · Sáb 9 a 13 h", // TODO: horario real
+  // TODO: reemplazar por el link de Maps del showroom cuando esté confirmado
+  maps: "https://www.google.com/maps/search/?api=1&query=Aluva+aberturas+La+Plata",
 } as const;
 
 export const waLink = (texto = "Hola Aluva, quiero hacer una consulta.") =>
@@ -34,8 +36,8 @@ export const LINEAS: Linea[] = [
   { slug: "pvc", name: "PVC", short: "La mejor aislación. Perfilería de primera línea, con DVH fabricado en planta propia.", vit: "/photos/portada-pvc-fabrica.jpg", chips: ["Perfilería multicámara", "DVH propio", "Cierre multipunto", "Símil madera"] },
   // Las líneas de aluminio van siempre A30, Módena, Herrero: es el orden de
   // mejor a peor que pidió el cliente, no alfabético. Vale en todo el sitio.
-  { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero. Distintas prestaciones para cada necesidad.", vit: "/photos/portada-aluminio.jpg", vitPos: "14% 50%", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
-  { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético. Todo fabricado en nuestra planta.", vit: "/photos/mampara-ducha-negra.jpg", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
+  { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero. Distintas prestaciones para cada necesidad.", vit: "/photos/obra-aluminio.webp", vitPos: "38% 50%", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
+  { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético. Todo fabricado en nuestra planta.", vit: "/photos/obra-mampara.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
   { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado.", vit: "/photos/det-blindex-1.webp", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
   { slug: "revestimientos", name: "Revestimientos", short: "Wall panel para fachadas, deck para exteriores y parasoles de PVC.", vit: "/photos/revestimiento-fachada.webp", chips: ["Wall panel", "Deck", "Parasol", "Sin mantenimiento"] },
 ];
