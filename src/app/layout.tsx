@@ -7,7 +7,7 @@ import Intro from "@/components/Intro";
 export const metadata: Metadata = {
   metadataBase: new URL("https://aluva.vercel.app"),
   title: "Aluva · Aberturas de PVC y aluminio a medida en La Plata",
-  description: "Fábrica de aberturas a medida en La Plata: PVC, aluminio, vidrio templado, vidriería con DVH y mamparas, y revestimientos.",
+  description: "Fábrica de aberturas a medida en La Plata: PVC, aluminio, vidriería con DVH y mamparas, vidrio templado y revestimientos.",
   icons: { icon: { url: "/brand/icon-principal.svg", type: "image/svg+xml" }, apple: "/brand/icon-192.png" },
   openGraph: { type: "website", locale: "es_AR", images: ["/brand/og-aluva.jpg"] },
 };

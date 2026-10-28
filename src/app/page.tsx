@@ -4,13 +4,16 @@ import { Arrow } from "@/components/Icon";
 import { Cta, Eyebrow, Pillars, Profesionales } from "@/components/blocks";
 import { LINEAS, PROCESO } from "@/content/site";
 
+/* PVC y Aluminio llevan las fotos grandes: son los productos principales y
+   tienen que pesar más que templados, mamparas y vidriería (revisión del
+   cliente, 2026-10-28). Los productos siguen el orden del resto del sitio. */
 const OBRAS = [
-  { c: "b1", d: "", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
-  { c: "b2", d: " rv-d1", src: "/og/producto-pvc.jpg", alt: "Puerta corrediza de PVC símil madera hacia la pileta", t: "PVC", sub: "Corrediza símil madera" },
-  { c: "b3", d: " rv-d2", src: "/photos/aluminio-corrediza.jpg", alt: "Corrediza de aluminio negro de tres hojas", t: "Aluminio", sub: "Corrediza de tres hojas" },
-  { c: "b4", d: "", src: "/photos/det-blindex-1.webp", alt: "Puerta de vidrio templado con tirador", t: "Templados", sub: "Puerta de templado" },
-  { c: "b5", d: " rv-d1", src: "/photos/mampara-ducha-negra.jpg", alt: "Mampara de ducha con perfil negro", t: "Mamparas", sub: "Perfil negro a medida" },
-  { c: "b6", d: " rv-d2", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
+  { c: "b1", d: "", src: "/og/producto-pvc.jpg", alt: "Puerta corrediza de PVC símil madera hacia la pileta", t: "PVC", sub: "Corrediza símil madera" },
+  { c: "b2", d: " rv-d1", src: "/photos/aluminio-corrediza.jpg", alt: "Corrediza de aluminio negro de tres hojas", t: "Aluminio", sub: "Corrediza de tres hojas" },
+  { c: "b3", d: "", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
+  { c: "b4", d: " rv-d1", src: "/photos/mampara-ducha-negra.jpg", alt: "Mampara de ducha con perfil negro", t: "Mamparas", sub: "Perfil negro a medida" },
+  { c: "b5", d: " rv-d2", src: "/photos/det-blindex-1.webp", alt: "Puerta de vidrio templado con tirador", t: "Templados", sub: "Puerta de templado" },
+  { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
 ];
 
 export default function Inicio() {
@@ -19,11 +22,15 @@ export default function Inicio() {
       <section className="hero">
         <div className="hero__media"><img src="/photos/portada-inicio-proyectantes.jpg" alt="Ventanas proyectantes de aluminio negro abiertas hacia el jardín" fetchPriority="high" /></div>
         <div className="wrap">
-          <Eyebrow n="01">PVC · Aluminio · Templados · Vidrio</Eyebrow>
+          <Eyebrow n="01">PVC · Aluminio · Vidriería · Templados · Revestimientos</Eyebrow>
           <div className="hero__grid">
-            <h1 className="hero__title"><span className="row"><span>Aberturas</span></span><span className="row">a medida</span></h1>
+            {/* La marca va primero y más grande que "Aberturas a medida" (pedido del cliente, 2026-10-28) */}
+            <h1 className="hero__title">
+              <span className="row"><span><img className="hero__marca" src="/brand/marca-negativa-ajustada.svg" alt="Aluva" width={699} height={141} /></span></span>
+              <span className="row hero__sub"><span>Aberturas a medida</span></span>
+            </h1>
             <div className="hero__side">
-              <p className="lead">Fabricamos e instalamos aberturas de PVC y aluminio, templados y vidriería en La Plata.</p>
+              <p className="lead">Fabricamos e instalamos aberturas de PVC y aluminio, templados y revestimientos. Más de 20 años de trayectoria en el mercado.</p>
               <div className="btn-row">
                 <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
                 <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
@@ -36,7 +43,7 @@ export default function Inicio() {
       <section id="que-fabricamos" className="section--fx section--hondo section section--paper s-lineas">
         <div className="wrap">
           <Eyebrow n="02">Qué fabricamos</Eyebrow>
-          <h2 className="h-lg rv">Cinco líneas,<br />una fábrica.</h2>
+          <h2 className="h-lg rv">Cinco soluciones,<br />una fábrica.</h2>
           <div style={{ height: 8 }} />
           <div className="lines">
             {LINEAS.map((l, i) => (
@@ -58,8 +65,8 @@ export default function Inicio() {
           <h2 className="h-lg rv">No revendemos.<br />Fabricamos.</h2>
           <Pillars items={[
             ["factory", "Fábrica propia", "Planta en La Plata.", "/photos/det-pvc-perfil.webp"],
-            ["ruler", "Medición en obra", "Relevamiento al milímetro.", "/photos/medicion-cinta.jpg"],
-            ["thermo", "DVH propio", "Fabricado en planta.", "/photos/dvh-perfiles.jpg"],
+            ["ruler", "Medición en obra", "Relevamiento preciso.", "/photos/medicion-cinta.jpg"],
+            ["thermo", "DVH de fabricación propia", "Realizado íntegramente en nuestras instalaciones.", "/photos/dvh-perfiles.jpg"],
             ["tools", "Instalación", "Con equipo propio.", "/og/producto-aluminio.jpg"],
           ]} />
         </div>

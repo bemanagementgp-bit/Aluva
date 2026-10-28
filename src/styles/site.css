@@ -348,13 +348,16 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 @keyframes swingY { 0%, 15% { transform: perspective(700px) rotateY(0); } 50%, 65% { transform: perspective(700px) rotateY(-58deg); } 100% { transform: perspective(700px) rotateY(0); } }
 @keyframes tiltX { 0%, 15% { transform: perspective(700px) rotateX(0); } 50%, 65% { transform: perspective(700px) rotateX(-38deg); } 100% { transform: perspective(700px) rotateX(0); } }
 @keyframes tiltTop { 0%, 15% { transform: perspective(700px) rotateX(0); } 50%, 65% { transform: perspective(700px) rotateX(40deg); } 100% { transform: perspective(700px) rotateX(0); } }
-@keyframes oscilo { 0%, 8% { transform: perspective(700px) rotateX(0) rotateY(0); } 25%, 35% { transform: perspective(700px) rotateX(-30deg); } 45% { transform: perspective(700px) rotateX(0) rotateY(0); } 65%, 75% { transform: perspective(700px) rotateY(-55deg); } 92%, 100% { transform: perspective(700px) rotateY(0); } }
 @keyframes glint { 0%, 30% { transform: translateX(-120%) skewX(-18deg); } 70%, 100% { transform: translateX(220%) skewX(-18deg); } }
 .anim-slide { animation: slideX 4.2s var(--ease) infinite; transform-box: fill-box; }
 .anim-swing { animation: swingY 4.2s var(--ease) infinite; transform-box: fill-box; transform-origin: left center; }
 .anim-tilt { animation: tiltX 4.2s var(--ease) infinite; transform-box: fill-box; transform-origin: center bottom; }
 .anim-tilttop { animation: tiltTop 4.2s var(--ease) infinite; transform-box: fill-box; transform-origin: center top; }
-.anim-oscilo { animation: oscilo 7s var(--ease) infinite; transform-box: fill-box; transform-origin: left bottom; }
+/* Oscilobatiente: primero vuelca (eje abajo), vuelve, y después abre de costado (eje izquierdo) */
+.anim-oscilo-v { animation: osciloV 7s var(--ease) infinite; transform-box: fill-box; transform-origin: center bottom; }
+.anim-oscilo-b { animation: osciloB 7s var(--ease) infinite; transform-box: fill-box; transform-origin: left center; }
+@keyframes osciloV { 0%, 8% { transform: perspective(700px) rotateX(0); } 22%, 34% { transform: perspective(700px) rotateX(-34deg); } 46%, 100% { transform: perspective(700px) rotateX(0); } }
+@keyframes osciloB { 0%, 52% { transform: perspective(700px) rotateY(0); } 66%, 78% { transform: perspective(700px) rotateY(-55deg); } 92%, 100% { transform: perspective(700px) rotateY(0); } }
 .anim-glint { animation: glint 3.6s ease-in-out infinite; transform-box: fill-box; }
 .swing-r { transform-origin: right center !important; animation-name: swingYr; }
 @keyframes swingYr { 0%, 15% { transform: perspective(700px) rotateY(0); } 50%, 65% { transform: perspective(700px) rotateY(58deg); } 100% { transform: perspective(700px) rotateY(0); } }
@@ -1385,3 +1388,47 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 .cover__title { overflow-wrap: anywhere; }
 @media (max-width: 400px) { .cover__title { font-size: clamp(34px, 11vw, 48px); } }
 .drag-hint { flex-wrap: wrap; }
+
+/* ==========================================================================
+   Revisión del cliente, 2026-10-28
+   ========================================================================== */
+/* Portada: la marca va grande, "Aberturas a medida" queda de bajada */
+.hero__marca { display: block; width: clamp(230px, 40vw, 600px); height: auto; margin-bottom: .08em; filter: drop-shadow(0 2px 18px rgba(0,0,0,.35)); }
+.hero__title .hero__sub { font-size: clamp(26px, 3.4vw, 52px); line-height: 1.05; margin-top: .4em; color: #eef6e8; }
+
+/* Staff: link simple como los del menú, separado de "Pedí presupuesto" */
+.hdr__staff { font-size: 14.5px; font-weight: 600; padding: 10px 14px; margin-left: 14px; border-radius: 3px; color: var(--ink); opacity: .86; transition: opacity .2s, background .2s; }
+.hdr__staff:hover, .hdr__staff[aria-current="page"] { opacity: 1; background: rgba(198, 242, 156, .08); }
+.hdr.on-light .hdr__staff { color: var(--paper-ink); }
+.hdr.on-light .hdr__staff:hover { background: rgba(14,21,18,.05); }
+@media (max-width: 1080px) { .hdr__staff { display: none; } }
+
+/* Cómo trabajamos: el número de cada etapa con más jerarquía */
+.proc__rail { height: 40px; }
+.proc__n { font-family: var(--head); font-size: clamp(28px, 2.6vw, 40px); line-height: 1; letter-spacing: 0; }
+
+/* Bloque de presupuesto: contenido centrado en vertical */
+.cta { align-items: center; }
+.cta p { margin-top: 0; }
+
+/* Obras: PVC y Aluminio grandes, el resto en una fila de cuatro */
+.b1, .b2 { grid-column: span 6; grid-row: span 4; }
+.b3, .b4, .b5, .b6 { grid-column: span 3; grid-row: span 3; }
+@media (max-width: 820px) {
+  .b1, .b2 { grid-column: span 2; grid-row: span 2; }
+  .b3, .b4, .b5, .b6 { grid-column: span 1; grid-row: span 2; }
+}
+
+/* Pie de cada producto: saltar a cualquiera de los otros */
+.explora { padding: 8px 0; }
+.explora small { display: block; font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--mint); margin-bottom: 18px; }
+.explora ul { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0 24px; }
+.explora a { display: flex; align-items: center; justify-content: space-between; gap: 10px; padding: 18px 0; border-bottom: 1px solid var(--line); font-family: var(--head); font-weight: 700; letter-spacing: -.02em; font-size: clamp(22px, 2.2vw, 34px); line-height: 1; transition: color .3s, padding .4s var(--ease); }
+.explora a svg { width: .7em; flex: 0 0 auto; }
+.explora a:hover { color: var(--lime); padding-left: 8px; }
+.section--paper .explora small { color: #2f7a0a; }
+.section--paper .explora a { color: var(--paper-ink); border-color: rgba(14,21,18,.12); }
+.section--paper .explora a:hover { color: #2f7a0a; }
+@media (max-width: 820px) { .explora ul { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 480px) { .explora ul { grid-template-columns: 1fr; } }
+@media (max-width: 820px) { .page-inicio .hero__title { margin-bottom: 4px; } }

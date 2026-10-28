@@ -16,7 +16,8 @@ export const Eyebrow = ({ n, children }: { n: string; children: ReactNode }) => 
 /** Clase de sección: las páginas alternan verde oscuro y blanco (light). */
 export const sec = (base: string, light: boolean) => (light ? `${base} section--paper` : base);
 
-export function Cta({ title = "¿Tenés una obra?", text = "Medición, fabricación e instalación.", light = false }: { title?: string; text?: string; light?: boolean }) {
+/** @param href  destino del botón; en cada producto lleva ?producto= para que el formulario ya lo tenga tildado */
+export function Cta({ title = "¿Tenés una obra?", text = "Medición, fabricación e instalación.", light = false, href = "/contacto" }: { title?: string; text?: string; light?: boolean; href?: string }) {
   return (
     <section className={sec("section--tight", light)}>
       <div className="wrap">
@@ -26,7 +27,7 @@ export function Cta({ title = "¿Tenés una obra?", text = "Medición, fabricaci
           <div>
             <p>{text}</p>
             <div className="btn-row">
-              <Link className="btn btn--lime" href="/contacto">Pedí tu presupuesto <span className="arr">→</span></Link>
+              <Link className="btn btn--lime" href={href}>Pedí tu presupuesto <span className="arr">→</span></Link>
               <a className="btn btn--ghost" href={waLink()} target="_blank" rel="noopener"><WA /> WhatsApp</a>
             </div>
           </div>
@@ -74,7 +75,7 @@ export function Profesionales() {
         <p className="pro-volanta">Arquitectos · Estudios · Constructoras</p>
         <span className="pro-palabra" aria-hidden="true">Profesionales</span>
         <span className="pro-regla" aria-hidden="true" />
-        <h2 className="pro-bajada">Producción al ritmo <strong>de tu obra.</strong></h2>
+        <h2 className="pro-bajada">Producción al ritmo de <strong>tu obra.</strong></h2>
         <div className="pro-acciones">
           <a className="pro-btn" href="mailto:ventas@aluva.com.ar?subject=Consulta%20profesional">Escribir a ventas<span className="pro-flecha">→</span></a>
           <a className="pro-link" href="https://wa.me/5492216755077" target="_blank" rel="noopener noreferrer">WhatsApp +54 9 221 675-5077</a>

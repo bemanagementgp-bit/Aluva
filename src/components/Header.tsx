@@ -79,7 +79,7 @@ export default function Header({ active }: { active: Seccion }) {
           </nav>
           <div className="hdr__cta">
             <Link className="btn btn--lime" href="/contacto">Pedí presupuesto <span className="arr">→</span></Link>
-            <Link className="btn btn--white" href="/staff">Staff</Link>
+            <Link className="hdr__staff" href="/staff" {...cur("staff")}>Staff</Link>
             <button className="burger" type="button" aria-label={menu ? "Cerrar menú" : "Abrir menú"} aria-expanded={menu} onClick={() => setMenu((m) => !m)}><span /><span /></button>
           </div>
         </div>

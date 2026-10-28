@@ -6,7 +6,7 @@
   navegador. Si el formulario pasa a enviar a un servidor, el límite tiene que
   aplicarse también ahí (el del navegador se puede saltear).
 */
-import { useRef, useState, type FormEvent } from "react";
+import { useEffect, useRef, useState, type FormEvent } from "react";
 import { WA } from "./Icon";
 import { waLink } from "@/content/site";
 
@@ -17,7 +17,10 @@ import { waLink } from "@/content/site";
 const MAX_ARCHIVOS = 5;
 const MAX_MB = 15;
 const RATE = { max: 3, ventana: 10 * 60e3, espera: 30e3, minLlenado: 3e3 };
-const PRODUCTOS: [string, string][] = [["pvc", "PVC"], ["alu", "Aluminio"], ["tem", "Templados"], ["dvh", "DVH / Vidrios"], ["mam", "Mamparas"], ["rev", "Revestimientos"], ["otr", "Otro"]];
+const PRODUCTOS: [string, string][] = [["pvc", "PVC"], ["alu", "Aluminio"], ["dvh", "DVH / Vidrios"], ["mam", "Mamparas"], ["tem", "Templados"], ["rev", "Revestimientos"], ["otr", "Otro"]];
+/* "Cotizar PVC" y los demás botones de cada producto llegan con ?producto=slug:
+   esa opción aparece ya tildada. */
+const DESDE_PRODUCTO: Record<string, string> = { pvc: "pvc", aluminio: "alu", vidrieria: "dvh", templados: "tem", revestimientos: "rev" };
 
 function rateLimit(clave: string): { ok: true; registrar: () => void } | { ok: false; seg: number } {
   const k = "aluva-envios-" + clave;
@@ -36,6 +39,12 @@ export default function ContactForm() {
   const abierto = useRef(Date.now());
   const [aviso, setAviso] = useState("");
   const [archivos, setArchivos] = useState<File[]>([]);
+
+  useEffect(() => {
+    const k = DESDE_PRODUCTO[new URLSearchParams(location.search).get("producto") ?? ""];
+    const box = k ? document.getElementById(`p-${k}`) as HTMLInputElement | null : null;
+    if (box) box.checked = true;
+  }, []);
 
   const elegir = (lista: FileList | null) => {
     const fs = Array.from(lista ?? []).slice(0, MAX_ARCHIVOS);

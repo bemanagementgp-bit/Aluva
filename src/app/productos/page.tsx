@@ -7,7 +7,7 @@ import { LINEAS, TERMINACIONES } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Nuestros productos | Aluva La Plata",
-  description: "Aberturas de PVC y aluminio, vidrio templado, vidriería DVH y revestimientos a medida. Explorá tipologías y encontrá la abertura ideal.",
+  description: "Aberturas de PVC y aluminio, vidriería DVH, vidrio templado y revestimientos a medida. Explorá tipologías y encontrá la abertura ideal.",
 };
 
 export default function Productos() {

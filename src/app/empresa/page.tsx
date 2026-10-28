@@ -5,7 +5,7 @@ import { Cta, Eyebrow, Pillars } from "@/components/blocks";
 
 export const metadata: Metadata = {
   title: "Empresa · Fábrica de aberturas en La Plata | Aluva",
-  description: "Conocé Aluva: fábrica de aberturas de PVC y aluminio, vidrio templado, vidriería y revestimientos en La Plata. Nuestro proceso y servicio para profesionales.",
+  description: "Conocé Aluva: fábrica de aberturas de PVC y aluminio, vidriería, vidrio templado y revestimientos en La Plata. Nuestro proceso y servicio para profesionales.",
 };
 
 const PASOS = [
@@ -24,7 +24,7 @@ export default function Empresa() {
           <Eyebrow n="01">Nosotros</Eyebrow>
           <div className="phero__row">
             <h1 className="h-giant"><span>Fábrica</span></h1>
-            <p className="lead">Aberturas de PVC y aluminio, templados, vidriería y revestimientos. La Plata.</p>
+            <p className="lead">Aberturas de PVC y aluminio, vidriería, templados y revestimientos. La Plata.</p>
           </div>
         </div>
       </section>
@@ -39,10 +39,10 @@ export default function Empresa() {
           <Eyebrow n="02">Lo que nos mueve</Eyebrow>
           <h2 className="h-lg rv">De punta<br />a punta.</h2>
           <Pillars items={[
+            ["shield", "Materiales", "Perfilería y herrajes de primera línea."],
             ["ruler", "Precisión", "Medición propia."],
             ["factory", "Producción", "Planta PVC y aluminio."],
-            ["shield", "Materiales", "Perfiles y herrajes de primera."],
-            ["tools", "Posventa", "Garantía y atención después de instalar."],
+            ["tools", "Posventa", "Garantía y atención finalizada la obra."],
           ]} />
         </div>
       </section>

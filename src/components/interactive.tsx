@@ -169,7 +169,7 @@ export function Vitrinas({ lineas }: { lineas: Linea[] }) {
           <div className="vit__body">
             <h3>{l.name}</h3><p>{l.short}</p>
             <div className="vit__chips">{l.chips.map((c) => <span key={c} className="chip">{c}</span>)}</div>
-            <span className="btn btn--lime">Explorar línea <span className="arr">→</span></span>
+            <span className="btn btn--lime">Explorar <span className="arr">→</span></span>
           </div>
         </Link>
       ))}
@@ -198,13 +198,16 @@ const TIPOS: Record<string, Tipo> = {
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} cls="anim-swing" /><Sash x={150} y={8} w={142} h={284} cls="anim-swing swing-r" /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /><Hinge cx={292} cy={60} /><Hinge cx={292} cy={240} /></svg>,
   },
   oscilobatiente: {
-    name: "Oscilobatiente", img: "/photos/tip-oscilobatiente.webp", mats: ["PVC", "Aluminio"],
+    name: "Oscilobatiente", img: "/photos/tip-oscilobatiente.webp", mats: ["PVC", "Aluminio", "Vidriería"],
     txt: "Dos movimientos en un mismo manijón: se inclina desde arriba para ventilar con seguridad, o abre como batiente para limpiar y ventilar a fondo.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={284} h={284} cls="anim-oscilo" /><rect x={268} y={130} width={8} height={40} rx={3} fill="#eef6e8" /></svg>,
+    // Dos grupos anidados: el de afuera vuelca sobre el borde inferior y el de
+    // adentro abre sobre la bisagra izquierda. Con un solo eje en la esquina el
+    // primer movimiento se veía torcido y no se entendía.
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><g className="anim-oscilo-v"><g className="anim-oscilo-b"><Sash x={8} y={8} w={284} h={284} /><rect x={268} y={130} width={8} height={40} rx={3} fill="#eef6e8" /></g></g><Hinge cx={60} cy={292} /><Hinge cx={240} cy={292} /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /></svg>,
   },
   banderola: {
-    name: "Banderola", img: "/photos/tipo-banderola.webp", mats: ["Aluminio"],
-    txt: "Ventana que se proyecta desde arriba. Ventila aún con lluvia; perfecta en baños, cocinas y sobre puertas.",
+    name: "Banderola", img: "/photos/tip-banderola.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Ventana que se proyecta desde arriba. Perfecta en baños, cocinas y sobre puertas.",
     svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilt" /><Hinge cx={60} cy={152} /><Hinge cx={240} cy={152} /></svg>,
   },
   fijo: {
@@ -213,22 +216,22 @@ const TIPOS: Record<string, Tipo> = {
     svg: <svg viewBox="-10 -10 320 320"><defs><clipPath id="cf"><rect x={20} y={20} width={260} height={260} /></clipPath></defs><Frame /><Sash x={8} y={8} w={284} h={284} /><g clipPath="url(#cf)"><rect className="anim-glint" x={20} y={-40} width={60} height={400} fill="rgba(238,246,232,.22)" /></g></svg>,
   },
   puerta: {
-    name: "Puerta", img: "/photos/pvc-puerta-doble.webp", mats: ["PVC", "Templados"],
-    txt: "Puertas de PVC con cierre multipunto, y puertas de vidrio templado para locales y oficinas.",
+    name: "Puerta", img: "/photos/al-puerta.jpg", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
+    txt: "Puertas de PVC o aluminio, y puertas de vidrio templado.",
     svg: <svg viewBox="-10 -10 200 320"><Frame w={180} h={300} /><g className="anim-swing"><rect className="dg-sash" x={8} y={8} width={164} height={292} rx={3} /><rect className="dg-glass" x={28} y={28} width={124} height={120} /><rect x={140} y={160} width={8} height={46} rx={3} fill="#eef6e8" /></g></svg>,
   },
   balcon: {
-    name: "Puerta balcón", img: "/photos/tipo-puerta-balcon.webp", mats: ["PVC", "Aluminio"],
-    txt: "Puertas vidriadas de dos hojas que conectan interior y exterior. Batientes u oscilobatientes, con umbral bajo.",
+    name: "Puerta balcón", img: "/photos/tipo-puerta-balcon.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Puertas vidriadas de dos hojas que conectan interior y exterior. Batientes con umbral bajo.",
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} cls="anim-swing" /><Sash x={150} y={8} w={142} h={284} cls="anim-swing swing-r" /><line x1={150} y1={8} x2={150} y2={292} stroke="#c6f29c" strokeWidth={2} /></svg>,
   },
   frente: {
-    name: "Frente vidriado", img: "/photos/tipo-frente.webp", mats: ["Templados"],
-    txt: "Frentes comerciales y vidrieras de locales en vidrio templado, con puertas de acceso integradas.",
+    name: "Frente vidriado", img: "/photos/tipo-frente.webp", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
+    txt: "Frentes comerciales y grandes espacios vidriados. Posibilidad de incorporar puertas.",
     svg: <svg viewBox="-10 -10 340 240"><Frame w={320} h={220} /><Sash x={8} y={8} w={100} h={204} /><Sash x={110} y={8} w={100} h={204} cls="anim-swing" /><Sash x={212} y={8} w={100} h={204} /></svg>,
   },
   piel: {
-    name: "Piel de vidrio", img: "/photos/tipo-piel.webp", mats: ["Templados"],
+    name: "Piel de vidrio", img: "/photos/tipo-piel.webp", mats: ["Aluminio", "Vidriería", "Templados"],
     txt: "Fachadas continuas de vidrio para frentes completos de locales, edificios y oficinas.",
     svg: (
       <svg viewBox="-10 -10 320 320">
@@ -242,12 +245,15 @@ const TIPOS: Record<string, Tipo> = {
   },
 };
 
-const MATERIALES = ["PVC", "Aluminio", "Templados", "Vidriería"];
+const MATERIALES = ["PVC", "Aluminio", "Vidriería", "Templados"];
+
+/* Orden de la lista: por movimiento, como pidió el cliente (2026-10-28) */
+const ORDEN = ["fijo", "batiente", "banderola", "oscilobatiente", "puerta", "corrediza", "balcon", "frente", "piel"];
 
 export function Tipologias() {
-  const keys = Object.keys(TIPOS);
-  const [k, setK] = useState("corrediza");
-  const [img, setImg] = useState(TIPOS.corrediza.img);
+  const keys = ORDEN;
+  const [k, setK] = useState(ORDEN[0]);
+  const [img, setImg] = useState(TIPOS[ORDEN[0]].img);
   const [visible, setVisible] = useState(true);
   const t = TIPOS[k];
 
@@ -292,6 +298,10 @@ export function Tipologias() {
    - "Alféizar": es obra, no parte de la ventana de PVC.
    - "Perfil de acople": tampoco pertenece al sistema.
 
+   En la revisión del 2026-10-28 pidió sumar los herrajes. El dibujo no los
+   muestra; el punto queda sobre el canto de la hoja hasta que llegue el render
+   nuevo que está preparando el cliente.
+
    Los puntos del dibujo se numeran por posición en esta lista, así que sacar
    una entrada saca su punto y renumera el resto solo: no hay que tocar nada más.
 */
@@ -300,6 +310,7 @@ const PIEZAS: [number, number, string, string][] = [
   [13, 58, "Hoja", "Perfil de PVC con cámaras de aire internas de aislación térmica y acústica y refuerzos galvanizados. Soldada a inglete en sus cuatro esquinas para un cierre estanco."],
   [25, 38, "DVH", "Dos o más hojas de vidrio con cámara de aire seco. Mayor aislación térmica y acústica."],
   [37, 27, "Burletes perimetrales", "Juntas de goma que sellan contra agua, viento y polvo."],
+  [47, 62, "Herrajes", "Cierre multipunto, bisagras y manija: dan el movimiento de la hoja y el cierre hermético."],
 ];
 
 export function Anatomia() {

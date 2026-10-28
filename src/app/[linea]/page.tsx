@@ -50,11 +50,9 @@ function Especial({ slug }: { slug: Slug }) {
             <h2 className="h-lg rv">Configurador<br />DVH.</h2>
             <p className="small">Combiná vidrios y cámara.</p>
           </div>
+          {/* Sin fotos abajo: la de perfiles era de PVC y la del corte, de IA.
+              El cliente decide si hace falta alguna (revisión del 2026-10-28). */}
           <DvhConfigurator />
-          <div className="duo">
-            <figure className="rv"><img src="/photos/dvh-perfiles.jpg" alt="Cortes de perfiles de PVC con doble vidriado hermético" loading="lazy" /></figure>
-            <figure className="rv rv-d1"><img src="/photos/dvh-corte.jpg" alt="Corte de una abertura con doble vidriado hermético" loading="lazy" /></figure>
-          </div>
         </div>
       </section>
     );
@@ -129,8 +127,8 @@ function SysFig({ src, alt }: { src: string; alt: string }) {
 export default async function Linea({ params }: Props) {
   const p = buscar((await params).linea);
   if (!p) notFound();
-  const idx = LINEAS.findIndex((l) => l.slug === p.slug);
-  const nxt = LINEAS[(idx + 1) % LINEAS.length];
+  const otras = LINEAS.filter((l) => l.slug !== p.slug);
+  const cotizar = `/contacto?producto=${p.slug}`;
 
   return (
     <Shell active={p.slug}>
@@ -141,7 +139,7 @@ export default async function Linea({ params }: Props) {
           <h1 className="cover__title">{p.name}</h1>
           <p className="cover__lead">{p.lead}</p>
           <div className="btn-row">
-            <Link className="btn btn--lime" href="/contacto">Cotizar {p.name} <span className="arr">→</span></Link>
+            <Link className="btn btn--lime" href={cotizar}>Cotizar {p.name} <span className="arr">→</span></Link>
             <a className="btn btn--ghost" href={waLink(`Hola Aluva, quiero consultar por ${p.name}.`)} target="_blank" rel="noopener"><WA /> Consultar</a>
           </div>
         </div>
@@ -173,13 +171,18 @@ export default async function Linea({ params }: Props) {
 
       <Faq n="05" items={p.faq} light />
 
-      <section className="section--tight">
+      {/* Primero el presupuesto y después el resto de los productos, que se
+          pueden recorrer en cualquier sentido (antes solo había "siguiente") */}
+      <Cta title={p.ctaT} text={p.cta} href={cotizar} />
+
+      <section className="section--tight section--paper">
         <div className="wrap">
-          <Link className="next" href={`/${nxt.slug}`}><small>Siguiente línea</small><span className="next__t">{nxt.name} <Arrow /></span></Link>
+          <nav className="explora" aria-label="Otros productos">
+            <small>Seguí explorando</small>
+            <ul>{otras.map((l) => <li key={l.slug}><Link href={`/${l.slug}`}>{l.name} <Arrow /></Link></li>)}</ul>
+          </nav>
         </div>
       </section>
-
-      <Cta title={p.ctaT} text={p.cta} light />
     </Shell>
   );
 }
