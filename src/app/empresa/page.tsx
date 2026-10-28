@@ -68,19 +68,31 @@ const OBRAS: [string, string][] = [
 export default function Empresa() {
   return (
     <Shell active="empresa">
-      {/* 01 Nosotros. Lo primero son los 20 años de trayectoria (pedido del
-          cliente, 2026-10-28), con el diseño de bloque verde + foto que pasó. */}
-      <section className="mg-tapa section--paper">
-        <div className="mg-pres">
-          <span className="mg-pres__bloque" aria-hidden="true" />
-          <figure className="mg-pres__fig">
-            <img src="/photos/em-35.webp" alt="Operario cargando un perfil en la prensa de nuestra planta" fetchPriority="high" />
-            <figcaption>
-              <h1 className="mg-pres__arriba"><b>+20 años</b><span>de trayectoria<br />fabricando aberturas</span></h1>
-              <p className="mg-pres__abajo"><span>Hechas en</span><b>La Plata.</b></p>
-            </figcaption>
-          </figure>
+      {/* 01 Nosotros. Hero a pantalla completa con el formato de la portada de
+          hitachicm.com.au: foto que ocupa toda la pantalla, encima el título
+          en bloque a la izquierda en varias líneas, con dos pesos (una línea
+          delgada y otra pesada), y una línea volanta arriba.
+
+          La foto que mostró el cliente (el frente del local con el cartel
+          "aluva · tecnología en aberturas") no está entre las que llegaron a
+          mi carpeta; cuando la suban al proyecto, el `src` de la foto es lo
+          único que hay que cambiar. */}
+      <section className="em-hero">
+        <img className="em-hero__bg" src="/photos/em-35.webp" alt="" aria-hidden="true" fetchPriority="high" />
+        <div className="wrap em-hero__in">
+          <p className="em-hero__ey">Más de 20 años</p>
+          <h1 className="em-hero__t">
+            <span>Fabricamos</span>
+            <b>aberturas</b>
+            <span>a medida</span>
+            <b>en La Plata.</b>
+          </h1>
+          <p className="em-hero__p">Planta propia, equipo propio y una misma historia desde hace más de dos décadas.</p>
+          <a href="#nosotros" className="em-hero__scroll" aria-label="Ir al contenido"><span /><em>Conocenos</em></a>
         </div>
+      </section>
+
+      <section className="mg-tapa section--paper" id="nosotros">
         <div className="wrap">
           <div className="phero__crumbs"><Link href="/">Inicio</Link><span>/</span><span>Empresa</span></div>
           <dl className="mg-datos">
