@@ -46,11 +46,11 @@ const VALORES: [string, string, string][] = [
   ["Posventa", "Garantía y atención finalizada la obra.", "/photos/em-130.webp"],
 ];
 
-const PASOS: [string, string, string, string][] = [
-  ["01", "Consulta", "Asesoramiento técnico y presupuesto estimado.", "/photos/em-166.webp"],
-  ["02", "Medición", "Relevamiento en obra con personal propio.", "/photos/proceso-medicion.webp"],
-  ["03", "Fabricación", "Corte, armado, herrajes y control en planta.", "/photos/proceso-fabricacion.webp"],
-  ["04", "Instalación", "Colocación profesional con personal calificado.", "/photos/instalacion-obra.webp"],
+const SERVICIO: [string, string, string][] = [
+  ["Medición propia", "Nuestro equipo técnico relevá la obra y asesora en opciones de perfiles, vidrios y colores. Sin sorpresas: el presupuesto es exacto.", "/photos/em-29.webp"],
+  ["Fabricación en planta", "Cortamos, armamos y sellamos cada abertura con control de calidad. El DVH lo fabricamos nosotros también. Garantía en cada producto.", "/photos/em-63.webp"],
+  ["Equipo de colocación", "Personal calificado que instala la abertura respetando los tiempos y los detalles de la obra.", "/photos/em-96.webp"],
+  ["Servicio después", "No nos vamos cuando termina la obra. Atendemos reclamos y hacemos mantenimiento si hace falta.", "/photos/em-35.webp"],
 ];
 
 const OBRAS: [string, string][] = [
@@ -147,23 +147,37 @@ export default function Empresa() {
         </div>
       </section>
 
-      {/* 04 Cómo trabajamos */}
-      <section className="mg-proc section--paper" id="proceso">
+      {/* 04 Garantía y servicio */}
+      <section className="em-servicio section--paper" id="servicio">
         <div className="wrap">
-          <div className="mg-c">
-            <p className="mg-kicker">04 · Cómo trabajamos</p>
+          <div className="em-servicio__header">
+            <p className="mg-kicker">04 · Garantía y servicio</p>
             <span className="mg-regla" aria-hidden="true" />
-            <h2 className="mg-t">Cuatro pasos, <b>un mismo equipo</b></h2>
+            <h2 className="mg-t">Nuestro equipo en <b>cada paso</b></h2>
           </div>
-          <ol className="mg-proc__list">
-            {PASOS.map(([n, t, d, img]) => (
-              <li key={n} className="rv">
-                <figure><img src={img} alt={t} loading="lazy" /><span>{n}</span></figure>
-                <h3>{t}</h3>
-                <p>{d}</p>
-              </li>
+          <div className="em-servicio__grid">
+            {SERVICIO.map(([t, d, img], i) => (
+              <article key={t} className={`em-servicio__item rv rv-d${i}`}>
+                {i % 2 === 0 ? (
+                  <>
+                    <figure className="em-servicio__fig"><img src={img} alt={t} loading="lazy" /></figure>
+                    <div className="em-servicio__txt">
+                      <h3>{t}</h3>
+                      <p>{d}</p>
+                    </div>
+                  </>
+                ) : (
+                  <>
+                    <div className="em-servicio__txt">
+                      <h3>{t}</h3>
+                      <p>{d}</p>
+                    </div>
+                    <figure className="em-servicio__fig"><img src={img} alt={t} loading="lazy" /></figure>
+                  </>
+                )}
+              </article>
             ))}
-          </ol>
+          </div>
         </div>
       </section>
 
