@@ -402,3 +402,29 @@ export function DvhConfigurator() {
     </div>
   );
 }
+
+/* ---------- Esencia de la marca (Empresa): pestañas sobre panel verde ---------- */
+const ESENCIA: [string, string, string][] = [
+  ["Trayectoria", "Más de 20 años en el mercado", "Llevamos más de 20 años fabricando e instalando aberturas a medida. Esa experiencia está en cada medición, en cada perfil que cortamos y en cada obra que entregamos."],
+  ["Fábrica", "Todo se hace en nuestra planta", "Cortamos, armamos y controlamos cada abertura en nuestra planta de La Plata. El DVH también lo fabricamos nosotros: no revendemos, fabricamos."],
+  ["Equipo", "Personal propio de principio a fin", "La medición en obra y la colocación las hace nuestro propio equipo. Un mismo grupo de gente acompaña el proyecto desde el presupuesto hasta la posventa."],
+  ["Compromiso", "Garantía y atención después de la obra", "Trabajamos con perfilería y herrajes de primera línea, y seguimos presentes una vez terminada la obra, con garantía y atención personalizada."],
+];
+
+export function Esencia() {
+  const [i, setI] = useState(0);
+  const [t, sub, txt] = ESENCIA[i];
+  return (
+    <div className="esencia__panel">
+      <div className="esencia__tabs" role="tablist" aria-label="Esencia de Aluva">
+        {ESENCIA.map(([n], k) => (
+          <button key={n} type="button" role="tab" aria-selected={k === i} className={k === i ? "is-active" : ""} onClick={() => setI(k)}>{n}</button>
+        ))}
+      </div>
+      <div className="esencia__body" key={t} role="tabpanel">
+        <h3>{sub}</h3>
+        <p>{txt}</p>
+      </div>
+    </div>
+  );
+}

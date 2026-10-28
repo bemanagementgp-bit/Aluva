@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Shell from "@/components/Shell";
 import { Cta, Eyebrow, Pillars } from "@/components/blocks";
+import { Esencia } from "@/components/interactive";
 import { CONTACTO } from "@/content/site";
 
 export const metadata: Metadata = {
@@ -19,30 +20,29 @@ const PASOS = [
 export default function Empresa() {
   return (
     <Shell active="empresa">
-      {/* 01 Nosotros: carta de presentación de la marca (revisión del cliente, 2026-10-28).
-          Solo datos confirmados: más de 20 años, planta propia en La Plata y
-          equipo propio de medición y colocación. */}
-      <section className="nos-hero">
-        <div className="wrap nos-hero__grid">
-          <div className="nos-hero__txt">
-            <div className="phero__crumbs"><Link href="/">Inicio</Link><span>/</span><span>Empresa</span></div>
-            <Eyebrow n="01">Nosotros</Eyebrow>
-            <h1 className="nos-hero__t">Más de 20 años<br />fabricando aberturas.</h1>
-            <p className="nos-hero__lead">Aluva es una fábrica de aberturas de La Plata. Producimos en planta propia aberturas de PVC y aluminio, DVH, vidriería, templados y revestimientos, y las instalamos con nuestro equipo.</p>
-          </div>
-          <figure className="nos-hero__fig">
-            <img src="/photos/proceso-fabricacion.webp" alt="Mecanizado de un perfil en nuestra planta" fetchPriority="high" />
-            <figcaption><span className="nos-hero__num" aria-hidden="true">20</span><span>años de trayectoria<br />en el mercado</span></figcaption>
-          </figure>
-        </div>
+      {/* 01 Nosotros: carta de presentación de la marca, con la estructura de
+          https://hitachicm.com.au/landcros-australia/ que eligió el cliente:
+          presentación centrada, frase tipográfica grande y bloque partido
+          (panel con pestañas + foto). Solo datos confirmados. */}
+      <section className="nos-intro section--paper">
         <div className="wrap">
-          <ol className="nos-pilares">
-            <li><span>01</span><h2>Trayectoria</h2><p>Más de 20 años en el mercado de las aberturas.</p></li>
-            <li><span>02</span><h2>Planta propia</h2><p>Corte, armado y control de calidad en La Plata.</p></li>
-            <li><span>03</span><h2>Equipo propio</h2><p>Medición en obra y colocación con personal calificado.</p></li>
-            <li><span>04</span><h2>De principio a fin</h2><p>Un mismo equipo, del presupuesto a la posventa.</p></li>
-          </ol>
+          <div className="phero__crumbs"><Link href="/">Inicio</Link><span>/</span><span>Empresa</span></div>
+          <div className="nos-intro__c">
+            <p className="nos-intro__ey">01 · Nosotros</p>
+            <span className="nos-intro__regla" aria-hidden="true" />
+            <h1 className="nos-intro__t"><b>Aluva</b><br />más de 20 años fabricando aberturas</h1>
+            <p className="nos-intro__p">Desde hace más de 20 años fabricamos e instalamos aberturas a medida. En nuestra planta de La Plata producimos aberturas de PVC y aluminio, DVH, vidriería, templados y revestimientos, y las colocamos con nuestro propio equipo. La misma gente, el mismo compromiso, obra tras obra.</p>
+          </div>
         </div>
+        <p className="nos-intro__big" aria-hidden="true">Fabricamos<br />lo que<br />instalamos.</p>
+      </section>
+
+      <section className="esencia">
+        <Esencia />
+        <figure className="esencia__fig">
+          <img src="/photos/proceso-fabricacion.webp" alt="Mecanizado de un perfil en nuestra planta" loading="lazy" />
+        </figure>
+        <p className="esencia__label" aria-hidden="true">Nuestra esencia</p>
       </section>
 
       <section className="band band--fabrica">
