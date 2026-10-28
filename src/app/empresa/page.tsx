@@ -78,7 +78,7 @@ export default function Empresa() {
           mi carpeta; cuando la suban al proyecto, el `src` de la foto es lo
           único que hay que cambiar. */}
       <section className="em-hero">
-        <img className="em-hero__bg" src="/photos/em-35.webp" alt="" aria-hidden="true" fetchPriority="high" />
+        <img className="em-hero__bg" src="/photos/em-cartel.webp" alt="" aria-hidden="true" fetchPriority="high" />
         <div className="wrap em-hero__in">
           <p className="em-hero__ey">Más de 20 años</p>
           <h1 className="em-hero__t">
