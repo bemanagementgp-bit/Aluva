@@ -4,16 +4,15 @@ import { Arrow } from "@/components/Icon";
 import { Cta, Eyebrow, Pillars, Profesionales } from "@/components/blocks";
 import { LINEAS, PROCESO } from "@/content/site";
 
-/* PVC y Aluminio llevan las fotos grandes: son los productos principales y
-   tienen que pesar más que templados, mamparas y vidriería (revisión del
-   cliente, 2026-10-28). Los productos siguen el orden del resto del sitio. */
+/* Fotos de obra propias que mandó el cliente (revisión del 2026-10-28):
+   PVC, Aluminio y Mamparas. Templados espera la suya. */
 const OBRAS = [
-  { c: "b1", d: "", src: "/og/producto-pvc.jpg", alt: "Puerta corrediza de PVC símil madera hacia la pileta", t: "PVC", sub: "Corrediza símil madera" },
-  { c: "b2", d: " rv-d1", src: "/photos/aluminio-corrediza.jpg", alt: "Corrediza de aluminio negro de tres hojas", t: "Aluminio", sub: "Corrediza de tres hojas" },
-  { c: "b3", d: "", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
-  { c: "b4", d: " rv-d1", src: "/photos/mampara-ducha-negra.jpg", alt: "Mampara de ducha con perfil negro", t: "Mamparas", sub: "Perfil negro a medida" },
-  { c: "b5", d: " rv-d2", src: "/photos/det-blindex-1.webp", alt: "Puerta de vidrio templado con tirador", t: "Templados", sub: "Puerta de templado" },
-  { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
+  { c: "b1", d: "", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
+  { c: "b2", d: " rv-d1", src: "/photos/obra-pvc.webp", alt: "Corrediza de PVC símil madera hacia una terraza", t: "PVC", sub: "Corrediza símil madera" },
+  { c: "b3", d: " rv-d2", src: "/photos/obra-aluminio.webp", alt: "Corrediza de aluminio blanco hacia un balcón", t: "Aluminio", sub: "Corrediza al balcón" },
+  { c: "b4", d: "", src: "/photos/det-blindex-1.webp", alt: "Puerta de vidrio templado con tirador", t: "Templados", sub: "Puerta de templado" },
+  { c: "b5", d: " rv-d1", src: "/photos/obra-mampara.webp", alt: "Paño de vidrio esmerilado en un baño de mármol", t: "Mamparas", sub: "Vidrio esmerilado a medida" },
+  { c: "b6", d: " rv-d2", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
 ];
 
 export default function Inicio() {

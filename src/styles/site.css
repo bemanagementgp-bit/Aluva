@@ -1411,14 +1411,6 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 .cta { align-items: center; }
 .cta p { margin-top: 0; }
 
-/* Obras: PVC y Aluminio grandes, el resto en una fila de cuatro */
-.b1, .b2 { grid-column: span 6; grid-row: span 4; }
-.b3, .b4, .b5, .b6 { grid-column: span 3; grid-row: span 3; }
-@media (max-width: 820px) {
-  .b1, .b2 { grid-column: span 2; grid-row: span 2; }
-  .b3, .b4, .b5, .b6 { grid-column: span 1; grid-row: span 2; }
-}
-
 /* Pie de cada producto: saltar a cualquiera de los otros */
 .explora { padding: 8px 0; }
 .explora small { display: block; font-size: 12.5px; letter-spacing: .16em; text-transform: uppercase; color: var(--mint); margin-bottom: 18px; }
