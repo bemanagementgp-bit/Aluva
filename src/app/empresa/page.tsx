@@ -19,23 +19,29 @@ const PASOS = [
 export default function Empresa() {
   return (
     <Shell active="empresa">
-      <section className="phero blueprint">
+      {/* 01 Nosotros: carta de presentación de la marca (revisión del cliente, 2026-10-28).
+          Solo datos confirmados: más de 20 años, planta propia en La Plata y
+          equipo propio de medición y colocación. */}
+      <section className="nos-hero">
+        <div className="wrap nos-hero__grid">
+          <div className="nos-hero__txt">
+            <div className="phero__crumbs"><Link href="/">Inicio</Link><span>/</span><span>Empresa</span></div>
+            <Eyebrow n="01">Nosotros</Eyebrow>
+            <h1 className="nos-hero__t">Más de 20 años<br />fabricando aberturas.</h1>
+            <p className="nos-hero__lead">Aluva es una fábrica de aberturas de La Plata. Producimos en planta propia aberturas de PVC y aluminio, DVH, vidriería, templados y revestimientos, y las instalamos con nuestro equipo.</p>
+          </div>
+          <figure className="nos-hero__fig">
+            <img src="/photos/proceso-fabricacion.webp" alt="Mecanizado de un perfil en nuestra planta" fetchPriority="high" />
+            <figcaption><span className="nos-hero__num" aria-hidden="true">20</span><span>años de trayectoria<br />en el mercado</span></figcaption>
+          </figure>
+        </div>
         <div className="wrap">
-          <div className="phero__crumbs"><Link href="/">Inicio</Link><span>/</span><span>Empresa</span></div>
-          {/* 01 Nosotros va antes de Fábrica (revisión del cliente, 2026-10-28) */}
-          <Eyebrow n="01">Nosotros</Eyebrow>
-          <div className="phero__row">
-            <h1 className="h-giant"><span>Aluva</span></h1>
-            <p className="lead">Más de 20 años de trayectoria en el mercado, fabricando e instalando aberturas a medida.</p>
-          </div>
-          <div className="nos">
-            <p>Fabricamos en nuestra planta de La Plata aberturas de PVC y aluminio, DVH, vidriería, templados y revestimientos. Medimos, fabricamos y colocamos con personal propio: un mismo equipo de principio a fin.</p>
-            <dl className="nos__datos">
-              <div><dt>+20 años</dt><dd>de trayectoria en el mercado</dd></div>
-              <div><dt>Planta propia</dt><dd>en La Plata</dd></div>
-              <div><dt>Equipo propio</dt><dd>de medición y colocación</dd></div>
-            </dl>
-          </div>
+          <ol className="nos-pilares">
+            <li><span>01</span><h2>Trayectoria</h2><p>Más de 20 años en el mercado de las aberturas.</p></li>
+            <li><span>02</span><h2>Planta propia</h2><p>Corte, armado y control de calidad en La Plata.</p></li>
+            <li><span>03</span><h2>Equipo propio</h2><p>Medición en obra y colocación con personal calificado.</p></li>
+            <li><span>04</span><h2>De principio a fin</h2><p>Un mismo equipo, del presupuesto a la posventa.</p></li>
+          </ol>
         </div>
       </section>
 
