@@ -62,7 +62,7 @@ function Especial({ slug }: { slug: Slug }) {
     return (
       <section id="lineas" className="section--fx section--aire section">
         <div className="wrap">
-          <Eyebrow n="02">Líneas y terminaciones</Eyebrow>
+          <Eyebrow n="02">Líneas y colores</Eyebrow>
           <h2 className="h-lg rv">A30, Módena<br />y Herrero.</h2>
           <div className="rv" style={{ display: "grid", gridTemplateColumns: "repeat(3,1fr)", gap: 14, marginTop: 50, maxWidth: 720 }}>
             {sw.map(([c, n]) => (

@@ -5,14 +5,14 @@
 import type { IconName } from "@/components/Icon";
 
 export const CONTACTO = {
-  telVisible: "221 675-5077",
-  telLink: "+5492216755077",
+  // El fijo y el WhatsApp son numeros distintos, como figuran en aluva.com.ar.
+  telVisible: "(0221) 483-0222",
+  telLink: "+542214830222",
   whatsapp: "5492216755077", // con código de país, sin "+" ni espacios
-  email: "ventas@aluva.com.ar",
-  direccion: "La Plata, Buenos Aires", // TODO: dirección real
-  horario: "Lun a Vie 8 a 17 h · Sáb 9 a 13 h", // TODO: horario real
-  // TODO: reemplazar por el link de Maps del showroom cuando esté confirmado
-  maps: "https://www.google.com/maps/search/?api=1&query=Aluva+aberturas+La+Plata",
+  email: "info@aluva.com.ar",
+  direccion: "Calle 7 N° 1714, La Plata, Buenos Aires",
+  horario: "Lun a Vie 8 a 17 h · Sáb 9 a 13 h", // TODO: sin confirmar, aluva.com.ar no publica horarios
+  maps: "https://www.google.com/maps/search/?api=1&query=Calle+7+1714+La+Plata+Buenos+Aires",
 } as const;
 
 export const waLink = (texto = "Hola Aluva, quiero hacer una consulta.") =>
@@ -33,13 +33,13 @@ export interface Linea {
 export const LINEAS: Linea[] = [
   // Orden de productos en todo el sitio: PVC, Aluminio, Vidriería, Templados,
   // Revestimientos (pedido del cliente, revisión del 2026-10-28).
-  { slug: "pvc", name: "PVC", short: "La mejor aislación. Perfilería de primera línea, con DVH fabricado en planta propia.", vit: "/photos/portada-pvc-fabrica.jpg", chips: ["Perfilería multicámara", "DVH propio", "Cierre multipunto", "Símil madera"] },
+  { slug: "pvc", name: "PVC", short: "La mejor aislación. Perfilería de primera línea, con DVH fabricado en planta propia.", vit: "/photos/vit-pvc.webp", chips: ["Perfilería multicámara", "DVH propio", "Cierre multipunto", "Símil madera"] },
   // Las líneas de aluminio van siempre A30, Módena, Herrero: es el orden de
   // mejor a peor que pidió el cliente, no alfabético. Vale en todo el sitio.
-  { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero. Distintas prestaciones para cada necesidad.", vit: "/photos/obra-aluminio.webp", vitPos: "38% 50%", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
-  { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético. Todo fabricado en nuestra planta.", vit: "/photos/obra-mampara.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
-  { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado.", vit: "/photos/det-blindex-1.webp", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
-  { slug: "revestimientos", name: "Revestimientos", short: "Wall panel para fachadas, deck para exteriores y parasoles de PVC.", vit: "/photos/revestimiento-fachada.webp", chips: ["Wall panel", "Deck", "Parasol", "Sin mantenimiento"] },
+  { slug: "aluminio", name: "Aluminio", short: "Líneas A30, Módena y Herrero. Distintas prestaciones para cada necesidad.", vit: "/photos/vit-aluminio.webp", chips: ["A30", "Módena", "Herrero", "Grandes paños"] },
+  { slug: "vidrieria", name: "Vidriería", short: "Vidrios cortados a medida, mamparas para baño y doble vidriado hermético. Todo fabricado en nuestra planta.", vit: "/photos/vit-vidrieria.webp", chips: ["Mamparas", "DVH propio", "Laminado", "Templado"] },
+  { slug: "templados", name: "Templados", short: "Frentes, puertas y paños de vidrio templado.", vit: "/photos/vit-templados.webp", chips: ["Frentes", "Puertas", "Piel de vidrio", "Seguridad"] },
+  { slug: "revestimientos", name: "Revestimientos", short: "Wall panel para interiores y fachadas, deck para exteriores y parasoles de PVC.", vit: "/photos/vit-revestimientos.webp", chips: ["Wall panel", "Deck", "Parasol", "Sin mantenimiento"] },
 ];
 
 /** Pilar: ícono, título, texto y foto de fondo opcional. */
@@ -80,7 +80,7 @@ export const PRODUCTOS: Producto[] = [
     title: "Ventanas y puertas de PVC a medida en La Plata | Aluva",
     desc: "Ventanas y puertas de PVC con perfilería multicámara y DVH de fabricación propia, a medida en La Plata.",
     lead: "Perfilería multicámara de primera línea, con DVH de fabricación propia.",
-    cover: "/photos/portada-pvc.jpg", coverAlt: "Puerta corrediza de marco blanco que da a un balcón",
+    cover: "/photos/portada-pvc-seccion.webp", coverAlt: "Corte de un perfil de PVC multicámara con doble vidriado hermético, sobre el alféizar de una ventana",
     whyT: ["La mejor", "aislación."],
     pillars: [
       ["thermo", "Eficiencia energética", "Mayor eficiencia de energía en calefacción y refrigeración."],
@@ -128,14 +128,14 @@ export const PRODUCTOS: Producto[] = [
   {
     slug: "aluminio", name: "Aluminio", og: "/og/producto-aluminio.jpg",
     title: "Aberturas de aluminio a medida en La Plata | Aluva",
-    desc: "Aberturas de aluminio a medida en La Plata: líneas A30, Módena y Herrero, en blanco, anodizado o negro, con DVH de fabricación propia.",
+    desc: "Aberturas de aluminio a medida en La Plata: líneas A30, Módena y Herrero, en nueve acabados, con DVH de fabricación propia.",
     lead: "Líneas A30, Módena y Herrero. Distintas prestaciones para cada necesidad.",
-    cover: "/photos/portada-aluminio.jpg", coverAlt: "Ventana corrediza de aluminio negro con vista a los árboles",
+    cover: "/photos/portada-aluminio-seccion.webp", coverAlt: "Corte de un perfil de aluminio negro con doble vidriado hermético, en el umbral de una corrediza",
     whyT: ["Más vidrio,", "menos marco."],
     pillars: [
       ["sun", "Más luz", "Perfil compacto: más superficie de vidrio."],
       ["shield", "Cierre hermético", "Burletes de EPDM y opción de DVH."],
-      ["palette", "Tres terminaciones", "Blanco, anodizado o negro."],
+      ["palette", "Nueve acabados", "Lacados, anodizado y símil madera."],
       ["tools", "Variedad de tipologías", "Una solución adecuada para cada uso."],
     ],
     sysEyebrow: "Tipologías", sysT: ["Una abertura", "para cada vano."],
@@ -154,7 +154,7 @@ export const PRODUCTOS: Producto[] = [
     gallery: [["/photos/aluminio-corrediza.jpg", "Corrediza de tres hojas", false], ["/photos/det-aluminio-2.webp", "Herraje de proyectante", true], ["/photos/esc-aluminio-2.webp", "Corrediza al balcón", false], ["/photos/al-puerta.jpg", "Puerta de aluminio", true]],
     faq: [
       ["¿Qué líneas trabajan?", "A30, Módena y Herrero. Te recomendamos la que corresponde según el tamaño del vano y el uso."],
-      ["¿Qué terminaciones hay?", "Blanco, anodizado y negro, en anodizado o pintado."],
+      ["¿Qué colores hay?", "Nueve acabados: natural, blanco, negro, gris RAL 7016, bronce, champagne, símil roble, símil nogal y anodizado mate. Lacado poliéster, anodizado y símil madera, todos resistentes a la intemperie."],
       ["¿Puede llevar DVH?", "Sí. Dependiendo de la línea, es posible el uso de DVH."],
       ["¿Conviene PVC o aluminio?", "La elección del tipo de abertura adecuada para tu proyecto depende de varios factores, desde su funcionalidad hasta sus prestaciones, y cada una puede ser más eficaz en distintos escenarios. Contactanos para un asesoramiento específico a tu caso."],
     ],
@@ -166,7 +166,7 @@ export const PRODUCTOS: Producto[] = [
     title: "Vidrio templado: frentes, puertas y piel de vidrio en La Plata | Aluva",
     desc: "Frentes comerciales, puertas de vidrio templado y piel de vidrio para fachadas, a medida en La Plata. Medición en obra y colocación propia.",
     lead: "Frentes y puertas de vidrio templado, y piel de vidrio para fachadas.",
-    cover: "/photos/portada-blindex.jpg", coverAlt: "Puerta de vidrio templado esmerilado con manija",
+    cover: "/photos/portada-templados-esmerilado.webp", coverAlt: "Paño de vidrio templado esmerilado, con el canto pulido a la vista",
     whyT: ["El local", "a la vista."],
     pillars: [
       ["shield", "Templado de seguridad", "En puertas, frentes y fachadas."],
@@ -199,7 +199,7 @@ export const PRODUCTOS: Producto[] = [
     title: "Vidriería y mamparas a medida en La Plata | Aluva",
     desc: "Vidriería y mamparas a medida en La Plata: DVH de fabricación propia, laminado y templado, con colocación y taller propios.",
     lead: "Vidrios cortados a medida, mamparas para baño y DVH fabricado en nuestra planta.",
-    cover: "/photos/esc-vidrieria-1.webp", coverAlt: "Ducha con paño fijo de vidrio sobre pared de mármol",
+    cover: "/photos/portada-vidrieria-templado.webp", coverAlt: "Esquina de un cerramiento de vidrio templado sin marco, con herrajes de acero inoxidable",
     whyT: ["Vidrio a la", "medida exacta."],
     pillars: [
       ["layers", "DVH de fabricación propia", "Realizado íntegramente en nuestras instalaciones."],
@@ -229,20 +229,20 @@ export const PRODUCTOS: Producto[] = [
   },
   {
     slug: "revestimientos", name: "Revestimientos", og: "/photos/revestimiento-fachada.webp",
-    title: "Revestimientos de PVC: wall panel, deck y parasoles en La Plata | Aluva",
-    desc: "Revestimientos de PVC en La Plata: wall panel para fachadas, deck para exteriores y perfiles parasol. Medición y colocación propias.",
-    lead: "Wall panel para fachadas, deck para exteriores y perfiles parasol, en PVC.",
+    title: "Revestimientos de PVC para interior y exterior en La Plata | Aluva",
+    desc: "Revestimientos de PVC en La Plata: wall panel para interiores y fachadas, deck para exteriores y perfiles parasol. Medición y colocación propias.",
+    lead: "Wall panel para interiores y fachadas, deck para exteriores y perfiles parasol, en PVC.",
     cover: "/photos/revestimiento-fachada.webp", coverAlt: "Fachada revestida con wall panel negro",
     whyT: ["Terminación", "de fachada."],
     pillars: [
       ["leaf", "Sin mantenimiento", "No se pintan, no se pudren ni se descascaran."],
-      ["drop", "Para exterior", "Resisten la intemperie."],
+      ["drop", "Interior y exterior", "Van en ambientes interiores y resisten la intemperie afuera."],
       ["palette", "Aspecto de madera", "Texturas y colores símil madera."],
       ["tools", "Colocación propia", "Medimos y colocamos con nuestro equipo."],
     ],
     sysEyebrow: "Productos", sysT: ["Tres formas", "de revestir."],
     systems: [
-      ["/photos/revestimiento-muestra.webp", "Wall panel", "Listones para revestir fachadas y paredes exteriores."],
+      ["/photos/revestimiento-muestra.webp", "Wall panel", "Listones para revestir paredes, por dentro y por fuera."],
       ["/photos/revest-deck.jpg", "Deck", "Tablas para pisos exteriores, galerías y bordes de pileta."],
       ["/photos/revest-parasol.jpg", "Parasol", "Perfiles para quiebravistas, cercos y protección solar."],
     ],
@@ -255,7 +255,7 @@ export const PRODUCTOS: Producto[] = [
       ["¿Qué colores hay?", "Tenemos un amplio catálogo de colores y terminaciones. Te invitamos a conocerlos en nuestro local."],
     ],
     ctaT: "Tu revestimiento, a medida.",
-    cta: "Wall panel, deck y parasoles. Te visitamos, medimos y cotizamos.",
+    cta: "Wall panel para interior y exterior, deck y parasoles. Te visitamos, medimos y cotizamos.",
   },
 ];
 
@@ -266,7 +266,7 @@ export const PROCESO = [
   { img: "/photos/instalacion-obra.webp", alt: "Corrediza símil madera recién instalada, con las herramientas de colocación en el piso", t: "Instalación", d: "Colocación profesional con personal calificado.", dato: "Con posventa" },
 ];
 
-export const TERMINACIONES = [
+export const COLORES = [
   {
     nombre: "PVC", href: "/pvc", sub: "Perfilería multicámara", items: [
       ["Blanco", "linear-gradient(135deg,#fbfbf8,#e6e6e0)"],
@@ -277,9 +277,16 @@ export const TERMINACIONES = [
   },
   {
     nombre: "Aluminio", href: "/aluminio", sub: "A30 · Módena · Herrero", items: [
+      // Los nueve acabados que publica aluva.com.ar/aluminio
+      ["Natural", "linear-gradient(135deg,#dcdedd,#b7bbba 60%,#cfd2d1)"],
       ["Blanco", "linear-gradient(135deg,#fafaf6,#e4e4de)"],
-      ["Anodizado", "linear-gradient(135deg,#d3d6d9,#a7abaf 55%,#c4c7ca)"],
       ["Negro", "linear-gradient(135deg,#2a2c2e,#141516)"],
+      ["Gris RAL 7016", "linear-gradient(135deg,#4a4f54,#363b3f)"],
+      ["Bronce", "linear-gradient(135deg,#7a5c3a,#54402a)"],
+      ["Champagne", "linear-gradient(135deg,#d6c3a3,#b9a483)"],
+      ["Símil roble", "repeating-linear-gradient(100deg,#b07a40 0 6px,#a26e37 6px 9px,#b8844a 9px 16px)"],
+      ["Símil nogal", "repeating-linear-gradient(100deg,#6a4a2e 0 6px,#5c3f26 6px 9px,#72523a 9px 16px)"],
+      ["Anodizado mate", "linear-gradient(135deg,#c8ccc9,#9ea3a0 55%,#b9bdba)"],
     ],
   },
 ] as const;

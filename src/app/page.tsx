@@ -15,7 +15,7 @@ const OBRAS = [
   { c: "b3", d: "", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
   { c: "b4", d: " rv-d1", src: "/photos/obra-mampara.webp", alt: "Paño de vidrio esmerilado en un baño de mármol", t: "Mamparas", sub: "Vidrio esmerilado a medida" },
   { c: "b5", d: " rv-d2", src: "/photos/obra-templado.webp", alt: "Puerta de vidrio templado con tirador en un hall", t: "Templados", sub: "Puerta de templado" },
-  { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
+  { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Fábrica · La Plata", pos: "50% 40%" },
 ];
 
 export default function Inicio() {
@@ -28,7 +28,7 @@ export default function Inicio() {
           <div className="hero__grid">
             {/* La marca va primero y más grande que "Aberturas a medida" (pedido del cliente, 2026-10-28) */}
             <h1 className="hero__title">
-              <span className="row"><span><img className="hero__marca" src="/brand/marca-negativa-ajustada.svg" alt="Aluva" width={699} height={141} /></span></span>
+              <span className="row"><span><img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} /></span></span>
               <span className="row hero__sub"><span>Aberturas a medida</span></span>
             </h1>
             <div className="hero__side">
@@ -39,6 +39,7 @@ export default function Inicio() {
               </div>
             </div>
           </div>
+
         </div>
       </section>
 
@@ -98,7 +99,7 @@ export default function Inicio() {
 
       <section id="obras" className="section--fx section--brillo section section--paper">
         <div className="wrap">
-          <Eyebrow n="06">Obras e inspiración</Eyebrow>
+          <Eyebrow n="05">Obras e inspiración</Eyebrow>
           <div className="proc__head">
             <h2 className="h-lg rv">Más luz.<br />Más vista.</h2>
             <p className="proc__note rv rv-d1">Obras, detalles<br />y nuestro local.</p>

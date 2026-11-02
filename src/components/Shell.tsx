@@ -27,7 +27,7 @@ function Footer({ light }: { light: boolean }) {
             <h4>Aluva</h4>
             <ul>
               <li><Link href="/empresa">Empresa</Link></li>
-              <li><Link href="/empresa#proceso">Cómo trabajamos</Link></li>
+              <li><Link href="/empresa#servicio">Cómo trabajamos</Link></li>
               <li><Link href="/#profesionales">Profesionales</Link></li>
               <li><Link href="/contacto">Contacto</Link></li>
               <li><Link href="/staff">Acceso staff</Link></li>

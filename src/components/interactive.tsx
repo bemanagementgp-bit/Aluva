@@ -221,7 +221,7 @@ const TIPOS: Record<string, Tipo> = {
     svg: <svg viewBox="-10 -10 200 320"><Frame w={180} h={300} /><g className="anim-swing"><rect className="dg-sash" x={8} y={8} width={164} height={292} rx={3} /><rect className="dg-glass" x={28} y={28} width={124} height={120} /><rect x={140} y={160} width={8} height={46} rx={3} fill="#eef6e8" /></g></svg>,
   },
   balcon: {
-    name: "Puerta balcón", img: "/photos/tipo-puerta-balcon.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Puerta balcón", img: "/photos/tip-puerta-balcon.webp", mats: ["PVC", "Aluminio", "Vidriería"],
     txt: "Puertas vidriadas de dos hojas que conectan interior y exterior. Batientes con umbral bajo.",
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} cls="anim-swing" /><Sash x={150} y={8} w={142} h={284} cls="anim-swing swing-r" /><line x1={150} y1={8} x2={150} y2={292} stroke="#c6f29c" strokeWidth={2} /></svg>,
   },

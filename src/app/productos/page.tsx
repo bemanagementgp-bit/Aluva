@@ -3,7 +3,7 @@ import Link from "next/link";
 import Shell from "@/components/Shell";
 import { Cta, Eyebrow } from "@/components/blocks";
 import { Tipologias, Vitrinas } from "@/components/interactive";
-import { LINEAS, TERMINACIONES } from "@/content/site";
+import { LINEAS, COLORES } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Nuestros productos | Aluva La Plata",
@@ -28,12 +28,12 @@ export default function Productos() {
 
       <section className="section" id="terminaciones">
         <div className="wrap">
-          <Eyebrow n="03">Terminaciones</Eyebrow>
+          <Eyebrow n="03">Colores</Eyebrow>
           <h2 className="h-lg rv">Elegí el color<br />de tus aberturas.</h2>
           <div className="term">
-            {TERMINACIONES.map((l) => (
+            {COLORES.map((l) => (
               <div key={l.nombre} className="term__row">
-                <div className="term__head"><h3>{l.nombre}</h3><small>{l.sub}</small><Link className="link-arrow" href={l.href}>Ver línea <span>→</span></Link></div>
+                <div className="term__head"><h3>{l.nombre}</h3><small>{l.sub}</small><Link className="link-arrow" href={l.href}>Explorar <span>→</span></Link></div>
                 <ul className="term__list">
                   {l.items.map(([n, bg]) => <li key={n} className="term__sw rv"><span style={{ background: bg }} /><b>{n}</b></li>)}
                 </ul>
