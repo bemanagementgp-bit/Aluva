@@ -1,10 +1,12 @@
 "use client";
 /*
-  Pantalla de carga: cortina verde con la marca y una línea de progreso.
+  Pantalla de carga: cortina verde con el ícono de marca dibujándose y una
+  línea de progreso al mínimo. Sin nombre ni tagline: solo el logo.
 
-  Secuencia: la marca aparece en el centro; la línea lima avanza mientras se
-  carga la foto principal; cuando está lista (o pasado un tiempo máximo) la
-  cortina sube y descubre la página. Recién en ese momento arranca la entrada
+  Secuencia: el filete del ícono se traza solo, el relleno aparece detrás y
+  el filete se apaga dejando el ícono plano; una línea fina avanza abajo.
+  Cuando la foto principal está lista (o pasado un tiempo máximo) la cortina
+  sube y descubre la página. Recién en ese momento arranca la entrada
   de la portada (foto que se acomoda, título que sube): si arrancara antes,
   correría tapada por la cortina y no se vería.
 
@@ -73,9 +75,16 @@ export default function Intro() {
 
   return (
     <div className={`intro${fase === "sale" ? " is-saliendo" : ""}`} aria-hidden="true">
-      <div className="intro__marca">
-        <img src="/brand/marca-principal-tagline-web.svg" alt="" width={260} height={40} />
-        <span className="intro__barra"><span /></span>
+      <div className="intro__centro">
+        <span className="intro__halo" />
+        {/* Mismo trazo que /brand/icon-principal.svg, dibujado en dos pasadas:
+            primero el filete lima, después el relleno. Al terminar, el filete
+            se apaga y queda el ícono plano de marca. */}
+        <svg className="intro__iso" viewBox="0 0 325.36 277.57" focusable="false" aria-hidden="true">
+          <polygon className="intro__relleno" points="242.77 162.68 210.47 194.99 130.37 114.9 152.02 157.86 114.9 194.99 82.59 162.68 162.68 82.59" />
+          <polygon className="intro__trazo" points="242.77 162.68 210.47 194.99 130.37 114.9 152.02 157.86 114.9 194.99 82.59 162.68 162.68 82.59" />
+        </svg>
+        <span className="intro__linea"><span /></span>
       </div>
     </div>
   );

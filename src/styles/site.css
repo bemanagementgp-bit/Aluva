@@ -184,16 +184,27 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hero .wrap { position: relative; z-index: 2; }
 .hero__title { font-family: var(--head); text-transform: uppercase; font-size: clamp(42px, 7vw, 108px); line-height: .9; margin: 0 0 30px; letter-spacing: -.015em; }
 .hero__title .row { display: block; overflow: hidden; }
+.hero__title .row:has(.hero__marca) { line-height: 0; }
 .hero__title .row > span { display: inline-block; transform: translateY(105%); transition: transform 1.2s var(--ease); }
 .is-loaded .hero__title .row > span { transform: none; }
 .is-loaded .hero__title .row:nth-child(2) > span { transition-delay: .12s; }
 .is-loaded .hero__title .row:nth-child(3) > span { transition-delay: .24s; }
-.hero__grid { display: grid; grid-template-columns: 1.3fr 1fr; gap: 40px; align-items: end; }
-.hero__side { display: flex; flex-direction: column; gap: 26px; align-items: flex-start; padding-bottom: 12px; }
-.hero__side .lead { color: #d7e6d9; }
-.hero__meta { display: flex; gap: 28px; margin-top: 44px; padding-top: 22px; border-top: 1px solid var(--line); flex-wrap: wrap; }
-.hero__meta div { font-size: 13px; color: var(--muted); letter-spacing: .04em; }
-.hero__meta b { display: block; color: var(--ink); font-size: 15px; letter-spacing: 0; }
+/* Portada de inicio: un solo eje.
+   ──────────────────────────────────────────────────────────────────────
+   Eran dos columnas: la marca y "Aberturas a medida" a la izquierda y, a
+   la derecha y colgando a otra altura, un parrafo largo con los dos
+   botones. Seis piezas en dos ejes, todas apretadas contra el borde de
+   abajo, y la de la derecha leyendose como un agregado.
+
+   Queda una sola columna y un orden que se recorre de corrido: la marca,
+   lo que hace y lo que podes hacer vos. El filete separa el anuncio de la
+   accion sin agregar una palabra mas. */
+.hero__acciones {
+  margin-top: clamp(26px, 3.6vh, 44px);
+  padding-top: clamp(20px, 2.6vh, 30px);
+  border-top: 1px solid rgba(238, 246, 232, .24);
+  max-width: 420px;
+}
 .scroll-cue { position: absolute; right: var(--gutter); bottom: 56px; z-index: 2; writing-mode: vertical-rl; font-size: 11px; letter-spacing: .3em; text-transform: uppercase; color: var(--mint); display: flex; align-items: center; gap: 14px; }
 .scroll-cue::after { content: ""; width: 1px; height: 70px; background: linear-gradient(var(--mint), transparent); animation: cue 2s infinite var(--ease); transform-origin: top; }
 @keyframes cue { 0% { transform: scaleY(0); } 60% { transform: scaleY(1); } 100% { transform: scaleY(1); opacity: 0; } }
@@ -222,7 +233,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Split / pilares ---------- */
 .split { display: grid; grid-template-columns: 1fr 1fr; gap: clamp(32px, 6vw, 96px); align-items: center; }
-.pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-top: 64px; }
+.pillars { display: grid; grid-template-columns: repeat(4, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line); border-radius: var(--radius); overflow: hidden; margin-top: 64px; list-style: none; padding: 0; }
 .pillar { background: var(--bg); padding: 28px 24px 30px; display: flex; flex-direction: column; gap: 10px; min-height: 190px; transition: background .4s; }
 .pillar:hover { background: var(--bg-2); }
 .pillar svg { width: 38px; height: 38px; color: var(--lime); }
@@ -235,6 +246,12 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .section--black .pillar:hover { background: var(--black-2); }
 .section--paper .pillar p { color: var(--gray); }
 .section--paper .pillar svg { color: #2f7a0a; }
+
+/* ---------- Por qué Aluva (inicio) ----------
+   Misma grilla de pilares, con fotos reales propias y contenido al pie
+   de la foto para que se lea siempre, también sobre las imágenes claras. */
+.por-lead { margin: 20px 0 0; font-size: clamp(15px, 1.2vw, 17px); font-weight: 300; line-height: 1.55; color: #d7e6d9; max-width: 62ch; }
+#por-que .pillars { margin-top: 46px; }
 
 /* ---------- Proceso ---------- */
 .steps { display: grid; grid-template-columns: repeat(4, 1fr); gap: 18px; margin-top: 64px; }
@@ -556,8 +573,7 @@ a.ccard:hover { border-color: var(--lime); }
 }
 @media (max-width: 820px) {
   body { font-size: 16px; }
-  .hero__grid, .split, .phero__row, .prod-hero__grid, .matcher, .anat, .dvh, .contact, .cta { grid-template-columns: 1fr; }
-  .hero__side { padding-bottom: 0; }
+  .split, .phero__row, .prod-hero__grid, .matcher, .anat, .dvh, .contact, .cta { grid-template-columns: 1fr; }
   .scroll-cue { display: none; }
   .line-row { grid-template-columns: 1fr 48px; gap: 8px 16px; padding: 24px 0; }
   .line-row__n { grid-column: 1 / -1; }
@@ -591,7 +607,6 @@ a.ccard:hover { border-color: var(--lime); }
   .step { aspect-ratio: 4/3.6; }
   .ftr__grid { grid-template-columns: 1fr; }
   .hdr__cta .btn--lime { display: none; }
-  .hero__meta { gap: 18px; }
 }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition-duration: .01ms !important; }
@@ -634,6 +649,8 @@ a.ccard:hover { border-color: var(--lime); }
 .specbar b span { color: var(--lime); }
 .section--paper .specbar, .section--paper .specbar div { border-color: rgba(14,21,18,.12); }
 .section--paper .specbar small { color: #2f7a0a; }
+
+.ficha { background: var(--bg-2); color: var(--ink); border-radius: var(--r-box); padding: 28px; }
 
 .specs { display: grid; margin: 26px 0 0; border-top: 1px solid var(--line); }
 .specs div { display: grid; grid-template-columns: 170px 1fr; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--line); font-size: 15px; }
@@ -793,7 +810,7 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 .cover::after { background: linear-gradient(180deg, rgba(0,28,28,.28) 0%, rgba(0,28,28,0) 18%, rgba(0,28,28,0) 52%, rgba(0,28,28,.62) 100%); }
 .cover__title, .cover__lead, .cover .phero__crumbs { text-shadow: 0 2px 18px rgba(0,0,0,.35); }
 .page-inicio .hero__media::after { background: linear-gradient(180deg, rgba(0,28,28,.3) 0%, rgba(0,28,28,0) 20%, rgba(0,28,28,.05) 50%, rgba(0,28,28,.78) 100%); }
-.page-inicio .hero__title, .page-inicio .hero__side .lead { text-shadow: 0 2px 18px rgba(0,0,0,.35); }
+.page-inicio .hero__title { text-shadow: 0 2px 18px rgba(0,0,0,.35); }
 .showcase .vit__body h3 { color: #fff; }
 .showcase .vit img { filter: grayscale(.35) brightness(.8); }
 .showcase .vit.is-active img { filter: none; }
@@ -907,15 +924,15 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 }
 #proceso > .wrap { max-width: none; padding: 0 clamp(16px, 2.4vw, 40px); }
 
-/* Cuadros con foto de fondo (mismo tamaño que los cuadros sin foto) */
-.pillar--img { position: relative; overflow: hidden; isolation: isolate; }
-.pillar__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; transform: scale(1.02); transition: transform 1.1s var(--ease); }
-.pillar--img::after { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(0,28,28,.35) 0%, rgba(0,28,28,.55) 45%, rgba(0,28,28,.9) 100%); transition: opacity .5s; }
-.pillar--img:hover .pillar__bg { transform: scale(1.07); }
-.pillar--img:hover::after { opacity: .85; }
-.pillar--img svg { color: var(--lime); }
-.pillar--img h3, .section--paper .pillar--img h3 { color: #fff; }
-.pillar--img p, .section--paper .pillar--img p { color: #d6e2d8; }
+/* Fichas de fabricación del inicio: la foto va sin velo ni sombra,
+   y la ficha (índice + nombre) va abajo, sobre el fondo plano. */
+.pillar--foto { justify-content: flex-start; gap: 14px; min-height: 0; padding: 16px 16px 18px; }
+.pillar__frame { margin: 0; overflow: hidden; border-radius: 2px; aspect-ratio: 4 / 3.35; background: var(--bg-2); }
+.pillar__frame img { width: 100%; height: 100%; object-fit: cover; display: block; filter: saturate(.78) contrast(1.03); transition: transform 1.1s var(--ease); }
+.pillar--foto:hover .pillar__frame img { transform: scale(1.05); }
+.pillar__meta { display: flex; align-items: baseline; gap: 14px; padding: 0 2px; }
+.pillar__n { font-size: 11px; font-weight: 700; letter-spacing: .18em; color: var(--mint); }
+.pillar--foto h3 { margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: .01em; color: var(--ink); }
 
 /* Portada del inicio: foto protagonista, sin velo de color */
 .page-inicio .hero__media img { object-position: 50% 40%; filter: contrast(1.03); }
@@ -1331,16 +1348,24 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 }
 
 /* ==========================================================================
-   Intro: cortina verde con la marca y línea de progreso (ver Intro.tsx)
-   La cortina sube con un filo lima abajo. Sin JavaScript se va sola por
-   la animación de respaldo.
+   Intro: cortina verde con el ícono de marca y un filete de progreso
+   (ver Intro.tsx). Solo el logo, sin nombre ni tagline.
+   Fondo: el mismo grano del sitio + un halo lima muy tenue detrás del
+   ícono. La cortina sube con un filo lima abajo. Sin JavaScript se va sola
+   por la animación de respaldo.
    ========================================================================== */
 .intro {
   position: fixed; inset: 0; z-index: 9999;
-  display: grid; place-items: center;
+  display: grid; place-items: center; overflow: hidden;
   background: var(--bg);
   animation: introRespaldo .5s ease 6s forwards;
   transition: transform .95s cubic-bezier(.76, 0, .24, 1) .18s;
+}
+.intro::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='140' height='140'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3CfeComponentTransfer%3E%3CfeFuncA type='discrete' tableValues='1'/%3E%3C/feComponentTransfer%3E%3C/filter%3E%3Crect width='140' height='140' filter='url(%23g)' opacity='.035'/%3E%3C/svg%3E") repeat 0 0 / 140px 140px,
+    radial-gradient(115% 72% at 50% -8%, rgba(198, 242, 156, .07), transparent 62%);
 }
 .intro::after {
   content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px;
@@ -1348,17 +1373,40 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
   transition: transform .35s var(--ease);
 }
 @keyframes introRespaldo { to { opacity: 0; visibility: hidden; } }
-.intro__marca { display: grid; justify-items: center; gap: 22px; animation: introMarca .7s var(--ease) .05s both; transition: opacity .3s, transform .45s var(--ease); }
-.intro__marca img { width: clamp(170px, 22vw, 240px); height: auto; }
-@keyframes introMarca { from { opacity: 0; transform: translateY(10px); } }
-.intro__barra { display: block; width: clamp(120px, 14vw, 160px); height: 2px; background: rgba(198, 242, 156, .16); overflow: hidden; }
-.intro__barra > span { display: block; height: 100%; background: var(--lime); transform: scaleX(0); transform-origin: left; animation: introAvance 2.6s cubic-bezier(.2, .7, .3, 1) .25s forwards; }
+
+.intro__centro { position: relative; display: grid; justify-items: center; gap: clamp(26px, 4vh, 38px); transition: opacity .3s, transform .45s var(--ease); }
+.intro__halo {
+  position: absolute; top: 50%; left: 50%; translate: -50% -58%;
+  width: clamp(240px, 46vmin, 400px); aspect-ratio: 1; border-radius: 50%;
+  background: radial-gradient(circle, rgba(90, 200, 15, .15) 0%, rgba(90, 200, 15, 0) 66%);
+  animation: introHalo 3.4s ease-in-out .3s infinite alternate;
+  pointer-events: none;
+}
+@keyframes introHalo { from { opacity: .45; } to { opacity: 1; } }
+
+.intro__iso { position: relative; width: clamp(92px, 14vmin, 130px); height: auto; overflow: visible; }
+.intro__trazo, .intro__relleno { stroke-linejoin: round; }
+.intro__trazo {
+  fill: none; stroke: var(--lime); stroke-width: 8;
+  stroke-dasharray: 534; stroke-dashoffset: 534;
+  animation: introTrazo 1.15s var(--ease) .1s forwards, introTrazoFin .45s ease 1.3s forwards;
+}
+@keyframes introTrazo { to { stroke-dashoffset: 0; } }
+@keyframes introTrazoFin { to { stroke-opacity: 0; } }
+.intro__relleno {
+  fill: var(--lime); opacity: 0; transform-box: fill-box; transform-origin: center;
+  animation: introRelleno .7s var(--ease) .72s forwards;
+}
+@keyframes introRelleno { from { opacity: 0; transform: scale(.96); } to { opacity: 1; transform: scale(1); } }
+
+.intro__linea { position: relative; width: clamp(118px, 14vw, 164px); height: 1px; background: rgba(198, 242, 156, .15); overflow: hidden; }
+.intro__linea > span { display: block; height: 100%; background: var(--lime); transform: scaleX(0); transform-origin: left; animation: introAvance 2.6s cubic-bezier(.2, .7, .3, 1) .3s forwards; }
 @keyframes introAvance { to { transform: scaleX(.86); } }
 
 .intro.is-saliendo { transform: translateY(-101%); }
 .intro.is-saliendo::after { transform: scaleX(1); }
-.intro.is-saliendo .intro__marca { opacity: 0; transform: translateY(-14px); }
-.intro.is-saliendo .intro__barra > span { animation: none; transform: scaleX(1); transition: transform .2s; }
+.intro.is-saliendo .intro__centro { opacity: 0; transform: translateY(-14px); }
+.intro.is-saliendo .intro__linea > span { animation: none; transform: scaleX(1); transition: transform .2s; }
 
 /* Mientras corre no se scrollea: si la página se mueve abajo, al subir la
    cortina aparece en un lugar distinto del que se entró. */
@@ -1367,12 +1415,9 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
 
 /* Entrada de la portada del inicio, en cascada, cuando sube la cortina */
-.page-inicio .hero .eyebrow, .page-inicio .hero__side > * { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
-.is-loaded .page-inicio .hero .eyebrow, .is-loaded .page-inicio .hero__side > * { opacity: 1; transform: none; }
-.is-loaded .page-inicio .hero .eyebrow { transition-delay: .2s; }
-.is-loaded .page-inicio .hero__side > :nth-child(1) { transition-delay: .45s; }
-.is-loaded .page-inicio .hero__side > :nth-child(2) { transition-delay: .6s; }
-@media (prefers-reduced-motion: reduce) { .page-inicio .hero .eyebrow, .page-inicio .hero__side > * { opacity: 1; transform: none; } }
+.page-inicio .hero__acciones { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.is-loaded .page-inicio .hero__acciones { opacity: 1; transform: none; transition-delay: .5s; }
+@media (prefers-reduced-motion: reduce) { .page-inicio .hero__acciones { opacity: 1; transform: none; } }
 
 /* ==========================================================================
    Nuestros productos: fotos más visibles (cinco líneas)
@@ -1407,8 +1452,14 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
    Revisión del cliente, 2026-10-28
    ========================================================================== */
 /* Portada: la marca va grande, "Aberturas a medida" queda de bajada */
-.hero__marca { display: block; width: clamp(190px, 26.5vw, 400px); height: auto; margin-bottom: .14em; filter: drop-shadow(0 2px 14px rgba(0,0,0,.28)); }
-.hero__title .hero__sub { font-size: clamp(22px, 2.4vw, 34px); line-height: 1.1; margin-top: .3em; letter-spacing: -.01em; color: #dbe7dc; }
+.hero__marca { display: block; width: clamp(190px, 26.5vw, 400px); height: auto; filter: drop-shadow(0 2px 14px rgba(0,0,0,.28)); }
+.hero__title .hero__sub { font-size: clamp(22px, 2.4vw, 34px); line-height: 1.1; margin-top: 22px; letter-spacing: -.01em; color: #dbe7dc; }
+/* Las dos columnas tienen que cerrar en la misma linea.
+   El titulo arrastraba 30px de margen inferior de una version anterior del
+   hero, y la bajada sumaba su propio margen al hueco del flex: entre las dos
+   cosas la columna derecha terminaba 30px mas abajo y los botones colgaban
+   otros 14. Con align-items:end y sin margenes sueltos, ambas cierran igual. */
+.hero .hero__title { margin-bottom: 0; }
 
 /* Staff: link simple como los del menú, separado de "Pedí presupuesto" */
 .hdr__staff { font-size: 14.5px; font-weight: 600; padding: 10px 14px; margin-left: 14px; border-radius: 3px; color: var(--ink); opacity: .86; transition: opacity .2s, background .2s; }
@@ -1451,4 +1502,111 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 @media (max-width: 820px) {
   .nos { grid-template-columns: 1fr; gap: 28px; margin-top: 40px; }
   .nos__datos dt { min-width: 6.5em; }
+}
+
+/* ==========================================================================
+   Celular: una sola linea de lectura
+   ==========================================================================
+
+   Medido a 390px, el texto arrancaba en 16, 20, 34, 41 o 52px segun el
+   bloque en el que cayera: cada tarjeta traia su propio padding y se sumaba
+   al margen de pagina. El ojo lee eso como desprolijidad aunque no sepa por
+   que.
+
+   La solucion no es sacarles el padding (quedarian pegadas al borde) sino
+   que la tarjeta se vaya a sangre y su padding SEA el margen de pagina. Asi
+   el fondo llega de borde a borde y el texto cae en la misma vertical que
+   todo lo demas.
+
+   Tambien se ocultan dos piezas decorativas que a este ancho solo estorban. */
+@media (max-width: 560px) {
+  .cta,
+  .pillars {
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    width: auto;
+    border-radius: 0;
+    border-left: 0;
+    border-right: 0;
+  }
+  .cta { padding: 34px var(--gutter) 38px; }
+  .pillar { padding: 24px var(--gutter) 26px; }
+
+  /* El borde lateral sobrevivia por especificidad y corria el texto 1px. */
+  section .cta, section:not(.section--paper) .cta { border-left: 0; border-right: 0; }
+
+
+  /* Marca de agua al 5% de opacidad que ademas se salia 44px del viewport. */
+  .cta__icon { display: none; }
+
+  /* La palabra "Profesionales" de fondo no entra: a este ancho queda cortada
+     y le roba altura al bloque sin aportar nada. */
+  .pro .pro-palabra { display: none; }
+  .pro .pro-regla { margin-top: 0; }
+
+  /* La ficha abierta de la vitrina sumaba su propio margen al de la seccion. */
+  .showcase .vit__body { left: var(--gutter); right: var(--gutter); }
+
+  /* El hueco lateral entre paneles es para separarlos en columna; apilados
+     en celular solo corre el texto 10px. Se mantiene el hueco vertical. */
+  .showcase .vitrinas { padding: 0 0 10px; }
+
+  /* ---- Tarjetas de sistema (paginas de producto) ----------------------
+     Apiladas en una columna, el recuadro no separa nada que el filete no
+     separe igual, y encima mete el texto 25px adentro. A sangre: la foto
+     llega al borde —que es lo que se mira en un telefono— y el titulo cae
+     en la vertical de la pagina. */
+  .systems { gap: 0; margin-top: 36px; }
+  .sys {
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    border: 0;
+    border-top: 1px solid var(--line);
+    border-radius: 0;
+  }
+  .sys:last-child { border-bottom: 1px solid var(--line); }
+  .sys div { padding: 20px var(--gutter) 26px; }
+  .section--paper .sys { border-top-color: rgba(0,40,40,.14); }
+  .section--paper .sys:last-child { border-bottom-color: rgba(0,40,40,.14); }
+
+  /* ---- Configurador de DVH (vidrieria) -------------------------------- */
+  .dvh__viz { border-left: 0; border-right: 0; border-radius: 0; padding: 30px var(--gutter); min-height: 0; }
+  .dvh__ctrl { gap: 0; }
+  .q { border-left: 0; border-right: 0; border-radius: 0; padding: 22px var(--gutter) 26px; }
+  .q + .q { margin-top: 0; border-top: 0; }
+  .dvh__viz, .dvh__ctrl .q,
+  .result, .form, .ccard, .map, .ficha {
+    margin-left: calc(-1 * var(--gutter));
+    margin-right: calc(-1 * var(--gutter));
+    width: auto;
+  }
+
+  /* ---- Resultado del buscador de tipologias --------------------------- */
+  .result { border-radius: 0; min-height: 0; }
+  .result__body { padding: 24px var(--gutter) 28px; }
+
+  /* ---- Formulario y datos de contacto -------------------------------- */
+  .form { border-left: 0; border-right: 0; border-radius: 0; padding: 28px var(--gutter) 32px; }
+  .cards { gap: 0; }
+  .ccard { border-left: 0; border-right: 0; border-radius: 0; padding: 22px var(--gutter); gap: 14px; }
+  /* El icono repite lo que ya dice la etiqueta de arriba ("WhatsApp",
+     "Telefono"...). En celular pasa al margen derecho: deja de empujar el
+     texto 40px adentro y el dato arranca en la vertical de la pagina. */
+  .ccard svg { order: 2; margin-left: auto; align-self: center; }
+  .ccard + .ccard { border-top: 0; }
+  .map { border-left: 0; border-right: 0; border-radius: 0; }
+
+  /* ---- Ficha tecnica (aluminio) -------------------------------------- */
+  .ficha { border-radius: 0; padding: 24px var(--gutter) 28px; }
+
+  /* ---- Botones ---------------------------------------------------------
+     Apilados, cada boton media lo que media su texto (189, 187, 271...) y
+     el borde derecho quedaba en diente de sierra. Al ancho de la columna
+     comparten vertical con el resto y el area de toque es la que
+     corresponde a un dedo. */
+  .btn-row { flex-direction: column; align-items: stretch; }
+  .btn-row .btn, .form .btn { width: 100%; justify-content: center; }
+
+  /* El pie de la tipologia traia 4px propios de sangria. */
+  .tipo__info { padding: 22px 0 0; }
 }

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Shell from "@/components/Shell";
 import { Arrow } from "@/components/Icon";
-import { Cta, Eyebrow, Pillars, Profesionales } from "@/components/blocks";
+import { Cta, Eyebrow, Profesionales } from "@/components/blocks";
 import { LINEAS, PROCESO } from "@/content/site";
 
 /* Fotos de obra propias que mandó el cliente (revisión del 2026-10-28):
@@ -18,34 +18,40 @@ const OBRAS = [
   { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Fábrica · La Plata", pos: "50% 40%" },
 ];
 
+/* Cuatro pruebas de fabricación, sin adornos: índice, foto y nombre. */
+const POR_QUE: [string, string, string, string, string][] = [
+  ["01", "Fábrica propia", "/photos/proceso-fabricacion.webp", "50% 35%", "Operario perforando un perfil de PVC en la planta de Aluva"],
+  ["02", "Medición en obra", "/photos/medicion-cinta.jpg", "50% 35%", "Cinta métrica y lápiz marcando una plancha en obra"],
+  ["03", "DVH de fabricación propia", "/photos/det-vidrieria-1.webp", "52% 28%", "Cortando vidrio en el taller propio de Aluva"],
+  ["04", "Instalación", "/photos/instalacion-obra.webp", "50% 42%", "Corrediza de PVC símil madera recién instalada, con herramientas sobre el piso"],
+];
+
 export default function Inicio() {
   return (
     <Shell active="inicio" lightFooter>
       <section className="hero">
         <div className="hero__media"><img src="/photos/portada-inicio-proyectantes.jpg" alt="Ventanas proyectantes de aluminio negro abiertas hacia el jardín" fetchPriority="high" /></div>
         <div className="wrap">
-          <Eyebrow n="01">PVC · Aluminio · Vidriería · Templados · Revestimientos</Eyebrow>
-          <div className="hero__grid">
-            {/* La marca va primero y más grande que "Aberturas a medida" (pedido del cliente, 2026-10-28) */}
-            <h1 className="hero__title">
-              <span className="row"><span><img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} /></span></span>
-              <span className="row hero__sub"><span>Aberturas a medida</span></span>
-            </h1>
-            <div className="hero__side">
-              <p className="lead">Fabricamos e instalamos aberturas de PVC y aluminio, templados y revestimientos. Más de 20 años de trayectoria en el mercado.</p>
-              <div className="btn-row">
-                <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
-                <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
-              </div>
-            </div>
+          {/* Un solo eje, tres pasos: quién es, qué hace y qué podés hacer vos.
+              Se fue la línea de las cinco categorías (la sección siguiente es
+              exactamente eso, enumerado y con enlace) y el párrafo de la
+              derecha, que colgaba a otra altura y competía con la marca.
+              La marca va primero y más grande que "Aberturas a medida"
+              (pedido del cliente, 2026-10-28). */}
+          <h1 className="hero__title">
+            <span className="row"><span><img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} /></span></span>
+            <span className="row hero__sub"><span>Aberturas a medida</span></span>
+          </h1>
+          <div className="btn-row hero__acciones">
+            <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
+            <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
           </div>
-
         </div>
       </section>
 
       <section id="que-fabricamos" className="section--fx section--hondo section section--paper s-lineas">
         <div className="wrap">
-          <Eyebrow n="02">Qué fabricamos</Eyebrow>
+          <Eyebrow n="01">Qué fabricamos</Eyebrow>
           <h2 className="h-lg rv">Cinco soluciones,<br />una fábrica.</h2>
           <div style={{ height: 8 }} />
           <div className="lines">
@@ -62,22 +68,30 @@ export default function Inicio() {
         </div>
       </section>
 
-      <section id="por-que" className="section--fx section--aire section">
+      <section id="por-que" className="section section--deep">
         <div className="wrap">
-          <Eyebrow n="03">Por qué Aluva</Eyebrow>
+          <Eyebrow n="02">Por qué Aluva</Eyebrow>
           <h2 className="h-lg rv">No revendemos.<br />Fabricamos.</h2>
-          <Pillars items={[
-            ["factory", "Fábrica propia", "Planta en La Plata.", "/photos/det-pvc-perfil.webp"],
-            ["ruler", "Medición en obra", "Relevamiento preciso.", "/photos/medicion-cinta.jpg"],
-            ["thermo", "DVH de fabricación propia", "Realizado íntegramente en nuestras instalaciones.", "/photos/dvh-perfiles.jpg"],
-            ["tools", "Instalación", "Con equipo propio.", "/og/producto-aluminio.jpg"],
-          ]} />
+          <p className="por-lead rv rv-d1">Fabricamos en La Plata todo lo que instalamos: medición, producción y colocación con equipo propio.</p>
+          <ol className="pillars">
+            {POR_QUE.map(([n, t, src, pos, alt], i) => (
+              <li key={t} className={`pillar pillar--foto rv rv-d${i}`}>
+                <figure className="pillar__frame">
+                  <img src={src} alt={alt} loading="lazy" style={{ objectPosition: pos }} />
+                </figure>
+                <div className="pillar__meta">
+                  <span className="pillar__n" aria-hidden="true">{n}</span>
+                  <h3>{t}</h3>
+                </div>
+              </li>
+            ))}
+          </ol>
         </div>
       </section>
 
       <section className="section section--paper" id="proceso">
         <div className="wrap">
-          <Eyebrow n="04">Cómo trabajamos</Eyebrow>
+          <Eyebrow n="03">Cómo trabajamos</Eyebrow>
           <div className="proc__head">
             <h2 className="h-lg rv">De la idea<br />a tu obra.</h2>
             <p className="proc__note rv rv-d1">Un mismo equipo<br />de principio a fin.</p>
@@ -99,7 +113,7 @@ export default function Inicio() {
 
       <section id="obras" className="section--fx section--brillo section section--paper">
         <div className="wrap">
-          <Eyebrow n="05">Obras e inspiración</Eyebrow>
+          <Eyebrow n="04">Obras e inspiración</Eyebrow>
           <div className="proc__head">
             <h2 className="h-lg rv">Más luz.<br />Más vista.</h2>
             <p className="proc__note rv rv-d1">Obras, detalles<br />y nuestro local.</p>

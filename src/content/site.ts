@@ -42,8 +42,8 @@ export const LINEAS: Linea[] = [
   { slug: "revestimientos", name: "Revestimientos", short: "Wall panel para interiores y fachadas, deck para exteriores y parasoles de PVC.", vit: "/photos/vit-revestimientos.webp", chips: ["Wall panel", "Deck", "Parasol", "Sin mantenimiento"] },
 ];
 
-/** Pilar: ícono, título, texto y foto de fondo opcional. */
-export type Pilar = [IconName, string, string, string?];
+/** Pilar: ícono, título y texto. */
+export type Pilar = [IconName, string, string];
 
 /** Sistema: foto (prefijo "cut:" = producto sobre fondo blanco, "top:" = encuadre superior), título y texto. */
 export type Sistema = [string, string, string];

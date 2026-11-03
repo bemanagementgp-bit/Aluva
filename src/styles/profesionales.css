@@ -243,3 +243,9 @@
   .pro-btn:hover { transform: none; }
   .pro-btn:hover .pro-flecha { transform: none; }
 }
+
+/* En celular este bloque usaba un margen propio de 20px mientras el resto de
+   la pagina usa 16: quedaban dos verticales de lectura distintas. */
+@media (max-width: 560px) {
+  .pro { --pro-gutter: var(--gutter); }
+}

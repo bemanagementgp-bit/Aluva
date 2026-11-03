@@ -44,12 +44,11 @@ export function Cta({ title = "¿Tenés una obra?", text = "Medición, fabricaci
 export function Pillars({ items }: { items: Pilar[] }) {
   return (
     <div className="pillars">
-      {items.map(([ic, t, d, img], i) => (
-        <div key={t} className={`pillar${img ? " pillar--img" : ""} rv rv-d${i % 4}`}>
-          {img && <img className="pillar__bg" src={img} alt="" loading="lazy" />}
+      {items.map(([ic, t, d], i) => (
+        <div key={t} className={`pillar rv rv-d${i % 4}`}>
           <Icon name={ic} />
           <h3>{t}</h3>
-          <p>{d}</p>
+          {d && <p>{d}</p>}
         </div>
       ))}
     </div>
@@ -81,7 +80,7 @@ export function Profesionales() {
         <span className="pro-regla" aria-hidden="true" />
         <h2 className="pro-bajada">Producción al ritmo de <strong>tu obra.</strong></h2>
         <div className="pro-acciones">
-          <a className="pro-btn" href="mailto:ventas@aluva.com.ar?subject=Consulta%20profesional">Escribir a ventas<span className="pro-flecha">→</span></a>
+          <a className="pro-btn" href="mailto:info@aluva.com.ar?subject=Consulta%20profesional">Escribir a info<span className="pro-flecha">→</span></a>
           <a className="pro-link" href="https://wa.me/5492216755077" target="_blank" rel="noopener noreferrer">WhatsApp +54 9 221 675-5077</a>
         </div>
       </div>
