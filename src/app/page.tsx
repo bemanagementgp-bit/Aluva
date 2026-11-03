@@ -49,7 +49,7 @@ export default function Inicio() {
         </div>
       </section>
 
-      <section id="que-fabricamos" className="section--fx section--hondo section section--paper s-lineas">
+      <section id="que-fabricamos" className="section section--paper s-lineas">
         <div className="wrap">
           <Eyebrow n="01">Qué fabricamos</Eyebrow>
           <h2 className="h-lg rv">Cinco soluciones,<br />una fábrica.</h2>
@@ -111,7 +111,7 @@ export default function Inicio() {
 
       <Profesionales />
 
-      <section id="obras" className="section--fx section--brillo section section--paper">
+      <section id="obras" className="section section--paper">
         <div className="wrap">
           <Eyebrow n="04">Obras e inspiración</Eyebrow>
           <div className="proc__head">

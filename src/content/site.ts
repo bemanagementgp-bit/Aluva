@@ -76,7 +76,7 @@ export interface Producto {
 // (líneas, terminaciones, tipologías y beneficios confirmados por el cliente).
 export const PRODUCTOS: Producto[] = [
   {
-    slug: "pvc", name: "PVC", og: "/og/producto-pvc.jpg",
+    slug: "pvc", name: "PVC", og: "/photos/esc-pvc-1.webp",
     title: "Ventanas y puertas de PVC a medida en La Plata | Aluva",
     desc: "Ventanas y puertas de PVC con perfilería multicámara y DVH de fabricación propia, a medida en La Plata.",
     lead: "Perfilería multicámara de primera línea, con DVH de fabricación propia.",
@@ -115,7 +115,7 @@ export const PRODUCTOS: Producto[] = [
       ["/photos/tip-fijo.webp", "Paño fijo", "Vidrio fijo, sin hojas que abran."],
     ],
     galT: "PVC de cerca.",
-    gallery: [["/og/producto-pvc.jpg", "Puerta corrediza", false], ["/photos/det-pvc-2.webp", "Manija sobre hoja en nogal", true], ["/photos/det-pvc-foliado.webp", "Terminaciones foliadas", true], ["/photos/det-pvc-perfil.webp", "Perfil multicámara", true], ["/photos/det-pvc-3.webp", "Cierre multipunto", true]],
+    gallery: [["/photos/pvc-puerta-corrediza.webp", "Puerta corrediza", true], ["/photos/det-pvc-2.webp", "Manija sobre hoja en nogal", true], ["/photos/det-pvc-foliado.webp", "Terminaciones foliadas", true], ["/photos/det-pvc-perfil.webp", "Perfil multicámara", true], ["/photos/det-pvc-3.webp", "Cierre multipunto", true]],
     faq: [
       ["¿Qué perfilería usan?", "Perfilería multicámara de primera línea, con refuerzo interno de acero galvanizado. Estamos capacitados por los fabricantes para fabricar e instalar sus sistemas."],
       ["¿Qué colores hay?", "Blanco, roble dorado, nogal y Spectral, un foliado ultramate, sedoso al tacto y sin reflejos."],

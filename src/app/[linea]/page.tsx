@@ -29,7 +29,7 @@ const imgStyle = { width: "100%", height: "100%", objectFit: "cover" } as const;
 function Especial({ slug }: { slug: Slug }) {
   if (slug === "pvc") {
     return (
-      <section className="section--fx section--aire section" id="componentes">
+      <section className="section" id="componentes">
         <div className="wrap">
           <Eyebrow n="02">Componentes de una ventana</Eyebrow>
           <div className="sec-title">
@@ -60,7 +60,7 @@ function Especial({ slug }: { slug: Slug }) {
   if (slug === "aluminio") {
     const sw: [string, string][] = [["#f4f4f0", "Blanco"], ["#b9bdc1", "Anodizado"], ["#1b1d1f", "Negro"]];
     return (
-      <section id="lineas" className="section--fx section--aire section">
+      <section id="lineas" className="section">
         <div className="wrap">
           <Eyebrow n="02">Líneas y colores</Eyebrow>
           <h2 className="h-lg rv">A30, Módena<br />y Herrero.</h2>
@@ -105,7 +105,7 @@ function Especial({ slug }: { slug: Slug }) {
     );
   }
   return (
-    <section id="templado" className="section--fx section--hondo section">
+    <section id="templado" className="section">
       <div className="wrap">
         <Eyebrow n="02">Vidrio templado</Eyebrow>
         <h2 className="h-lg rv">Solo vidrio.<br />Nada más.</h2>
@@ -145,7 +145,7 @@ export default async function Linea({ params }: Props) {
         </div>
       </section>
 
-      <section id="beneficios" className="section--fx section--brillo section section--paper">
+      <section id="beneficios" className="section section--paper">
         <div className="wrap">
           <Eyebrow n="01">Beneficios</Eyebrow>
           <h2 className="h-lg rv"><Lines lines={p.whyT} /></h2>
