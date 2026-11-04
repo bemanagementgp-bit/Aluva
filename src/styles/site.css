@@ -389,11 +389,34 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .anim-oscilo-b { animation: osciloB 7s var(--ease) infinite; transform-box: fill-box; transform-origin: left center; }
 @keyframes osciloV { 0%, 8% { transform: perspective(700px) rotateX(0); } 22%, 34% { transform: perspective(700px) rotateX(-34deg); } 46%, 100% { transform: perspective(700px) rotateX(0); } }
 @keyframes osciloB { 0%, 52% { transform: perspective(700px) rotateY(0); } 66%, 78% { transform: perspective(700px) rotateY(-55deg); } 92%, 100% { transform: perspective(700px) rotateY(0); } }
-/* Desplazable: la hoja sale hacia afuera sobre brazos tijera, no gira sobre
-   un eje. Se separa del marco y queda casi paralela, que es lo que la
-   distingue de una proyectante. */
-@keyframes desplaza { 0%, 15% { transform: perspective(700px) translateX(0) rotateY(0); } 50%, 65% { transform: perspective(700px) translateX(13%) rotateY(-20deg); } 100% { transform: perspective(700px) translateX(0) rotateY(0); } }
-.anim-desplaza { animation: desplaza 4.2s var(--ease) infinite; transform-box: fill-box; transform-origin: left center; }
+/* Desplazable: la hoja sale de adentro hacia afuera, derecha, empujada por los
+   brazos tijera. No gira sobre ningun eje —eso la distingue de la proyectante
+   y de la rebatible—: los cuatro lados se despegan del marco a la vez.
+
+   Se resuelve con translateZ: la hoja se acerca al ojo, crece pareja desde su
+   centro y se sale un poco del marco, que queda quieto detras. Eso es lo que
+   se ve de frente cuando una hoja sale hacia afuera. */
+@keyframes desplaza {
+  0%, 14% { transform: perspective(620px) translateZ(0); }
+  48%, 66% { transform: perspective(620px) translateZ(54px); }
+  100% { transform: perspective(620px) translateZ(0); }
+}
+.anim-desplaza { animation: desplaza 4.2s var(--ease) infinite; transform-box: fill-box; transform-origin: center; }
+/* Los brazos tijera acompanian: se abren mientras la hoja sale. */
+@keyframes tijera {
+  0%, 14% { transform: scaleX(.12); opacity: .35; }
+  48%, 66% { transform: scaleX(1); opacity: 1; }
+  100% { transform: scaleX(.12); opacity: .35; }
+}
+.anim-tijera { animation: tijera 4.2s var(--ease) infinite; transform-box: fill-box; transform-origin: left center; }
+
+/* Plegadiza: las hojas no baten cada una en su lugar, se pliegan juntas y se
+   amontonan contra un lado. Cada hoja se angosta sobre su propio borde
+   izquierdo y ademas se corre, para apilarse con las anteriores: 8, 36, 65 y
+   93 en el sistema de la figura. Al final quedan las cuatro de canto, juntas,
+   que es como se ve una plegadiza abierta. */
+@keyframes plega { 0%, 12% { transform: translateX(0) scaleX(1); } 48%, 64% { transform: translateX(var(--x)) scaleX(.42); } 100% { transform: translateX(0) scaleX(1); } }
+.anim-plega { animation: plega 4.4s var(--ease) infinite; transform-box: fill-box; transform-origin: left center; }
 .anim-glint { animation: glint 3.6s ease-in-out infinite; transform-box: fill-box; }
 .swing-r { transform-origin: right center !important; animation-name: swingYr; }
 @keyframes swingYr { 0%, 15% { transform: perspective(700px) rotateY(0); } 50%, 65% { transform: perspective(700px) rotateY(58deg); } 100% { transform: perspective(700px) rotateY(0); } }
@@ -1725,15 +1748,14 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
    marca, asi que la franja y la marca comparten el eje. La derecha se topa en
    420px: lo que hace falta para que el parrafo entre parejo y los dos rotulos
    quepan uno al lado del otro sin apretarse. */
-/* El filete es lo que convierte la franja en una pieza de diseño y no en
-   texto apoyado sobre una foto. Ademas le contesta a la imagen: la foto es una
-   banda horizontal de ventanas, y el filete repite esa horizontal. */
-.hero__pie { border-top: 1px solid rgba(219,231,220,.3); padding-top: clamp(16px, 2.2vh, 24px); }
-.hero__cats { margin: 0 0 clamp(16px, 2.2vh, 26px); }
+.hero__cats { margin: 0 0 clamp(14px, 1.9vh, 22px); }
 .hero__fila {
   display: grid;
   grid-template-columns: minmax(0, var(--marca)) minmax(0, 1fr);
   gap: clamp(32px, 5vw, 90px);
+  /* Por abajo: la columna izquierda mide mas que la derecha —marca mas
+     bajada contra frase mas botones— y lo que tiene que coincidir es el
+     cierre, no el arranque. */
   align-items: end;
 }
 /* La fila de la marca es una caja de linea con line-height 0: el svg cuelga
@@ -1743,34 +1765,32 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
    y en vertical se montaba encima de "Aberturas a medida". En flex la caja
    mide lo que mide la imagen. */
 .hero .hero__title .row { display: flex; }
-.hero__col-b { max-width: 420px; }
-.hero .hero__acciones { width: 100%; margin-top: clamp(20px, 2.6vh, 32px); }
+.hero__col-b { max-width: 560px; }
+.hero .hero__acciones { margin-top: clamp(20px, 2.6vh, 32px); }
 
-/* La portada se parte en dos alturas: la marca sola, al medio y a la
-   izquierda, y la franja de informacion abajo.
-
-   La reja de la portada es de dos filas, 1fr y auto: la de arriba se queda
-   con todo el espacio sobrante y centra la marca ahi dentro; la de abajo mide
-   lo que mide su contenido y queda apoyada en el borde inferior.
-
-   Y la marca crece: ahora ocupa sola toda la mitad de arriba, y en una
-   portada es la pieza que tiene que pesar. */
+/* La columna de la derecha se va contra el margen derecho de la pagina y se
+   alinea hacia ese lado: rubros, frase y botones cierran todos en la misma
+   vertical, la del borde de la pagina. Del otro lado la marca cierra contra
+   el margen izquierdo. La portada queda sostenida por sus dos margenes y no
+   necesita ningun filete en el medio. */
 @media (min-width: 821px) {
-  .hero { align-items: stretch; padding-bottom: clamp(48px, 7vh, 84px); --marca: clamp(240px, 32vw, 470px); }
-  .hero .wrap { display: grid; grid-template-rows: 1fr auto; row-gap: clamp(28px, 4vh, 56px); }
-  /* La marca baja a la franja oscura y tranquila de la foto.
+  .hero__col-b { margin-left: auto; text-align: right; }
+  .hero__col-b .hero__lead { margin-left: auto; }
+  .hero .hero__acciones { width: auto; justify-content: flex-end; }
+  .hero .hero__acciones .btn { flex: 0 0 auto; }
+  /* Entero en un renglon dentro de los 560px de la columna. */
+  .hero__cats { font-size: clamp(10px, .74vw, 11.5px); letter-spacing: .16em; }
+}
 
-     Barrida la columna izquierda de arriba a abajo en pasos de 40px, midiendo
-     media y desvio de gris en una caja del tamanio de la marca: el medio de la
-     portada —donde estaba— es el peor lugar de toda la foto, 142 de media y 36
-     de desvio; ahi caen el reflejo del vidrio y los brazos del herraje. La
-     franja del 58 al 68% da 68 de media y 18 a 20 de desvio: es la parte mas
-     oscura y mas pareja de la imagen.
+/* Todo en una franja al pie, en dos columnas: a la izquierda la marca con su
+   bajada, a la derecha la frase y los botones.
 
-     Apoyada contra la franja de abajo, ademas, la marca deja de flotar: marca,
-     filete y pie se leen como un solo bloque y la foto se queda con la mitad
-     de arriba entera. */
-  .hero .hero__title { align-self: end; margin-bottom: clamp(28px, 6vh, 70px); }
+   La franja queda apoyada en el borde de abajo, que es donde la foto es mas
+   oscura y mas pareja —medido, 68 de media y 18 de desvio contra 142 y 36 en
+   el medio— y donde una portada de rubro constructivo se para mejor: la foto
+   se queda con la mitad de arriba entera y nada flota. */
+@media (min-width: 821px) {
+  .hero { padding-bottom: clamp(48px, 7vh, 84px); --marca: clamp(240px, 30vw, 430px); }
 }
 
 /* La portada se arma sola: primero la marca, que trae su propia cortina, y
@@ -1898,8 +1918,74 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
   .hero__fila { grid-template-columns: 1fr; gap: clamp(14px, 2vh, 20px); }
   .hero__col-b { max-width: none; }
   .hero__sub { margin-top: 0; }
-  /* Sin filete: en vertical la franja ya esta separada de la foto por el
-     fondo liso, y un filete a cuatro centimetros del borde de la foto se
-     leeria como una segunda linea de corte. */
-  .hero__pie { border-top: 0; padding-top: 0; }
+}
+
+/* ==========================================================================
+   Contacto (2026-11-04)
+   ==========================================================================
+
+   La pagina tenia el formulario y cinco tarjetas sueltas en dos columnas, sin
+   jerarquia entre ellas: el que solo queria el telefono tenia que leer todo.
+
+   Ahora son dos actos, con la alternancia de color del resto del sitio:
+
+     01, sobre verde   ·  las tres vias directas y, debajo, el formulario
+     02, sobre blanco  ·  donde estamos: ficha de datos y mapa
+
+   Las vias van ARRIBA del formulario, no al costado: en un telefono el
+   costado no existe y terminaban debajo de todo, que es donde menos sirven.
+   ========================================================================== */
+.cto-vias { margin-top: clamp(32px, 4.5vw, 52px); }
+@media (min-width: 821px) {
+  .cards--3 { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* El formulario deja de ser lo primero y pasa a ser la alternativa: va
+   presentado, con su titulo y una linea que dice para que sirve dar mas
+   datos. El filete lo separa de las vias directas. */
+.cto-form {
+  margin-top: clamp(44px, 6vw, 72px);
+  padding-top: clamp(28px, 3.5vw, 44px);
+  border-top: 1px solid var(--line);
+}
+.cto-form__p { margin: 10px 0 clamp(22px, 3vw, 32px); max-width: 52ch; }
+
+/* ---- 02 Donde estamos ---------------------------------------------------
+   La ficha usa la misma lista de especificaciones que la ficha tecnica de
+   aluminio, con el icono adentro del rotulo. */
+.cto-donde {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: clamp(24px, 4vw, 56px);
+  align-items: start;
+  margin-top: clamp(32px, 4.5vw, 52px);
+}
+.cto-datos { margin-top: 0; }
+.cto-datos dt { display: flex; align-items: center; gap: 8px; }
+.cto-datos dt svg { width: 15px; height: 15px; flex: 0 0 15px; }
+.cto-datos dd a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+.cto-datos dd a:hover { color: #2f7a0a; }
+.cto-botones { margin-top: clamp(22px, 3vw, 30px); }
+.cto-donde .map { height: 100%; min-height: 320px; }
+
+/* Sobre blanco el menta no se lee: el rotulo toma el verde oscuro que ya usan
+   las volantas numeradas de las secciones claras. */
+.section--paper .specs { border-top-color: rgba(14,21,18,.14); }
+.section--paper .specs div { border-bottom-color: rgba(14,21,18,.14); }
+.section--paper .specs dt { color: #2f7a0a; }
+.section--paper .specs dd { color: var(--paper-ink); }
+
+@media (max-width: 820px) {
+  .cto-donde { grid-template-columns: 1fr; }
+  .cto-donde .map { min-height: 260px; }
+}
+
+@media (max-width: 560px) {
+  /* El rotulo arriba y el dato abajo: en 358px una columna fija de 170px para
+     el rotulo deja al dato con 170 y la direccion entera parte en tres. */
+  .cto-datos div { grid-template-columns: 1fr; gap: 6px; padding: 14px 0; }
+  /* El mapa ya va a sangre por la regla general de celular; la ficha no, que
+     es texto y tiene que arrancar en la misma vertical que el resto. */
+  .cto-form { margin-top: 36px; padding-top: 26px; }
+  .cto-vias { margin-top: 28px; }
 }

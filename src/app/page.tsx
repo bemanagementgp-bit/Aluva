@@ -15,7 +15,7 @@ const OBRAS = [
   { c: "b3", d: "", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
   { c: "b4", d: " rv-d1", src: "/photos/obra-mampara.webp", alt: "Paño de vidrio esmerilado en un baño de mármol", t: "Mamparas", sub: "Vidrio esmerilado a medida" },
   { c: "b5", d: " rv-d2", src: "/photos/obra-templado.webp", alt: "Puerta de vidrio templado con tirador en un hall", t: "Templados", sub: "Puerta de templado" },
-  { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestro local", sub: "Showroom · La Plata", pos: "50% 40%" },
+  { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestra fábrica", sub: "Planta propia · La Plata", pos: "50% 40%" },
 ];
 
 /* Cuatro pruebas de fabricación, sin adornos: índice, foto y nombre. */
@@ -43,17 +43,23 @@ export default function Inicio() {
               el renglon de rubros no aparecen. En un telefono la portada tiene
               que decir quien es y que podes hacer, nada mas; lo que sacamos
               esta en la seccion siguiente, enumerado y con enlace. */}
-          <h1 className="hero__title">
-            <span className="row"><span><img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} /></span></span>
-          </h1>
           <div className="hero__pie">
-            <p className="hero__cats">
-              {["PVC", "Aluminio", "Vidriería", "Templados", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
-            </p>
             <div className="hero__fila">
-              <p className="hero__sub">Aberturas a medida</p>
+              <div>
+                <h1 className="hero__title">
+                  <span className="row"><span><img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} /></span></span>
+                </h1>
+                <p className="hero__sub">Aberturas a medida</p>
+              </div>
               <div className="hero__col-b">
-                <p className="hero__lead">Fabricamos e instalamos aberturas de PVC y aluminio, templados y revestimientos. Más de 20 años de trayectoria en el mercado.</p>
+                <p className="hero__cats">
+                  {["PVC", "Aluminio", "Vidriería", "Templados", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
+                </p>
+                {/* La frase va corta a proposito: el renglon de rubros de arriba
+                    ya enumera las cinco lineas, asi que repetirlas aca solo le
+                    saca fuerza a lo unico que el renglon no dice —que fabrican
+                    lo que instalan y hace cuanto—. */}
+                <p className="hero__lead">Fabricamos e instalamos todo lo que vendemos. Más de 20 años de trayectoria.</p>
                 <div className="btn-row hero__acciones">
                   <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
                   <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>

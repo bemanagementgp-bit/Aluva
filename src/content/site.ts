@@ -9,6 +9,7 @@ export const CONTACTO = {
   telVisible: "(0221) 483-0222",
   telLink: "+542214830222",
   whatsapp: "5492216755077", // con código de país, sin "+" ni espacios
+  waVisible: "+54 9 221 675-5077", // el mismo numero, como se muestra
   email: "info@aluva.com.ar",
   direccion: "Calle 7 N° 1714, La Plata, Buenos Aires",
   horario: "Lun a Vie 8 a 17 h · Sáb 9 a 13 h", // TODO: sin confirmar, aluva.com.ar no publica horarios
@@ -176,14 +177,14 @@ export const PRODUCTOS: Producto[] = [
     sysEyebrow: "Aplicaciones", sysT: ["Frentes, puertas", "y fachadas."],
     systems: [
       ["/photos/frente-comercial.jpg", "Frentes comerciales", "Vidrieras y accesos de locales."],
-      ["/photos/blindex.webp", "Puertas de vidrio", "Hoja entera de vidrio templado."],
+      ["/photos/obra-templado.webp", "Puertas de vidrio", "Hoja entera de vidrio templado."],
       ["/photos/esc-blindex-3.webp", "Piel de vidrio", "Fachadas y frentes completos en vidrio."],
       ["/photos/mampara-division.jpg", "Oficinas y accesos", "Divisiones y puertas en vidrio templado."],
       ["/photos/templado-pano.webp", "Paños fijos", "Vidrio templado cortado a medida."],
       ["/photos/templado-puerta.webp", "Puertas con tirador", "Sin marco: vidrio, herraje y tirador."],
     ],
     galT: "Templado de cerca.",
-    gallery: [["/og/producto-blindex.jpg", "Nuestro local", false], ["/photos/templado-puerta.webp", "Puerta de templado", true], ["/photos/templado-pano.webp", "Canto del paño", true], ["/photos/frente-comercial.jpg", "Frente comercial", false], ["/photos/mampara-division.jpg", "Oficina", true], ["/photos/esc-blindex-3.webp", "Piel de vidrio", true]],
+    gallery: [["/photos/det-blindex-2.webp", "Paños de templado", true], ["/photos/templado-puerta.webp", "Puerta de templado", true], ["/photos/templado-pano.webp", "Canto del paño", true], ["/photos/frente-comercial.jpg", "Frente comercial", false], ["/photos/mampara-division.jpg", "Oficina", true], ["/photos/esc-blindex-3.webp", "Piel de vidrio", true]],
     faq: [
       ["¿Es lo mismo que Blindex?", "Blindex es una marca registrada de vidrio templado; en el uso cotidiano se le dice así a cualquier templado. Nosotros trabajamos vidrio templado de seguridad."],
       ["¿Se puede cortar después de templado?", "No: el vidrio se corta y perfora antes del templado. Por eso medimos en obra con precisión."],

@@ -1,7 +1,7 @@
 "use client";
 /* Componentes con interacción: galería arrastrable, vitrinas, tipologías, componentes del sistema y configurador DVH. */
 import Link from "next/link";
-import { useEffect, useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { Arrow, ArrowL } from "./Icon";
 import { Eyebrow, sec } from "./blocks";
 import type { FotoGaleria, Linea } from "@/content/site";
@@ -181,8 +181,10 @@ export function Vitrinas({ lineas }: { lineas: Linea[] }) {
 type Tipo = { name: string; img: string; mats: string[]; txt: string; svg: ReactNode };
 
 const Frame = ({ w = 300, h = 300 }: { w?: number; h?: number }) => <rect className="dg-frame" x={0} y={0} width={w} height={h} rx={4} />;
-const Sash = ({ x, y, w, h, cls = "" }: { x: number; y: number; w: number; h: number; cls?: string }) => (
-  <g className={cls}><rect className="dg-sash" x={x} y={y} width={w} height={h} rx={3} /><rect className="dg-glass" x={x + 12} y={y + 12} width={w - 24} height={h - 24} /></g>
+/* `style` existe para la plegadiza: cada hoja se corre una distancia distinta
+   al plegarse y esa distancia viaja como variable CSS. */
+const Sash = ({ x, y, w, h, cls = "", style }: { x: number; y: number; w: number; h: number; cls?: string; style?: CSSProperties }) => (
+  <g className={cls} style={style}><rect className="dg-sash" x={x} y={y} width={w} height={h} rx={3} /><rect className="dg-glass" x={x + 12} y={y + 12} width={w - 24} height={h - 24} /></g>
 );
 const Hinge = ({ cx, cy }: { cx: number; cy: number }) => <circle className="dg-hinge" cx={cx} cy={cy} r={5} />;
 
@@ -221,7 +223,8 @@ const TIPOS: Record<string, Tipo> = {
   desplazable: {
     name: "Desplazable", img: "/photos/tip-pvc-desplazable.webp", mats: ["PVC", "Aluminio", "Vidriería"],
     txt: "Apertura exterior mediante sistema de herrajes tijera.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={284} h={284} cls="anim-desplaza" /></svg>,
+    /* Los dos brazos tijera, arriba y abajo, se estiran mientras la hoja sale. */
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><line className="anim-tijera" x1={20} y1={44} x2={150} y2={44} stroke="#8fe04a" strokeWidth={3} strokeLinecap="round" /><line className="anim-tijera" x1={20} y1={256} x2={150} y2={256} stroke="#8fe04a" strokeWidth={3} strokeLinecap="round" /><Sash x={8} y={8} w={284} h={284} cls="anim-desplaza" /></svg>,
   },
   puerta: {
     name: "Puerta", img: "/photos/tip-pvc-puerta.webp", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
@@ -251,7 +254,9 @@ const TIPOS: Record<string, Tipo> = {
   plegadiza: {
     name: "Plegadiza", img: "/photos/tip-pvc-plegadiza.webp", mats: ["PVC"],
     txt: "Hojas que se pliegan lateralmente, permitiendo grandes aperturas continuas.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={68} h={284} cls="anim-swing" /><Sash x={78} y={8} w={68} h={284} cls="anim-swing swing-r" /><Sash x={148} y={8} w={68} h={284} cls="anim-swing" /><Sash x={218} y={8} w={74} h={284} cls="anim-swing swing-r" /></svg>,
+    /* Las cuatro hojas se pliegan juntas contra el lado izquierdo: cada una se
+       pone de canto y se corre lo necesario para apilarse con las anteriores. */
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "0px" } as CSSProperties} /><Sash x={78} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "-41px" } as CSSProperties} /><Sash x={148} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "-82px" } as CSSProperties} /><Sash x={218} y={8} w={74} h={284} cls="anim-plega" style={{ "--x": "-123px" } as CSSProperties} /></svg>,
   },
   piel: {
     name: "Piel de vidrio", img: "/photos/tipo-piel.webp", mats: ["Aluminio", "Vidriería", "Templados"],
