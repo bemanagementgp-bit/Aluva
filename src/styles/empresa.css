@@ -84,7 +84,10 @@
    para abajo se da vuelta. Así que la foto va entera arriba y el copy
    debajo, sobre blanco, donde el contraste deja de ser un problema. */
 @media (max-width: 1279px) {
-  .em-hero { aspect-ratio: auto; display: block; background: #fff; }
+  /* La portada apilada deja de ser de pantalla completa: con display:block
+     y height:100svh el contenido terminaba a los 620px y los 220 restantes
+     eran blanco. Ahora la seccion mide lo que mide la foto mas el texto. */
+  .em-hero { aspect-ratio: auto; display: block; height: auto; min-height: 0; background: #fff; }
   .em-hero::after { display: none; }
   .em-hero__bg { position: static; display: block; width: 100%; height: auto; }
   .em-hero__in { height: auto; padding: clamp(26px, 4.4vw, 44px) var(--gutter) clamp(32px, 5vw, 52px); }

@@ -186,58 +186,81 @@ const Sash = ({ x, y, w, h, cls = "" }: { x: number; y: number; w: number; h: nu
 );
 const Hinge = ({ cx, cy }: { cx: number; cy: number }) => <circle className="dg-hinge" cx={cx} cy={cy} r={5} />;
 
+/* Las trece tipologias, con los nombres, el orden y las descripciones de la
+   revision del 04-11-2026. Los renders salen de la carpeta de Drive que indica
+   el deck: uno por tipologia, sobre fondo blanco.
+
+   Piel de vidrio es la unica sin render nuevo (no vino en la carpeta), asi que
+   conserva su foto de ambiente. */
 const TIPOS: Record<string, Tipo> = {
-  corrediza: {
-    name: "Corrediza", img: "/photos/tipo-corrediza.webp", mats: ["PVC", "Aluminio", "Vidriería"],
-    txt: "Las hojas se deslizan sobre rieles, sin ocupar espacio hacia adentro ni hacia afuera. Ideal para balcones, livings y lugares donde el espacio cuenta.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /></svg>,
-  },
-  batiente: {
-    name: "Batiente", img: "/photos/tip-alu-batiente.webp", mats: ["PVC", "Aluminio", "Vidriería"],
-    txt: "Abre girando sobre bisagras laterales, como una puerta. Da ventilación total y el mejor cierre hermético: la opción más eficiente en aislación.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} cls="anim-swing" /><Sash x={150} y={8} w={142} h={284} cls="anim-swing swing-r" /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /><Hinge cx={292} cy={60} /><Hinge cx={292} cy={240} /></svg>,
-  },
-  oscilobatiente: {
-    name: "Oscilobatiente", img: "/photos/tip-oscilobatiente.webp", mats: ["PVC", "Aluminio", "Vidriería"],
-    txt: "Dos movimientos en un mismo manijón: se inclina desde arriba para ventilar con seguridad, o abre como batiente para limpiar y ventilar a fondo.",
-    // Dos grupos anidados: el de afuera vuelca sobre el borde inferior y el de
-    // adentro abre sobre la bisagra izquierda. Con un solo eje en la esquina el
-    // primer movimiento se veía torcido y no se entendía.
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><g className="anim-oscilo-v"><g className="anim-oscilo-b"><Sash x={8} y={8} w={284} h={284} /><rect x={268} y={130} width={8} height={40} rx={3} fill="#eef6e8" /></g></g><Hinge cx={60} cy={292} /><Hinge cx={240} cy={292} /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /></svg>,
-  },
-  banderola: {
-    name: "Banderola", img: "/photos/tip-banderola.webp", mats: ["PVC", "Aluminio", "Vidriería"],
-    txt: "Ventana que se proyecta desde arriba. Perfecta en baños, cocinas y sobre puertas.",
-    svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilt" /><Hinge cx={60} cy={152} /><Hinge cx={240} cy={152} /></svg>,
-  },
   fijo: {
-    name: "Paño fijo", img: "/photos/tip-alu-fijo.webp", mats: ["PVC", "Aluminio", "Templados", "Vidriería"],
-    txt: "Grandes superficies de vidrio sin hojas móviles. Máxima luz, vistas limpias y la mejor relación aislación / costo.",
+    name: "Paño fijo", img: "/photos/tip-pvc-fijo.webp", mats: ["PVC", "Aluminio", "Templados", "Vidriería"],
+    txt: "Superficies sin hojas móviles. Máxima luz, vistas limpias.",
     svg: <svg viewBox="-10 -10 320 320"><defs><clipPath id="cf"><rect x={20} y={20} width={260} height={260} /></clipPath></defs><Frame /><Sash x={8} y={8} w={284} h={284} /><g clipPath="url(#cf)"><rect className="anim-glint" x={20} y={-40} width={60} height={400} fill="rgba(238,246,232,.22)" /></g></svg>,
   },
+  rebatible: {
+    name: "Rebatible", img: "/photos/tip-pvc-rebatible.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Giro sobre bisagras laterales. Apertura interior o exterior.",
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={284} h={284} cls="anim-swing" /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /></svg>,
+  },
+  banderola: {
+    name: "Banderola", img: "/photos/tip-pvc-banderola.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Giro sobre marco inferior. Perfecta en baños, cocinas y sobre puertas.",
+    svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilt" /><Hinge cx={60} cy={152} /><Hinge cx={240} cy={152} /></svg>,
+  },
+  proyectante: {
+    name: "Proyectante", img: "/photos/tip-pvc-proyectante.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Giro sobre marco superior.",
+    svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilttop" /><Hinge cx={60} cy={8} /><Hinge cx={240} cy={8} /></svg>,
+  },
+  oscilobatiente: {
+    name: "Oscilobatiente", img: "/photos/tip-pvc-oscilo-2.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Dos movimientos en un mismo sistema: inclinación desde arriba o apertura sobre bisagra lateral.",
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><g className="anim-oscilo-v"><g className="anim-oscilo-b"><Sash x={8} y={8} w={284} h={284} /><rect x={268} y={130} width={8} height={40} rx={3} fill="#eef6e8" /></g></g><Hinge cx={60} cy={292} /><Hinge cx={240} cy={292} /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /></svg>,
+  },
+  desplazable: {
+    name: "Desplazable", img: "/photos/tip-pvc-desplazable.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Apertura exterior mediante sistema de herrajes tijera.",
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={284} h={284} cls="anim-desplaza" /></svg>,
+  },
   puerta: {
-    name: "Puerta", img: "/photos/al-puerta.jpg", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
-    txt: "Puertas de PVC o aluminio, y puertas de vidrio templado.",
+    name: "Puerta", img: "/photos/tip-pvc-puerta.webp", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
+    txt: "Puertas de PVC, aluminio y vidrio templado.",
     svg: <svg viewBox="-10 -10 200 320"><Frame w={180} h={300} /><g className="anim-swing"><rect className="dg-sash" x={8} y={8} width={164} height={292} rx={3} /><rect className="dg-glass" x={28} y={28} width={124} height={120} /><rect x={140} y={160} width={8} height={46} rx={3} fill="#eef6e8" /></g></svg>,
   },
-  balcon: {
-    name: "Puerta balcón", img: "/photos/tip-puerta-balcon.webp", mats: ["PVC", "Aluminio", "Vidriería"],
-    txt: "Puertas vidriadas de dos hojas que conectan interior y exterior. Batientes con umbral bajo.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} cls="anim-swing" /><Sash x={150} y={8} w={142} h={284} cls="anim-swing swing-r" /><line x1={150} y1={8} x2={150} y2={292} stroke="#c6f29c" strokeWidth={2} /></svg>,
+  corrediza: {
+    name: "Corrediza", img: "/photos/tip-pvc-corrediza.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas.",
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /></svg>,
   },
-  frente: {
-    name: "Frente vidriado", img: "/photos/tipo-frente.webp", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
-    txt: "Frentes comerciales y grandes espacios vidriados. Posibilidad de incorporar puertas.",
-    svg: <svg viewBox="-10 -10 340 240"><Frame w={320} h={220} /><Sash x={8} y={8} w={100} h={204} /><Sash x={110} y={8} w={100} h={204} cls="anim-swing" /><Sash x={212} y={8} w={100} h={204} /></svg>,
+  patagonica: {
+    name: "Patagónica", img: "/photos/tip-pvc-patagonica.webp", mats: ["PVC", "Aluminio"],
+    txt: "Combinación de paño fijo y rebatible u oscilobatiente.",
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-swing swing-r" /><Hinge cx={292} cy={60} /><Hinge cx={292} cy={240} /></svg>,
+  },
+  monoriel: {
+    name: "Monoriel", img: "/photos/tip-pvc-monoriel.webp", mats: ["PVC"],
+    txt: "Un paño fijo y una hoja que desliza sobre riel.",
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /><line x1={8} y1={292} x2={292} y2={292} stroke="#c6f29c" strokeWidth={3} /></svg>,
+  },
+  balcon: {
+    name: "Puerta balcón", img: "/photos/tip-pvc-puerta-balcon.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    txt: "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas.",
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /><line x1={8} y1={292} x2={292} y2={292} stroke="#c6f29c" strokeWidth={3} /></svg>,
+  },
+  plegadiza: {
+    name: "Plegadiza", img: "/photos/tip-pvc-plegadiza.webp", mats: ["PVC"],
+    txt: "Hojas que se pliegan lateralmente, permitiendo grandes aperturas continuas.",
+    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={68} h={284} cls="anim-swing" /><Sash x={78} y={8} w={68} h={284} cls="anim-swing swing-r" /><Sash x={148} y={8} w={68} h={284} cls="anim-swing" /><Sash x={218} y={8} w={74} h={284} cls="anim-swing swing-r" /></svg>,
   },
   piel: {
     name: "Piel de vidrio", img: "/photos/tipo-piel.webp", mats: ["Aluminio", "Vidriería", "Templados"],
-    txt: "Fachadas continuas de vidrio para frentes completos de locales, edificios y oficinas.",
+    txt: "Fachadas completas de vidrio. Posibilidad de tener paños con apertura para ventilación.",
     svg: (
       <svg viewBox="-10 -10 320 320">
         <defs><clipPath id="cp"><rect x={0} y={0} width={300} height={300} /></clipPath></defs>
         {[0, 1, 2].flatMap((r) => [0, 1, 2].map((c) => (
-          <rect key={`${r}${c}`} className="dg-sash" x={c * 100 + 4} y={r * 100 + 4} width={92} height={92} rx={2} style={{ opacity: 0.55 + ((r + c) % 3) * 0.2 }} />
+          <rect key={r + "-" + c} className="dg-sash" x={c * 100 + 4} y={r * 100 + 4} width={92} height={92} rx={2} style={{ opacity: 0.55 + ((r + c) % 3) * 0.2 }} />
         )))}
         <g clipPath="url(#cp)"><rect className="anim-glint" x={0} y={-60} width={70} height={420} fill="rgba(238,246,232,.18)" /></g>
       </svg>
@@ -248,7 +271,7 @@ const TIPOS: Record<string, Tipo> = {
 const MATERIALES = ["PVC", "Aluminio", "Vidriería", "Templados"];
 
 /* Orden de la lista: por movimiento, como pidió el cliente (2026-10-28) */
-const ORDEN = ["fijo", "batiente", "banderola", "oscilobatiente", "puerta", "corrediza", "balcon", "frente", "piel"];
+const ORDEN = ["fijo", "rebatible", "banderola", "proyectante", "oscilobatiente", "desplazable", "puerta", "corrediza", "patagonica", "monoriel", "balcon", "plegadiza", "piel"];
 
 export function Tipologias() {
   const keys = ORDEN;
@@ -306,11 +329,11 @@ export function Tipologias() {
    una entrada saca su punto y renumera el resto solo: no hay que tocar nada más.
 */
 const PIEZAS: [number, number, string, string][] = [
-  [50, 6, "Marco multicámara", "Perfil de PVC con cámaras de aire internas de aislación térmica y acústica, refuerzos galvanizados y drenajes."],
-  [13, 58, "Hoja", "Perfil de PVC con cámaras de aire internas de aislación térmica y acústica y refuerzos galvanizados. Soldada a inglete en sus cuatro esquinas para un cierre estanco."],
-  [25, 38, "DVH", "Dos o más hojas de vidrio con cámara de aire seco. Mayor aislación térmica y acústica."],
-  [37, 27, "Burletes perimetrales", "Juntas de goma que sellan contra agua, viento y polvo."],
-  [47, 62, "Herrajes", "Cierre multipunto, bisagras y manija: dan el movimiento de la hoja y el cierre hermético."],
+  [85, 29, "Marco multicámara", "Perfiles de PVC soldados, con cámaras de aire internas para aislación térmica y acústica. Refuerzos mecánicos con perfilería galvanizada."],
+  [73, 34, "Hoja", "Perfiles de PVC soldados, con cámaras de aire internas para aislación térmica y acústica. Refuerzos mecánicos con perfilería galvanizada."],
+  [80, 52, "DVH", "Sistema de vidriado hermético compuesto por dos o más hojas de vidrio separadas por cámara de aire, que mejora el aislamiento térmico y acústico y favorece la eficiencia energética."],
+  [80, 70, "Burletes perimetrales", "Juntas de goma que sellan contra agua, viento y polvo."],
+  [66, 86, "Herrajes", "Sistemas de cierre multipunto que garantizan máxima hermeticidad."],
 ];
 
 export function Anatomia() {
@@ -319,7 +342,7 @@ export function Anatomia() {
   return (
     <div className="anat">
       <div className="anat__img rv">
-        <img src="/photos/pvc-despiece-sistema.webp" alt="Despiece de una ventana de PVC con doble vidriado hermético" loading="lazy" />
+        <img src="/photos/pvc-componentes.webp" alt="Despiece de una ventana de PVC con doble vidriado hermético" loading="lazy" />
         {PIEZAS.map(([x, y, t], i) => (
           <button key={t} type="button" className={`hs${i === act ? " is-active" : ""}`} style={{ left: `${x}%`, top: `${y}%` }} aria-label={t}
             onClick={() => setAct(i)} onMouseEnter={() => fine && setAct(i)}>{i + 1}</button>

@@ -89,33 +89,29 @@ export const PRODUCTOS: Producto[] = [
       ["leaf", "Sin mantenimiento", "Foliados de fábrica: no se pintan ni se descascaran."],
     ],
     sysEyebrow: "Tipologías", sysT: ["Una abertura", "para cada vano."],
-    /* Las nueve tipologías que el cliente confirmó el 2026-10-06 como las que
-       hay hoy en el local de City Bell. Antes había seis, y dos de aquellas
-       ("Ventana corrediza" y "Puerta corrediza", las corredizas genéricas) no
-       estaban en su lista: las reemplazan Patagónica y Monoriel, que son las
-       corredizas que efectivamente venden.
+    /* Nombres, orden y descripciones de la revisión del 04-11-2026. Antes eran
+       nueve y ahora son doce: entran Proyectante, Desplazable, Patagónica,
+       Monoriel y Plegadiza, y Batiente pasa a llamarse Rebatible.
 
-       Las fotos de patagónica, monoriel y banderola son lo más parecido que hay
-       en el repositorio, no la tipología exacta. Están marcadas abajo. */
-    /* Las seis tip-*.webp salen de scripts/fotos-tipologias.mjs: mismo lienzo,
-       mismo fondo y misma escala, para que la grilla se lea como un catálogo y
-       no como nueve fotos sueltas.
-
-       Las tres que siguen con foto de ambiente son las que no tienen recorte
-       posible. Están marcadas y esperan foto propia. */
+       Los renders salen de la carpeta de Drive que indica el deck, uno por
+       tipología sobre fondo blanco. Van con el prefijo "cut:", que es el que
+       encuadra el producto entero en vez de recortarlo. */
     systems: [
-      ["/photos/tip-proyectante.webp", "Proyectante", "Abre hacia afuera, con eje arriba."],
-      ["/photos/tip-banderola.webp", "Banderola", "Vuelca hacia adentro, con eje abajo."],
-      ["/photos/tip-patagonica.webp", "Patagónica", "Dos hojas: una corre por delante de la fija."],
-      ["/photos/tip-puerta-balcon.webp", "Puerta balcón", "Dos hojas batientes, a piso."],
-      ["/photos/tip-rebatible.webp", "Batiente", "Abre de costado, sobre bisagras laterales."],
-      ["/photos/tip-monoriel.webp", "Monoriel", "Una hoja sobre un riel; el resto, paño fijo."],
-      ["/photos/tip-corrediza-3hojas.webp", "Puerta corrediza de tres hojas", "Tres hojas sobre riel, para vanos anchos."],
-      ["/photos/tip-oscilobatiente.webp", "Oscilobatiente", "Vuelca para ventilar o abre de costado."],
-      ["/photos/tip-fijo.webp", "Paño fijo", "Vidrio fijo, sin hojas que abran."],
+      ["cut:/photos/tip-pvc-fijo.webp", "Paño fijo", "Vidrio fijo sin hojas móviles."],
+      ["cut:/photos/tip-pvc-rebatible.webp", "Rebatible", "Giro sobre bisagras laterales. Apertura interior o exterior."],
+      ["cut:/photos/tip-pvc-banderola.webp", "Banderola", "Giro sobre marco inferior."],
+      ["cut:/photos/tip-pvc-proyectante.webp", "Proyectante", "Giro sobre marco superior."],
+      ["cut:/photos/tip-pvc-oscilo-2.webp", "Oscilobatiente", "Vuelca para ventilar o abre lateralmente."],
+      ["cut:/photos/tip-pvc-desplazable.webp", "Desplazable", "Apertura exterior mediante sistema de herrajes tijera."],
+      ["cut:/photos/tip-pvc-puerta.webp", "Puerta", "Hoja móvil con marco fijo."],
+      ["cut:/photos/tip-pvc-corrediza.webp", "Corrediza", "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas."],
+      ["cut:/photos/tip-pvc-patagonica.webp", "Patagónica", "Combinación de paño fijo y rebatible u oscilobatiente."],
+      ["cut:/photos/tip-pvc-monoriel.webp", "Monoriel", "Un paño fijo y una hoja que desliza sobre riel."],
+      ["cut:/photos/tip-pvc-puerta-balcon.webp", "Puerta balcón", "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas."],
+      ["cut:/photos/tip-pvc-plegadiza.webp", "Plegadiza", "Hojas que se pliegan lateralmente, con posibilidad de tener puerta."],
     ],
     galT: "PVC de cerca.",
-    gallery: [["/photos/pvc-puerta-corrediza.webp", "Puerta corrediza", true], ["/photos/det-pvc-2.webp", "Manija sobre hoja en nogal", true], ["/photos/det-pvc-foliado.webp", "Terminaciones foliadas", true], ["/photos/det-pvc-perfil.webp", "Perfil multicámara", true], ["/photos/det-pvc-3.webp", "Cierre multipunto", true]],
+    gallery: [["/photos/pvc-puerta-corrediza.webp", "Puerta corrediza", true], ["/photos/det-pvc-2.webp", "Manija sobre hoja en nogal", true], ["/photos/pvc-foliado-corte.webp", "Terminaciones foliadas", true], ["/photos/det-pvc-perfil.webp", "Perfil multicámara", true], ["/photos/det-pvc-3.webp", "Cierre multipunto", true]],
     faq: [
       ["¿Qué perfilería usan?", "Perfilería multicámara de primera línea, con refuerzo interno de acero galvanizado. Estamos capacitados por los fabricantes para fabricar e instalar sus sistemas."],
       ["¿Qué colores hay?", "Blanco, roble dorado, nogal y Spectral, un foliado ultramate, sedoso al tacto y sin reflejos."],
@@ -139,19 +135,22 @@ export const PRODUCTOS: Producto[] = [
       ["tools", "Variedad de tipologías", "Una solución adecuada para cada uso."],
     ],
     sysEyebrow: "Tipologías", sysT: ["Una abertura", "para cada vano."],
+    /* Mismos nombres, orden y descripciones que PVC, con la revisión del
+       04-11-2026. Aluminio no lleva Monoriel ni Plegadiza. */
     systems: [
-      // Ordenadas por movimiento, con las definiciones del cliente (2026-10-28)
-      ["/photos/tip-alu-fijo.webp", "Paño fijo", "Sin apertura, ventana estanca."],
-      ["/photos/tip-alu-corrediza.webp", "Corrediza", "Hojas sobre riel, dos o más hojas, sin llegar a piso."],
-      ["/photos/tip-alu-puerta-balcon.webp", "Puerta balcón", "Hojas sobre riel, dos o más hojas, llegan a piso."],
-      ["/photos/tip-alu-batiente.webp", "Batiente", "Apertura con giro sobre eje lateral."],
-      ["/photos/tip-alu-oscilobatiente.webp", "Oscilobatiente", "Doble sistema de apertura, lateral y superior."],
-      ["/photos/tip-alu-banderola.webp", "Banderola", "Apertura con giro en eje inferior."],
-      ["/photos/tip-alu-proyectante.webp", "Proyectante", "Apertura con giro sobre eje superior."],
-      ["/photos/tip-alu-desplazable.webp", "Desplazable", "Apertura hacia el exterior, desplazando la hoja mediante tijeras."],
+      ["cut:/photos/tip-al-fijo.webp", "Paño fijo", "Vidrio fijo sin hojas móviles."],
+      ["cut:/photos/tip-al-rebatible.webp", "Rebatible", "Giro sobre bisagras laterales. Apertura interior o exterior."],
+      ["cut:/photos/tip-al-banderola.webp", "Banderola", "Giro sobre marco inferior."],
+      ["cut:/photos/tip-al-proyectante.webp", "Proyectante", "Giro sobre marco superior."],
+      ["cut:/photos/tip-al-oscilo-2.webp", "Oscilobatiente", "Vuelca para ventilar o abre lateralmente."],
+      ["cut:/photos/tip-al-desplazable.webp", "Desplazable", "Apertura exterior mediante sistema de herrajes tijera."],
+      ["cut:/photos/tip-al-puerta.webp", "Puerta", "Hoja móvil con marco fijo."],
+      ["cut:/photos/tip-al-corrediza.webp", "Corrediza", "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas."],
+      ["cut:/photos/tip-al-patagonica.webp", "Patagónica", "Combinación de paño fijo y rebatible u oscilobatiente."],
+      ["cut:/photos/tip-al-puerta-balcon.webp", "Puerta balcón", "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas."],
     ],
     galT: "Aluminio de cerca.",
-    gallery: [["/photos/aluminio-corrediza.jpg", "Corrediza de tres hojas", false], ["/photos/det-aluminio-2.webp", "Herraje de proyectante", true], ["/photos/esc-aluminio-2.webp", "Corrediza al balcón", false], ["/photos/al-puerta.jpg", "Puerta de aluminio", true]],
+    gallery: [["/photos/al-corrediza-3hojas.webp", "Corrediza de tres hojas", true], ["/photos/det-aluminio-2.webp", "Herraje de proyectante", true], ["/photos/al-corrediza-balcon.webp", "Corrediza al balcón", false], ["/photos/al-puerta.jpg", "Puerta de aluminio", true]],
     faq: [
       ["¿Qué líneas trabajan?", "A30, Módena y Herrero. Te recomendamos la que corresponde según el tamaño del vano y el uso."],
       ["¿Qué colores hay?", "Nueve acabados: natural, blanco, negro, gris RAL 7016, bronce, champagne, símil roble, símil nogal y anodizado mate. Lacado poliéster, anodizado y símil madera, todos resistentes a la intemperie."],
@@ -180,11 +179,11 @@ export const PRODUCTOS: Producto[] = [
       ["/photos/blindex.webp", "Puertas de vidrio", "Hoja entera de vidrio templado."],
       ["/photos/esc-blindex-3.webp", "Piel de vidrio", "Fachadas y frentes completos en vidrio."],
       ["/photos/mampara-division.jpg", "Oficinas y accesos", "Divisiones y puertas en vidrio templado."],
-      ["/photos/det-blindex-2.webp", "Paños fijos", "Vidrio templado cortado a medida."],
-      ["/photos/det-blindex-1.webp", "Puertas con tirador", "Sin marco: vidrio, herraje y tirador."],
+      ["/photos/templado-pano.webp", "Paños fijos", "Vidrio templado cortado a medida."],
+      ["/photos/templado-puerta.webp", "Puertas con tirador", "Sin marco: vidrio, herraje y tirador."],
     ],
     galT: "Templado de cerca.",
-    gallery: [["/og/producto-blindex.jpg", "Nuestro local", false], ["/photos/det-blindex-1.webp", "Puerta de templado", true], ["/photos/det-blindex-2.webp", "Canto del paño", true], ["/photos/frente-comercial.jpg", "Frente comercial", false], ["/photos/mampara-division.jpg", "Oficina", true], ["/photos/esc-blindex-3.webp", "Piel de vidrio", true]],
+    gallery: [["/og/producto-blindex.jpg", "Nuestro local", false], ["/photos/templado-puerta.webp", "Puerta de templado", true], ["/photos/templado-pano.webp", "Canto del paño", true], ["/photos/frente-comercial.jpg", "Frente comercial", false], ["/photos/mampara-division.jpg", "Oficina", true], ["/photos/esc-blindex-3.webp", "Piel de vidrio", true]],
     faq: [
       ["¿Es lo mismo que Blindex?", "Blindex es una marca registrada de vidrio templado; en el uso cotidiano se le dice así a cualquier templado. Nosotros trabajamos vidrio templado de seguridad."],
       ["¿Se puede cortar después de templado?", "No: el vidrio se corta y perfora antes del templado. Por eso medimos en obra con precisión."],
@@ -270,8 +269,8 @@ export const COLORES = [
   {
     nombre: "PVC", href: "/pvc", sub: "Perfilería multicámara", items: [
       ["Blanco", "linear-gradient(135deg,#fbfbf8,#e6e6e0)"],
-      ["Roble dorado", "repeating-linear-gradient(100deg,#b07a40 0 6px,#a26e37 6px 9px,#b8844a 9px 16px)"],
-      ["Nogal", "repeating-linear-gradient(100deg,#6a4a2e 0 6px,#5c3f26 6px 9px,#72523a 9px 16px)"],
+      ["Roble dorado", "repeating-linear-gradient(96deg,rgba(0,0,0,.07) 0 1px,rgba(255,255,255,.06) 1px 2px,transparent 2px 7px),repeating-linear-gradient(96deg,#b47e44 0 3px,#a87238 3px 4px,#bd8b50 4px 10px)"],
+      ["Nogal", "repeating-linear-gradient(96deg,rgba(0,0,0,.09) 0 1px,rgba(255,255,255,.05) 1px 2px,transparent 2px 7px),repeating-linear-gradient(96deg,#6d4c30 0 3px,#5b3e25 3px 4px,#77573d 4px 10px)"],
       ["Spectral", "linear-gradient(135deg,#40464b,#2f3438)"],
     ],
   },
@@ -284,8 +283,8 @@ export const COLORES = [
       ["Gris RAL 7016", "linear-gradient(135deg,#4a4f54,#363b3f)"],
       ["Bronce", "linear-gradient(135deg,#7a5c3a,#54402a)"],
       ["Champagne", "linear-gradient(135deg,#d6c3a3,#b9a483)"],
-      ["Símil roble", "repeating-linear-gradient(100deg,#b07a40 0 6px,#a26e37 6px 9px,#b8844a 9px 16px)"],
-      ["Símil nogal", "repeating-linear-gradient(100deg,#6a4a2e 0 6px,#5c3f26 6px 9px,#72523a 9px 16px)"],
+      ["Símil roble", "repeating-linear-gradient(96deg,rgba(0,0,0,.07) 0 1px,rgba(255,255,255,.06) 1px 2px,transparent 2px 7px),repeating-linear-gradient(96deg,#b47e44 0 3px,#a87238 3px 4px,#bd8b50 4px 10px)"],
+      ["Símil nogal", "repeating-linear-gradient(96deg,rgba(0,0,0,.09) 0 1px,rgba(255,255,255,.05) 1px 2px,transparent 2px 7px),repeating-linear-gradient(96deg,#6d4c30 0 3px,#5b3e25 3px 4px,#77573d 4px 10px)"],
       ["Anodizado mate", "linear-gradient(135deg,#c8ccc9,#9ea3a0 55%,#b9bdba)"],
     ],
   },

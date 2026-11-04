@@ -29,7 +29,7 @@ export default function Contacto() {
             <a className="ccard rv" href={waLink()} target="_blank" rel="noopener"><WA /><div><small>WhatsApp</small><b>{CONTACTO.telVisible}</b></div></a>
             <a className="ccard rv rv-d1" href={`tel:${CONTACTO.telLink}`}><IPhone /><div><small>Teléfono</small><b>{CONTACTO.telVisible}</b></div></a>
             <a className="ccard rv rv-d2" href={`mailto:${CONTACTO.email}`}><IMail /><div><small>Email</small><b>{CONTACTO.email}</b></div></a>
-            <div className="ccard rv rv-d3"><IPin /><div><small>Fábrica</small><b>{CONTACTO.direccion}</b></div></div>
+            <div className="ccard rv rv-d3"><IPin /><div><small>Showroom</small><b>{CONTACTO.direccion}</b></div></div>
             <div className="ccard rv rv-d3"><IClock /><div><small>Horario</small><b>{CONTACTO.horario}</b></div></div>
           </div>
         </div>

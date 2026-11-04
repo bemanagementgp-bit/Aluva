@@ -188,7 +188,7 @@ export default function Empresa() {
           <div className="mg-c">
             <img className="mg-cierre__logo" src="/brand/marca-negro.svg" alt="Aluva" width={220} height={73} />
             <span className="mg-cierre__tag">Tecnología en aberturas</span>
-            <h2 className="h-lg">Visitá nuestra fábrica.</h2>
+            <h2 className="h-lg">Visitá nuestro showroom.</h2>
             <p className="lead mg-p">Muestras de perfiles, vidrios y herrajes, para ver y tocar antes de decidir.</p>
             <div className="btn-row mg-cierre__btns">
               <Link className="btn btn--lime" href="/contacto">Pedí tu presupuesto <span className="arr">→</span></Link>

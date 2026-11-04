@@ -389,6 +389,11 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .anim-oscilo-b { animation: osciloB 7s var(--ease) infinite; transform-box: fill-box; transform-origin: left center; }
 @keyframes osciloV { 0%, 8% { transform: perspective(700px) rotateX(0); } 22%, 34% { transform: perspective(700px) rotateX(-34deg); } 46%, 100% { transform: perspective(700px) rotateX(0); } }
 @keyframes osciloB { 0%, 52% { transform: perspective(700px) rotateY(0); } 66%, 78% { transform: perspective(700px) rotateY(-55deg); } 92%, 100% { transform: perspective(700px) rotateY(0); } }
+/* Desplazable: la hoja sale hacia afuera sobre brazos tijera, no gira sobre
+   un eje. Se separa del marco y queda casi paralela, que es lo que la
+   distingue de una proyectante. */
+@keyframes desplaza { 0%, 15% { transform: perspective(700px) translateX(0) rotateY(0); } 50%, 65% { transform: perspective(700px) translateX(13%) rotateY(-20deg); } 100% { transform: perspective(700px) translateX(0) rotateY(0); } }
+.anim-desplaza { animation: desplaza 4.2s var(--ease) infinite; transform-box: fill-box; transform-origin: left center; }
 .anim-glint { animation: glint 3.6s ease-in-out infinite; transform-box: fill-box; }
 .swing-r { transform-origin: right center !important; animation-name: swingYr; }
 @keyframes swingYr { 0%, 15% { transform: perspective(700px) rotateY(0); } 50%, 65% { transform: perspective(700px) rotateY(58deg); } 100% { transform: perspective(700px) rotateY(0); } }
@@ -943,8 +948,18 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 .pillar__n { font-size: 11px; font-weight: 700; letter-spacing: .18em; color: var(--mint); }
 .pillar--foto h3 { margin: 0; font-size: 16px; line-height: 1.2; letter-spacing: .01em; color: var(--ink); }
 
-/* Portada del inicio: foto protagonista, sin velo de color */
-.page-inicio .hero__media img { object-position: 50% 40%; filter: contrast(1.03); }
+/* Portada del inicio: foto protagonista, sin velo de color.
+
+   El recorte se corrio a la izquierda. La foto mide 2000x1116 (1,79) y la
+   portada, a 1440x900, mide 1,58: sobra un 12% de ancho y hay que cortarlo de
+   algun lado. Recortando por la derecha se va el retorno de pared y la punta
+   del alfeizar, que son lo mas claro y lo mas vacio de la foto, y son
+   justamente lo que quedaba detras de los botones.
+
+   Medido sobre el pie derecho (420x140 px): con el recorte centrado daba 65 de
+   media y 54 de desvio; corrido a la izquierda, 49 y 34. Un tercio menos de
+   ruido abajo a la derecha, que es donde va la llamada a la accion. */
+.page-inicio .hero__media img { object-position: 0% 50%; filter: contrast(1.03); }
 .page-inicio .hero__media::after { background:
   linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 55%, rgba(5,14,10,.72) 100%),
   linear-gradient(90deg, rgba(5,14,10,.55) 0%, rgba(5,14,10,0) 45%); }
@@ -955,9 +970,22 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
   .page-inicio .hero__media::after { background: linear-gradient(180deg, rgba(5,14,10,0) 0, rgba(5,14,10,0) calc(80vw - 40px), #06110d calc(80vw + 64px)); }
 }
 @media (min-width: 821px) {
+  /* El velo sigue al texto.
+     ────────────────────────────────────────────────────────────────────
+     Medido dibujando la foto en un canvas y componiendo el velo encima:
+     ninguna franja de esta foto llega a 4,5 de contraste sin velo —la
+     mejor da 4,09—, asi que el velo tiene que estar donde esta el texto,
+     y el texto ahora esta todo en la franja de abajo.
+
+     Arriba casi no se toca: ahi solo esta la marca, que es verde lima y se
+     lee sola, y la ventana iluminada es justamente lo que se mira de esta
+     foto. El lavado recien arranca en el 40% y la caida lateral es suave.
+
+     En la franja del pie el parrafo queda en 8,58 en el peor punto, la
+     bajada en 12,57 y los rubros en 12,03. */
   .page-inicio .hero__media::after { background:
-    linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 16%, rgba(0,0,0,0) 48%, rgba(5,14,10,.62) 72%, rgba(5,14,10,.9) 100%),
-    linear-gradient(90deg, rgba(5,14,10,.45) 0%, rgba(5,14,10,0) 40%); }
+    linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 14%, rgba(0,0,0,0) 40%, rgba(5,14,10,.3) 58%, rgba(5,14,10,.62) 76%, rgba(5,14,10,.88) 100%),
+    linear-gradient(90deg, rgba(5,14,10,.45) 0%, rgba(5,14,10,.18) 62%, rgba(5,14,10,0) 90%); }
 }
 
 /* ==========================================================================
@@ -1274,7 +1302,18 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
    ========================================================================== */
 /* Portada: la marca va grande, "Aberturas a medida" queda de bajada */
 .hero__marca { display: block; width: var(--marca); height: auto; filter: drop-shadow(0 2px 14px rgba(0,0,0,.28)); }
-.hero__title .hero__sub { font-size: clamp(22px, 2.4vw, 34px); line-height: 1.1; margin-top: clamp(8px, 1vh, 14px); letter-spacing: -.01em; color: #dbe7dc; }
+/* La bajada salio del <h1>: ahora la marca va sola arriba y "Aberturas a
+   medida" baja a la franja del pie, asi que necesita su propia tipografia en
+   vez de heredarla del titulo. */
+.hero__sub {
+  margin: clamp(8px, 1.2vh, 14px) 0 0;
+  font-family: var(--head);
+  font-size: clamp(22px, 2.4vw, 34px);
+  line-height: 1.1;
+  letter-spacing: -.02em;
+  color: #dbe7dc;
+  text-shadow: 0 2px 18px rgba(0,0,0,.35);
+}
 /* Las dos columnas tienen que cerrar en la misma linea.
    El titulo arrastraba 30px de margen inferior de una version anterior del
    hero, y la bajada sumaba su propio margen al hueco del flex: entre las dos
@@ -1431,4 +1470,436 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 
   /* El pie de la tipologia traia 4px propios de sangria. */
   .tipo__info { padding: 22px 0 0; }
+}
+
+/* ==========================================================================
+   Celular: pasada de optimizacion (2026-11-04)
+   ==========================================================================
+
+   El trafico va a ser casi todo de telefono, asi que 390px deja de ser una
+   adaptacion y pasa a ser la version principal.
+
+   Medido antes de tocar nada, a 390x844:
+     inicio       9.850 px   (11,7 pantallas)
+     /pvc        11.186 px   (13,2)
+     /productos   5.085 px
+   La grilla de tipologias de /pvc, sola, media 5.105 px: doce fichas
+   apiladas de 425 px cada una, cada una con su foto a sangre.
+
+   Lo que sigue no cambia el diseño de escritorio: reordena para el pulgar.
+   ========================================================================== */
+@media (max-width: 560px) {
+
+  /* ---- Respiracion general -------------------------------------------
+     clamp(72px, 8vw, 120px) nunca baja de 72 en un telefono: el minimo del
+     clamp gana siempre. Siete secciones x 32px de mas es media pantalla de
+     aire que nadie pidio. */
+  .section { padding: 56px 0; }
+  .section--tight { padding: 44px 0; }
+
+  /* ---- Botones de la portada ------------------------------------------
+     Bug: .hero__acciones .btn lleva flex:1 1 0 para que los dos rotulos
+     midan igual EN FILA. Apilados en columna, ese mismo flex-basis:0 pasa a
+     ser la ALTURA y los botones quedaban de 21px. Medio dedo. */
+  .hero__acciones .btn { flex: 0 0 auto; }
+
+  /* ---- Portada del inicio ---------------------------------------------
+     La foto media 80vw (312px) y el bloque de marca colgaba del borde de
+     abajo: entre los dos quedaban 200px de verde liso en el medio de la
+     primera pantalla. La foto crece hasta 46svh y el hueco baja a 45px.
+     La marca pasa de 190 a 296px: en un telefono 190px es media pantalla y
+     se lee como un logo de pie de pagina, no como una portada. */
+  .page-inicio .hero { --marca: min(76vw, 300px); }
+  .page-inicio .hero__media img { height: 46svh; }
+  .page-inicio .hero__media::after { background:
+    linear-gradient(180deg, rgba(5,14,10,0) 0, rgba(5,14,10,0) calc(46svh - 40px), #06110d calc(46svh + 64px)); }
+
+  /* ---- Inicio · Por que Aluva -----------------------------------------
+     Cuatro fotos a sangre de 300px con un rotulo de dos palabras debajo:
+     1.528px para decir "fabrica, medicion, DVH, instalacion". En dos
+     columnas se lee de un vistazo y entra en media pantalla. */
+  #por-que .pillars {
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin: 28px 0 0;
+    margin-left: 0;
+    margin-right: 0;
+    width: 100%;
+    background: none;
+    border: 0;
+  }
+  #por-que .pillar { padding: 0; background: none; gap: 8px; }
+  #por-que .pillar:hover { background: none; }
+  #por-que .pillar__frame { aspect-ratio: 1 / 1; }
+  #por-que .pillar__meta { gap: 8px; padding: 0; }
+  #por-que .pillar__n { font-size: 10px; }
+  #por-que .pillar--foto h3 { font-size: 13.5px; }
+
+  /* ---- Pilares con icono (paginas de producto) ------------------------ */
+  .pillar { min-height: 0; }
+  .pillar svg { width: 30px; height: 30px; }
+  .pillar h3 { margin-top: 16px; font-size: 17px; }
+  .pillar p { font-size: 14.5px; }
+
+  /* ---- Inicio · Como trabajamos ---------------------------------------
+     La foto vertical de cada paso media 304px de alto; en 3/2 sigue
+     leyendose y el paso entero entra en una pantalla con su texto. */
+  .proc { margin-top: 34px; row-gap: 28px; }
+  .proc__fig { aspect-ratio: 3 / 2; }
+  .proc__rail { height: 30px; margin-bottom: 12px; }
+  .proc__n { font-size: 26px; }
+  .proc__item h3 { margin: 14px 0 5px; }
+  .proc__item p { font-size: 14px; }
+
+  /* ---- Inicio · Obras --------------------------------------------------
+     PVC y Aluminio iban al doble de tamaño que el resto: esa jerarquia es
+     de la grilla de escritorio, donde conviven seis fotos a la vez. En una
+     columna de 390px la jerarquia la da el orden, no el tamaño, asi que las
+     seis miden igual y la grilla baja de 1.298 a ~800px.
+     El subtitulo de cada foto ("Corrediza simil madera") no entra en 172px
+     sin partirse en tres renglones: queda el nombre de la linea. */
+  .bento { grid-auto-rows: 118px; gap: 10px; margin-top: 32px; }
+  /* PVC y Aluminio a todo el ancho, el resto a media columna: es la jerarquia
+     que pide el deck y vale tambien en vertical. */
+  .bento .b1, .bento .b2 { grid-column: span 2; grid-row: span 2; }
+  .bento .b3, .bento .b4,
+  .bento .b5, .bento .b6 { grid-column: span 1; grid-row: span 2; }
+  .bento figcaption { padding: 6px 9px; font-size: 10px; letter-spacing: .1em; }
+  /* El subtitulo entra en una tarjeta de 358px y no en una de 174. */
+  .bento figcaption small { display: none; }
+  .bento .b1 figcaption small, .bento .b2 figcaption small { display: block; }
+
+  /* ---- Paginas de producto · grilla de tipologias ----------------------
+     Doce fichas en columna, cada una con un render de catalogo de 292px de
+     alto: 5.105px de scroll para una grilla que en escritorio se abarca de
+     una mirada. En ficha horizontal el render sigue entero (va contenido,
+     no recortado), el texto queda completo y la seccion baja a ~1.500px. */
+  .sys { flex-direction: row; align-items: center; }
+  .sys figure { flex: 0 0 104px; aspect-ratio: 1; align-self: stretch; }
+  .sys figure.cut { border-bottom: 0; }
+  .sys figure.cut img { padding: 5%; }
+  .sys div { padding: 14px var(--gutter) 14px 14px; }
+  .sys h3 { font-size: 16px; margin-bottom: 5px; }
+  .sys p { font-size: 13.5px; line-height: 1.45; }
+
+  /* ---- /productos · colores -------------------------------------------
+     Mismo criterio que los nueve acabados de /aluminio: muestra chica con
+     el nombre al lado. Trece cuadros de 110px pasan a trece renglones. */
+  .term__row { padding-top: 24px; gap: 14px; }
+  .term__head h3 { font-size: 24px; }
+  .term__head small { margin-bottom: 12px; }
+  .term__list { grid-template-columns: 1fr 1fr; gap: 12px 14px; }
+  .term__sw { display: flex; align-items: center; gap: 10px; }
+  .term__sw span { flex: 0 0 26px; width: 26px; height: 26px; aspect-ratio: auto; border-radius: 4px; }
+  .term__sw b { margin-top: 0; font-size: 11px; letter-spacing: .1em; }
+
+  /* ---- Area de toque ---------------------------------------------------
+     Los enlaces del pie median 19px de alto y los "Explorar →", 24. La guia
+     de Apple y la de Material piden 44 y 48: abajo de eso se falla el toque
+     y se toca el de al lado. El relleno va en el enlace, no en la lista,
+     asi el area crece sin separar visualmente los renglones. */
+  .ftr ul { gap: 0; }
+  .ftr ul a { display: inline-block; padding: 9px 0; }
+  .link-arrow { padding: 8px 0; }
+  .mnav__links a { display: inline-flex; align-items: center; min-height: 44px; }
+  .phero__crumbs a { display: inline-block; padding: 6px 0; }
+  /* 42px: dos menos que el minimo. En celular el menu es la unica
+     navegacion que queda, asi que conviene que sobre. */
+  .burger { width: 46px; height: 46px; }
+  .burger span { left: 15px; right: 15px; }
+  .burger span:nth-child(1) { top: 18px; }
+  .burger span:nth-child(2) { top: 26px; }
+  .pro-link { padding: 11px 0; }
+
+  /* Los puntos del despiece miden 30px y son la unica forma de cambiar de
+     componente: la lista de abajo no es tocable. El area de toque crece a
+     46px con un pseudo invisible; el punto se sigue viendo igual de chico,
+     que es lo que hace que el despiece se lea. */
+  .hs::after { content: ""; position: absolute; inset: -8px; }
+}
+
+/* ---- Portada de las paginas de producto, en celular ---------------------
+   Medido sobre la foto de /pvc a 390px, dibujando la imagen en un canvas y
+   comparando cada pixel con el color del texto: el parrafo de bajada daba
+   1,00 de contraste en el peor punto y 2,64 de mediana. WCAG pide 4,5. En
+   una pantalla chica y al sol, directamente no se lee.
+
+   El cliente pidio la foto limpia, sin velo (2026-11-03), asi que la salida
+   no es oscurecer la imagen sino sacar el texto de encima: la foto ocupa la
+   parte de arriba y el titulo baja al fondo liso, que es el mismo recurso
+   que ya usa la portada del inicio en vertical. Contraste garantizado y la
+   foto queda intacta. */
+@media (max-width: 560px) {
+  .cover {
+    display: block;
+    height: auto;
+    min-height: 0;
+    overflow: visible;
+  }
+  .cover__img {
+    position: relative;
+    inset: auto;
+    display: block;
+    width: 100%;
+    height: 46svh;
+    margin-top: 64px;
+  }
+  .cover__in { padding-top: 32px; padding-bottom: 76px; }
+  .cover__title { font-size: clamp(40px, 12vw, 56px); margin-bottom: 10px; }
+  .cover__lead { font-size: 15.5px; margin-bottom: 22px; }
+  .cover .phero__crumbs { margin-bottom: 14px; }
+  /* Ya no hay foto detras: el filete de sombra solo ensucia el tipo. */
+  .cover__title, .cover__lead, .cover .phero__crumbs { text-shadow: none; }
+}
+
+/* ---- Vitrina de /productos, en celular ----------------------------------
+   Medido sobre el panel abierto de PVC a 390px, componiendo el velo sobre la
+   foto en un canvas: la bajada daba 2,47 de contraste en el peor punto y
+   3,78 de mediana, contra los 4,5 que pide WCAG para texto normal. El panel
+   ya llevaba velo —no es un manto nuevo sobre la foto—, solo estaba calibrado
+   para la version apaisada, donde el texto cae sobre la zona oscura. */
+@media (max-width: 560px) {
+  .showcase .vit.is-active::after { background: linear-gradient(180deg,
+    rgba(0,28,28,.84) 0%, rgba(0,28,28,.72) 55%, rgba(0,28,28,.58) 100%) !important; }
+
+  /* Plegados, el nombre va a la izquierda y la foto queda centrada: el
+     degrade vertical no lo cubre. "Templados" caia en 2,06 en el peor punto
+     sobre su foto clara. Un degrade lateral corto protege el rotulo y deja
+     la foto a la vista. */
+  .showcase .vit:not(.is-active)::after { background:
+    linear-gradient(90deg, rgba(0,28,28,.7) 0%, rgba(0,28,28,.28) 42%, rgba(0,28,28,0) 68%),
+    linear-gradient(180deg, rgba(0,28,28,.25) 0%, rgba(0,28,28,0) 25%, rgba(0,28,28,0) 50%, rgba(0,28,28,.75) 100%); }
+}
+
+/* ==========================================================================
+   Portada del inicio: vuelven la volanta de rubros y la bajada (2026-11-04)
+   ==========================================================================
+
+   El deck las pide y habian salido del rediseno porque vivian en una segunda
+   columna que colgaba a otra altura que la marca. Vuelven sobre el mismo eje,
+   de lo general a la accion:
+
+     rubros  ·  MARCA  ·  Aberturas a medida  ·  bajada  ·  botones
+
+   Las cinco piezas comparten la medida --marca, que es la que ya usaban la
+   marca y la fila de botones, asi que todas cierran en la misma vertical.
+   ========================================================================== */
+.hero__cats {
+  margin: 0 0 clamp(18px, 2.4vh, 30px);
+  font-size: clamp(10.5px, .8vw, 12px);
+  font-weight: 600;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--mint);
+  line-height: 1.7;
+}
+/* El punto medio separa sin agregar un elemento mas: es el mismo recurso que
+   usan los subtitulos de la vitrina y del pie. */
+.hero__cats span + span::before { content: "·"; margin: 0 .7em; opacity: .45; }
+
+.hero__lead {
+  /* El ancho lo pone la columna de la derecha, no el parrafo. */
+  margin: 0;
+  /* Medido a 1440 con cuerpo 16,5: el parrafo caia en tres lineas de 334, 367
+     y 90 px. Una viuda de noventa pixeles abajo de una columna de 381 es lo
+     que desordena el bloque, no el espaciado.
+
+     Con 15,5 el mismo texto entra en dos lineas que llenan la columna, y
+     balance las reparte parejas en vez de dejar la ultima corta. En pantallas
+     donde --marca se achica vuelven a ser tres, pero tambien parejas. */
+  font-size: clamp(14.5px, 1.05vw, 15.5px);
+  font-weight: 300;
+  text-wrap: balance;
+  line-height: 1.6;
+  color: #d9e7db;
+  text-shadow: 0 2px 18px rgba(0,0,0,.35);
+}
+/* ---- La franja del pie -------------------------------------------------
+   Izquierda: los rubros y la bajada. Derecha: el parrafo y los botones.
+
+   Se alinean por abajo, que es justo lo que faltaba la vez anterior que la
+   portada tuvo dos columnas: la derecha colgaba a otra altura y se leia como
+   un agregado, no como la otra mitad de la misma composicion.
+
+   La izquierda mide exactamente --marca, la misma medida que arriba usa la
+   marca, asi que la franja y la marca comparten el eje. La derecha se topa en
+   420px: lo que hace falta para que el parrafo entre parejo y los dos rotulos
+   quepan uno al lado del otro sin apretarse. */
+/* El filete es lo que convierte la franja en una pieza de diseño y no en
+   texto apoyado sobre una foto. Ademas le contesta a la imagen: la foto es una
+   banda horizontal de ventanas, y el filete repite esa horizontal. */
+.hero__pie { border-top: 1px solid rgba(219,231,220,.3); padding-top: clamp(16px, 2.2vh, 24px); }
+.hero__cats { margin: 0 0 clamp(16px, 2.2vh, 26px); }
+.hero__fila {
+  display: grid;
+  grid-template-columns: minmax(0, var(--marca)) minmax(0, 1fr);
+  gap: clamp(32px, 5vw, 90px);
+  align-items: end;
+}
+/* La fila de la marca es una caja de linea con line-height 0: el svg cuelga
+   de una base invisible y la caja del <h1> mide menos que la imagen. Mientras
+   el titulo tuvo dos filas no se notaba, porque la segunda daba la altura;
+   con la marca sola, la imagen se desbordaba 60px sobre lo que viene abajo
+   y en vertical se montaba encima de "Aberturas a medida". En flex la caja
+   mide lo que mide la imagen. */
+.hero .hero__title .row { display: flex; }
+.hero__col-b { max-width: 420px; }
+.hero .hero__acciones { width: 100%; margin-top: clamp(20px, 2.6vh, 32px); }
+
+/* La portada se parte en dos alturas: la marca sola, al medio y a la
+   izquierda, y la franja de informacion abajo.
+
+   La reja de la portada es de dos filas, 1fr y auto: la de arriba se queda
+   con todo el espacio sobrante y centra la marca ahi dentro; la de abajo mide
+   lo que mide su contenido y queda apoyada en el borde inferior.
+
+   Y la marca crece: ahora ocupa sola toda la mitad de arriba, y en una
+   portada es la pieza que tiene que pesar. */
+@media (min-width: 821px) {
+  .hero { align-items: stretch; padding-bottom: clamp(48px, 7vh, 84px); --marca: clamp(240px, 32vw, 470px); }
+  .hero .wrap { display: grid; grid-template-rows: 1fr auto; row-gap: clamp(28px, 4vh, 56px); }
+  /* La marca baja a la franja oscura y tranquila de la foto.
+
+     Barrida la columna izquierda de arriba a abajo en pasos de 40px, midiendo
+     media y desvio de gris en una caja del tamanio de la marca: el medio de la
+     portada —donde estaba— es el peor lugar de toda la foto, 142 de media y 36
+     de desvio; ahi caen el reflejo del vidrio y los brazos del herraje. La
+     franja del 58 al 68% da 68 de media y 18 a 20 de desvio: es la parte mas
+     oscura y mas pareja de la imagen.
+
+     Apoyada contra la franja de abajo, ademas, la marca deja de flotar: marca,
+     filete y pie se leen como un solo bloque y la foto se queda con la mitad
+     de arriba entera. */
+  .hero .hero__title { align-self: end; margin-bottom: clamp(28px, 6vh, 70px); }
+}
+
+/* La portada se arma sola: primero la marca, que trae su propia cortina, y
+   despues la franja del pie, de izquierda a derecha. La bajada ya no es una
+   fila del <h1>, asi que necesita su propio retardo. */
+.page-inicio .hero__cats,
+.page-inicio .hero__sub,
+.page-inicio .hero__lead {
+  opacity: 0;
+  transform: translateY(14px);
+  transition: opacity .8s var(--ease), transform .9s var(--ease);
+}
+.is-loaded .page-inicio .hero__cats { opacity: 1; transform: none; transition-delay: .26s; }
+.is-loaded .page-inicio .hero__sub { opacity: 1; transform: none; transition-delay: .36s; }
+.is-loaded .page-inicio .hero__lead { opacity: 1; transform: none; transition-delay: .46s; }
+.is-loaded .page-inicio .hero__acciones { transition-delay: .58s; }
+@media (prefers-reduced-motion: reduce) {
+  .page-inicio .hero__cats,
+  .page-inicio .hero__sub,
+  .page-inicio .hero__lead { opacity: 1; transform: none; }
+}
+
+@media (max-width: 820px) {
+  /* En el telefono la portada dice quien es y que podes hacer, nada mas.
+
+     El renglon de rubros y el parrafo salen: los cinco rubros estan en la
+     seccion siguiente, enumerados y con enlace a cada pagina, y el parrafo
+     esta completo en /empresa. En una pantalla de 844px cada pieza que se
+     queda le saca aire a las otras y altura a la foto.
+
+     Con las dos afuera la foto recupera los 13 puntos que habia cedido:
+     vuelve a 46svh. */
+  .hero__cats, .hero__lead { display: none; }
+  .page-inicio .hero__media img { height: 46svh; }
+  .page-inicio .hero__media::after { background:
+    linear-gradient(180deg, rgba(5,14,10,0) 0, rgba(5,14,10,0) calc(46svh - 40px), #06110d calc(46svh + 64px)); }
+}
+
+/* ==========================================================================
+   Comparativa de las lineas de aluminio (/aluminio)
+   ==========================================================================
+   Tres lineas y seis caracteristicas. En escritorio es una tabla; en celular,
+   donde cuatro columnas no entran, cada caracteristica se convierte en una
+   ficha con las tres lineas una debajo de otra. Se da vuelta el eje en vez de
+   mandar la tabla a un scroll horizontal, que esconde justo lo que se compara.
+   ========================================================================== */
+.tabla-lineas {
+  width: 100%;
+  margin-top: 40px;
+  border-collapse: collapse;
+  text-align: left;
+}
+.tabla-lineas th,
+.tabla-lineas td { padding: 15px 24px 15px 0; border-bottom: 1px solid var(--line); vertical-align: top; }
+.tabla-lineas tr:last-child th,
+.tabla-lineas tr:last-child td { border-bottom: 0; }
+.tabla-lineas thead th {
+  font-family: var(--head);
+  text-transform: uppercase;
+  font-size: 16px;
+  letter-spacing: .02em;
+  padding-bottom: 12px;
+  border-bottom-color: var(--line-2);
+}
+/* La primera celda del encabezado no nombra una linea: rotula la columna de
+   caracteristicas, asi que se comporta como una volanta, no como un titulo. */
+.tabla-lineas thead th:first-child {
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: .16em;
+  color: var(--mint);
+}
+.tabla-lineas tbody th { font-weight: 500; width: 23%; }
+.tabla-lineas td { color: var(--muted); font-size: 14.5px; line-height: 1.5; }
+.tabla-lineas__pie { margin: 14px 0 0; font-size: 12.5px; color: var(--muted); opacity: .8; }
+
+.section--paper .tabla-lineas th,
+.section--paper .tabla-lineas td { border-bottom-color: rgba(14,21,18,.12); }
+.section--paper .tabla-lineas td,
+.section--paper .tabla-lineas__pie { color: var(--gray); }
+
+@media (max-width: 760px) {
+  .tabla-lineas thead { display: none; }
+  .tabla-lineas,
+  .tabla-lineas tbody,
+  .tabla-lineas tr,
+  .tabla-lineas tbody th,
+  .tabla-lineas td { display: block; }
+  .tabla-lineas { margin-top: 30px; }
+  .tabla-lineas tr { padding: 18px 0 20px; border-top: 1px solid var(--line); }
+  .tabla-lineas tr:first-child { border-top: 0; padding-top: 0; }
+  .tabla-lineas th,
+  .tabla-lineas td { border-bottom: 0; padding: 0; }
+  .tabla-lineas tbody th {
+    width: auto;
+    margin-bottom: 10px;
+    font-size: 11.5px;
+    font-weight: 600;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+    color: var(--mint);
+  }
+  .tabla-lineas td { display: flex; gap: 12px; padding: 4px 0; font-size: 14px; }
+  /* El nombre de la linea deja de estar en el encabezado de la columna y pasa
+     a cada valor: sin eso, tres valores sueltos no se sabe de quien son. */
+  .tabla-lineas td::before {
+    content: attr(data-l);
+    flex: 0 0 74px;
+    font-size: 11px;
+    letter-spacing: .08em;
+    text-transform: uppercase;
+    color: var(--ink);
+    opacity: .72;
+    padding-top: 2px;
+  }
+  .section--paper .tabla-lineas td::before { color: var(--paper-ink); }
+  .section--paper .tabla-lineas tr { border-top-color: rgba(14,21,18,.12); }
+}
+
+/* En vertical la franja del pie vuelve a ser una sola columna: la foto ya
+   ocupa la mitad de arriba y no hay ancho para partir nada en dos. La bajada
+   queda pegada a la marca, como estaba antes de separarlas. */
+@media (max-width: 820px) {
+  .hero__fila { grid-template-columns: 1fr; gap: clamp(14px, 2vh, 20px); }
+  .hero__col-b { max-width: none; }
+  .hero__sub { margin-top: 0; }
+  /* Sin filete: en vertical la franja ya esta separada de la foto por el
+     fondo liso, y un filete a cuatro centimetros del borde de la foto se
+     leeria como una segunda linea de corte. */
+  .hero__pie { border-top: 0; padding-top: 0; }
 }
