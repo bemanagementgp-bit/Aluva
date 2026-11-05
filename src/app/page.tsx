@@ -31,40 +31,24 @@ export default function Inicio() {
     <Shell active="inicio" lightFooter>
       <section className="hero">
         <div className="hero__media"><img src="/photos/portada-inicio-proyectantes.jpg" alt="Ventanas proyectantes de aluminio negro abiertas hacia el jardín" fetchPriority="high" /></div>
-        <div className="wrap">
-          {/* La marca sola, al medio y a la izquierda. Todo lo demas, al pie.
+        <div className="wrap hero__in">
+          {/* Portada segun la referencia del cliente (Photoshop, 2026-11-05):
+              el titular arriba, el renglon de rubros, y abajo la marca a la
+              izquierda con los botones a la derecha, cerrando en la misma
+              linea. Todo lo de la izquierda —titular, rubros, marca— cae en la
+              misma vertical que el logo del header.
 
-              La portada se parte en dos alturas: arriba queda la marca
-              flotando sobre la foto, sin nada que la acompañe, y abajo una
-              franja con la informacion —rubros y bajada a la izquierda,
-              parrafo y botones a la derecha, cerrando en la misma linea.
-
-              En vertical la franja se apila y pierde dos piezas: el parrafo y
-              el renglon de rubros no aparecen. En un telefono la portada tiene
-              que decir quien es y que podes hacer, nada mas; lo que sacamos
-              esta en la seccion siguiente, enumerado y con enlace. */}
-          <div className="hero__pie">
-            <div className="hero__fila">
-              <div>
-                <h1 className="hero__title">
-                  <span className="row"><span><img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} /></span></span>
-                </h1>
-                <p className="hero__sub">Aberturas a medida</p>
-              </div>
-              <div className="hero__col-b">
-                <p className="hero__cats">
-                  {["PVC", "Aluminio", "Vidriería", "Templados", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
-                </p>
-                {/* La frase va corta a proposito: el renglon de rubros de arriba
-                    ya enumera las cinco lineas, asi que repetirlas aca solo le
-                    saca fuerza a lo unico que el renglon no dice —que fabrican
-                    lo que instalan y hace cuanto—. */}
-                <p className="hero__lead">Fabricamos e instalamos todo lo que vendemos. Más de 20 años de trayectoria.</p>
-                <div className="btn-row hero__acciones">
-                  <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
-                  <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
-                </div>
-              </div>
+              El titular es el <h1>: dice que hace la empresa y hace cuanto,
+              que es mas util para buscadores que un logo con alt. */}
+          <h1 className="hero__claim">Más de 20 años<br />fabricando aberturas<br />eficientes y sustentables</h1>
+          <p className="hero__cats">
+            {["PVC", "Aluminio", "Vidriería", "Templados", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
+          </p>
+          <div className="hero__fila">
+            <img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} />
+            <div className="btn-row hero__acciones">
+              <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
+              <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
             </div>
           </div>
         </div>

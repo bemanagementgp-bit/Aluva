@@ -90,38 +90,62 @@ export default function ContactForm() {
 
   return (
     <form className="form rv" id="form-presupuesto" onSubmit={onSubmit}>
-      <div className="two">
-        <div className="field"><label htmlFor="f-nombre">Nombre</label><input id="f-nombre" name="nombre" required autoComplete="name" maxLength={80} placeholder="Tu nombre" /></div>
-        <div className="field"><label htmlFor="f-zona">Zona / localidad</label><input id="f-zona" name="zona" maxLength={80} placeholder="La Plata, City Bell, Gonnet…" /></div>
+      {/* Formato de formulario corporativo: cada campo es una fila con el
+          rotulo en una celda gris a la izquierda y el control a la derecha,
+          separadas por filetes. Solo lo obligatorio lleva distintivo; marcar
+          "opcional" en todo lo demas es ruido. En celular la celda del rotulo
+          pasa a ser una banda arriba del control. */}
+      <div className="form__bloque"><h3 className="form__titulo">Tus datos</h3></div>
+      <div className="field">
+        <label htmlFor="f-nombre">Nombre <i className="req">Obligatorio</i></label>
+        <div className="field__ctl"><input id="f-nombre" name="nombre" required autoComplete="name" maxLength={80} placeholder="Tu nombre" /></div>
       </div>
       <div className="field">
+        <label htmlFor="f-zona">Zona / localidad</label>
+        <div className="field__ctl"><input id="f-zona" name="zona" maxLength={80} placeholder="La Plata, City Bell, Gonnet…" /></div>
+      </div>
+
+      <div className="form__bloque"><h3 className="form__titulo">Tu proyecto</h3></div>
+      <div className="field">
         <label>¿Qué necesitás?</label>
-        <div className="pick">
-          {PRODUCTOS.map(([k, v]) => (
-            <span key={k} style={{ display: "contents" }}>
-              <input type="checkbox" id={`p-${k}`} name="producto" value={v} /><label htmlFor={`p-${k}`}>{v}</label>
-            </span>
-          ))}
+        <div className="field__ctl">
+          <div className="pick">
+            {PRODUCTOS.map(([k, v]) => (
+              <span key={k} style={{ display: "contents" }}>
+                <input type="checkbox" id={`p-${k}`} name="producto" value={v} /><label htmlFor={`p-${k}`}>{v}</label>
+              </span>
+            ))}
+          </div>
         </div>
       </div>
       <div className="field">
         <label htmlFor="f-tipo">Tipo de obra</label>
-        <select id="f-tipo" name="tipo" defaultValue="">
-          <option value="">Elegí una opción</option><option>Casa nueva</option><option>Reemplazo de aberturas</option><option>Local comercial</option><option>Edificio / desarrollo</option><option>Otro</option>
-        </select>
+        <div className="field__ctl">
+          <select id="f-tipo" name="tipo" defaultValue="">
+            <option value="">Elegí una opción</option><option>Casa nueva</option><option>Reemplazo de aberturas</option><option>Local comercial</option><option>Edificio / desarrollo</option><option>Otro</option>
+          </select>
+        </div>
       </div>
-      <div className="field"><label htmlFor="f-msg">Contanos tu proyecto</label><textarea id="f-msg" name="mensaje" maxLength={1000} placeholder="Cantidad de aberturas, medidas aproximadas, color de perfil…" /></div>
       <div className="field">
-        <label htmlFor="f-arch">Fotos o planos <span className="opt-label">(opcional)</span></label>
-        <input id="f-arch" className="file-in" type="file" multiple accept="image/*,application/pdf" onChange={(e) => elegir(e.target.files)} />
-        <label htmlFor="f-arch" className="file-btn">📎 {archivos.length ? `${archivos.length} archivo${archivos.length > 1 ? "s" : ""} elegido${archivos.length > 1 ? "s" : ""}` : "Adjuntar archivos"}</label>
-        {archivos.length > 0 && <ul className="file-list">{archivos.map((f) => <li key={f.name}>{f.name}</li>)}</ul>}
-        <small className="file-hint">Hasta {MAX_ARCHIVOS} archivos (imágenes o PDF), {MAX_MB} MB en total.</small>
+        <label htmlFor="f-msg">Contanos tu proyecto</label>
+        <div className="field__ctl"><textarea id="f-msg" name="mensaje" maxLength={1000} placeholder="Cantidad de aberturas, medidas aproximadas, color de perfil…" /></div>
       </div>
+      <div className="field">
+        <label htmlFor="f-arch">Fotos o planos</label>
+        <div className="field__ctl">
+          <input id="f-arch" className="file-in" type="file" multiple accept="image/*,application/pdf" onChange={(e) => elegir(e.target.files)} />
+          <label htmlFor="f-arch" className="file-btn">📎 {archivos.length ? `${archivos.length} archivo${archivos.length > 1 ? "s" : ""} elegido${archivos.length > 1 ? "s" : ""}` : "Adjuntar archivos"}</label>
+          {archivos.length > 0 && <ul className="file-list">{archivos.map((f) => <li key={f.name}>{f.name}</li>)}</ul>}
+          <small className="file-hint">Hasta {MAX_ARCHIVOS} archivos (imágenes o PDF), {MAX_MB} MB en total.</small>
+        </div>
+      </div>
+
       <div className="hp" aria-hidden="true"><label htmlFor="f-web">No completar</label><input id="f-web" name="web" tabIndex={-1} autoComplete="off" /></div>
       <p className="form-aviso" role="status" hidden={!aviso}>{aviso}</p>
-      <button className="btn btn--lime" type="submit" style={{ justifySelf: "start" }}><WA /> Enviar por WhatsApp <span className="arr">→</span></button>
-      <p className="small" style={{ margin: 0 }}>Se abre WhatsApp con tu consulta.</p>
+      <div className="form__acciones">
+        <button className="btn btn--lime" type="submit"><WA /> Enviar por WhatsApp <span className="arr">→</span></button>
+        <p className="small form__nota">Se abre WhatsApp con tu consulta ya redactada. Usamos tus datos solo para responderte.</p>
+      </div>
     </form>
   );
 }

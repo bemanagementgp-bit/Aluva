@@ -1921,38 +1921,152 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 }
 
 /* ==========================================================================
-   Contacto (2026-11-04)
+   Contacto · formato de formulario corporativo (2026-11-04)
    ==========================================================================
 
-   La pagina tenia el formulario y cinco tarjetas sueltas en dos columnas, sin
-   jerarquia entre ellas: el que solo queria el telefono tenia que leer todo.
+   Referencia: el formulario de consulta de Hitachi. Pagina blanca, mucho
+   aire, y un solo recurso para todo: la fila con el rotulo en una celda gris
+   a la izquierda y el dato o el control a la derecha, separadas por filetes
+   finos. Las secciones se abren con una barra de titulo. Los botones van
+   centrados y sin curvas.
 
-   Ahora son dos actos, con la alternancia de color del resto del sitio:
+   De ahi se toma el FORMATO; los colores son los de Aluva: el acento que en
+   la referencia es rojo aca es verde, y el gris de las celdas es el gris de
+   papel del sitio.
 
-     01, sobre verde   ·  las tres vias directas y, debajo, el formulario
-     02, sobre blanco  ·  donde estamos: ficha de datos y mapa
-
-   Las vias van ARRIBA del formulario, no al costado: en un telefono el
-   costado no existe y terminaban debajo de todo, que es donde menos sirven.
+   Dos actos: blanco (vias directas y formulario) y verde (donde estamos).
+   El pie va claro para no pegar dos verdes seguidos.
    ========================================================================== */
-.cto-vias { margin-top: clamp(32px, 4.5vw, 52px); }
-@media (min-width: 821px) {
-  .cards--3 { grid-template-columns: repeat(3, 1fr); }
+.cto { --cto-gris: rgba(14,21,18,.045); --cto-filete: rgba(14,21,18,.14); --cto-acento: #2f7a0a; }
+.cto .phero__crumbs { color: var(--gray); }
+.cto-bloque { margin-top: clamp(40px, 5.5vw, 72px); }
+
+/* Barra de titulo de seccion: banda gris con el acento a la izquierda. */
+.form__titulo {
+  margin: 0;
+  padding: 12px 16px;
+  background: var(--cto-gris);
+  border-left: 3px solid var(--cto-acento);
+  font-family: var(--head);
+  font-size: 17px;
+  line-height: 1.2;
+  letter-spacing: -.01em;
+  text-transform: none;
+  color: var(--paper-ink);
+}
+.cto-form__p { margin: 16px 0 0; max-width: 56ch; }
+
+/* ---- La tabla ----------------------------------------------------------
+   Vale igual para las vias directas (.cto-tabla) y para el formulario
+   (.form). Misma fila, mismas celdas, mismos filetes. */
+.cto-tabla,
+.cto .form {
+  margin-top: 18px;
+  border-top: 1px solid var(--cto-filete);
+  border-bottom: 1px solid var(--cto-filete);
+  display: block;
+}
+.cto .form { background: none; border-left: 0; border-right: 0; border-radius: 0; padding: 0; gap: 0; }
+.cto-tabla { margin-bottom: 0; }
+
+.cto-tabla > div,
+.cto .field {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 0;
+  border-top: 1px solid var(--cto-filete);
+}
+.cto-tabla > div:first-child { border-top: 0; }
+
+/* La celda del rotulo. */
+.cto-tabla dt,
+.cto .field > label {
+  margin: 0;
+  padding: 18px 16px;
+  background: var(--cto-gris);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: .02em;
+  text-transform: none;
+  color: var(--paper-ink);
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+  /* Alineado arriba, a la altura de la primera linea del control (13px de
+     relleno del control + la mitad del interlineado). */
+  padding-top: 21px;
+}
+.cto-tabla dt { align-items: center; padding-top: 18px; }
+.cto-tabla dt svg { width: 16px; height: 16px; flex: 0 0 16px; color: var(--cto-acento); }
+
+/* La celda del dato o del control. */
+.cto-tabla dd,
+.cto .field__ctl {
+  margin: 0;
+  padding: 16px 0 16px 24px;
+  min-width: 0;
+  display: grid;
+  gap: 8px;
+  align-content: start;
+}
+.cto-tabla dd { padding-top: 18px; padding-bottom: 18px; gap: 3px; }
+.cto-tabla dd a { display: inline-block; padding: 8px 0; font-size: 17px; font-weight: 600; color: var(--paper-ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-thickness: 1px; text-decoration-color: rgba(14,21,18,.3); }
+.cto-tabla dd a:hover { color: var(--cto-acento); text-decoration-color: currentColor; }
+.cto-tabla dd small { font-size: 13px; color: var(--gray); }
+
+/* Distintivo de obligatorio: cuadrado, chico, sin curvas. */
+.req {
+  font-style: normal;
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: .12em;
+  text-transform: uppercase;
+  color: #fff;
+  background: var(--cto-acento);
+  padding: 3px 7px;
+  line-height: 1.2;
 }
 
-/* El formulario deja de ser lo primero y pasa a ser la alternativa: va
-   presentado, con su titulo y una linea que dice para que sirve dar mas
-   datos. El filete lo separa de las vias directas. */
-.cto-form {
-  margin-top: clamp(44px, 6vw, 72px);
-  padding-top: clamp(28px, 3.5vw, 44px);
-  border-top: 1px solid var(--line);
-}
-.cto-form__p { margin: 10px 0 clamp(22px, 3vw, 32px); max-width: 52ch; }
+/* Las barras de bloque dentro del formulario. La primera va pegada al filete
+   de arriba de la tabla; las siguientes toman aire y su propio filete. */
+.cto .form__bloque { padding: 0; }
+.cto .form__bloque:not(:first-child) { margin-top: 32px; border-top: 1px solid var(--cto-filete); padding-top: 32px; }
+.cto .form__bloque + .field { border-top: 1px solid var(--cto-filete); margin-top: 14px; }
 
-/* ---- 02 Donde estamos ---------------------------------------------------
-   La ficha usa la misma lista de especificaciones que la ficha tecnica de
-   aluminio, con el icono adentro del rotulo. */
+/* Controles sobre blanco: fondo blanco, borde gris, sin curvas. */
+.cto .field input,
+.cto .field textarea,
+.cto .field select {
+  /* background-color, no el atajo: el atajo pisaba el no-repeat del chevron
+     del select y lo repetia cinco veces a lo ancho. */
+  background-color: #fff;
+  color: var(--paper-ink);
+  border: 1px solid rgba(14,21,18,.28);
+  border-radius: 0;
+  padding: 13px 14px;
+}
+.cto .field input::placeholder,
+.cto .field textarea::placeholder { color: rgba(14,21,18,.42); }
+.cto .field input:focus,
+.cto .field textarea:focus,
+.cto .field select:focus { border-color: var(--cto-acento); box-shadow: 0 0 0 3px rgba(47,122,10,.14); }
+.cto .field select { background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%232f7a0a' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E"); }
+.cto .pick label { border-radius: 0; border-color: rgba(14,21,18,.28); color: var(--paper-ink); }
+.cto .pick input:checked + label { background: var(--cto-acento); border-color: var(--cto-acento); color: #fff; }
+.cto .field .file-btn { border-radius: 0; border-color: rgba(14,21,18,.32); color: var(--paper-ink); }
+.cto .field .file-btn:hover { border-color: var(--cto-acento); background: rgba(47,122,10,.05); }
+.cto .file-list { color: var(--gray); }
+.cto .file-list li::before { color: var(--cto-acento); }
+.cto .file-hint { color: var(--gray); }
+.cto .form-aviso { margin: 18px 0 0; border-radius: 0; background: rgba(47,122,10,.08); border-color: rgba(47,122,10,.3); color: #245f08; }
+
+/* Acciones centradas, como en la referencia. El boton pierde la curva. */
+.cto .form__acciones { padding: 32px 0 36px; display: grid; justify-items: center; gap: 14px; text-align: center; }
+.cto .form__acciones .btn { border-radius: 0; min-width: 280px; justify-content: center; }
+.cto .form__nota { margin: 0; max-width: 48ch; color: var(--gray); }
+
+/* ---- 02 Donde estamos (sobre verde) ------------------------------------ */
 .cto-donde {
   display: grid;
   grid-template-columns: minmax(0, 1fr) minmax(0, 1.1fr);
@@ -1964,28 +2078,180 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 .cto-datos dt { display: flex; align-items: center; gap: 8px; }
 .cto-datos dt svg { width: 15px; height: 15px; flex: 0 0 15px; }
 .cto-datos dd a { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
-.cto-datos dd a:hover { color: #2f7a0a; }
+.cto-datos dd a:hover { color: var(--lime); }
 .cto-botones { margin-top: clamp(22px, 3vw, 30px); }
 .cto-donde .map { height: 100%; min-height: 320px; }
-
-/* Sobre blanco el menta no se lee: el rotulo toma el verde oscuro que ya usan
-   las volantas numeradas de las secciones claras. */
-.section--paper .specs { border-top-color: rgba(14,21,18,.14); }
-.section--paper .specs div { border-bottom-color: rgba(14,21,18,.14); }
-.section--paper .specs dt { color: #2f7a0a; }
-.section--paper .specs dd { color: var(--paper-ink); }
 
 @media (max-width: 820px) {
   .cto-donde { grid-template-columns: 1fr; }
   .cto-donde .map { min-height: 260px; }
 }
 
+@media (max-width: 760px) {
+  /* En celular la fila se apila: la celda del rotulo pasa a ser una banda
+     arriba del control, y el control usa el ancho entero. */
+  .cto-tabla > div,
+  .cto .field { grid-template-columns: 1fr; }
+  .cto-tabla dt,
+  .cto .field > label { padding: 11px 14px; font-size: 12.5px; }
+  .cto-tabla dd,
+  .cto .field__ctl { padding: 14px 0 18px; }
+  .cto .form__acciones .btn { width: 100%; min-width: 0; }
+}
+
 @media (max-width: 560px) {
-  /* El rotulo arriba y el dato abajo: en 358px una columna fija de 170px para
-     el rotulo deja al dato con 170 y la direccion entera parte en tres. */
-  .cto-datos div { grid-template-columns: 1fr; gap: 6px; padding: 14px 0; }
-  /* El mapa ya va a sangre por la regla general de celular; la ficha no, que
-     es texto y tiene que arrancar en la misma vertical que el resto. */
-  .cto-form { margin-top: 36px; padding-top: 26px; }
-  .cto-vias { margin-top: 28px; }
+  /* La tabla y el formulario van a sangre: la celda gris llega al borde del
+     telefono y el control arranca en la vertical de la pagina. */
+  .cto-tabla,
+  .cto .form { margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); width: auto; }
+  .cto-tabla dt,
+  .cto .field > label { padding-left: var(--gutter); padding-right: var(--gutter); }
+  .cto-tabla dd,
+  .cto .field__ctl { padding-left: var(--gutter); padding-right: var(--gutter); }
+  .cto .form__acciones { padding-left: var(--gutter); padding-right: var(--gutter); }
+  /* Las barras de titulo van a sangre. Las de afuera del formulario llevan
+     el margen negativo; las de adentro no, porque el formulario ya esta a
+     sangre y sumarselo las pasaba 16px del borde del telefono. */
+  .cto-bloque > .form__titulo { margin-left: calc(-1 * var(--gutter)); margin-right: calc(-1 * var(--gutter)); }
+  .form__titulo { padding-left: calc(var(--gutter) - 3px); }
+  .cto-bloque { margin-top: 36px; }
+}
+
+
+/* ==========================================================================
+   Portada segun la referencia del cliente (Photoshop, 2026-11-05)
+   ==========================================================================
+
+     Más de 20 años                       ← titular, 3 lineas, peso medio
+     fabricando aberturas
+     eficientes y sustentables
+
+     PVC   ALUMINIO   VIDRIERÍA   …       ← rubros, sin puntos, espaciados
+
+     [ A L U V A ]        [Ver productos →] [Pedí presupuesto]
+                                           ← marca y botones, misma base
+
+   Alineaciones: titular, rubros y marca comparten la vertical izquierda, que
+   es la misma del logo del header; los botones cierran contra la derecha,
+   donde cierra "Staff" en el header. Medido sobre la referencia: titular al
+   35% de la altura, rubros al 68%, base de marca y botones al 83%.
+   ========================================================================== */
+.hero__in { display: flex; flex-direction: column; align-items: flex-start; }
+.hero__claim {
+  margin: 0;
+  font-family: var(--head);
+  font-weight: 500;
+  font-size: clamp(32px, 4.1vw, 58px);
+  line-height: 1.1;
+  letter-spacing: -.015em;
+  text-transform: none;
+  color: #fff;
+  text-shadow: 0 2px 22px rgba(0,0,0,.4);
+}
+.hero__cats {
+  margin: clamp(40px, 13vh, 118px) 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .4em 2.2em;
+  font-size: clamp(11px, .8vw, 12.5px);
+  font-weight: 600;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: #e4efe6;
+  line-height: 1.6;
+}
+/* Sin puntos medios: en la referencia los rubros se separan solo con aire. */
+.hero__cats span + span::before { content: none; margin: 0; }
+.hero__fila {
+  width: 100%;
+  margin-top: clamp(24px, 6.5vh, 58px);
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+}
+.hero .hero__marca { width: var(--marca); height: auto; display: block; }
+.hero .hero__acciones { width: auto; margin: 0; justify-content: flex-end; flex-wrap: nowrap; }
+.hero .hero__acciones .btn { flex: 0 0 auto; border-radius: 0; }
+/* "Pedi presupuesto" en la referencia es un bloque oscuro translucido, no un
+   borde: se lee sobre cualquier foto sin pedir mas velo. */
+.hero .hero__acciones .btn--ghost { background: rgba(0,10,8,.52); border-color: transparent; color: #fff; backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); }
+.hero .hero__acciones .btn--ghost:hover { background: rgba(0,10,8,.7); color: #fff; }
+
+@media (min-width: 821px) {
+  .hero { align-items: flex-end; padding-bottom: clamp(84px, 16vh, 150px); --marca: clamp(190px, 21.5vw, 320px); }
+  .hero .wrap { display: flex; }
+  /* El velo acompania al texto: el titular cae sobre el vidrio claro de la
+     mitad izquierda, asi que el lavado lateral es mas largo y el de abajo
+     arranca mas arriba. */
+  .page-inicio .hero__media::after { background:
+    linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,.22) 22%, rgba(5,14,10,.34) 48%, rgba(5,14,10,.62) 76%, rgba(5,14,10,.9) 100%),
+    linear-gradient(90deg, rgba(5,14,10,.6) 0%, rgba(5,14,10,.34) 46%, rgba(5,14,10,0) 82%); }
+}
+
+/* Reveal: titular primero, rubros, y la fila de abajo al final. */
+.page-inicio .hero__claim,
+.page-inicio .hero__marca,
+.page-inicio .hero__cats,
+.page-inicio .hero__acciones { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.is-loaded .page-inicio .hero__claim { opacity: 1; transform: none; transition-delay: .1s; }
+.is-loaded .page-inicio .hero__cats { opacity: 1; transform: none; transition-delay: .32s; }
+.is-loaded .page-inicio .hero__marca { opacity: 1; transform: none; transition-delay: .46s; }
+.is-loaded .page-inicio .hero__acciones { opacity: 1; transform: none; transition-delay: .58s; }
+@media (prefers-reduced-motion: reduce) {
+  .page-inicio .hero__claim, .page-inicio .hero__marca, .page-inicio .hero__cats, .page-inicio .hero__acciones { opacity: 1; transform: none; }
+}
+
+@media (max-width: 820px) {
+  /* En vertical: foto arriba, y abajo titular, marca y botones apilados. Los
+     rubros siguen fuera del telefono (pedido del 2026-11-04). */
+  .hero__claim { font-size: clamp(26px, 7vw, 34px); }
+  .hero__cats { display: none; }
+  .hero__fila { flex-direction: column; align-items: stretch; margin-top: 22px; gap: 22px; }
+  .hero .hero__marca { width: min(62vw, 240px); }
+  .hero .hero__acciones { width: 100%; flex-direction: column; }
+  .hero .hero__acciones .btn { width: 100%; justify-content: center; }
+}
+
+/* ---- Header en la misma vertical que la portada ---------------------------
+   El logo arrancaba 20px adentro del ancho de pagina y el titular, en el
+   borde. En la referencia caen en la misma linea. El relleno interno del
+   header se va y el contenido del header pasa a medir lo mismo que el de la
+   pagina: logo contra la izquierda, "Staff" contra la derecha. */
+/* La barra mide --max y no tiene relleno exterior; el contenido de la pagina
+   (.wrap) mide --max CON el margen adentro. Para que el logo caiga sobre la
+   misma vertical que el titular, el relleno interno del header tiene que ser
+   exactamente ese margen: a 1425 de ancho, 32 de centrado + 56 = 89, que es
+   donde arranca el titular; en un telefono, 16. Con relleno cero el logo
+   quedaba pegado al borde de la pantalla. */
+.hdr__in, .hdr.on-light .hdr__in, .menu-open .hdr .hdr__in { padding-left: var(--gutter); padding-right: var(--gutter); }
+/* Y la pastilla se va: en la referencia el header es una barra plana de lado
+   a lado, no una caja flotando adentro de una barra. Sin borde, sin radio,
+   sin sombra; el fondo lo pone la barra. */
+@media (min-width: 821px) {
+  .hdr__in, .hdr.on-light .hdr__in { background: transparent; border-color: transparent; border-radius: 0; box-shadow: none; backdrop-filter: none; -webkit-backdrop-filter: none; }
+}
+
+/* ---- Migas alineadas ---------------------------------------------------
+   El enlace "Inicio" tenia relleno vertical para el area de toque y los
+   separadores no: en un flex con alineacion por estiramiento, el texto del
+   enlace caia 6px mas abajo que el resto. Alineados por el centro, y el
+   relleno va en todos los hijos, asi el area de toque se mantiene. */
+.phero__crumbs { align-items: center; }
+.phero__crumbs > * { display: inline-block; padding: 6px 0; }
+
+/* ---- Portadas de producto: degrade de negro de abajo hacia arriba ---------
+   Pedido del cliente (2026-11-05) con referencia. Medido antes en /pvc: la
+   bajada daba 1,00 de contraste en el peor punto. El degrade va solo donde
+   esta el texto, el tercio de abajo, y no toca la parte alta de la foto. En
+   celular no hace falta: ahi el texto ya va debajo de la foto. */
+@media (min-width: 561px) {
+  .cover::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    background: linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.38) 62%, rgba(0,0,0,.72) 84%, rgba(0,0,0,.86) 100%);
+  }
 }

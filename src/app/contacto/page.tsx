@@ -11,20 +11,22 @@ export const metadata: Metadata = {
   description: "Pedí presupuesto de aberturas de PVC y aluminio, vidrio templado, DVH, mamparas y revestimientos en La Plata. Respondemos por WhatsApp.",
 };
 
-/* Las tres vias directas, para el que no quiere llenar un formulario. Van
-   arriba del formulario, no al costado: en un telefono el costado no existe y
-   terminaban debajo de todo, que es donde menos sirven. */
+/* Las tres vias directas van en el mismo formato de tabla que el formulario:
+   rotulo en celda gris a la izquierda, dato a la derecha. Un solo lenguaje
+   para toda la pagina. */
 const VIAS = [
-  { icono: <WA />, rotulo: "WhatsApp", dato: CONTACTO.waVisible, href: waLink(), fuera: true },
-  { icono: <IPhone />, rotulo: "Teléfono", dato: CONTACTO.telVisible, href: `tel:${CONTACTO.telLink}`, fuera: false },
-  { icono: <IMail />, rotulo: "Email", dato: CONTACTO.email, href: `mailto:${CONTACTO.email}`, fuera: false },
+  { icono: <WA />, rotulo: "WhatsApp", dato: CONTACTO.waVisible, href: waLink(), fuera: true, nota: "Respondemos en horario de atención" },
+  { icono: <IPhone />, rotulo: "Teléfono", dato: CONTACTO.telVisible, href: `tel:${CONTACTO.telLink}`, fuera: false, nota: "Fábrica, La Plata" },
+  { icono: <IMail />, rotulo: "Email", dato: CONTACTO.email, href: `mailto:${CONTACTO.email}`, fuera: false, nota: "Presupuestos y consultas" },
 ];
 
 export default function Contacto() {
   return (
-    <Shell active="contacto">
-      {/* 01 · Portada y formulario, sobre verde. */}
-      <section className="phero blueprint">
+    <Shell active="contacto" lightFooter>
+      {/* 01 · Sobre blanco: titulo, vias directas y formulario. El formato de
+          toda la seccion es el de un formulario corporativo: filas con rotulo
+          y dato, filetes finos, barras de seccion, mucho aire. */}
+      <section className="phero section--paper cto">
         <div className="wrap">
           <div className="phero__crumbs"><Link href="/">Inicio</Link><span>/</span><span>Contacto</span></div>
           <Eyebrow n="01">Presupuesto sin cargo</Eyebrow>
@@ -33,33 +35,32 @@ export default function Contacto() {
             <p className="lead">Contanos qué necesitás y te respondemos por WhatsApp. Medimos, fabricamos y colocamos con equipo propio.</p>
           </div>
 
-          {/* Las tres vias directas reusan la tarjeta de contacto que ya existe:
-              trae resuelto el comportamiento en celular (a sangre, con filete
-              entre una y otra, y el icono contra el margen derecho). */}
-          <div className="cards cards--3 cto-vias">
-            {VIAS.map((v, i) => (
-              <a
-                key={v.rotulo}
-                className={`ccard rv rv-d${i}`}
-                href={v.href}
-                {...(v.fuera ? { target: "_blank", rel: "noopener" } : {})}
-              >
-                {v.icono}
-                <div><small>{v.rotulo}</small><b>{v.dato}</b></div>
-              </a>
-            ))}
+          <div className="cto-bloque">
+            <h2 className="form__titulo">Vías directas</h2>
+            <dl className="cto-tabla rv">
+              {VIAS.map((v) => (
+                <div key={v.rotulo}>
+                  <dt>{v.icono} {v.rotulo}</dt>
+                  <dd>
+                    <a href={v.href} {...(v.fuera ? { target: "_blank", rel: "noopener" } : {})}>{v.dato}</a>
+                    <small>{v.nota}</small>
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
 
-          <div className="cto-form">
-            <h2 className="h-md">O contanos tu proyecto.</h2>
+          <div className="cto-bloque cto-form">
+            <h2 className="form__titulo">Formulario de presupuesto</h2>
             <p className="small cto-form__p">Cuantos más datos nos des, más preciso es el presupuesto. Podés adjuntar fotos o planos.</p>
             <ContactForm />
           </div>
         </div>
       </section>
 
-      {/* 02 · Donde estamos, sobre blanco: ficha de datos y mapa. */}
-      <section className="section section--paper" id="donde">
+      {/* 02 · Sobre verde: donde estamos. La ficha usa la misma lista de
+          especificaciones que la ficha tecnica de aluminio. */}
+      <section className="section" id="donde">
         <div className="wrap">
           <Eyebrow n="02">Dónde estamos</Eyebrow>
           <div className="sec-title">
@@ -75,7 +76,7 @@ export default function Contacto() {
                 <div><dt><IMail /> Email</dt><dd><a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a></dd></div>
               </dl>
               <div className="btn-row cto-botones">
-                <a className="btn btn--dark" href={CONTACTO.maps} target="_blank" rel="noopener"><IPin /> Cómo llegar <span className="arr">→</span></a>
+                <a className="btn btn--lime" href={CONTACTO.maps} target="_blank" rel="noopener"><IPin /> Cómo llegar <span className="arr">→</span></a>
                 <a className="btn btn--ghost" href={waLink()} target="_blank" rel="noopener"><WA /> Escribinos</a>
               </div>
             </div>
