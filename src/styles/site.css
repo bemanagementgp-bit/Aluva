@@ -104,7 +104,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 
 /* ---------- Header ---------- */
 .hdr { position: fixed; top: 14px; left: 0; right: 0; z-index: 50; padding: 0 var(--gutter); pointer-events: none; }
-.hdr__in { pointer-events: auto; max-width: calc(var(--max) - 2 * var(--gutter)); margin: 0 auto; display: flex; align-items: center; justify-content: space-between; height: 64px; gap: 24px; padding: 0 12px 0 20px;
+.hdr__in { pointer-events: auto; max-width: calc(var(--max) - 2 * var(--gutter)); margin: 0 auto; display: flex; align-items: center; justify-content: flex-start; height: 64px; gap: 24px; padding: 0 12px 0 20px;
   border-radius: 4px; background: rgba(0,40,40, .82); border: 1px solid rgba(198, 242, 156, .14); backdrop-filter: blur(14px) saturate(140%); -webkit-backdrop-filter: blur(14px) saturate(140%);
   box-shadow: 0 10px 30px rgba(0,0,0,.18); transition: background .45s var(--ease), border-color .45s, box-shadow .45s; }
 .hdr .logo-l { display: none; }
@@ -116,8 +116,8 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hdr.on-light .btn--ghost { color: var(--paper-ink); border-color: rgba(14,21,18,.2); }
 .hdr.on-light .burger { border-color: rgba(14,21,18,.2); } .hdr.on-light .burger span { background: var(--paper-ink); }
 .menu-open .hdr .hdr__in { background: rgba(0,40,40, .95); border-color: rgba(198, 242, 156, .14); } .menu-open .hdr .logo-d { display: block; } .menu-open .hdr .logo-l { display: none; } .menu-open .hdr .burger span { background: var(--ink); }
-.hdr__logo img { height: 26px; width: auto; }
-.nav { display: flex; align-items: center; gap: 6px; }
+.hdr__logo img { height: 35px; width: auto; }
+.nav { display: flex; align-items: center; gap: 3px; margin-left: 24px; } /* margin-left = distancia fija entre el logo y el menú */
 .nav > a, .nav__drop > button { font-size: 14.5px; font-weight: 600; padding: 10px 14px; border-radius: 3px; color: var(--ink); opacity: .86; transition: opacity .2s, background .2s; display: inline-flex; align-items: center; gap: 6px; }
 .nav > a:hover, .nav__drop > button:hover, .nav > a[aria-current="page"], .nav__drop.is-current > button { opacity: 1; background: rgba(198, 242, 156, .08); }
 .nav > a[aria-current="page"], .nav__drop.is-current > button { color: var(--mint); }
@@ -143,7 +143,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hdr.on-light .mega { background: #fff; border-color: rgba(14,21,18,.1); box-shadow: 0 20px 50px rgba(14,21,18,.12); }
 .hdr.on-light .mega a { border-color: rgba(14,21,18,.08); } .hdr.on-light .mega a:hover { background: var(--paper-2); }
 .hdr.on-light .mega b { color: var(--paper-ink); } .hdr.on-light .mega small { color: var(--gray); } .hdr.on-light .mega__all { color: #2f7a0a; }
-.hdr__cta { display: flex; gap: 10px; align-items: center; }
+.hdr__cta { display: flex; gap: 10px; align-items: center; margin-left: auto; }
 .hdr__cta .btn { --h: 42px; padding: 0 18px; font-size: 12px; }
 .burger { display: none; width: 42px; height: 42px; border-radius: 2px; border: 1px solid var(--line-2); position: relative; }
 .burger span { position: absolute; left: 13px; right: 13px; height: 2px; background: var(--ink); transition: transform .4s var(--ease), top .4s var(--ease); }
