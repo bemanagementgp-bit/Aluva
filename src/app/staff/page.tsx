@@ -15,7 +15,7 @@ export default function Staff() {
       <section className="phero staff">
         <div className="wrap">
           <div className="staff__card rv">
-            <img src="/brand/marca-negro-tagline.svg" alt="Aluva" width={200} height={50} />
+            <img src="/brand/marca-negro-tagline.svg" alt="Aluva" width={236} height={50} />
             <h1>Acceso staff</h1>
             <p>Próximamente. Volvé al sitio mientras tanto.</p>
             <form className="staff__form">

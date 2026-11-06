@@ -13,7 +13,7 @@ function Footer({ light }: { light: boolean }) {
         <p className="ftr__big" aria-hidden="true">Tecnología<br />en aberturas.</p>
         <div className="ftr__grid">
           <div>
-            <Link className="ftr__logo" href="/"><img src="/brand/marca-principal-tagline-web.svg" alt="Aluva" width={260} height={40} /></Link>
+            <Link className="ftr__logo" href="/"><img src="/brand/marca-principal-tagline-web.svg" alt="Aluva" width={326} height={40} /></Link>
             <p className="small" style={{ maxWidth: "34ch" }}>Fábrica de aberturas a medida · La Plata</p>
           </div>
           <div>
