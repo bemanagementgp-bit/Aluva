@@ -116,7 +116,7 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .hdr.on-light .btn--ghost { color: var(--paper-ink); border-color: rgba(14,21,18,.2); }
 .hdr.on-light .burger { border-color: rgba(14,21,18,.2); } .hdr.on-light .burger span { background: var(--paper-ink); }
 .menu-open .hdr .hdr__in { background: rgba(0,40,40, .95); border-color: rgba(198, 242, 156, .14); } .menu-open .hdr .logo-d { display: block; } .menu-open .hdr .logo-l { display: none; } .menu-open .hdr .burger span { background: var(--ink); }
-.hdr__logo img { height: 35px; width: auto; }
+.hdr__logo img { height: 30px; width: auto; }
 .nav { display: flex; align-items: center; gap: 3px; margin-left: 24px; } /* margin-left = distancia fija entre el logo y el menú */
 .nav > a, .nav__drop > button { font-size: 14.5px; font-weight: 600; padding: 10px 14px; border-radius: 3px; color: var(--ink); opacity: .86; transition: opacity .2s, background .2s; display: inline-flex; align-items: center; gap: 6px; }
 .nav > a:hover, .nav__drop > button:hover, .nav > a[aria-current="page"], .nav__drop.is-current > button { opacity: 1; background: rgba(198, 242, 156, .08); }
