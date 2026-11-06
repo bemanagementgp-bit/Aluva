@@ -60,8 +60,8 @@ export default function Header({ active }: { active: Seccion }) {
       <header className={`hdr${light ? " on-light" : ""}`}>
         <div className="hdr__in">
           <Link className="hdr__logo" href="/" aria-label="Aluva — inicio">
-            <img className="logo-d" src="/brand/marca-negativa-tagline-web.svg" alt="Aluva · Tecnología en aberturas" width={244} height={30} />
-            <img className="logo-l" src="/brand/marca-negro-tagline-web.svg" alt="" width={244} height={30} />
+            <img className="logo-d" src="/brand/marca-negativa-tagline-web.svg?v=2" alt="Aluva · Tecnología en aberturas" width={244} height={30} />
+            <img className="logo-l" src="/brand/marca-negro-tagline-web.svg?v=2" alt="" width={244} height={30} />
           </Link>
           <nav className="nav" aria-label="Principal">
             <Link href="/" {...cur("inicio")}>Inicio</Link>
