@@ -12,7 +12,9 @@ import { Chev, WA } from "./Icon";
 export type Seccion = "inicio" | "productos" | "pvc" | "aluminio" | "templados" | "vidrieria" | "revestimientos" | "empresa" | "contacto" | "staff";
 
 export default function Header({ active }: { active: Seccion }) {
-  const [light, setLight] = useState(false);
+  // Contacto y Empresa abren con una seccion clara: la barra arranca blanca
+  // desde el primer pintado, sin pasar por el verde oscuro un instante.
+  const [light, setLight] = useState(active === "contacto" || active === "empresa");
   const [menu, setMenu] = useState(false);
   const [drop, setDrop] = useState(false);
   const [sub, setSub] = useState(false);
@@ -60,8 +62,12 @@ export default function Header({ active }: { active: Seccion }) {
       <header className={`hdr${light ? " on-light" : ""}`}>
         <div className="hdr__in">
           <Link className="hdr__logo" href="/" aria-label="Aluva — inicio">
-            <img className="logo-d" src="/brand/marca-negativa-tagline-web.svg" alt="Aluva · Tecnología en aberturas" width={200} height={30} />
-            <img className="logo-l" src="/brand/marca-negro-tagline-web.svg" alt="" width={200} height={30} />
+            {/* Lockup "aluva · TECNOLOGÍA EN ABERTURAS" (Aluva-001.png, 1621×143).
+                La version negra es la misma forma teñida de tinta, para las
+                paginas claras. El tamaño lo pone el CSS; width/height son los
+                intrinsecos, para que no salte el layout al cargar. */}
+            <img className="logo-d" src="/brand/aluva-lockup-blanco.png" alt="Aluva · Tecnología en aberturas" width={1621} height={143} />
+            <img className="logo-l" src="/brand/aluva-lockup-negro.png" alt="" width={1621} height={143} />
           </Link>
           <nav className="nav" aria-label="Principal">
             <Link href="/" {...cur("inicio")}>Inicio</Link>

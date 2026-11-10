@@ -2255,3 +2255,26 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
     background: linear-gradient(180deg, rgba(0,0,0,0) 38%, rgba(0,0,0,.38) 62%, rgba(0,0,0,.72) 84%, rgba(0,0,0,.86) 100%);
   }
 }
+
+/* ==========================================================================
+   Logo del header: lockup Aluva-001 (2026-11-10)
+   ==========================================================================
+   El archivo mide 1621×143: a tamaño real no entra en una barra de 72px, asi
+   que se usa a la altura mas grande que cabe con aire —36px en escritorio—
+   y baja con la pantalla para no empujar la navegacion: a 1100px de ancho la
+   barra lleva logo, menu, boton y Staff, y con 36px no entran. En celular,
+   24px: 272px de ancho, que deja lugar al menu. */
+.hdr__logo img { height: clamp(19px, 1.8vw, 26px); width: auto; } /* 36px → 29px → 26px, ajustes del 2026-11-10*/
+@media (max-width: 820px) { .hdr__logo img { height: 24px; } }
+@media (max-width: 400px) { .hdr__logo img { height: 22px; } }
+@media (max-width: 350px) { .hdr__logo img { height: 19px; } }
+
+/* ---- Menú pegado al logo (pedido del 2026-11-10) -------------------------
+   Antes el menú flotaba en el centro de la barra. Ahora arranca a la derecha
+   del logo, con poco aire, y los botones siguen cerrando contra la derecha.
+   El primer enlace tiene 14px de relleno propio, así que "Inicio" queda a
+   unos 30px del logo. */
+@media (min-width: 821px) {
+  .hdr__in, .hdr.on-light .hdr__in { justify-content: flex-start; gap: 126px; }
+  .hdr__cta { margin-left: auto; }
+}
