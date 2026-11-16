@@ -1,0 +1,45 @@
+# Aluva · aluva.com.ar (Apache, hosting compartido)
+Options -Indexes -MultiViews
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+
+# Siempre HTTPS y sin www (con Cloudflare delante, mirar X-Forwarded-Proto)
+RewriteCond %{HTTPS} off
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteRule ^ https://aluva.com.ar%{REQUEST_URI} [L,R=301]
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://aluva.com.ar%{REQUEST_URI} [L,R=301]
+
+# Direcciones del sitio viejo
+RewriteRule ^index\.html$ / [L,R=301]
+RewriteRule ^blindex(\.html)?/?$ /templados [L,R=301]
+RewriteRule ^(productos|pvc|aluminio|vidrieria|templados|empresa|contacto|staff)\.html$ /$1 [L,R=301]
+
+# Sin barra final
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.+)/$ /$1 [L,R=301]
+
+# /pvc → pvc.html
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.+)$ $1.html [L]
+</IfModule>
+
+# Configuración y respaldos nunca visibles desde internet
+<FilesMatch "^(lead-config.*\.php|aluva-config\.php|.*\.csv)$">
+  Require all denied
+</FilesMatch>
+
+<IfModule mod_headers.c>
+  <FilesMatch "\.(webp|jpe?g|png|svg|woff2?|ico)$">
+    Header set Cache-Control "public, max-age=604800"
+  </FilesMatch>
+  <FilesMatch "\.(js|css)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+  Header always set X-Content-Type-Options "nosniff"
+  Header always set Referrer-Policy "strict-origin-when-cross-origin"
+</IfModule>

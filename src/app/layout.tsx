@@ -3,9 +3,10 @@ import type { ReactNode } from "react";
 import "@/styles/site.css";
 import "@/styles/profesionales.css";
 import Intro from "@/components/Intro";
+import MetaPixel from "@/components/MetaPixel";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aluva.vercel.app"),
+  metadataBase: new URL("https://aluva.com.ar"),
   title: "Aluva · Aberturas de PVC y aluminio a medida en La Plata",
   description: "Fábrica de aberturas a medida en La Plata: PVC, aluminio, vidriería con DVH y mamparas, vidrio templado y revestimientos.",
   icons: { icon: { url: "/brand/icon-principal.svg", type: "image/svg+xml" }, apple: "/brand/icon-192.png" },
@@ -20,7 +21,7 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <head>
         <link rel="preload" href="/fonts/lgei-headline-bold.woff2" as="font" type="font/woff2" crossOrigin="anonymous" />
       </head>
-      <body><Intro />{children}</body>
+      <body><Intro /><MetaPixel />{children}</body>
     </html>
   );
 }

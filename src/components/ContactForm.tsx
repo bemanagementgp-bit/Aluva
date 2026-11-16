@@ -2,6 +2,11 @@
 /*
   Formulario de presupuesto: arma el mensaje y lo abre en WhatsApp.
 
+  Además (rama medicion-crm): con el mismo clic se registra la consulta en el
+  CRM (/lead.php → Kommo) y se marca el Lead en Meta. Ese envío va aparte y no
+  frena ni condiciona la apertura de WhatsApp: si falla, la persona igual
+  escribe y la consulta entra por el chat.
+
   Límite de envíos: frena el reenvío repetido y los bots simples desde el
   navegador. Si el formulario pasa a enviar a un servidor, el límite tiene que
   aplicarse también ahí (el del navegador se puede saltear).
@@ -9,6 +14,8 @@
 import { useEffect, useRef, useState, type FormEvent } from "react";
 import { WA } from "./Icon";
 import { waLink } from "@/content/site";
+import { normalizarTelefono } from "@/lib/telefono";
+import { cookie, evento, leerOrigen, nuevoEventId } from "@/lib/tracking";
 
 /* Adjuntos: un enlace de WhatsApp (wa.me) solo lleva texto. En celulares que lo
    permiten se usa "Compartir" del sistema con archivos y texto (se elige
@@ -59,6 +66,8 @@ export default function ContactForm() {
     const d = new FormData(e.currentTarget);
     if (d.get("web")) return; // campo trampa: invisible para personas, los bots lo completan
     if (Date.now() - abierto.current < RATE.minLlenado) { setAviso("Revisá los datos y volvé a enviar."); return; }
+    const tel = normalizarTelefono(String(d.get("telefono") || ""));
+    if (!tel) { setAviso("Revisá el teléfono: escribilo con código de área, por ejemplo 221 555-1234."); document.getElementById("f-tel")?.focus(); return; }
     const r = rateLimit("presupuesto");
     if (!r.ok) { setAviso(`Ya recibimos tu consulta. Podés volver a enviar en ${esperaTexto(r.seg)}.`); return; }
     r.registrar();
@@ -73,6 +82,20 @@ export default function ContactForm() {
       d.get("mensaje") ? `Detalle: ${d.get("mensaje")}` : "",
       archivos.length ? `Adjunto ${archivos.length} archivo${archivos.length > 1 ? "s" : ""}: ${archivos.map((f) => f.name).join(", ")}` : "",
     ].filter(Boolean).join("\n");
+
+    // Registro en el CRM + Lead en Meta (mismo event_id en navegador y servidor)
+    const eventId = nuevoEventId();
+    evento("Lead", { content_name: prods }, eventId);
+    try {
+      fetch("/lead.php", {
+        method: "POST", keepalive: true, headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          nombre: d.get("nombre"), telefono: tel, zona: d.get("zona"), productos: prods, tipo: d.get("tipo"),
+          mensaje: d.get("mensaje"), archivos: archivos.length, origen: leerOrigen(),
+          fbp: cookie("_fbp"), fbc: cookie("_fbc"), event_id: eventId, url: location.href,
+        }),
+      }).catch(() => { /* sin conexión con el servidor: la consulta sigue por WhatsApp */ });
+    } catch { /* */ }
 
     // Con archivos: "Compartir" del sistema, si el navegador puede compartirlos
     if (archivos.length && typeof navigator.canShare === "function" && navigator.canShare({ files: archivos })) {
@@ -99,6 +122,10 @@ export default function ContactForm() {
       <div className="field">
         <label htmlFor="f-nombre">Nombre <i className="req">Obligatorio</i></label>
         <div className="field__ctl"><input id="f-nombre" name="nombre" required autoComplete="name" maxLength={80} placeholder="Tu nombre" /></div>
+      </div>
+      <div className="field">
+        <label htmlFor="f-tel">Teléfono <i className="req">Obligatorio</i></label>
+        <div className="field__ctl"><input id="f-tel" name="telefono" type="tel" inputMode="tel" required autoComplete="tel" maxLength={30} placeholder="221 555-1234" /></div>
       </div>
       <div className="field">
         <label htmlFor="f-zona">Zona / localidad</label>
