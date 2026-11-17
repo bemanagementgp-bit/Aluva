@@ -26,18 +26,18 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 const figStyle = { margin: 0, borderRadius: 2, overflow: "hidden" } as const;
 const imgStyle = { width: "100%", height: "100%", objectFit: "cover" } as const;
 
-/* Comparativa de las tres lineas de aluminio. Fuente: diapositiva 51 del deck
+/* Comparativa de las dos lineas de aluminio. Fuente: diapositiva 51 del deck
    "Correcciones web" del 04-11-2026. OJO: la propia nota aclara que es un
    resumen armado con Google y que queda "a confirmar con ALUVA". Mientras no
    lo confirmen, la tabla va con la salvedad de que es orientativa. */
-const LINEAS_AL = ["A30", "Módena", "Herrero"] as const;
-const COMPARATIVA: [string, string, string, string][] = [
-  ["Tipo de perfil", "Reforzado / Superior", "Principal / Mediano de alta prestación", "Estándar / Liviano"],
-  ["Peso y solidez", "Perfiles 30 % más grandes y pesados", "Mayor cantidad de aluminio, más robusto", "Liviano"],
-  ["Hermeticidad", "Muy buena a superior", "Excelente", "Buena"],
-  ["Compatibilidad DVH", "Total (hasta 24-28 mm)", "Total (hasta 19 mm)", "Parcial (limitada)"],
-  ["Aislación acústica y térmica", "Muy alta, especial para grandes superficies", "Alta", "Baja a moderada"],
-  ["Uso ideal", "Ventanales grandes, zonas con vientos fuertes o frío extremo", "Viviendas permanentes, obra nueva, ventanas estándar", "Obras económicas, renovaciones rápidas o interiores"],
+const LINEAS_AL = ["A30", "Módena"] as const;
+const COMPARATIVA: [string, string, string][] = [
+  ["Tipo de perfil", "Reforzado / Superior", "Principal / Mediano de alta prestación"],
+  ["Peso y solidez", "Perfiles 30 % más grandes y pesados", "Mayor cantidad de aluminio, más robusto"],
+  ["Hermeticidad", "Muy buena a superior", "Excelente"],
+  ["Compatibilidad DVH", "Total (hasta 24-28 mm)", "Total (hasta 19 mm)"],
+  ["Aislación acústica y térmica", "Muy alta, especial para grandes superficies", "Alta"],
+  ["Uso ideal", "Ventanales grandes, zonas con vientos fuertes o frío extremo", "Viviendas permanentes, obra nueva, ventanas estándar"],
 ];
 
 function Especial({ slug }: { slug: Slug }) {
@@ -51,6 +51,16 @@ function Especial({ slug }: { slug: Slug }) {
             <p className="small">Tocá cada punto.</p>
           </div>
           <Anatomia />
+          {/* Colores de PVC: salen de COLORES, igual que en Productos. */}
+          <h3 className="h-md rv" style={{ marginTop: 56 }}>Colores</h3>
+          <div className="rv" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: "14px 24px", marginTop: 20, maxWidth: 560 }}>
+            {COLORES.find((c) => c.nombre === "PVC")!.items.map(([n, c]) => (
+              <div key={n} style={{ display: "flex", alignItems: "center", gap: 10 }}>
+                <span style={{ flex: "0 0 auto", width: 26, height: 26, borderRadius: 4, background: c, border: "1px solid rgba(0,40,40,.18)" }} />
+                <span style={{ fontSize: 11, letterSpacing: ".1em", textTransform: "uppercase", opacity: .78 }}>{n}</span>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
     );
@@ -72,7 +82,7 @@ function Especial({ slug }: { slug: Slug }) {
     );
   }
   if (slug === "aluminio") {
-    /* Los nueve acabados que publica aluva.com.ar. La lista vive en COLORES,
+    /* Las cuatro opciones de color (negro, gris, blanco, especiales). La lista vive en COLORES,
        asi que esta pagina y la home no se pueden desincronizar. */
     const sw: readonly (readonly [string, string])[] =
       COLORES.find((c) => c.nombre === "Aluminio")!.items;
@@ -80,13 +90,13 @@ function Especial({ slug }: { slug: Slug }) {
       <section id="lineas" className="section">
         <div className="wrap">
           <Eyebrow n="02">Líneas y colores</Eyebrow>
-          <h2 className="h-lg rv">A30, Módena<br />y Herrero.</h2>
-          {/* Comparativa de las tres lineas (diapositiva 51 del deck del
-              04-11-2026). Las columnas van A30, Modena, Herrero —de mejor a
+          <h2 className="h-lg rv">A30<br />y Módena.</h2>
+          {/* Comparativa de las dos lineas (diapositiva 51 del deck del
+              04-11-2026). Las columnas van A30, Modena —de mejor a
               peor, como en todo el sitio—, no en el orden de la diapositiva.
 
               En celular la tabla se da vuelta: cada caracteristica pasa a ser
-              una ficha con las tres lineas adentro. Una tabla de cuatro
+              una ficha con las dos lineas adentro. Una tabla de cuatro
               columnas en 358px solo se puede resolver con scroll horizontal, y
               el scroll horizontal esconde justo lo que se quiere comparar. */}
           <table className="tabla-lineas rv">
@@ -106,7 +116,7 @@ function Especial({ slug }: { slug: Slug }) {
             </tbody>
           </table>
           <p className="tabla-lineas__pie">Orientativo. Te asesoramos según el vano y la obra.</p>
-          {/* Nueve muestras chicas, con el nombre al lado: una lista de colores,
+          {/* Muestras chicas, con el nombre al lado: una lista de colores,
               no una grilla de cuadros grandes. Tres columnas en escritorio, dos
               en celular. */}
           <div className="rv" style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit,minmax(150px,1fr))", gap: "14px 24px", marginTop: 36, maxWidth: 560 }}>
@@ -124,7 +134,7 @@ function Especial({ slug }: { slug: Slug }) {
               <div className="ficha">
                 <h3 className="h-md" style={{ marginBottom: 6 }}>Ficha</h3>
                 <dl className="specs">
-                  <div><dt>Líneas</dt><dd>A30, Módena y Herrero</dd></div>
+                  <div><dt>Líneas</dt><dd>A30 y Módena</dd></div>
                   <div><dt>Terminación</dt><dd>Anodizado, pintado o símil madera</dd></div>
                   <div><dt>Vidrio</dt><dd>Simple o DVH de fabricación propia</dd></div>
                 </dl>

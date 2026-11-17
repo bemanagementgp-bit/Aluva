@@ -12,9 +12,9 @@ import { LINEAS, PROCESO } from "@/content/site";
 const OBRAS = [
   { c: "b1", d: "", src: "/photos/obra-pvc.webp", alt: "Corrediza de PVC símil madera hacia una terraza", t: "PVC", sub: "Corrediza símil madera" },
   { c: "b2", d: " rv-d1", src: "/photos/obra-aluminio.webp", alt: "Corrediza de aluminio blanco hacia un balcón", t: "Aluminio", sub: "Corrediza al balcón" },
-  { c: "b3", d: "", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidriería", sub: "Cerramiento de balcón", pos: "right bottom" },
+  { c: "b3", d: "", src: "/og/producto-vidrieria.jpg", alt: "Cerramiento vidriado de balcón", t: "Vidrios", sub: "Cerramiento de balcón", pos: "right bottom" },
   { c: "b4", d: " rv-d1", src: "/photos/obra-mampara.webp", alt: "Paño de vidrio esmerilado en un baño de mármol", t: "Mamparas", sub: "Vidrio esmerilado a medida" },
-  { c: "b5", d: " rv-d2", src: "/photos/obra-templado.webp", alt: "Puerta de vidrio templado con tirador en un hall", t: "Templados", sub: "Puerta de templado" },
+  { c: "b5", d: " rv-d2", src: "/photos/obra-templado.webp", alt: "Puerta de vidrio templado con tirador en un hall", t: "Vidrios", sub: "Puerta de templado" },
   { c: "b6", d: " rv-d3", src: "/photos/local-aluva.jpg", alt: "Frente del local de Aluva en La Plata", t: "Nuestra fábrica", sub: "Planta propia · La Plata", pos: "50% 40%" },
 ];
 
@@ -42,7 +42,7 @@ export default function Inicio() {
               que es mas util para buscadores que un logo con alt. */}
           <h1 className="hero__claim">Más de 20 años<br />fabricando aberturas<br />eficientes y sustentables</h1>
           <p className="hero__cats">
-            {["PVC", "Aluminio", "Vidriería", "Templados", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
+            {["PVC", "Aluminio", "Vidrios", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
           </p>
           <div className="hero__fila">
             <img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} />

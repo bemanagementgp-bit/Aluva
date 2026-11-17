@@ -21,7 +21,7 @@ const MOSAICO: [string, string][] = [
 ];
 
 const FICHA: [string, string][] = [
-  ["Líneas", "PVC, aluminio, vidriería, templados y revestimientos"],
+  ["Líneas", "PVC, aluminio, vidrios (DVH, templados y mamparas) y revestimientos"],
   ["Planta", "Propia en La Plata, con doble vidriado hermético de fabricación propia"],
   ["Equipo", "Propio, de medición en obra y colocación"],
 ];
@@ -96,7 +96,7 @@ export default function Empresa() {
               <Eyebrow n="01">Nosotros</Eyebrow>
               <h2 className="h-lg em-intro__t">Una fábrica<br />con oficio.</h2>
             </div>
-            <p className="lead em-intro__p">Desde hace más de 20 años fabricamos e instalamos aberturas a medida. En nuestra planta de La Plata producimos aberturas de PVC, aluminio, DVH, vidriería, templados y revestimientos. La misma gente, el mismo compromiso, obra tras obra.</p>
+            <p className="lead em-intro__p">Desde hace más de 20 años fabricamos e instalamos aberturas a medida. En nuestra planta de La Plata producimos aberturas de PVC, aluminio, DVH, vidrios, templados y revestimientos. La misma gente, el mismo compromiso, obra tras obra.</p>
           </div>
           <div className="mg-mosaico">
             {MOSAICO.map(([src, alt], i) => (

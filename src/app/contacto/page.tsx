@@ -4,7 +4,7 @@ import Shell from "@/components/Shell";
 import ContactForm from "@/components/ContactForm";
 import { Eyebrow } from "@/components/blocks";
 import { IClock, IMail, IPhone, IPin, WA } from "@/components/Icon";
-import { CONTACTO, waLink } from "@/content/site";
+import { CONTACTO, SEDES, waLink } from "@/content/site";
 
 export const metadata: Metadata = {
   title: "Contacto · Pedí tu presupuesto | Aluva La Plata",
@@ -70,7 +70,10 @@ export default function Contacto() {
           <div className="cto-donde">
             <div className="rv">
               <dl className="specs cto-datos">
-                <div><dt><IPin /> Fábrica</dt><dd>{CONTACTO.direccion}</dd></div>
+                <div><dt><IPin /> Fábrica · La Plata</dt><dd>{CONTACTO.direccion}</dd></div>
+                {SEDES.map((s) => (
+                  <div key={s.nombre}><dt><IPin /> {s.nombre}</dt><dd><a href={s.maps} target="_blank" rel="noopener">{s.direccion}</a></dd></div>
+                ))}
                 <div><dt><IClock /> Horario</dt><dd>{CONTACTO.horario}</dd></div>
                 <div><dt><IPhone /> Teléfono</dt><dd><a href={`tel:${CONTACTO.telLink}`}>{CONTACTO.telVisible}</a></dd></div>
                 <div><dt><IMail /> Email</dt><dd><a href={`mailto:${CONTACTO.email}`}>{CONTACTO.email}</a></dd></div>

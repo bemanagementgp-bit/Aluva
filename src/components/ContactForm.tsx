@@ -20,7 +20,7 @@ const RATE = { max: 3, ventana: 10 * 60e3, espera: 30e3, minLlenado: 3e3 };
 const PRODUCTOS: [string, string][] = [["pvc", "PVC"], ["alu", "Aluminio"], ["dvh", "DVH / Vidrios"], ["mam", "Mamparas"], ["tem", "Templados"], ["rev", "Revestimientos"], ["otr", "Otro"]];
 /* "Cotizar PVC" y los demás botones de cada producto llegan con ?producto=slug:
    esa opción aparece ya tildada. */
-const DESDE_PRODUCTO: Record<string, string> = { pvc: "pvc", aluminio: "alu", vidrieria: "dvh", templados: "tem", revestimientos: "rev" };
+const DESDE_PRODUCTO: Record<string, string> = { pvc: "pvc", aluminio: "alu", vidrieria: "dvh", revestimientos: "rev" };
 
 function rateLimit(clave: string): { ok: true; registrar: () => void } | { ok: false; seg: number } {
   const k = "aluva-envios-" + clave;

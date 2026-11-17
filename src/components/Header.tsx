@@ -9,7 +9,7 @@ import { usePathname } from "next/navigation";
 import { CONTACTO, LINEAS, waLink } from "@/content/site";
 import { Chev, WA } from "./Icon";
 
-export type Seccion = "inicio" | "productos" | "pvc" | "aluminio" | "templados" | "vidrieria" | "revestimientos" | "empresa" | "contacto" | "staff";
+export type Seccion = "inicio" | "productos" | "pvc" | "aluminio" | "vidrieria" | "revestimientos" | "empresa" | "contacto" | "staff";
 
 export default function Header({ active }: { active: Seccion }) {
   // Contacto y Empresa abren con una seccion clara: la barra arranca blanca
@@ -21,7 +21,7 @@ export default function Header({ active }: { active: Seccion }) {
   const dropRef = useRef<HTMLDivElement>(null);
   const pathname = usePathname();
   const cur = (k: Seccion) => (k === active ? { "aria-current": "page" as const } : {});
-  const prodActive = ["productos", "pvc", "aluminio", "templados", "vidrieria", "revestimientos"].includes(active);
+  const prodActive = ["productos", "pvc", "aluminio", "vidrieria", "revestimientos"].includes(active);
 
   // Tono según la sección que queda debajo de la barra
   useEffect(() => {

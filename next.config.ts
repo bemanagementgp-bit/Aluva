@@ -3,7 +3,7 @@ import type { NextConfig } from "next";
 // Las direcciones viejas del sitio en HTML (/pvc.html, /blindex.html…) redirigen a las nuevas.
 const viejas: [string, string][] = [
   ["index", "/"], ["productos", "/productos"], ["pvc", "/pvc"], ["aluminio", "/aluminio"],
-  ["vidrieria", "/vidrieria"], ["templados", "/templados"], ["blindex", "/templados"],
+  ["vidrieria", "/vidrieria"], ["templados", "/vidrieria"], ["blindex", "/vidrieria"],
   ["empresa", "/empresa"], ["contacto", "/contacto"], ["staff", "/staff"],
 ];
 
@@ -14,7 +14,8 @@ const nextConfig: NextConfig = {
   async redirects() {
     return [
       ...viejas.map(([v, n]) => ({ source: `/${v}.html`, destination: n, permanent: true })),
-      { source: "/blindex", destination: "/templados", permanent: true },
+      { source: "/blindex", destination: "/vidrieria", permanent: true },
+      { source: "/templados", destination: "/vidrieria", permanent: true },
     ];
   },
   async headers() {

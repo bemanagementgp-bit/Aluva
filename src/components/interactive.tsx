@@ -196,43 +196,43 @@ const Hinge = ({ cx, cy }: { cx: number; cy: number }) => <circle className="dg-
    conserva su foto de ambiente. */
 const TIPOS: Record<string, Tipo> = {
   fijo: {
-    name: "Paño fijo", img: "/photos/tip-pvc-fijo.webp", mats: ["PVC", "Aluminio", "Templados", "Vidriería"],
+    name: "Paño fijo", img: "/photos/tip-pvc-fijo.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Superficies sin hojas móviles. Máxima luz, vistas limpias.",
     svg: <svg viewBox="-10 -10 320 320"><defs><clipPath id="cf"><rect x={20} y={20} width={260} height={260} /></clipPath></defs><Frame /><Sash x={8} y={8} w={284} h={284} /><g clipPath="url(#cf)"><rect className="anim-glint" x={20} y={-40} width={60} height={400} fill="rgba(238,246,232,.22)" /></g></svg>,
   },
   rebatible: {
-    name: "Rebatible", img: "/photos/tip-pvc-rebatible.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Rebatible", img: "/photos/tip-pvc-rebatible.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Giro sobre bisagras laterales. Apertura interior o exterior.",
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={284} h={284} cls="anim-swing" /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /></svg>,
   },
   banderola: {
-    name: "Banderola", img: "/photos/tip-pvc-banderola.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Banderola", img: "/photos/tip-pvc-banderola.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Giro sobre marco inferior. Perfecta en baños, cocinas y sobre puertas.",
     svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilt" /><Hinge cx={60} cy={152} /><Hinge cx={240} cy={152} /></svg>,
   },
   proyectante: {
-    name: "Proyectante", img: "/photos/tip-pvc-proyectante.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Proyectante", img: "/photos/tip-pvc-proyectante.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Giro sobre marco superior.",
     svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilttop" /><Hinge cx={60} cy={8} /><Hinge cx={240} cy={8} /></svg>,
   },
   oscilobatiente: {
-    name: "Oscilobatiente", img: "/photos/tip-pvc-oscilo-2.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Oscilobatiente", img: "/photos/tip-pvc-oscilo-2.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Dos movimientos en un mismo sistema: inclinación desde arriba o apertura sobre bisagra lateral.",
     svg: <svg viewBox="-10 -10 320 320"><Frame /><g className="anim-oscilo-v"><g className="anim-oscilo-b"><Sash x={8} y={8} w={284} h={284} /><rect x={268} y={130} width={8} height={40} rx={3} fill="#eef6e8" /></g></g><Hinge cx={60} cy={292} /><Hinge cx={240} cy={292} /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /></svg>,
   },
   desplazable: {
-    name: "Desplazable", img: "/photos/tip-pvc-desplazable.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Desplazable", img: "/photos/tip-pvc-desplazable.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Apertura exterior mediante sistema de herrajes tijera.",
     /* Los dos brazos tijera, arriba y abajo, se estiran mientras la hoja sale. */
     svg: <svg viewBox="-10 -10 320 320"><Frame /><line className="anim-tijera" x1={20} y1={44} x2={150} y2={44} stroke="#8fe04a" strokeWidth={3} strokeLinecap="round" /><line className="anim-tijera" x1={20} y1={256} x2={150} y2={256} stroke="#8fe04a" strokeWidth={3} strokeLinecap="round" /><Sash x={8} y={8} w={284} h={284} cls="anim-desplaza" /></svg>,
   },
   puerta: {
-    name: "Puerta", img: "/photos/tip-pvc-puerta.webp", mats: ["PVC", "Aluminio", "Vidriería", "Templados"],
+    name: "Puerta", img: "/photos/tip-pvc-puerta.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Puertas de PVC, aluminio y vidrio templado.",
     svg: <svg viewBox="-10 -10 200 320"><Frame w={180} h={300} /><g className="anim-swing"><rect className="dg-sash" x={8} y={8} width={164} height={292} rx={3} /><rect className="dg-glass" x={28} y={28} width={124} height={120} /><rect x={140} y={160} width={8} height={46} rx={3} fill="#eef6e8" /></g></svg>,
   },
   corrediza: {
-    name: "Corrediza", img: "/photos/tip-pvc-corrediza.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Corrediza", img: "/photos/tip-pvc-corrediza.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas.",
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /></svg>,
   },
@@ -247,7 +247,7 @@ const TIPOS: Record<string, Tipo> = {
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /><line x1={8} y1={292} x2={292} y2={292} stroke="#c6f29c" strokeWidth={3} /></svg>,
   },
   balcon: {
-    name: "Puerta balcón", img: "/photos/tip-pvc-puerta-balcon.webp", mats: ["PVC", "Aluminio", "Vidriería"],
+    name: "Puerta balcón", img: "/photos/tip-pvc-puerta-balcon.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas.",
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /><line x1={8} y1={292} x2={292} y2={292} stroke="#c6f29c" strokeWidth={3} /></svg>,
   },
@@ -259,7 +259,7 @@ const TIPOS: Record<string, Tipo> = {
     svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "0px" } as CSSProperties} /><Sash x={78} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "-41px" } as CSSProperties} /><Sash x={148} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "-82px" } as CSSProperties} /><Sash x={218} y={8} w={74} h={284} cls="anim-plega" style={{ "--x": "-123px" } as CSSProperties} /></svg>,
   },
   piel: {
-    name: "Piel de vidrio", img: "/photos/tipo-piel.webp", mats: ["Aluminio", "Vidriería", "Templados"],
+    name: "Piel de vidrio", img: "/photos/tipo-piel.webp", mats: ["Aluminio", "Vidrios"],
     txt: "Fachadas completas de vidrio. Posibilidad de tener paños con apertura para ventilación.",
     svg: (
       <svg viewBox="-10 -10 320 320">
@@ -273,7 +273,7 @@ const TIPOS: Record<string, Tipo> = {
   },
 };
 
-const MATERIALES = ["PVC", "Aluminio", "Vidriería", "Templados"];
+const MATERIALES = ["PVC", "Aluminio", "Vidrios"];
 
 /* Orden de la lista: por movimiento, como pidió el cliente (2026-10-28) */
 const ORDEN = ["fijo", "rebatible", "banderola", "proyectante", "oscilobatiente", "desplazable", "puerta", "corrediza", "patagonica", "monoriel", "balcon", "plegadiza", "piel"];
