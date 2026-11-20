@@ -57,7 +57,7 @@ export default function Inicio() {
       <section id="que-fabricamos" className="section section--paper s-lineas">
         <div className="wrap">
           <Eyebrow n="01">Qué fabricamos</Eyebrow>
-          <h2 className="h-lg rv">Cinco soluciones,<br />una fábrica.</h2>
+          <h2 className="h-lg rv">Cuatro soluciones,<br />una fábrica.</h2>
           <div style={{ height: 8 }} />
           <div className="lines">
             {LINEAS.map((l, i) => (
@@ -69,7 +69,10 @@ export default function Inicio() {
               </Link>
             ))}
           </div>
-          <div style={{ marginTop: 40 }}><Link className="link-arrow" href="/productos">Ver todos los productos <span>→</span></Link></div>
+          <div style={{ marginTop: 40, display: "flex", flexWrap: "wrap", alignItems: "center", gap: "16px 32px" }}>
+            <Link className="btn btn--lime" href="/vidrieria#dvh">Armá tu DVH en el configurador <span className="arr">→</span></Link>
+            <Link className="link-arrow" href="/productos">Ver todos los productos <span>→</span></Link>
+          </div>
         </div>
       </section>
 

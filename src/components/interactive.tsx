@@ -1,8 +1,9 @@
 "use client";
 /* Componentes con interacción: galería arrastrable, vitrinas, tipologías, componentes del sistema y configurador DVH. */
 import Link from "next/link";
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { Arrow, ArrowL } from "./Icon";
+import { Iso } from "./iso";
 import { Eyebrow, sec } from "./blocks";
 import type { FotoGaleria, Linea } from "@/content/site";
 
@@ -177,16 +178,9 @@ export function Vitrinas({ lineas }: { lineas: Linea[] }) {
   );
 }
 
-/* ---------- Tipologías: diagrama animado de cada forma de apertura ---------- */
+/* ---------- Tipologías: esquema isométrico animado de cada forma de apertura (ver iso.tsx) ---------- */
 type Tipo = { name: string; img: string; mats: string[]; txt: string; svg: ReactNode };
 
-const Frame = ({ w = 300, h = 300 }: { w?: number; h?: number }) => <rect className="dg-frame" x={0} y={0} width={w} height={h} rx={4} />;
-/* `style` existe para la plegadiza: cada hoja se corre una distancia distinta
-   al plegarse y esa distancia viaja como variable CSS. */
-const Sash = ({ x, y, w, h, cls = "", style }: { x: number; y: number; w: number; h: number; cls?: string; style?: CSSProperties }) => (
-  <g className={cls} style={style}><rect className="dg-sash" x={x} y={y} width={w} height={h} rx={3} /><rect className="dg-glass" x={x + 12} y={y + 12} width={w - 24} height={h - 24} /></g>
-);
-const Hinge = ({ cx, cy }: { cx: number; cy: number }) => <circle className="dg-hinge" cx={cx} cy={cy} r={5} />;
 
 /* Las trece tipologias, con los nombres, el orden y las descripciones de la
    revision del 04-11-2026. Los renders salen de la carpeta de Drive que indica
@@ -198,78 +192,67 @@ const TIPOS: Record<string, Tipo> = {
   fijo: {
     name: "Paño fijo", img: "/photos/tip-pvc-fijo.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Superficies sin hojas móviles. Máxima luz, vistas limpias.",
-    svg: <svg viewBox="-10 -10 320 320"><defs><clipPath id="cf"><rect x={20} y={20} width={260} height={260} /></clipPath></defs><Frame /><Sash x={8} y={8} w={284} h={284} /><g clipPath="url(#cf)"><rect className="anim-glint" x={20} y={-40} width={60} height={400} fill="rgba(238,246,232,.22)" /></g></svg>,
+    svg: <Iso kind="fijo" />,
   },
   rebatible: {
     name: "Rebatible", img: "/photos/tip-pvc-rebatible.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Giro sobre bisagras laterales. Apertura interior o exterior.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={284} h={284} cls="anim-swing" /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /></svg>,
+    svg: <Iso kind="rebatible" />,
   },
   banderola: {
     name: "Banderola", img: "/photos/tip-pvc-banderola.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Giro sobre marco inferior. Perfecta en baños, cocinas y sobre puertas.",
-    svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilt" /><Hinge cx={60} cy={152} /><Hinge cx={240} cy={152} /></svg>,
+    svg: <Iso kind="banderola" />,
   },
   proyectante: {
     name: "Proyectante", img: "/photos/tip-pvc-proyectante.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Giro sobre marco superior.",
-    svg: <svg viewBox="-10 -10 320 180"><Frame w={300} h={160} /><Sash x={8} y={8} w={284} h={144} cls="anim-tilttop" /><Hinge cx={60} cy={8} /><Hinge cx={240} cy={8} /></svg>,
+    svg: <Iso kind="proyectante" />,
   },
   oscilobatiente: {
     name: "Oscilobatiente", img: "/photos/tip-pvc-oscilo-2.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Dos movimientos en un mismo sistema: inclinación desde arriba o apertura sobre bisagra lateral.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><g className="anim-oscilo-v"><g className="anim-oscilo-b"><Sash x={8} y={8} w={284} h={284} /><rect x={268} y={130} width={8} height={40} rx={3} fill="#eef6e8" /></g></g><Hinge cx={60} cy={292} /><Hinge cx={240} cy={292} /><Hinge cx={8} cy={60} /><Hinge cx={8} cy={240} /></svg>,
+    svg: <Iso kind="oscilobatiente" />,
   },
   desplazable: {
     name: "Desplazable", img: "/photos/tip-pvc-desplazable.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Apertura exterior mediante sistema de herrajes tijera.",
-    /* Los dos brazos tijera, arriba y abajo, se estiran mientras la hoja sale. */
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><line className="anim-tijera" x1={20} y1={44} x2={150} y2={44} stroke="#8fe04a" strokeWidth={3} strokeLinecap="round" /><line className="anim-tijera" x1={20} y1={256} x2={150} y2={256} stroke="#8fe04a" strokeWidth={3} strokeLinecap="round" /><Sash x={8} y={8} w={284} h={284} cls="anim-desplaza" /></svg>,
+    svg: <Iso kind="desplazable" />,
   },
   puerta: {
     name: "Puerta", img: "/photos/tip-pvc-puerta.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Puertas de PVC, aluminio y vidrio templado.",
-    svg: <svg viewBox="-10 -10 200 320"><Frame w={180} h={300} /><g className="anim-swing"><rect className="dg-sash" x={8} y={8} width={164} height={292} rx={3} /><rect className="dg-glass" x={28} y={28} width={124} height={120} /><rect x={140} y={160} width={8} height={46} rx={3} fill="#eef6e8" /></g></svg>,
+    svg: <Iso kind="puerta" />,
   },
   corrediza: {
     name: "Corrediza", img: "/photos/tip-pvc-corrediza.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /></svg>,
+    svg: <Iso kind="corrediza" />,
   },
   patagonica: {
     name: "Patagónica", img: "/photos/tip-pvc-patagonica.webp", mats: ["PVC", "Aluminio"],
     txt: "Combinación de paño fijo y rebatible u oscilobatiente.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-swing swing-r" /><Hinge cx={292} cy={60} /><Hinge cx={292} cy={240} /></svg>,
+    svg: <Iso kind="patagonica" />,
   },
   monoriel: {
     name: "Monoriel", img: "/photos/tip-pvc-monoriel.webp", mats: ["PVC"],
     txt: "Un paño fijo y una hoja que desliza sobre riel.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /><line x1={8} y1={292} x2={292} y2={292} stroke="#c6f29c" strokeWidth={3} /></svg>,
+    svg: <Iso kind="monoriel" />,
   },
   balcon: {
     name: "Puerta balcón", img: "/photos/tip-pvc-puerta-balcon.webp", mats: ["PVC", "Aluminio", "Vidrios"],
     txt: "Hojas que deslizan paralelas sobre rieles. 2, 3, 4 y 6 hojas.",
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={142} h={284} /><Sash x={150} y={8} w={142} h={284} cls="anim-slide" /><line x1={8} y1={292} x2={292} y2={292} stroke="#c6f29c" strokeWidth={3} /></svg>,
+    svg: <Iso kind="balcon" />,
   },
   plegadiza: {
     name: "Plegadiza", img: "/photos/tip-pvc-plegadiza.webp", mats: ["PVC"],
     txt: "Hojas que se pliegan lateralmente, permitiendo grandes aperturas continuas.",
-    /* Las cuatro hojas se pliegan juntas contra el lado izquierdo: cada una se
-       pone de canto y se corre lo necesario para apilarse con las anteriores. */
-    svg: <svg viewBox="-10 -10 320 320"><Frame /><Sash x={8} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "0px" } as CSSProperties} /><Sash x={78} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "-41px" } as CSSProperties} /><Sash x={148} y={8} w={68} h={284} cls="anim-plega" style={{ "--x": "-82px" } as CSSProperties} /><Sash x={218} y={8} w={74} h={284} cls="anim-plega" style={{ "--x": "-123px" } as CSSProperties} /></svg>,
+    svg: <Iso kind="plegadiza" />,
   },
   piel: {
     name: "Piel de vidrio", img: "/photos/tipo-piel.webp", mats: ["Aluminio", "Vidrios"],
     txt: "Fachadas completas de vidrio. Posibilidad de tener paños con apertura para ventilación.",
-    svg: (
-      <svg viewBox="-10 -10 320 320">
-        <defs><clipPath id="cp"><rect x={0} y={0} width={300} height={300} /></clipPath></defs>
-        {[0, 1, 2].flatMap((r) => [0, 1, 2].map((c) => (
-          <rect key={r + "-" + c} className="dg-sash" x={c * 100 + 4} y={r * 100 + 4} width={92} height={92} rx={2} style={{ opacity: 0.55 + ((r + c) % 3) * 0.2 }} />
-        )))}
-        <g clipPath="url(#cp)"><rect className="anim-glint" x={0} y={-60} width={70} height={420} fill="rgba(238,246,232,.18)" /></g>
-      </svg>
-    ),
+    svg: <Iso kind="piel" />,
   },
 };
 
