@@ -220,11 +220,30 @@ const SPECS: Record<Kind, Spec> = {
     },
   },
   proyectante: {
-    /* bisagras arriba, la parte de abajo sale hacia afuera: se aleja, detrás del marco. Manija en el travesaño de abajo. */
+    /* bisagras arriba, la parte de abajo sale hacia afuera: se aleja, detrás
+       del marco. El herraje no es una manija en la hoja sino un brazo de
+       proyección (revisión del 24-11-2026, sobre el render de catálogo): un
+       cuerpo fijo en el travesaño de abajo del marco, del lado de adentro, y
+       un brazo telescópico que sale de ese cuerpo y toma la hoja por el
+       centro de su travesaño inferior. Cerrada, el brazo queda recogido en
+       el cuerpo; al abrir se extiende y se inclina siguiendo a la hoja. */
     W: 120, H: 80, fit: 0.86,
     draw: (P, k) => {
       const V = tilt(-1, rad(40) * k, false), w = 120 - 2 * F, h = 80 - 2 * F, o: V3 = [F, 80 - F, 0];
-      return { lights: [[F, F, w, h]], back: <g><Sash P={P} o={o} U={X} V={V} w={w} h={h} /><Handle P={P} base={at(o, X, V, w / 2 - 8, h - 3)} U={X} V={V} dir={X} len={16} /></g> };
+      const base: V3 = [60, F / 2, 1.5];          /* pivote del cuerpo, sobre el travesaño del marco */
+      const tip = at(o, X, V, w / 2, h - 3);      /* centro del travesaño de abajo de la hoja */
+      const mid = add(base, add(tip, base, -1), 0.45); /* hasta acá llega el tramo grueso */
+      return {
+        lights: [[F, F, w, h]],
+        back: <Sash P={P} o={o} U={X} V={V} w={w} h={h} />,
+        front: (
+          <g>
+            <line className="iso-arm-rod" x1={P(mid)[0]} y1={P(mid)[1]} x2={P(tip)[0]} y2={P(tip)[1]} />
+            <line className="iso-arm-body" x1={P(base)[0]} y1={P(base)[1]} x2={P(mid)[0]} y2={P(mid)[1]} />
+            <line className="iso-arm-body" x1={P([51, F / 2, 1.5])[0]} y1={P([51, F / 2, 1.5])[1]} x2={P([69, F / 2, 1.5])[0]} y2={P([69, F / 2, 1.5])[1]} />
+          </g>
+        ),
+      };
     },
   },
   oscilobatiente: {

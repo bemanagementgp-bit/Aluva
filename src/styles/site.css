@@ -378,6 +378,9 @@ button { font: inherit; color: inherit; background: none; border: 0; cursor: poi
 .iso-arm { stroke: var(--mint); stroke-width: 1.5; opacity: .7; }
 .iso-rail { stroke: var(--mint); stroke-width: 3; stroke-linecap: round; opacity: .35; }
 .iso-hinge { fill: var(--ink); stroke: var(--bg); stroke-width: 1; }
+/* brazo de proyección de la proyectante: cuerpo grueso fijo al marco y varilla que se extiende */
+.iso-arm-body { stroke: var(--ink); stroke-width: 4; stroke-linecap: round; }
+.iso-arm-rod { stroke: var(--ink); stroke-width: 1.8; stroke-linecap: round; opacity: .9; }
 .iso-handle { fill: none; stroke: var(--ink); stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
 .iso-glare { fill: #fff; }
 
