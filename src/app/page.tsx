@@ -57,11 +57,11 @@ export default function Inicio() {
             <p className="em-hero__p">Planta y equipo propios. Fabricamos, instalamos y respondemos por cada obra.</p>
           </div>
         </div>
-        {/* Los botones vinieron de la portada vieja (pedido del 24-11-2026).
-            Van sobre la pared verde del cartel, debajo de las letras, con su
-            misma inclinación y relieve, y escalan con la foto (las medidas
-            están en site.css); por eso son hijos directos de la sección y no
-            del bloque de texto. Solo en el teléfono bajan debajo del párrafo. */}
+        {/* Los botones vinieron de la portada vieja (24-11-2026). Van sobre
+            la pared verde, arriba del eslogan "TECNOLOGÍA EN ABERTURAS", en
+            lima y verde profundo; escalan con la foto (medidas en site.css)
+            y por eso son hijos de la sección y no del bloque de texto. Debajo
+            de 1280 px bajan debajo del párrafo. */}
         <div className="wrap btn-row em-hero__cta">
           <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
           <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>

@@ -58,21 +58,20 @@ export default function Empresa() {
       <section className="hero">
         <div className="hero__media"><img src="/photos/portada-inicio-proyectantes.jpg" alt="Ventanas proyectantes de aluminio negro abiertas hacia el jardín" fetchPriority="high" /></div>
         <div className="wrap hero__in">
-          {/* Fue la portada de inicio hasta la revisión del 24-11-2026, cuando
-              el cliente pidió intercambiarla con la de /empresa. Sigue la
-              referencia del cliente (Photoshop, 2026-11-05): el titular
-              arriba, el renglon de rubros, y abajo la marca, que ahora cierra
-              a la derecha, en el lugar que tenian los botones. Titular y
-              rubros caen en la misma vertical que el logo del header.
-
-              El titular es el <h1>: dice que hace la empresa y hace cuanto,
-              que es mas util para buscadores que un logo con alt. */}
+          {/* Portada de Empresa (rearmada el 24-11-2026, "mejorá
+              considerablemente esto"). Un solo bloque apoyado abajo a la
+              izquierda, de lectura corrida: antecedente, titular, bajada, y
+              una banda de cierre con los rubros a la izquierda y la marca a
+              la derecha, separada por un filete. Nada flota: la marca cierra
+              el bloque en la misma base que los rubros. Sin botones: los CTAs
+              están en la portada de inicio. */}
+          <p className="hero__ey">Empresa</p>
           <h1 className="hero__claim">Más de 20 años<br />fabricando aberturas<br />eficientes y sustentables</h1>
-          <p className="hero__cats">
-            {["PVC", "Aluminio", "Vidrios", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
-          </p>
-          {/* Sin botones: los CTAs se fueron a la portada de inicio (24-11-2026). */}
-          <div className="hero__fila">
+          <p className="hero__lead">Planta propia en La Plata. Medimos, fabricamos e instalamos con nuestro equipo, y respondemos por cada obra.</p>
+          <div className="hero__band">
+            <p className="hero__cats">
+              {["PVC", "Aluminio", "Vidrios", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
+            </p>
             <img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} />
           </div>
         </div>

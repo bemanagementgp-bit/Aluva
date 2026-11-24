@@ -2272,6 +2272,10 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
    1,3:1, no se ve. La jerarquía la hace el peso, y el verde lo pone el
    cartel de la foto. */
 .em-hero { position: relative; height: 100svh; min-height: 520px; overflow: hidden; color: var(--paper-ink); background: #bcd9f2; }
+/* Recorte centrado: lo que sobra de alto se saca mitad de arriba y mitad de
+   abajo, que es lo que mantiene entero el cartel, incluido "TECNOLOGÍA EN
+   ABERTURAS" (pedido del 24-11-2026: con el recorte corrido hacia arriba se
+   cortaba). */
 .em-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
 /* El hero lleva section--paper para que el header tome su versión clara. El
    borde que esa clase dibuja entre dos secciones de papel acá sobra. */
@@ -2288,19 +2292,28 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 
 /* El espaciado es parejo y atado al ancho, porque el cielo disponible también
    lo está. El mínimo de 86px es lo que hace falta para despejar el header. */
-.em-hero__in { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding: clamp(86px, 6vw, 110px) var(--gutter) 0; }
-.em-hero__ey { margin: 0 0 12px; display: flex; align-items: center; gap: 14px; font-family: var(--head); font-weight: 700; font-size: clamp(12px, 1.05vw, 14px); letter-spacing: .2em; text-transform: uppercase; }
+.em-hero__in { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; align-items: flex-start; justify-content: flex-start; padding: clamp(86px, 6vw, 110px) var(--gutter) 0; }
+.em-hero__ey { margin: 0 0 10px; display: flex; align-items: center; gap: 14px; font-family: var(--head); font-weight: 700; font-size: clamp(12px, 1.05vw, 14px); letter-spacing: .2em; text-transform: uppercase; }
 .em-hero__ey::before { content: ""; flex: 0 0 auto; width: 34px; height: 2px; background: currentColor; }
 .em-hero__t { margin: 0; font-family: var(--head); font-weight: 400; text-transform: uppercase; line-height: .98; letter-spacing: -.02em; font-size: clamp(30px, 4.3vw, 60px); }
 .em-hero__t span { display: block; }
 .em-hero__t b { font-weight: 700; }
-.em-hero__p { margin: 14px 0 0; max-width: 52ch; text-wrap: balance; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.6; color: #2a3a33; }
+.em-hero__p { margin: 10px 0 0; max-width: 52ch; text-wrap: balance; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.6; color: #2a3a33; }
 
 /* Ventana baja: queda menos cielo arriba del cartel. El titular baja un
    escalón para que el bloque siga entrando. A 1366x768 son 313px de cielo
    contra 280 del texto; con el cuerpo grande no entraba. */
 @media (max-height: 820px) {
   .em-hero__t { font-size: clamp(30px, 3.6vw, 48px); }
+}
+/* Ventana muy baja (p. ej. 1366x650, un portátil con la barra del navegador):
+   el cielo no alcanza para el texto con el recorte centrado. Se corre el
+   recorte un poco hacia arriba (40%: se pierde el filo de abajo del eslogan,
+   no el eslogan) y el bloque se aprieta un escalón. */
+@media (max-height: 700px) {
+  .em-hero__bg { object-position: 50% 40%; }
+  .em-hero__in { padding-top: 72px; }
+  .em-hero__t { font-size: clamp(28px, 3.3vw, 44px); }
 }
 
 /* Abajo de 1280px de ancho el cielo arriba del cartel no alcanza para el
@@ -2321,67 +2334,106 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
   .em-hero__t span { display: inline; }
 }
 
-/* Botones de la portada de inicio, sobre la pared del cartel (24-11-2026).
+/* Botones de la portada de inicio, sobre la pared, arriba del eslogan
+   "TECNOLOGÍA EN ABERTURAS" (24-11-2026, quinta vuelta).
    ──────────────────────────────────────────────────────────────────────
-   El cliente pidió que fueran parte de la foto: sobre el verde y con el
-   lenguaje del cartel. Van debajo de las letras "aluva", que es el único
-   tramo de pared libre que les da altura (unos 100 px del archivo entre la
-   base de las letras y el borde de la pared), y siguen la inclinación de la
-   pared, que en la foto baja hacia la derecha 8°.
+   Horizontales, uno al lado del otro, en la franja de pared libre que
+   queda entre el borde de arriba de la pared y el eslogan, a la derecha de
+   la "a" final de "aluva". Medido sobre el archivo (1536x1024): en x
+   1100-1420 el borde de la pared va de 630 a 686 y lo blanco del eslogan
+   empieza en 742 (la T y el acento de la Í). La fila sale de x=1100 (la
+   "a" termina en 1068) con el centro en y=711 y mide menos de 300 px de
+   archivo, así cierra antes de x=1400: queda a unos 8 px del borde de la
+   pared en su punta derecha y a 12 del eslogan en la izquierda.
 
-   Medido sobre el archivo (1536x1024): la base de las letras va de y=710 en
-   x=350 a y=815 en x=1050; el borde de abajo de la pared, de 819 a 909. La
-   fila se centra en ese hueco: arranca en x=105 (el borde del icono) con el
-   centro en y=730 y baja 0,14 px por px.
+   Escala de la foto, --s (px de pantalla por px de archivo): los botones
+   crecen con ella. Desde 1280 la foto va a sangre y centrada: --s =
+   max(ancho/1536, alto/1024) y lo recortado se reparte mitad y mitad
+   (--ox, --oy); con menos de 700 px de alto el recorte es 50% 40% y --oy
+   acompaña. Debajo de 1280 la foto va entera arriba y la franja mide menos
+   de 40 px: los botones bajan debajo del párrafo, sobre blanco.
 
-   Todo se expresa en la escala de la foto, --s (px de pantalla por px de
-   archivo), así los botones crecen y se achican con el cartel como si
-   estuvieran pintados en la pared: alto, letra, borde y sombra. Desde 1280
-   la foto va a sangre y centrada: --s = max(ancho/1536, alto/1024) y lo
-   recortado se reparte mitad y mitad (--ox, --oy). Entre 700 y 1279 la foto
-   va entera arriba, así que --s es ancho/1536 y no hay recorte. Debajo de
-   700 la pared mide menos de 46 px de alto y los botones no entran con un
-   tamaño que se pueda tocar: bajan debajo del párrafo, sobre blanco.
-
-   Estilo: blanco sobre verde con sombra de relieve, como las letras del
-   cartel (su sombra mide rgb(62,90,41)). El principal lleno, el segundo
-   solo con borde. Sin esquinas redondeadas, como el resto del sitio. */
-@media (min-width: 700px) {
-  .em-hero { container-type: inline-size; --s: calc(100cqw / 1536); --ox: 0px; --oy: 0px; }
-  .em-hero__cta {
-    --h: max(32px, calc(46 * var(--s)));
-    position: absolute; z-index: 1; width: auto; max-width: none; margin: 0; padding: 0; gap: calc(var(--h) * .22); flex-wrap: nowrap;
-    left: calc(var(--ox) + 105 * var(--s));
-    top: calc(var(--oy) + 730 * var(--s) - var(--h) / 2);
-    transform: rotate(8deg); transform-origin: left center;
-  }
-  .em-hero__cta .btn { height: var(--h); padding: 0 calc(var(--h) * .45); gap: calc(var(--h) * .22); font-family: var(--head); font-size: max(10px, calc(12.5 * var(--s))); letter-spacing: .14em; border-radius: 0; }
-  .em-hero__cta .btn--lime { background: #fff; color: #3e7d20; box-shadow: calc(3 * var(--s)) calc(4 * var(--s)) 0 rgba(42,68,28,.6); }
-  .em-hero__cta .btn--lime:hover { background: #fff; transform: translate(-1px, -1px); box-shadow: calc(4 * var(--s)) calc(5 * var(--s)) 0 rgba(42,68,28,.6); }
-  .em-hero .em-hero__cta .btn--ghost { background: transparent; border: max(1.5px, calc(2 * var(--s))) solid #fff; color: #fff; box-shadow: calc(3 * var(--s)) calc(4 * var(--s)) 0 rgba(42,68,28,.45); backdrop-filter: none; -webkit-backdrop-filter: none; }
-  .em-hero .em-hero__cta .btn--ghost:hover { background: rgba(255,255,255,.14); color: #fff; border-color: #fff; transform: translate(-1px, -1px); }
-}
+   Color (pedido: "más llamativo"): el principal en el lima de marca con
+   tinta verde profunda, igual que el botón del header; el segundo en verde
+   profundo con texto blanco. Los dos cortan contra el verde de la pared,
+   que es más claro y más apagado que ambos. */
 @media (min-width: 1280px) {
   .em-hero { container-type: size; --s: max(calc(100cqw / 1536), calc(100cqh / 1024)); --ox: calc((100cqw - 1536 * var(--s)) / 2); --oy: calc((100cqh - 1024 * var(--s)) / 2); }
+  .em-hero__cta {
+    --h: clamp(34px, calc(37 * var(--s)), 48px);
+    position: absolute; z-index: 1; width: auto; max-width: none; margin: 0; padding: 0; gap: 8px; flex-wrap: nowrap;
+    left: calc(var(--ox) + 1100 * var(--s));
+    top: calc(var(--oy) + 711 * var(--s) - var(--h) / 2);
+  }
+  .em-hero__cta .btn { height: var(--h); padding: 0 clamp(11px, calc(13 * var(--s)), 18px); gap: 8px; font-size: clamp(10px, calc(10 * var(--s)), 13px); letter-spacing: .1em; border-radius: 0; box-shadow: 0 2px 10px rgba(0,30,10,.3); }
+  .em-hero__cta .btn--lime:hover { box-shadow: 0 4px 14px rgba(0,30,10,.36); }
+  .em-hero .em-hero__cta .btn--ghost { background: var(--bg); border: 0; color: #fff; }
+  .em-hero .em-hero__cta .btn--ghost:hover { background: var(--deep); color: #fff; }
 }
-@media (max-width: 699px) {
-  /* Debajo del párrafo, sobre blanco: el fantasma con borde en tinta, como
-     cualquier botón sobre papel. La fila lleva el aire de abajo que antes
-     tenía el bloque de texto. */
+@media (min-width: 1280px) and (max-height: 700px) {
+  .em-hero { --oy: calc((100cqh - 1024 * var(--s)) * .4); }
+}
+@media (max-width: 1279px) {
+  /* Debajo del párrafo, sobre blanco: el principal en lima y el segundo en
+     verde profundo, como arriba. La fila lleva el aire de abajo que tenía
+     el bloque de texto. */
   .em-hero__in { padding-bottom: 0; }
   .em-hero__cta { margin-top: 26px; padding-bottom: clamp(32px, 5vw, 52px); }
-  .em-hero .em-hero__cta .btn--ghost { border-color: rgba(14,21,18,.25); color: var(--paper-ink); }
-  .em-hero .em-hero__cta .btn--ghost:hover { border-color: var(--paper-ink); }
+  .em-hero__cta .btn { --h: 46px; border-radius: 0; }
+  .em-hero .em-hero__cta .btn--ghost { background: var(--bg); border: 0; color: #fff; }
+  .em-hero .em-hero__cta .btn--ghost:hover { background: var(--deep); color: #fff; }
 }
 @media (max-width: 560px) {
   .em-hero__cta { flex-direction: column; }
   .em-hero__cta .btn { width: 100%; justify-content: center; }
 }
 
-/* Portada de /empresa sin botones (24-11-2026): la marca pasa al lugar que
-   ocupaban, abajo a la derecha. Cierra la composición frente al titular,
-   sobre la esquina más oscura del velo, donde el lima se lee sin esfuerzo.
-   En el teléfono sigue apilada bajo el titular, a la izquierda. */
+/* ==========================================================================
+   Portada de /empresa (rearmada el 24-11-2026)
+   ==========================================================================
+   Un bloque, abajo a la izquierda, que se lee de corrido:
+
+     —— EMPRESA                              ← antecedente, menta
+     Más de 20 años                          ← titular, blanco
+     fabricando aberturas
+     eficientes y sustentables
+     Planta propia en La Plata. …            ← bajada, menta claro
+     ─────────────────────────────────────── ← filete
+     PVC  ALUMINIO  VIDRIOS  REVESTIMIENTOS            [ A L U V A ]
+
+   La banda del pie ordena lo que antes flotaba: los rubros y la marca
+   comparten base y el filete los ata al bloque. El velo se concentra en el
+   cuadrante del texto (abajo a la izquierda) y deja la hoja abierta, arriba
+   a la derecha, casi sin lavar: es lo que se mira de esta foto. */
+.page-empresa .hero__ey { margin: 0 0 clamp(14px, 2vh, 22px); display: flex; align-items: center; gap: 14px; font-family: var(--head); font-weight: 700; font-size: clamp(11px, .85vw, 13px); letter-spacing: .22em; text-transform: uppercase; color: var(--mint); }
+.page-empresa .hero__ey::before { content: ""; flex: 0 0 auto; width: 34px; height: 2px; background: currentColor; }
+.page-empresa .hero__claim { font-size: clamp(34px, 4.5vw, 64px); line-height: 1.04; letter-spacing: -.02em; }
+.page-empresa .hero__lead { display: block; margin: clamp(16px, 2.2vh, 24px) 0 0; max-width: 46ch; font-size: clamp(15px, 1.1vw, 18px); line-height: 1.6; color: #d4e2d7; text-wrap: balance; }
+.page-empresa .hero__band { width: 100%; margin-top: clamp(32px, 6vh, 64px); padding-top: clamp(18px, 2.4vh, 26px); border-top: 1px solid rgba(255,255,255,.22); display: flex; align-items: center; justify-content: space-between; gap: 32px; }
+.page-empresa .hero__cats { margin: 0; }
+.page-empresa .hero .hero__marca { width: clamp(150px, 13vw, 210px); filter: none; }
+.page-empresa .hero__ey, .page-empresa .hero__lead, .page-empresa .hero__band { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.is-loaded .page-empresa .hero__ey { opacity: 1; transform: none; transition-delay: 0s; }
+.is-loaded .page-empresa .hero__lead { opacity: 1; transform: none; transition-delay: .24s; }
+.is-loaded .page-empresa .hero__band { opacity: 1; transform: none; transition-delay: .4s; }
+/* Los hijos de la banda ya no necesitan su propia entrada */
+.page-empresa .hero__band .hero__cats, .page-empresa .hero__band .hero__marca { opacity: 1; transform: none; transition: none; }
+@media (prefers-reduced-motion: reduce) {
+  .page-empresa .hero__ey, .page-empresa .hero__lead, .page-empresa .hero__band { opacity: 1; transform: none; }
+}
 @media (min-width: 821px) {
-  .page-empresa .hero__fila { justify-content: flex-end; }
+  /* El pie deja lugar al botón flotante de WhatsApp (abajo a la derecha,
+     unos 80 px): la marca cierra la banda justo encima, no debajo de él. */
+  .page-empresa .hero { padding-bottom: clamp(104px, 13vh, 136px); }
+  .page-empresa .hero__media img { object-position: 20% 50%; }
+  .page-empresa .hero__media::after { background:
+    linear-gradient(180deg, rgba(0,22,22,.38) 0%, rgba(0,22,22,.06) 26%, rgba(0,22,22,.1) 50%, rgba(0,22,22,.72) 82%, rgba(0,22,22,.92) 100%),
+    linear-gradient(100deg, rgba(0,22,22,.78) 0%, rgba(0,22,22,.5) 32%, rgba(0,22,22,.12) 62%, rgba(0,22,22,0) 80%); }
+}
+@media (max-width: 820px) {
+  /* En el teléfono: antecedente, titular y la marca sola; rubros y bajada
+     quedan afuera, como en la portada vieja (pedido del 2026-11-04). */
+  .page-empresa .hero__lead { display: none; }
+  .page-empresa .hero__band { margin-top: 22px; padding-top: 0; border-top: 0; justify-content: flex-start; }
+  .page-empresa .hero .hero__marca { width: min(56vw, 220px); }
 }
