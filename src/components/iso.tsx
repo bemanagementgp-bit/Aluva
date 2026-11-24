@@ -254,15 +254,18 @@ const SPECS: Record<Kind, Spec> = {
   },
   oscilobatiente: {
     /* primero vuelca (eje abajo), después abre (bisagras a la izquierda); siempre
-       hacia adentro. La manija acompaña como en el herraje real: abajo cerrada,
-       arriba para volcar, horizontal para abrir. */
+       hacia adentro. La manija acompaña al herraje tal como va montado en las
+       aberturas del cliente (corrección del 24-11-2026): cerrada apunta hacia
+       arriba y baja para abrir: horizontal para abrir de par en par, hacia
+       abajo del todo para volcar. */
     W: 90, H: 130, fit: 0.86, ms: CICLO_DOBLE,
     draw: (P, _k, t) => {
       const v = t < 0 ? 1 : pulse(t, 0.06, 0.2, 0.3, 0.44), b = t < 0 ? 0 : pulse(t, 0.56, 0.7, 0.82, 0.94);
       const phi = t < 0 ? Math.PI : rad(180) * pulse(t, 0, 0.06, 0.44, 0.5) + rad(90) * pulse(t, 0.5, 0.56, 0.94, 1);
       const w = 90 - 2 * F, h = 130 - 2 * F, o: V3 = [F, F, 0];
       const U = turn(1, rad(55) * b, true), V = tilt(1, rad(30) * v, true);
-      const dir = add(add([0, 0, 0], V, -Math.cos(phi)), U, -Math.sin(phi));
+      /* phi: 0 = arriba (cerrada), 90° = horizontal hacia la bisagra (abrir), 180° = abajo (volcar) */
+      const dir = add(add([0, 0, 0], V, Math.cos(phi)), U, -Math.sin(phi));
       return { lights: [[F, F, w, h]], front: <g><Sash P={P} o={o} U={U} V={V} w={w} h={h} /><Handle P={P} base={at(o, U, V, w - 4, h / 2)} U={U} V={V} dir={dir} len={16} /></g> };
     },
   },
