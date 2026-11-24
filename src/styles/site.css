@@ -800,8 +800,8 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 .cover .btn--ghost { color: #fff; border-color: rgba(255,255,255,.55); }
 
 .cover__title, .cover__lead, .cover .phero__crumbs { text-shadow: 0 2px 18px rgba(0,0,0,.35); }
-.page-inicio .hero__media::after { background: linear-gradient(180deg, rgba(0,28,28,.3) 0%, rgba(0,28,28,0) 20%, rgba(0,28,28,.05) 50%, rgba(0,28,28,.78) 100%); }
-.page-inicio .hero__title { text-shadow: 0 2px 18px rgba(0,0,0,.35); }
+.page-empresa .hero__media::after { background: linear-gradient(180deg, rgba(0,28,28,.3) 0%, rgba(0,28,28,0) 20%, rgba(0,28,28,.05) 50%, rgba(0,28,28,.78) 100%); }
+.page-empresa .hero__title { text-shadow: 0 2px 18px rgba(0,0,0,.35); }
 .showcase .vit__body h3 { color: #fff; }
 .showcase .vit img { filter: grayscale(.35) brightness(.8); }
 .showcase .vit.is-active img { filter: none; }
@@ -942,15 +942,15 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
    Medido sobre el pie derecho (420x140 px): con el recorte centrado daba 65 de
    media y 54 de desvio; corrido a la izquierda, 49 y 34. Un tercio menos de
    ruido abajo a la derecha, que es donde va la llamada a la accion. */
-.page-inicio .hero__media img { object-position: 0% 50%; filter: contrast(1.03); }
-.page-inicio .hero__media::after { background:
+.page-empresa .hero__media img { object-position: 0% 50%; filter: contrast(1.03); }
+.page-empresa .hero__media::after { background:
   linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 18%, rgba(0,0,0,0) 55%, rgba(5,14,10,.72) 100%),
   linear-gradient(90deg, rgba(5,14,10,.55) 0%, rgba(5,14,10,0) 45%); }
 @media (max-width: 820px) {
   /* En vertical la foto ocupa la parte de arriba para que se vea la abertura entera */
-  .page-inicio .hero__media { background: #06110d; }
-  .page-inicio .hero__media img { height: 80vw; margin-top: 64px; object-position: 50% 50%; }
-  .page-inicio .hero__media::after { background: linear-gradient(180deg, rgba(5,14,10,0) 0, rgba(5,14,10,0) calc(80vw - 40px), #06110d calc(80vw + 64px)); }
+  .page-empresa .hero__media { background: #06110d; }
+  .page-empresa .hero__media img { height: 80vw; margin-top: 64px; object-position: 50% 50%; }
+  .page-empresa .hero__media::after { background: linear-gradient(180deg, rgba(5,14,10,0) 0, rgba(5,14,10,0) calc(80vw - 40px), #06110d calc(80vw + 64px)); }
 }
 @media (min-width: 821px) {
   /* El velo sigue al texto.
@@ -966,7 +966,7 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 
      En la franja del pie el parrafo queda en 8,58 en el peor punto, la
      bajada en 12,57 y los rubros en 12,03. */
-  .page-inicio .hero__media::after { background:
+  .page-empresa .hero__media::after { background:
     linear-gradient(180deg, rgba(0,0,0,.35) 0%, rgba(0,0,0,0) 14%, rgba(0,0,0,0) 40%, rgba(5,14,10,.3) 58%, rgba(5,14,10,.62) 76%, rgba(5,14,10,.88) 100%),
     linear-gradient(90deg, rgba(5,14,10,.45) 0%, rgba(5,14,10,.18) 62%, rgba(5,14,10,0) 90%); }
 }
@@ -1247,9 +1247,9 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 @media (prefers-reduced-motion: reduce) { .intro { display: none; } }
 
 /* Entrada de la portada del inicio, en cascada, cuando sube la cortina */
-.page-inicio .hero__acciones { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
-.is-loaded .page-inicio .hero__acciones { opacity: 1; transform: none; transition-delay: .5s; }
-@media (prefers-reduced-motion: reduce) { .page-inicio .hero__acciones { opacity: 1; transform: none; } }
+.page-empresa .hero__acciones { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.is-loaded .page-empresa .hero__acciones { opacity: 1; transform: none; transition-delay: .5s; }
+@media (prefers-reduced-motion: reduce) { .page-empresa .hero__acciones { opacity: 1; transform: none; } }
 
 /* ==========================================================================
    Nuestros productos: fotos más visibles (cinco líneas)
@@ -1339,7 +1339,7 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 .section--paper .explora a:hover { color: #2f7a0a; }
 @media (max-width: 820px) { .explora ul { grid-template-columns: 1fr 1fr; } }
 @media (max-width: 480px) { .explora ul { grid-template-columns: 1fr; } }
-@media (max-width: 820px) { .page-inicio .hero__title { margin-bottom: 4px; } }
+@media (max-width: 820px) { .page-empresa .hero__title { margin-bottom: 4px; } }
 
 .cta .btn-row svg { width: 18px; height: 18px; }
 @media (max-width: 820px) {
@@ -1492,9 +1492,9 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
      primera pantalla. La foto crece hasta 46svh y el hueco baja a 45px.
      La marca pasa de 190 a 296px: en un telefono 190px es media pantalla y
      se lee como un logo de pie de pagina, no como una portada. */
-  .page-inicio .hero { --marca: min(76vw, 300px); }
-  .page-inicio .hero__media img { height: 46svh; }
-  .page-inicio .hero__media::after { background:
+  .page-empresa .hero { --marca: min(76vw, 300px); }
+  .page-empresa .hero__media img { height: 46svh; }
+  .page-empresa .hero__media::after { background:
     linear-gradient(180deg, rgba(5,14,10,0) 0, rgba(5,14,10,0) calc(46svh - 40px), #06110d calc(46svh + 64px)); }
 
   /* ---- Inicio · Por que Aluva -----------------------------------------
@@ -1756,21 +1756,21 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 /* La portada se arma sola: primero la marca, que trae su propia cortina, y
    despues la franja del pie, de izquierda a derecha. La bajada ya no es una
    fila del <h1>, asi que necesita su propio retardo. */
-.page-inicio .hero__cats,
-.page-inicio .hero__sub,
-.page-inicio .hero__lead {
+.page-empresa .hero__cats,
+.page-empresa .hero__sub,
+.page-empresa .hero__lead {
   opacity: 0;
   transform: translateY(14px);
   transition: opacity .8s var(--ease), transform .9s var(--ease);
 }
-.is-loaded .page-inicio .hero__cats { opacity: 1; transform: none; transition-delay: .26s; }
-.is-loaded .page-inicio .hero__sub { opacity: 1; transform: none; transition-delay: .36s; }
-.is-loaded .page-inicio .hero__lead { opacity: 1; transform: none; transition-delay: .46s; }
-.is-loaded .page-inicio .hero__acciones { transition-delay: .58s; }
+.is-loaded .page-empresa .hero__cats { opacity: 1; transform: none; transition-delay: .26s; }
+.is-loaded .page-empresa .hero__sub { opacity: 1; transform: none; transition-delay: .36s; }
+.is-loaded .page-empresa .hero__lead { opacity: 1; transform: none; transition-delay: .46s; }
+.is-loaded .page-empresa .hero__acciones { transition-delay: .58s; }
 @media (prefers-reduced-motion: reduce) {
-  .page-inicio .hero__cats,
-  .page-inicio .hero__sub,
-  .page-inicio .hero__lead { opacity: 1; transform: none; }
+  .page-empresa .hero__cats,
+  .page-empresa .hero__sub,
+  .page-empresa .hero__lead { opacity: 1; transform: none; }
 }
 
 @media (max-width: 820px) {
@@ -1784,8 +1784,8 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
      Con las dos afuera la foto recupera los 13 puntos que habia cedido:
      vuelve a 46svh. */
   .hero__cats, .hero__lead { display: none; }
-  .page-inicio .hero__media img { height: 46svh; }
-  .page-inicio .hero__media::after { background:
+  .page-empresa .hero__media img { height: 46svh; }
+  .page-empresa .hero__media::after { background:
     linear-gradient(180deg, rgba(5,14,10,0) 0, rgba(5,14,10,0) calc(46svh - 40px), #06110d calc(46svh + 64px)); }
 }
 
@@ -2144,22 +2144,22 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
   /* El velo acompania al texto: el titular cae sobre el vidrio claro de la
      mitad izquierda, asi que el lavado lateral es mas largo y el de abajo
      arranca mas arriba. */
-  .page-inicio .hero__media::after { background:
+  .page-empresa .hero__media::after { background:
     linear-gradient(180deg, rgba(0,0,0,.42) 0%, rgba(0,0,0,.22) 22%, rgba(5,14,10,.34) 48%, rgba(5,14,10,.62) 76%, rgba(5,14,10,.9) 100%),
     linear-gradient(90deg, rgba(5,14,10,.6) 0%, rgba(5,14,10,.34) 46%, rgba(5,14,10,0) 82%); }
 }
 
 /* Reveal: titular primero, rubros, y la fila de abajo al final. */
-.page-inicio .hero__claim,
-.page-inicio .hero__marca,
-.page-inicio .hero__cats,
-.page-inicio .hero__acciones { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
-.is-loaded .page-inicio .hero__claim { opacity: 1; transform: none; transition-delay: .1s; }
-.is-loaded .page-inicio .hero__cats { opacity: 1; transform: none; transition-delay: .32s; }
-.is-loaded .page-inicio .hero__marca { opacity: 1; transform: none; transition-delay: .46s; }
-.is-loaded .page-inicio .hero__acciones { opacity: 1; transform: none; transition-delay: .58s; }
+.page-empresa .hero__claim,
+.page-empresa .hero__marca,
+.page-empresa .hero__cats,
+.page-empresa .hero__acciones { opacity: 0; transform: translateY(14px); transition: opacity .8s var(--ease), transform .9s var(--ease); }
+.is-loaded .page-empresa .hero__claim { opacity: 1; transform: none; transition-delay: .1s; }
+.is-loaded .page-empresa .hero__cats { opacity: 1; transform: none; transition-delay: .32s; }
+.is-loaded .page-empresa .hero__marca { opacity: 1; transform: none; transition-delay: .46s; }
+.is-loaded .page-empresa .hero__acciones { opacity: 1; transform: none; transition-delay: .58s; }
 @media (prefers-reduced-motion: reduce) {
-  .page-inicio .hero__claim, .page-inicio .hero__marca, .page-inicio .hero__cats, .page-inicio .hero__acciones { opacity: 1; transform: none; }
+  .page-empresa .hero__claim, .page-empresa .hero__marca, .page-empresa .hero__cats, .page-empresa .hero__acciones { opacity: 1; transform: none; }
 }
 
 @media (max-width: 820px) {
@@ -2238,4 +2238,91 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
   .hdr__in, .hdr.on-light .hdr__in { justify-content: flex-start; gap: 126px; }
   .nav { margin-left: 0; } /* el margen fijo de 24px que vino de GitHub (línea 120) se anula: el aire lo pone el gap de arriba */
   .hdr__cta { margin-left: auto; }
+}
+
+/* ==========================================================================
+   Portada de inicio (ex hero de Empresa)
+   ========================================================================== */
+/* Portada de inicio: la foto del frente del local, a sangre. Nació como
+   hero de /empresa (de ahí el prefijo em-) y pasó a la home en la revisión
+   del 24-11-2026; la portada de proyectantes se fue a /empresa.
+
+   ── El encuadre ──
+
+   El hero mide exactamente el alto de la ventana: no sobra abajo del
+   pliegue ni obliga a scrollear para terminar de verlo. Como la foto es
+   3:2 y la ventana nunca lo es, lo que sobra de alto se recorta mitad
+   arriba y mitad abajo (object-position 50%), que es lo que mantiene el
+   cartel centrado en el cuadro.
+
+   Lo que se pierde abajo es la esquina derecha del verde, porque la franja
+   baja en diagonal: medido columna por columna, su punto más bajo está al
+   97,6% del alto del archivo. Arriba se pierde cielo, que es la parte
+   vacía. El techo del cartel queda cerca del 39% del alto del hero, y ese
+   cielo de arriba es lo que tiene que alcanzar para el texto.
+
+   ── Por qué el texto va oscuro ──
+
+   El cielo es la única zona legible. Medido sobre el archivo, la tinta
+   oscura da 4,4:1 contra el azul y apenas 1,0:1 contra el cartel verde,
+   porque la sombra que proyectan las letras es casi negra. De ahí las dos
+   reglas: tinta oscura en vez de blanca, y el copy nunca baja del techo.
+
+   El lima de marca queda afuera del texto a propósito: sobre este azul da
+   1,3:1, no se ve. La jerarquía la hace el peso, y el verde lo pone el
+   cartel de la foto. */
+.em-hero { position: relative; height: 100svh; min-height: 520px; overflow: hidden; color: var(--paper-ink); background: #bcd9f2; }
+.em-hero__bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 50%; }
+/* El hero lleva section--paper para que el header tome su versión clara. El
+   borde que esa clase dibuja entre dos secciones de papel acá sobra. */
+.em-hero + .section--paper { border-top: 0; }
+
+/* Bruma alta: aclara el cielo donde cae el texto y se apaga antes de tocar
+   el cartel, para no lavarle el verde. Sube el peor píxel del cielo de 4,4:1
+   a 6,7:1. Va unos grados inclinada para acompañar la diagonal del techo en
+   lugar de cortarla en horizontal. */
+.em-hero::after { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background:
+    linear-gradient(174deg, rgba(255,255,255,.44) 0%, rgba(255,255,255,.34) 16%, rgba(255,255,255,.13) 28%, rgba(255,255,255,0) 37%),
+    linear-gradient(90deg, rgba(255,255,255,.18) 0%, rgba(255,255,255,0) 54%); }
+
+/* El espaciado es parejo y atado al ancho, porque el cielo disponible también
+   lo está. El mínimo de 86px es lo que hace falta para despejar el header. */
+.em-hero__in { position: relative; z-index: 1; height: 100%; display: flex; flex-direction: column; justify-content: flex-start; padding: clamp(86px, 6vw, 110px) var(--gutter) 0; }
+.em-hero__ey { margin: 0 0 12px; display: flex; align-items: center; gap: 14px; font-family: var(--head); font-weight: 700; font-size: clamp(12px, 1.05vw, 14px); letter-spacing: .2em; text-transform: uppercase; }
+.em-hero__ey::before { content: ""; flex: 0 0 auto; width: 34px; height: 2px; background: currentColor; }
+.em-hero__t { margin: 0; font-family: var(--head); font-weight: 400; text-transform: uppercase; line-height: .98; letter-spacing: -.02em; font-size: clamp(30px, 4.3vw, 60px); }
+.em-hero__t span { display: block; }
+.em-hero__t b { font-weight: 700; }
+.em-hero__p { margin: 14px 0 0; max-width: 52ch; text-wrap: balance; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.6; color: #2a3a33; }
+
+/* Ventana baja: queda menos cielo arriba del cartel. El titular baja un
+   escalón para que el bloque siga entrando. A 1366x768 son 313px de cielo
+   contra 280 del texto; con el cuerpo grande no entraba. */
+@media (max-height: 820px) {
+  .em-hero__t { font-size: clamp(30px, 3.6vw, 48px); }
+}
+/* Ventana muy baja: ya no alcanza con achicar el texto, así que el recorte
+   se corre hacia abajo —se saca menos cielo y más vidriera— para que el
+   bloque tenga dónde apoyarse. */
+@media (max-height: 700px) {
+  .em-hero__bg { object-position: 50% 25%; }
+}
+
+/* Abajo de 1280px de ancho el cielo arriba del cartel no alcanza para el
+   texto: a 1200px de ancho son 287px y el bloque necesita 283, y de ahí
+   para abajo se da vuelta. Así que la foto va entera arriba y el copy
+   debajo, sobre blanco, donde el contraste deja de ser un problema. */
+@media (max-width: 1279px) {
+  /* La portada apilada deja de ser de pantalla completa: con display:block
+     y height:100svh el contenido terminaba a los 620px y los 220 restantes
+     eran blanco. Ahora la seccion mide lo que mide la foto mas el texto. */
+  .em-hero { aspect-ratio: auto; display: block; height: auto; min-height: 0; background: #fff; }
+  .em-hero::after { display: none; }
+  .em-hero__bg { position: static; display: block; width: 100%; height: auto; }
+  .em-hero__in { height: auto; padding: clamp(26px, 4.4vw, 44px) var(--gutter) clamp(32px, 5vw, 52px); }
+  /* El titular deja de ser dos líneas fijas: a 390px "FABRICAMOS ABERTURAS"
+     no entra de una y se cortaba contra el borde. */
+  .em-hero__t { font-size: clamp(30px, 5.4vw, 48px); }
+  .em-hero__t span { display: inline; }
 }

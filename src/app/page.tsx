@@ -29,28 +29,31 @@ const POR_QUE: [string, string, string, string, string][] = [
 export default function Inicio() {
   return (
     <Shell active="inicio" lightFooter>
-      <section className="hero">
-        <div className="hero__media"><img src="/photos/portada-inicio-proyectantes.jpg" alt="Ventanas proyectantes de aluminio negro abiertas hacia el jardín" fetchPriority="high" /></div>
-        <div className="wrap hero__in">
-          {/* Portada segun la referencia del cliente (Photoshop, 2026-11-05):
-              el titular arriba, el renglon de rubros, y abajo la marca a la
-              izquierda con los botones a la derecha, cerrando en la misma
-              linea. Todo lo de la izquierda —titular, rubros, marca— cae en la
-              misma vertical que el logo del header.
+      {/* Portada: a pantalla completa con la foto del frente del local y el
+          título apoyado en el cielo. Fue el hero de /empresa hasta la revisión
+          del 24-11-2026, cuando el cliente pidió intercambiar las dos portadas.
 
-              El titular es el <h1>: dice que hace la empresa y hace cuanto,
-              que es mas util para buscadores que un logo con alt. */}
-          <h1 className="hero__claim">Más de 20 años<br />fabricando aberturas<br />eficientes y sustentables</h1>
-          <p className="hero__cats">
-            {["PVC", "Aluminio", "Vidrios", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
-          </p>
-          <div className="hero__fila">
-            <img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} />
-            <div className="btn-row hero__acciones">
-              <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
-              <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
-            </div>
-          </div>
+          Llegó la foto que faltaba (el frente con el cartel "aluva ·
+          tecnología en aberturas"), la que el cliente venía pidiendo y la que
+          resolvía de paso el reclamo de que el texto blanco se pegoteaba con
+          el blanco de la foto anterior. Con esta foto el texto va en tinta
+          oscura sobre el cielo: es la única zona legible, porque contra el
+          cartel verde la tinta da 1,0:1 (la sombra de las letras es casi
+          negra). El detalle de las medidas está en site.css (bloque "Portada de inicio").
+
+          Por eso el titular bajó de cuatro líneas a dos: tiene que entrar
+          entero arriba del techo del cartel, y por eso se fue el indicador
+          de scroll: su único lugar posible era abajo, sobre la vidriera,
+          donde la tinta oscura tampoco se lee. */}
+      <section className="em-hero section--paper">
+        <img className="em-hero__bg" src="/photos/em-frente.webp" alt="Frente del local de Aluva, con el cartel de la marca sobre la vidriera" width={1536} height={1024} fetchPriority="high" />
+        <div className="wrap em-hero__in">
+          <p className="em-hero__ey">Más de 20 años</p>
+          <h1 className="em-hero__t">
+            <span>Fabricamos <b>aberturas</b>{" "}</span>
+            <span>a medida <b>en La Plata.</b></span>
+          </h1>
+          <p className="em-hero__p">Planta y equipo propios. Fabricamos, instalamos y respondemos por cada obra.</p>
         </div>
       </section>
 
