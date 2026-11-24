@@ -165,7 +165,13 @@ const turn = (dir: 1 | -1, a: number, inward: boolean): V3 => [dir * Math.cos(a)
 const tilt = (dir: 1 | -1, a: number, inward: boolean): V3 => [0, dir * Math.cos(a), (inward ? 1 : -1) * Math.sin(a)];
 
 type Lights = [number, number, number, number][];
-type Spec = { W: number; H: number; fit: number; ms?: number; draw: (P: Proj, k: number, t: number) => { back?: ReactNode; front?: ReactNode; lights: Lights } };
+/* `mirror`: mirar desde la derecha en vez de desde la izquierda. Se logra
+   espejando la geometría en x y volviendo a espejar la pantalla: dos
+   reflexiones hacen una rotación, así que la vista sigue siendo una vista
+   real (no una imagen en espejo) y lo que abre hacia adentro sigue viniendo
+   hacia el ojo. Sirve para hojas que giran sobre su lado derecho, que desde
+   la izquierda se verían casi de canto. */
+type Spec = { W: number; H: number; fit: number; ms?: number; mirror?: boolean; draw: (P: Proj, k: number, t: number) => { back?: ReactNode; front?: ReactNode; lights: Lights } };
 const F = 7; /* ancho del perfil de marco */
 const S = 9; /* separación entre carriles de una corrediza */
 const CICLO_DOBLE = 7600; /* tipologías con dos movimientos seguidos */
@@ -309,14 +315,22 @@ const SPECS: Record<Kind, Spec> = {
     draw: (P, _k, t) => corrediza(P, t, 150, 120, (120 - 2 * F) / 2),
   },
   patagonica: {
-    /* hoja rebatible a la izquierda (abre adentro), paño fijo a la derecha. Manija en el parante del encuentro. */
-    W: 120, H: 170, fit: 0.86,
+    /* Como el render de catálogo (revisión del 24-11-2026): paño fijo grande
+       a la izquierda (58 % de la luz) y hoja rebatible más angosta a la
+       derecha, con las bisagras en la jamba derecha y la manija en el
+       parante del encuentro, el que queda libre. Abre hacia adentro: el
+       lado de la manija viene hacia el ojo. Como gira sobre su lado
+       derecho, este esquema se mira desde la derecha (`mirror`): desde la
+       izquierda la hoja abierta quedaría casi de canto. */
+    W: 120, H: 170, fit: 0.86, mirror: true,
     draw: (P, k) => {
-      const w = (120 - 3 * F) / 2, h = 170 - 2 * F, U = turn(1, rad(58) * k, true), o: V3 = [F, F, 0];
+      const h = 170 - 2 * F, wf = Math.round((120 - 3 * F) * 0.58), ws = 120 - 3 * F - wf;
+      /* origen en la bisagra (jamba derecha); U apunta hacia la izquierda y gira hacia el ojo */
+      const U = turn(-1, rad(58) * k, true), o: V3 = [120 - F, F, 0];
       return {
-        lights: [[F, F, w, h], [2 * F + w, F, w, h]],
-        back: <Glass P={P} x={2 * F + w} y={F} w={w} h={h} />,
-        front: <g><Sash P={P} o={o} U={U} V={Y} w={w} h={h} /><Handle P={P} base={at(o, U, Y, w - 4, h / 2 + 8)} U={U} V={Y} dir={neg(Y)} len={16} /></g>,
+        lights: [[F, F, wf, h], [2 * F + wf, F, ws, h]],
+        back: <Glass P={P} x={F} y={F} w={wf} h={h} />,
+        front: <g><Sash P={P} o={o} U={U} V={Y} w={ws} h={h} /><Handle P={P} base={at(o, U, Y, ws - 4, h / 2 + 8)} U={U} V={Y} dir={neg(Y)} len={16} /></g>,
       };
     },
   },
@@ -382,7 +396,8 @@ export function Iso({ kind }: { kind: Kind }) {
   const t = useCycle(spec.ms ?? 4400);
   /* Con movimiento reducido se muestra la posición abierta, quieta */
   const k = t < 0 ? 0.85 : pulse(t, 0.12, 0.46, 0.62, 0.96);
-  const P = makeView(spec.W, spec.H, spec.fit);
+  const P0 = makeView(spec.W, spec.H, spec.fit);
+  const P: Proj = spec.mirror ? (p) => { const [x, y] = P0([spec.W - p[0], p[1], p[2]]); return [360 - x, y]; } : P0;
   const { back, front, lights } = spec.draw(P, k, t);
   return (
     <svg viewBox="0 0 360 300" className="iso" role="img" aria-label={`Esquema isométrico del movimiento: ${kind}`}>
