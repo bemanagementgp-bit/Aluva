@@ -2298,7 +2298,7 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 .em-hero__t { margin: 0; font-family: var(--head); font-weight: 400; text-transform: uppercase; line-height: .98; letter-spacing: -.02em; font-size: clamp(30px, 4.3vw, 60px); }
 .em-hero__t span { display: block; }
 .em-hero__t b { font-weight: 700; }
-.em-hero__p { margin: 10px 0 0; max-width: 52ch; text-wrap: balance; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.6; color: #2a3a33; }
+.em-hero__p { margin: 10px 0 0; max-width: 64ch; text-wrap: balance; font-size: clamp(15px, 1.15vw, 18px); line-height: 1.6; color: #2a3a33; }
 
 /* Ventana baja: queda menos cielo arriba del cartel. El titular baja un
    escalón para que el bloque siga entrando. A 1366x768 son 313px de cielo
@@ -2334,54 +2334,27 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
   .em-hero__t span { display: inline; }
 }
 
-/* Botones de la portada de inicio, sobre la pared, arriba del eslogan
-   "TECNOLOGÍA EN ABERTURAS" (24-11-2026, quinta vuelta).
-   ──────────────────────────────────────────────────────────────────────
-   Horizontales, uno al lado del otro, en la franja de pared libre que
-   queda entre el borde de arriba de la pared y el eslogan, a la derecha de
-   la "a" final de "aluva". Medido sobre el archivo (1536x1024): en x
-   1100-1420 el borde de la pared va de 630 a 686 y lo blanco del eslogan
-   empieza en 742 (la T y el acento de la Í). La fila sale de x=1100 (la
-   "a" termina en 1068) con el centro en y=711 y mide menos de 300 px de
-   archivo, así cierra antes de x=1400: queda a unos 8 px del borde de la
-   pared en su punta derecha y a 12 del eslogan en la izquierda.
+/* Botones de la portada de inicio (24-11-2026, versión final tras probar la
+   pared). Van debajo del párrafo, en el cielo, alineados con el texto: la
+   lectura cierra en la acción y la foto queda sin nada encima del cartel.
+   "Ver productos" en lima con tinta verde profunda, como el botón del
+   header; "Pedí presupuesto" en verde profundo con texto blanco. Dos
+   bloques sólidos, uno claro y uno oscuro: jerarquía sin bordes finos.
 
-   Escala de la foto, --s (px de pantalla por px de archivo): los botones
-   crecen con ella. Desde 1280 la foto va a sangre y centrada: --s =
-   max(ancho/1536, alto/1024) y lo recortado se reparte mitad y mitad
-   (--ox, --oy); con menos de 700 px de alto el recorte es 50% 40% y --oy
-   acompaña. Debajo de 1280 la foto va entera arriba y la franja mide menos
-   de 40 px: los botones bajan debajo del párrafo, sobre blanco.
-
-   Color (pedido: "más llamativo"): el principal en el lima de marca con
-   tinta verde profunda, igual que el botón del header; el segundo en verde
-   profundo con texto blanco. Los dos cortan contra el verde de la pared,
-   que es más claro y más apagado que ambos. */
-@media (min-width: 1280px) {
-  .em-hero { container-type: size; --s: max(calc(100cqw / 1536), calc(100cqh / 1024)); --ox: calc((100cqw - 1536 * var(--s)) / 2); --oy: calc((100cqh - 1024 * var(--s)) / 2); }
-  .em-hero__cta {
-    --h: clamp(34px, calc(37 * var(--s)), 48px);
-    position: absolute; z-index: 1; width: auto; max-width: none; margin: 0; padding: 0; gap: 8px; flex-wrap: nowrap;
-    left: calc(var(--ox) + 1100 * var(--s));
-    top: calc(var(--oy) + 711 * var(--s) - var(--h) / 2);
-  }
-  .em-hero__cta .btn { height: var(--h); padding: 0 clamp(11px, calc(13 * var(--s)), 18px); gap: 8px; font-size: clamp(10px, calc(10 * var(--s)), 13px); letter-spacing: .1em; border-radius: 0; box-shadow: 0 2px 10px rgba(0,30,10,.3); }
-  .em-hero__cta .btn--lime:hover { box-shadow: 0 4px 14px rgba(0,30,10,.36); }
-  .em-hero .em-hero__cta .btn--ghost { background: var(--bg); border: 0; color: #fff; }
-  .em-hero .em-hero__cta .btn--ghost:hover { background: var(--deep); color: #fff; }
-}
-@media (min-width: 1280px) and (max-height: 700px) {
-  .em-hero { --oy: calc((100cqh - 1024 * var(--s)) * .4); }
-}
+   El bloque entra arriba del techo del cartel con la bajada en una sola
+   línea (max-width 64ch): a 1906x953 cierra en 367 px contra un techo en
+   403; a 1366x768, 319 contra 340; a 1366x650, 297 contra 310. */
+.em-hero__cta { margin-top: clamp(18px, 2.4vh, 26px); gap: 12px; }
+.em-hero__cta .btn { --h: 46px; border-radius: 0; box-shadow: 0 2px 12px rgba(0,30,20,.18); }
+.em-hero__cta .btn--lime:hover { box-shadow: 0 4px 16px rgba(0,30,20,.24); }
+.em-hero .em-hero__cta .btn--ghost { background: var(--bg); border: 0; color: #fff; }
+.em-hero .em-hero__cta .btn--ghost:hover { background: var(--deep); color: #fff; }
 @media (max-width: 1279px) {
-  /* Debajo del párrafo, sobre blanco: el principal en lima y el segundo en
-     verde profundo, como arriba. La fila lleva el aire de abajo que tenía
-     el bloque de texto. */
+  /* Apilado sobre blanco: la fila lleva el aire de abajo que tenía el bloque
+     de texto. */
   .em-hero__in { padding-bottom: 0; }
   .em-hero__cta { margin-top: 26px; padding-bottom: clamp(32px, 5vw, 52px); }
-  .em-hero__cta .btn { --h: 46px; border-radius: 0; }
-  .em-hero .em-hero__cta .btn--ghost { background: var(--bg); border: 0; color: #fff; }
-  .em-hero .em-hero__cta .btn--ghost:hover { background: var(--deep); color: #fff; }
+  .em-hero__cta .btn { box-shadow: none; }
 }
 @media (max-width: 560px) {
   .em-hero__cta { flex-direction: column; }

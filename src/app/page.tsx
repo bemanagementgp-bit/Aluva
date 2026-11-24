@@ -54,17 +54,17 @@ export default function Inicio() {
               <span>Fabricamos <b>aberturas</b>{" "}</span>
               <span>a medida <b>en La Plata.</b></span>
             </h1>
-            <p className="em-hero__p">Planta y equipo propios. Fabricamos, instalamos y respondemos por cada obra.</p>
+            {/* Una sola línea, para que el bloque entero entre en el cielo
+                arriba del techo del cartel con los botones debajo. */}
+            <p className="em-hero__p">Planta y equipo propios. Fabricamos, instalamos y respondemos.</p>
           </div>
-        </div>
-        {/* Los botones vinieron de la portada vieja (24-11-2026). Van sobre
-            la pared verde, arriba del eslogan "TECNOLOGÍA EN ABERTURAS", en
-            lima y verde profundo; escalan con la foto (medidas en site.css)
-            y por eso son hijos de la sección y no del bloque de texto. Debajo
-            de 1280 px bajan debajo del párrafo. */}
-        <div className="wrap btn-row em-hero__cta">
-          <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
-          <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
+          {/* Los botones vinieron de la portada vieja (24-11-2026). Después
+              de probarlos sobre la pared del cartel, quedaron acá: debajo del
+              párrafo, cerrando la lectura, en lima y verde profundo. */}
+          <div className="btn-row em-hero__cta">
+            <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
+            <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
+          </div>
         </div>
       </section>
 
