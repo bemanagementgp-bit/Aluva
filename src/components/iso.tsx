@@ -173,7 +173,9 @@ const CICLO_DOBLE = 7600; /* tipologías con dos movimientos seguidos */
 /* Corrediza de dos hojas, ambas móviles: primero corre la de la derecha (por
    delante) hacia la izquierda y vuelve; después la de la izquierda (por
    detrás) hacia la derecha y vuelve. Sirve para corrediza y puerta balcón.
-   `hv` es la altura de las manijas. */
+   Cada hoja lleva la manija en su extremo exterior (la izquierda a la
+   izquierda, la derecha a la derecha), no en el encuentro. `hv` es la altura
+   de las manijas. */
 function corrediza(P: Proj, t: number, W: number, H: number, hv: number) {
   const w = (W - 2 * F) / 2 + 4, h = H - 2 * F, run = (w - 8) * 0.9;
   const dR = t < 0 ? 0.85 : pulse(t, 0.04, 0.2, 0.3, 0.46), dL = t < 0 ? 0 : pulse(t, 0.54, 0.7, 0.8, 0.96);
@@ -184,9 +186,9 @@ function corrediza(P: Proj, t: number, W: number, H: number, hv: number) {
     front: (
       <g>
         <Sash P={P} o={oL} U={X} V={Y} w={w} h={h} />
-        <Handle P={P} base={at(oL, X, Y, w - 4, hv + 8)} U={X} V={Y} dir={neg(Y)} len={16} />
+        <Handle P={P} base={at(oL, X, Y, 4, hv + 8)} U={X} V={Y} dir={neg(Y)} len={16} />
         <Sash P={P} o={oR} U={X} V={Y} w={w} h={h} />
-        <Handle P={P} base={at(oR, X, Y, 4, hv + 8)} U={X} V={Y} dir={neg(Y)} len={16} />
+        <Handle P={P} base={at(oR, X, Y, w - 4, hv + 8)} U={X} V={Y} dir={neg(Y)} len={16} />
       </g>
     ),
   };
@@ -240,23 +242,35 @@ const SPECS: Record<Kind, Spec> = {
     },
   },
   desplazable: {
-    /* herraje tijera: la hoja cuelga de un brazo a cada lado, articulado abajo
-       en la jamba. Al abrir, la parte de abajo sale hacia afuera y la de arriba
-       baja deslizando por las jambas. El largo del brazo se mantiene: de ahí
-       sale cuánto baja la hoja para cada ángulo. Manija en el travesaño de abajo. */
+    /* herraje tijera: la hoja cuelga de arriba por una bisagra a cada lado que
+       corre por una guía en la jamba, y un brazo articulado abajo en la jamba
+       la sostiene. Al abrir, la parte de abajo sale hacia afuera y la bisagra
+       de arriba baja por la guía. El largo del brazo se mantiene: de ahí sale
+       cuánto baja la hoja para cada ángulo. Manija en el travesaño de abajo. */
     W: 120, H: 80, fit: 0.86,
     draw: (P, k) => {
       const w = 120 - 2 * F, h = 80 - 2 * F, a = rad(38) * k;
       const m = h * 0.45, yA = F + 2, L = F + h - yA - m; /* m: dónde toma el brazo a la hoja; L: largo del brazo */
-      const s = F + h - yA - m * Math.cos(a) - Math.sqrt(L * L - m * m * Math.sin(a) ** 2);
+      const drop = (ang: number) => F + h - yA - m * Math.cos(ang) - Math.sqrt(L * L - m * m * Math.sin(ang) ** 2);
+      const s = drop(a), sMax = drop(rad(38));
       const V = tilt(-1, a, false), o: V3 = [F, F + h - s, 0];
-      const arms = [F + 1.5, F + w - 1.5].map((x) => ({ A: [x, yA, 0] as V3, B: add([x, F + h - s, 0], V, m) }));
+      const sides = [F + 1.5, F + w - 1.5].map((x) => ({
+        A: [x, yA, 0] as V3, B: add([x, F + h - s, 0], V, m), /* brazo: pivote en la jamba → hoja */
+        T0: [x, F + h, 0] as V3, T1: [x, F + h - sMax, 0] as V3, /* guía por la que baja la bisagra */
+        H: [x, F + h - s, 0] as V3, /* bisagra de arriba, sobre la guía */
+      }));
       return {
         lights: [[F, F, w, h]],
         back: (
           <g>
-            {arms.map(({ A, B }, i) => <line key={i} className="iso-arm" x1={P(A)[0]} y1={P(A)[1]} x2={P(B)[0]} y2={P(B)[1]} />)}
+            {sides.map(({ A, B, T0, T1 }, i) => (
+              <g key={i}>
+                <line className="iso-rail" x1={P(T0)[0]} y1={P(T0)[1]} x2={P(T1)[0]} y2={P(T1)[1]} />
+                <line className="iso-arm" x1={P(A)[0]} y1={P(A)[1]} x2={P(B)[0]} y2={P(B)[1]} />
+              </g>
+            ))}
             <Sash P={P} o={o} U={X} V={V} w={w} h={h} />
+            {sides.map(({ H }, i) => <circle key={i} className="iso-hinge" cx={P(H)[0]} cy={P(H)[1]} r={3} />)}
             <Handle P={P} base={at(o, X, V, w / 2 - 8, h - 3)} U={X} V={V} dir={X} len={16} />
           </g>
         ),
