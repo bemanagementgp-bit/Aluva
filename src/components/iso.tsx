@@ -20,7 +20,13 @@
 
    Proporciones por tipología según la misma guía: corrediza más chica que la
    puerta balcón, oscilobatiente más vertical que cuadrada, puerta alta y
-   angosta, plegadiza larga. No están a medida, pero sí en proporción. */
+   angosta, plegadiza larga. No están a medida, pero sí en proporción.
+
+   Revisión del 20-11-2026: toda hoja móvil lleva manija (del lado libre, en
+   la cara interior); los paños fijos (paño fijo y piel de vidrio) muestran un
+   reflejo de sol que barre el vidrio; corrediza y puerta balcón mueven las dos
+   hojas, una después de la otra; la desplazable baja la parte de arriba por
+   las jambas mientras la de abajo sale, como hace el herraje tijera real. */
 import { useEffect, useState, type ReactNode } from "react";
 
 type V3 = [number, number, number];
@@ -31,6 +37,9 @@ const norm = (v: V3): V3 => { const l = Math.hypot(...v); return [v[0] / l, v[1]
 const cross = (a: V3, b: V3): V3 => [a[1] * b[2] - a[2] * b[1], a[2] * b[0] - a[0] * b[2], a[0] * b[1] - a[1] * b[0]];
 const dot = (a: V3, b: V3) => a[0] * b[0] + a[1] * b[1] + a[2] * b[2];
 const add = (a: V3, b: V3, k = 1): V3 => [a[0] + b[0] * k, a[1] + b[1] * k, a[2] + b[2] * k];
+const neg = (v: V3): V3 => [-v[0], -v[1], -v[2]];
+/* Punto de una hoja en coordenadas propias (u a lo ancho, v a lo alto) */
+const at = (o: V3, U: V3, V: V3, u: number, v: number): V3 => add(add(o, U, u), V, v);
 
 /* El ojo está en dirección (-x, +y, +z): a la izquierda, arriba, del lado interior. */
 const EYE = norm([-0.65, 0.55, 1]);
@@ -60,28 +69,77 @@ const quad = (o: V3, U: V3, V: V3, w: number, h: number, inset = 0): V3[] => {
 };
 
 /* Marco: anillo exterior menos una o más luces (las luces se separan con parantes) */
-function Frame({ P, W, H, f, lights }: { P: Proj; W: number; H: number; f: number; lights: [number, number, number, number][] }) {
+function Frame({ P, W, H, lights }: { P: Proj; W: number; H: number; lights: [number, number, number, number][] }) {
   const outer = quad([0, 0, 0], [1, 0, 0], [0, 1, 0], W, H);
   const holes = lights.map(([x, y, w, h]) => quad([x, y, 0], [1, 0, 0], [0, 1, 0], w, h));
   return <path className="iso-frame" fillRule="evenodd" d={ring(P, [outer, ...holes])} />;
 }
 /* Hoja: perfil (anillo) + vidrio, en cualquier posición del espacio */
-function Sash({ P, o, U, V, w, h, b = 6, fixed = false }: { P: Proj; o: V3; U: V3; V: V3; w: number; h: number; b?: number; fixed?: boolean }) {
+function Sash({ P, o, U, V, w, h, b = 6 }: { P: Proj; o: V3; U: V3; V: V3; w: number; h: number; b?: number }) {
   const out = quad(o, U, V, w, h), inn = quad(o, U, V, w, h, b);
   return (
     <g>
       <path className="iso-glass" d={ring(P, [inn])} />
-      {!fixed && <path className="iso-sash" fillRule="evenodd" d={ring(P, [out, inn])} />}
+      <path className="iso-sash" fillRule="evenodd" d={ring(P, [out, inn])} />
     </g>
   );
 }
 /* Vidrio fijo dentro de una luz del marco (paño fijo, lado fijo de patagónica y monoriel) */
 const Glass = ({ P, x, y, w, h }: { P: Proj; x: number; y: number; w: number; h: number }) => <path className="iso-glass" d={ring(P, [quad([x, y, 0], [1, 0, 0], [0, 1, 0], w, h)])} />;
 
+/* Manija: un vástago corto que sale del plano de la hoja hacia el interior y
+   la palanca, apoyada en el plano. `dir` es hacia dónde apunta la palanca
+   (unitario, en el plano de la hoja). La cara interior es la que mira al ojo,
+   así que la normal se elige siempre con z positivo. */
+function Handle({ P, base, U, V, dir, len = 18 }: { P: Proj; base: V3; U: V3; V: V3; dir: V3; len?: number }) {
+  let N = norm(cross(U, V));
+  if (N[2] < 0) N = neg(N);
+  const a = add(base, N, 5), b = add(a, dir, len);
+  return <path className="iso-handle" d={`M${pt(P, base)}L${pt(P, a)}L${pt(P, b)}`} />;
+}
+
+/* Recorte de un polígono convexo contra un rectángulo (Sutherland–Hodgman),
+   en coordenadas del plano del vidrio. Evita usar clipPath con ids. */
+type P2 = [number, number];
+function clipRect(poly: P2[], x0: number, y0: number, x1: number, y1: number): P2[] {
+  const sides: ((p: P2) => number)[] = [(p) => p[0] - x0, (p) => x1 - p[0], (p) => p[1] - y0, (p) => y1 - p[1]];
+  return sides.reduce((pts, f) => {
+    const out: P2[] = [];
+    for (let i = 0; i < pts.length; i++) {
+      const a = pts[i], b = pts[(i + 1) % pts.length], fa = f(a), fb = f(b);
+      if (fa >= 0) out.push(a);
+      if (fa >= 0 !== fb >= 0) { const r = fa / (fa - fb); out.push([a[0] + (b[0] - a[0]) * r, a[1] + (b[1] - a[1]) * r]); }
+    }
+    return out;
+  }, poly);
+}
+/* Reflejo de sol: bandas claras en diagonal, una dentro de otra, que barren
+   el vidrio de izquierda a derecha. `u` va de 0 (todavía afuera, a la
+   izquierda) a 1 (ya salió por la derecha). */
+function Glare({ P, x, y, w, h, u }: { P: Proj; x: number; y: number; w: number; h: number; u: number }) {
+  const sl = 0.45; /* inclinación: cuánto corre la banda hacia la izquierda por unidad de alto */
+  const bands: [number, number][] = [[0.42, 0.1], [0.24, 0.12], [0.09, 0.3]]; /* [ancho relativo, opacidad] */
+  const bw0 = bands[0][0] * w;
+  const c = x - bw0 + u * (w + bw0 + sl * h);
+  return (
+    <g>
+      {bands.map(([bw, op], i) => {
+        const b = bw * w, off = (bw0 - b) / 2;
+        const poly = clipRect([[c + off, y], [c + off + b, y], [c + off + b - sl * h, y + h], [c + off - sl * h, y + h]], x, y, x + w, y + h);
+        return poly.length > 2 ? <path key={i} className="iso-glare" opacity={op} d={"M" + poly.map(([px, py]) => pt(P, [px, py, 0])).join("L") + "Z"} /> : null;
+      })}
+    </g>
+  );
+}
+
 /* ---------- tiempo ---------- */
 const ease = (t: number) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
 /* 0 en [0,a], sube hasta 1 en [a,b], se queda en 1 hasta c, baja a 0 en [c,d] */
 const pulse = (t: number, a: number, b: number, c: number, d: number) => (t < a ? 0 : t < b ? ease((t - a) / (b - a)) : t < c ? 1 : t < d ? 1 - ease((t - c) / (d - c)) : 0);
+/* 0 antes de a, sube a 1 entre a y b, queda en 1. Suaviza menos que `ease`
+   para que el reflejo no se quede clavado en los bordes. Con movimiento
+   reducido (t<0) queda a mitad de camino. */
+const sweep = (t: number, a: number, b: number) => { if (t < 0) return 0.5; const u = Math.min(1, Math.max(0, (t - a) / (b - a))); return u * u * (3 - 2 * u); };
 
 function useCycle(ms: number) {
   const [t, setT] = useState(0);
@@ -106,50 +164,100 @@ const turn = (dir: 1 | -1, a: number, inward: boolean): V3 => [dir * Math.cos(a)
 /* Dirección de alto al girar sobre un eje horizontal, ídem */
 const tilt = (dir: 1 | -1, a: number, inward: boolean): V3 => [0, dir * Math.cos(a), (inward ? 1 : -1) * Math.sin(a)];
 
-type Spec = { W: number; H: number; fit: number; ms?: number; draw: (P: Proj, k: number, t: number) => { back?: ReactNode; front?: ReactNode; lights: [number, number, number, number][]; } };
+type Lights = [number, number, number, number][];
+type Spec = { W: number; H: number; fit: number; ms?: number; draw: (P: Proj, k: number, t: number) => { back?: ReactNode; front?: ReactNode; lights: Lights } };
 const F = 7; /* ancho del perfil de marco */
 const S = 9; /* separación entre carriles de una corrediza */
+const CICLO_DOBLE = 7600; /* tipologías con dos movimientos seguidos */
+
+/* Corrediza de dos hojas, ambas móviles: primero corre la de la derecha (por
+   delante) hacia la izquierda y vuelve; después la de la izquierda (por
+   detrás) hacia la derecha y vuelve. Sirve para corrediza y puerta balcón.
+   `hv` es la altura de las manijas. */
+function corrediza(P: Proj, t: number, W: number, H: number, hv: number) {
+  const w = (W - 2 * F) / 2 + 4, h = H - 2 * F, run = (w - 8) * 0.9;
+  const dR = t < 0 ? 0.85 : pulse(t, 0.04, 0.2, 0.3, 0.46), dL = t < 0 ? 0 : pulse(t, 0.54, 0.7, 0.8, 0.96);
+  const oL: V3 = [F + run * dL, F, 0], oR: V3 = [W - F - w - run * dR, F, S];
+  const lights: Lights = [[F, F, W - 2 * F, h]];
+  return {
+    lights,
+    front: (
+      <g>
+        <Sash P={P} o={oL} U={X} V={Y} w={w} h={h} />
+        <Handle P={P} base={at(oL, X, Y, w - 4, hv + 8)} U={X} V={Y} dir={neg(Y)} len={16} />
+        <Sash P={P} o={oR} U={X} V={Y} w={w} h={h} />
+        <Handle P={P} base={at(oR, X, Y, 4, hv + 8)} U={X} V={Y} dir={neg(Y)} len={16} />
+      </g>
+    ),
+  };
+}
 
 const SPECS: Record<Kind, Spec> = {
   fijo: {
-    W: 100, H: 120, fit: 0.86,
-    draw: (P, _k, _t) => ({ lights: [[F, F, 100 - 2 * F, 120 - 2 * F]], back: <Glass P={P} x={F} y={F} w={100 - 2 * F} h={120 - 2 * F} /> }),
+    /* sin hojas: el vidrio solo, con el reflejo de sol que lo cruza */
+    W: 100, H: 120, fit: 0.86, ms: 5600,
+    draw: (P, _k, t) => ({
+      lights: [[F, F, 100 - 2 * F, 120 - 2 * F]],
+      back: <g><Glass P={P} x={F} y={F} w={100 - 2 * F} h={120 - 2 * F} /><Glare P={P} x={F} y={F} w={100 - 2 * F} h={120 - 2 * F} u={sweep(t, 0.1, 0.9)} /></g>,
+    }),
   },
   rebatible: {
-    /* bisagras a la izquierda, abre hacia adentro: viene hacia el ojo, delante del marco */
+    /* bisagras a la izquierda, abre hacia adentro: viene hacia el ojo, delante del marco. Manija en el parante libre. */
     W: 100, H: 120, fit: 0.86,
-    draw: (P, k) => ({ lights: [[F, F, 100 - 2 * F, 120 - 2 * F]], front: <Sash P={P} o={[F, F, 0]} U={turn(1, rad(58) * k, true)} V={Y} w={100 - 2 * F} h={120 - 2 * F} /> }),
+    draw: (P, k) => {
+      const U = turn(1, rad(58) * k, true), w = 100 - 2 * F, h = 120 - 2 * F, o: V3 = [F, F, 0];
+      return { lights: [[F, F, w, h]], front: <g><Sash P={P} o={o} U={U} V={Y} w={w} h={h} /><Handle P={P} base={at(o, U, Y, w - 4, h / 2 + 8)} U={U} V={Y} dir={neg(Y)} len={16} /></g> };
+    },
   },
   banderola: {
-    /* bisagras abajo, la parte de arriba entra hacia adentro */
+    /* bisagras abajo, la parte de arriba entra hacia adentro. Manija en el travesaño de arriba. */
     W: 120, H: 80, fit: 0.86,
-    draw: (P, k) => ({ lights: [[F, F, 120 - 2 * F, 80 - 2 * F]], front: <Sash P={P} o={[F, F, 0]} U={X} V={tilt(1, rad(34) * k, true)} w={120 - 2 * F} h={80 - 2 * F} /> }),
+    draw: (P, k) => {
+      const V = tilt(1, rad(34) * k, true), w = 120 - 2 * F, h = 80 - 2 * F, o: V3 = [F, F, 0];
+      return { lights: [[F, F, w, h]], front: <g><Sash P={P} o={o} U={X} V={V} w={w} h={h} /><Handle P={P} base={at(o, X, V, w / 2 - 8, h - 3)} U={X} V={V} dir={X} len={16} /></g> };
+    },
   },
   proyectante: {
-    /* bisagras arriba, la parte de abajo sale hacia afuera: se aleja, detrás del marco */
+    /* bisagras arriba, la parte de abajo sale hacia afuera: se aleja, detrás del marco. Manija en el travesaño de abajo. */
     W: 120, H: 80, fit: 0.86,
-    draw: (P, k) => ({ lights: [[F, F, 120 - 2 * F, 80 - 2 * F]], back: <Sash P={P} o={[F, 80 - F, 0]} U={X} V={tilt(-1, rad(40) * k, false)} w={120 - 2 * F} h={80 - 2 * F} /> }),
+    draw: (P, k) => {
+      const V = tilt(-1, rad(40) * k, false), w = 120 - 2 * F, h = 80 - 2 * F, o: V3 = [F, 80 - F, 0];
+      return { lights: [[F, F, w, h]], back: <g><Sash P={P} o={o} U={X} V={V} w={w} h={h} /><Handle P={P} base={at(o, X, V, w / 2 - 8, h - 3)} U={X} V={V} dir={X} len={16} /></g> };
+    },
   },
   oscilobatiente: {
-    /* primero vuelca (eje abajo), después abre (bisagras a la izquierda); siempre hacia adentro */
-    W: 90, H: 130, fit: 0.86, ms: 7000,
+    /* primero vuelca (eje abajo), después abre (bisagras a la izquierda); siempre
+       hacia adentro. La manija acompaña como en el herraje real: abajo cerrada,
+       arriba para volcar, horizontal para abrir. */
+    W: 90, H: 130, fit: 0.86, ms: CICLO_DOBLE,
     draw: (P, _k, t) => {
-      const v = t < 0 ? 1 : pulse(t, 0.06, 0.22, 0.34, 0.48), b = t < 0 ? 0 : pulse(t, 0.54, 0.7, 0.82, 0.96);
-      return { lights: [[F, F, 90 - 2 * F, 130 - 2 * F]], front: <Sash P={P} o={[F, F, 0]} U={turn(1, rad(55) * b, true)} V={tilt(1, rad(30) * v, true)} w={90 - 2 * F} h={130 - 2 * F} /> };
+      const v = t < 0 ? 1 : pulse(t, 0.06, 0.2, 0.3, 0.44), b = t < 0 ? 0 : pulse(t, 0.56, 0.7, 0.82, 0.94);
+      const phi = t < 0 ? Math.PI : rad(180) * pulse(t, 0, 0.06, 0.44, 0.5) + rad(90) * pulse(t, 0.5, 0.56, 0.94, 1);
+      const w = 90 - 2 * F, h = 130 - 2 * F, o: V3 = [F, F, 0];
+      const U = turn(1, rad(55) * b, true), V = tilt(1, rad(30) * v, true);
+      const dir = add(add([0, 0, 0], V, -Math.cos(phi)), U, -Math.sin(phi));
+      return { lights: [[F, F, w, h]], front: <g><Sash P={P} o={o} U={U} V={V} w={w} h={h} /><Handle P={P} base={at(o, U, V, w - 4, h / 2)} U={U} V={V} dir={dir} len={16} /></g> };
     },
   },
   desplazable: {
-    /* la hoja sale paralela hacia afuera, sostenida por los brazos tijera en las esquinas */
+    /* herraje tijera: la hoja cuelga de un brazo a cada lado, articulado abajo
+       en la jamba. Al abrir, la parte de abajo sale hacia afuera y la de arriba
+       baja deslizando por las jambas. El largo del brazo se mantiene: de ahí
+       sale cuánto baja la hoja para cada ángulo. Manija en el travesaño de abajo. */
     W: 120, H: 80, fit: 0.86,
     draw: (P, k) => {
-      const d = -30 * k, w = 120 - 2 * F, h = 80 - 2 * F;
-      const corners: V3[] = [[F, F, 0], [F + w, F, 0], [F + w, F + h, 0], [F, F + h, 0]];
+      const w = 120 - 2 * F, h = 80 - 2 * F, a = rad(38) * k;
+      const m = h * 0.45, yA = F + 2, L = F + h - yA - m; /* m: dónde toma el brazo a la hoja; L: largo del brazo */
+      const s = F + h - yA - m * Math.cos(a) - Math.sqrt(L * L - m * m * Math.sin(a) ** 2);
+      const V = tilt(-1, a, false), o: V3 = [F, F + h - s, 0];
+      const arms = [F + 1.5, F + w - 1.5].map((x) => ({ A: [x, yA, 0] as V3, B: add([x, F + h - s, 0], V, m) }));
       return {
         lights: [[F, F, w, h]],
         back: (
           <g>
-            <Sash P={P} o={[F, F, d]} U={X} V={Y} w={w} h={h} />
-            {corners.map((c, i) => <line key={i} className="iso-arm" x1={P(c)[0]} y1={P(c)[1]} x2={P(add(c, [0, 0, 1], d))[0]} y2={P(add(c, [0, 0, 1], d))[1]} />)}
+            {arms.map(({ A, B }, i) => <line key={i} className="iso-arm" x1={P(A)[0]} y1={P(A)[1]} x2={P(B)[0]} y2={P(B)[1]} />)}
+            <Sash P={P} o={o} U={X} V={V} w={w} h={h} />
+            <Handle P={P} base={at(o, X, V, w / 2 - 8, h - 3)} U={X} V={V} dir={X} len={16} />
           </g>
         ),
       };
@@ -159,74 +267,76 @@ const SPECS: Record<Kind, Spec> = {
     /* bisagras a la izquierda, abre hacia adentro, con manija del lado libre */
     W: 90, H: 210, fit: 0.9,
     draw: (P, k) => {
-      const U = turn(1, rad(62) * k, true), w = 90 - 2 * F, h = 210 - 2 * F;
-      const hA = add(add([F, F, 0], U, w - 14), Y, 92), hB = add(hA, Y, 22);
-      return { lights: [[F, F, w, h]], front: <g><Sash P={P} o={[F, F, 0]} U={U} V={Y} w={w} h={h} /><line className="iso-handle" x1={P(hA)[0]} y1={P(hA)[1]} x2={P(hB)[0]} y2={P(hB)[1]} /></g> };
+      const U = turn(1, rad(62) * k, true), w = 90 - 2 * F, h = 210 - 2 * F, o: V3 = [F, F, 0];
+      return { lights: [[F, F, w, h]], front: <g><Sash P={P} o={o} U={U} V={Y} w={w} h={h} /><Handle P={P} base={at(o, U, Y, w - 4, h * 0.5 + 10)} U={U} V={Y} dir={neg(Y)} len={20} /></g> };
     },
   },
   corrediza: {
-    /* dos hojas en dos carriles: la de adelante corre sobre la de atrás */
-    W: 150, H: 120, fit: 0.9,
-    draw: (P, k) => {
-      const w = (150 - 2 * F) / 2 + 4, h = 120 - 2 * F, d = (w - 8) * 0.9 * k;
-      return { lights: [[F, F, 150 - 2 * F, h]], front: <g><Sash P={P} o={[F, F, 0]} U={X} V={Y} w={w} h={h} /><Sash P={P} o={[150 - F - w - d, F, S]} U={X} V={Y} w={w} h={h} /></g> };
-    },
+    W: 150, H: 120, fit: 0.9, ms: CICLO_DOBLE,
+    draw: (P, _k, t) => corrediza(P, t, 150, 120, (120 - 2 * F) / 2),
   },
   patagonica: {
-    /* hoja rebatible a la izquierda (abre adentro), paño fijo a la derecha */
+    /* hoja rebatible a la izquierda (abre adentro), paño fijo a la derecha. Manija en el parante del encuentro. */
     W: 120, H: 170, fit: 0.86,
     draw: (P, k) => {
-      const w = (120 - 3 * F) / 2, h = 170 - 2 * F;
-      return { lights: [[F, F, w, h], [2 * F + w, F, w, h]], back: <Glass P={P} x={2 * F + w} y={F} w={w} h={h} />, front: <Sash P={P} o={[F, F, 0]} U={turn(1, rad(58) * k, true)} V={Y} w={w} h={h} /> };
+      const w = (120 - 3 * F) / 2, h = 170 - 2 * F, U = turn(1, rad(58) * k, true), o: V3 = [F, F, 0];
+      return {
+        lights: [[F, F, w, h], [2 * F + w, F, w, h]],
+        back: <Glass P={P} x={2 * F + w} y={F} w={w} h={h} />,
+        front: <g><Sash P={P} o={o} U={U} V={Y} w={w} h={h} /><Handle P={P} base={at(o, U, Y, w - 4, h / 2 + 8)} U={U} V={Y} dir={neg(Y)} len={16} /></g>,
+      };
     },
   },
   monoriel: {
-    /* paño fijo a la izquierda; la hoja corre por un solo riel, por delante del fijo */
+    /* paño fijo a la izquierda; la hoja corre por un solo riel, por delante del fijo. Manija en el parante del encuentro. */
     W: 150, H: 220, fit: 0.95,
     draw: (P, k) => {
-      const w = (150 - 3 * F) / 2, h = 220 - 2 * F, d = (w + F) * 0.9 * k;
-      return { lights: [[F, F, w, h], [2 * F + w, F, w, h]], back: <Glass P={P} x={F} y={F} w={w} h={h} />, front: <Sash P={P} o={[2 * F + w - d, F, S]} U={X} V={Y} w={w} h={h} /> };
+      const w = (150 - 3 * F) / 2, h = 220 - 2 * F, d = (w + F) * 0.9 * k, o: V3 = [2 * F + w - d, F, S];
+      return {
+        lights: [[F, F, w, h], [2 * F + w, F, w, h]],
+        back: <Glass P={P} x={F} y={F} w={w} h={h} />,
+        front: <g><Sash P={P} o={o} U={X} V={Y} w={w} h={h} /><Handle P={P} base={at(o, X, Y, 4, h * 0.47 + 10)} U={X} V={Y} dir={neg(Y)} len={20} /></g>,
+      };
     },
   },
   balcon: {
-    /* igual que la corrediza pero con alto de puerta */
-    W: 150, H: 220, fit: 0.95,
-    draw: (P, k) => {
-      const w = (150 - 2 * F) / 2 + 4, h = 220 - 2 * F, d = (w - 8) * 0.9 * k;
-      return { lights: [[F, F, 150 - 2 * F, h]], front: <g><Sash P={P} o={[F, F, 0]} U={X} V={Y} w={w} h={h} /><Sash P={P} o={[150 - F - w - d, F, S]} U={X} V={Y} w={w} h={h} /></g> };
-    },
+    /* igual que la corrediza pero con alto de puerta y manijas a altura de mano */
+    W: 150, H: 220, fit: 0.95, ms: CICLO_DOBLE,
+    draw: (P, _k, t) => corrediza(P, t, 150, 220, (220 - 2 * F) * 0.47),
   },
   plegadiza: {
     /* cuatro hojas que se pliegan en zigzag hacia afuera y se apilan contra la
        jamba derecha. Los puntos pares de la cadena quedan sobre el riel y los
        impares en los vértices, alejados del ojo. Se dibujan de la más lejana
-       (pegada a la jamba) a la más cercana. */
+       (pegada a la jamba) a la más cercana. Manijas en los dos parantes que se
+       agarran: el libre de la hoja de punta y el del encuentro entre pares. */
     W: 300, H: 220, fit: 1,
     draw: (P, k) => {
-      const n = 4, p = (300 - 2 * F) / n, h = 220 - 2 * F, a = rad(74) * k;
+      const n = 4, p = (300 - 2 * F) / n, h = 220 - 2 * F, a = rad(74) * k, hv = h * 0.47 + 10;
       const pnt = (m: number): V3 => [300 - F - m * p * Math.cos(a), F, m % 2 ? -p * Math.sin(a) : 0];
       const panels = [];
       for (let i = 0; i < n; i++) {
         const from = pnt(i), U = norm(add(pnt(i + 1), from, -1));
         panels.push(<Sash key={i} P={P} o={from} U={U} V={Y} w={p} h={h} />);
+        if (i === 1 || i === 3) panels.push(<Handle key={`h${i}`} P={P} base={at(from, U, Y, p - 4, hv)} U={U} V={Y} dir={neg(Y)} len={20} />);
       }
       return { lights: [[F, F, 300 - 2 * F, h]], back: <g>{panels}</g> };
     },
   },
   piel: {
-    /* retícula de fachada; un paño del medio abre como proyectante, hacia afuera, para ventilar */
-    W: 240, H: 240, fit: 1,
-    draw: (P, k) => {
+    /* retícula de fachada, todos los paños fijos; el reflejo de sol cruza el del medio */
+    W: 240, H: 240, fit: 1, ms: 5600,
+    draw: (P, _k, t) => {
       const c = (240 - 4 * F) / 3;
-      const lights: [number, number, number, number][] = [];
+      const lights: Lights = [];
       for (let r = 0; r < 3; r++) for (let q = 0; q < 3; q++) lights.push([F + q * (c + F), F + r * (c + F), c, c]);
-      const ox = F + (c + F), oy = F + (c + F);
+      const [mx, my] = lights[4];
       return {
         lights,
         back: (
           <g>
-            {lights.filter((_, i) => i !== 4).map(([x, y, w, h], i) => <Glass key={i} P={P} x={x} y={y} w={w} h={h} />)}
-            <Sash P={P} o={[ox, oy + c, 0]} U={X} V={tilt(-1, rad(36) * k, false)} w={c} h={c} b={4} />
+            {lights.map(([x, y, w, h], i) => <Glass key={i} P={P} x={x} y={y} w={w} h={h} />)}
+            <Glare P={P} x={mx} y={my} w={c} h={c} u={sweep(t, 0.1, 0.9)} />
           </g>
         ),
       };
@@ -244,7 +354,7 @@ export function Iso({ kind }: { kind: Kind }) {
   return (
     <svg viewBox="0 0 360 300" className="iso" role="img" aria-label={`Esquema isométrico del movimiento: ${kind}`}>
       {back}
-      <Frame P={P} W={spec.W} H={spec.H} f={F} lights={lights} />
+      <Frame P={P} W={spec.W} H={spec.H} lights={lights} />
       {front}
     </svg>
   );
