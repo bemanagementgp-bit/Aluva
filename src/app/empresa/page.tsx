@@ -60,11 +60,10 @@ export default function Empresa() {
         <div className="wrap hero__in">
           {/* Fue la portada de inicio hasta la revisión del 24-11-2026, cuando
               el cliente pidió intercambiarla con la de /empresa. Sigue la
-              referencia del cliente (Photoshop, 2026-11-05):
-              el titular arriba, el renglon de rubros, y abajo la marca a la
-              izquierda con los botones a la derecha, cerrando en la misma
-              linea. Todo lo de la izquierda —titular, rubros, marca— cae en la
-              misma vertical que el logo del header.
+              referencia del cliente (Photoshop, 2026-11-05): el titular
+              arriba, el renglon de rubros, y abajo la marca, que ahora cierra
+              a la derecha, en el lugar que tenian los botones. Titular y
+              rubros caen en la misma vertical que el logo del header.
 
               El titular es el <h1>: dice que hace la empresa y hace cuanto,
               que es mas util para buscadores que un logo con alt. */}
@@ -72,12 +71,9 @@ export default function Empresa() {
           <p className="hero__cats">
             {["PVC", "Aluminio", "Vidrios", "Revestimientos"].map((c) => <span key={c}>{c}</span>)}
           </p>
+          {/* Sin botones: los CTAs se fueron a la portada de inicio (24-11-2026). */}
           <div className="hero__fila">
             <img className="hero__marca" src="/brand/marca-lima-ajustada.svg" alt="Aluva" width={699} height={141} />
-            <div className="btn-row hero__acciones">
-              <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
-              <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
-            </div>
           </div>
         </div>
       </section>

@@ -2302,12 +2302,6 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
 @media (max-height: 820px) {
   .em-hero__t { font-size: clamp(30px, 3.6vw, 48px); }
 }
-/* Ventana muy baja: ya no alcanza con achicar el texto, así que el recorte
-   se corre hacia abajo —se saca menos cielo y más vidriera— para que el
-   bloque tenga dónde apoyarse. */
-@media (max-height: 700px) {
-  .em-hero__bg { object-position: 50% 25%; }
-}
 
 /* Abajo de 1280px de ancho el cielo arriba del cartel no alcanza para el
    texto: a 1200px de ancho son 287px y el bloque necesita 283, y de ahí
@@ -2325,4 +2319,69 @@ html.intro-corriendo, html.intro-corriendo body { overflow: hidden; }
      no entra de una y se cortaba contra el borde. */
   .em-hero__t { font-size: clamp(30px, 5.4vw, 48px); }
   .em-hero__t span { display: inline; }
+}
+
+/* Botones de la portada de inicio, sobre la pared del cartel (24-11-2026).
+   ──────────────────────────────────────────────────────────────────────
+   El cliente pidió que fueran parte de la foto: sobre el verde y con el
+   lenguaje del cartel. Van debajo de las letras "aluva", que es el único
+   tramo de pared libre que les da altura (unos 100 px del archivo entre la
+   base de las letras y el borde de la pared), y siguen la inclinación de la
+   pared, que en la foto baja hacia la derecha 8°.
+
+   Medido sobre el archivo (1536x1024): la base de las letras va de y=710 en
+   x=350 a y=815 en x=1050; el borde de abajo de la pared, de 819 a 909. La
+   fila se centra en ese hueco: arranca en x=105 (el borde del icono) con el
+   centro en y=730 y baja 0,14 px por px.
+
+   Todo se expresa en la escala de la foto, --s (px de pantalla por px de
+   archivo), así los botones crecen y se achican con el cartel como si
+   estuvieran pintados en la pared: alto, letra, borde y sombra. Desde 1280
+   la foto va a sangre y centrada: --s = max(ancho/1536, alto/1024) y lo
+   recortado se reparte mitad y mitad (--ox, --oy). Entre 700 y 1279 la foto
+   va entera arriba, así que --s es ancho/1536 y no hay recorte. Debajo de
+   700 la pared mide menos de 46 px de alto y los botones no entran con un
+   tamaño que se pueda tocar: bajan debajo del párrafo, sobre blanco.
+
+   Estilo: blanco sobre verde con sombra de relieve, como las letras del
+   cartel (su sombra mide rgb(62,90,41)). El principal lleno, el segundo
+   solo con borde. Sin esquinas redondeadas, como el resto del sitio. */
+@media (min-width: 700px) {
+  .em-hero { container-type: inline-size; --s: calc(100cqw / 1536); --ox: 0px; --oy: 0px; }
+  .em-hero__cta {
+    --h: max(32px, calc(46 * var(--s)));
+    position: absolute; z-index: 1; width: auto; max-width: none; margin: 0; padding: 0; gap: calc(var(--h) * .22); flex-wrap: nowrap;
+    left: calc(var(--ox) + 105 * var(--s));
+    top: calc(var(--oy) + 730 * var(--s) - var(--h) / 2);
+    transform: rotate(8deg); transform-origin: left center;
+  }
+  .em-hero__cta .btn { height: var(--h); padding: 0 calc(var(--h) * .45); gap: calc(var(--h) * .22); font-family: var(--head); font-size: max(10px, calc(12.5 * var(--s))); letter-spacing: .14em; border-radius: 0; }
+  .em-hero__cta .btn--lime { background: #fff; color: #3e7d20; box-shadow: calc(3 * var(--s)) calc(4 * var(--s)) 0 rgba(42,68,28,.6); }
+  .em-hero__cta .btn--lime:hover { background: #fff; transform: translate(-1px, -1px); box-shadow: calc(4 * var(--s)) calc(5 * var(--s)) 0 rgba(42,68,28,.6); }
+  .em-hero .em-hero__cta .btn--ghost { background: transparent; border: max(1.5px, calc(2 * var(--s))) solid #fff; color: #fff; box-shadow: calc(3 * var(--s)) calc(4 * var(--s)) 0 rgba(42,68,28,.45); backdrop-filter: none; -webkit-backdrop-filter: none; }
+  .em-hero .em-hero__cta .btn--ghost:hover { background: rgba(255,255,255,.14); color: #fff; border-color: #fff; transform: translate(-1px, -1px); }
+}
+@media (min-width: 1280px) {
+  .em-hero { container-type: size; --s: max(calc(100cqw / 1536), calc(100cqh / 1024)); --ox: calc((100cqw - 1536 * var(--s)) / 2); --oy: calc((100cqh - 1024 * var(--s)) / 2); }
+}
+@media (max-width: 699px) {
+  /* Debajo del párrafo, sobre blanco: el fantasma con borde en tinta, como
+     cualquier botón sobre papel. La fila lleva el aire de abajo que antes
+     tenía el bloque de texto. */
+  .em-hero__in { padding-bottom: 0; }
+  .em-hero__cta { margin-top: 26px; padding-bottom: clamp(32px, 5vw, 52px); }
+  .em-hero .em-hero__cta .btn--ghost { border-color: rgba(14,21,18,.25); color: var(--paper-ink); }
+  .em-hero .em-hero__cta .btn--ghost:hover { border-color: var(--paper-ink); }
+}
+@media (max-width: 560px) {
+  .em-hero__cta { flex-direction: column; }
+  .em-hero__cta .btn { width: 100%; justify-content: center; }
+}
+
+/* Portada de /empresa sin botones (24-11-2026): la marca pasa al lugar que
+   ocupaban, abajo a la derecha. Cierra la composición frente al titular,
+   sobre la esquina más oscura del velo, donde el lima se lee sin esfuerzo.
+   En el teléfono sigue apilada bajo el titular, a la izquierda. */
+@media (min-width: 821px) {
+  .page-empresa .hero__fila { justify-content: flex-end; }
 }

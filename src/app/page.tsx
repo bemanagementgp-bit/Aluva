@@ -48,12 +48,23 @@ export default function Inicio() {
       <section className="em-hero section--paper">
         <img className="em-hero__bg" src="/photos/em-frente.webp" alt="Frente del local de Aluva, con el cartel de la marca sobre la vidriera" width={1536} height={1024} fetchPriority="high" />
         <div className="wrap em-hero__in">
-          <p className="em-hero__ey">Más de 20 años</p>
-          <h1 className="em-hero__t">
-            <span>Fabricamos <b>aberturas</b>{" "}</span>
-            <span>a medida <b>en La Plata.</b></span>
-          </h1>
-          <p className="em-hero__p">Planta y equipo propios. Fabricamos, instalamos y respondemos por cada obra.</p>
+          <div className="em-hero__txt">
+            <p className="em-hero__ey">Más de 20 años</p>
+            <h1 className="em-hero__t">
+              <span>Fabricamos <b>aberturas</b>{" "}</span>
+              <span>a medida <b>en La Plata.</b></span>
+            </h1>
+            <p className="em-hero__p">Planta y equipo propios. Fabricamos, instalamos y respondemos por cada obra.</p>
+          </div>
+        </div>
+        {/* Los botones vinieron de la portada vieja (pedido del 24-11-2026).
+            Van sobre la pared verde del cartel, debajo de las letras, con su
+            misma inclinación y relieve, y escalan con la foto (las medidas
+            están en site.css); por eso son hijos directos de la sección y no
+            del bloque de texto. Solo en el teléfono bajan debajo del párrafo. */}
+        <div className="wrap btn-row em-hero__cta">
+          <Link className="btn btn--lime" href="/productos">Ver productos <span className="arr">→</span></Link>
+          <Link className="btn btn--ghost" href="/contacto">Pedí presupuesto</Link>
         </div>
       </section>
 
