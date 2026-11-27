@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "typecheck": "tsc --noEmit"
+    "typecheck": "tsc --noEmit",
+    "hosting": "node scripts/exportar-hosting.mjs",
+    "hosting:ver": "node scripts/servir-hosting.mjs"
   },
   "dependencies": {
     "next": "^15.5.27",

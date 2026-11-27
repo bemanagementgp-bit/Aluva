@@ -1,6 +1,7 @@
 {
   "version": "0.0.1",
   "configurations": [
-    { "name": "aluva-dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 }
+    { "name": "aluva-dev", "runtimeExecutable": "npm", "runtimeArgs": ["run", "dev"], "port": 3000 },
+    { "name": "aluva-hosting", "runtimeExecutable": "npm", "runtimeArgs": ["run", "hosting:ver"], "port": 8123 }
   ]
 }

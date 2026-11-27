@@ -5,7 +5,8 @@ import "@/styles/profesionales.css";
 import Intro from "@/components/Intro";
 
 export const metadata: Metadata = {
-  metadataBase: new URL("https://aluva.vercel.app"),
+  // La dirección pública: aluva.com.ar en el hosting, aluva.vercel.app en Vercel (SITE_URL lo fija `npm run hosting`).
+  metadataBase: new URL(process.env.SITE_URL || "https://aluva.vercel.app"),
   title: "Aluva · Aberturas de PVC y aluminio a medida en La Plata",
   description: "Fábrica de aberturas a medida en La Plata: PVC, aluminio, vidrios con DVH y mamparas, vidrio templado y revestimientos.",
   icons: { icon: { url: "/brand/icon-principal.svg", type: "image/svg+xml" }, apple: "/brand/icon-192.png" },
