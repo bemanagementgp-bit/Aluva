@@ -16,6 +16,9 @@ export const CONTACTO = {
   maps: "https://www.google.com/maps/search/?api=1&query=Calle+7+1714+La+Plata+Buenos+Aires",
 } as const;
 
+// El acceso del equipo (Staff) vive en la app, aparte de este sitio.
+export const APP_URL = "https://app.aluva.com.ar";
+
 export const SEDES = [
   { nombre: "City Bell", direccion: "Camino Centenario 292 y Diag. 93, City Bell, Buenos Aires", maps: "https://www.google.com/maps/search/?api=1&query=Camino+Centenario+292+City+Bell+Buenos+Aires" },
   { nombre: "Tandil", direccion: "Garibaldi 960, Tandil, Buenos Aires", maps: "https://www.google.com/maps/search/?api=1&query=Garibaldi+960+Tandil+Buenos+Aires" },

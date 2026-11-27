@@ -1005,16 +1005,6 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
 @media (max-width: 1080px) { .hdr__cta .btn--white { display: none; } }
 @media (max-width: 560px) { .hdr__cta .btn--lime { display: inline-flex; --h: 38px; padding: 0 12px; font-size: 11px; } }
 
-/* Página Staff */
-.staff { min-height: 100svh; display: grid; place-items: center; }
-.staff__card { max-width: 420px; margin: 0 auto; background: #fff; color: var(--paper-ink); border-radius: var(--r-box); padding: 40px; box-shadow: 0 30px 80px rgba(0,0,0,.3); }
-.staff__card img { height: 36px; width: auto; margin-bottom: 24px; }
-.staff__card h1 { font-family: var(--head); text-transform: uppercase; font-size: 28px; margin: 0; }
-.staff__card p { color: var(--gray); margin: 6px 0 24px; font-size: 14.5px; }
-.staff__form { display: grid; gap: 12px; margin-bottom: 18px; }
-.staff__form input { font: inherit; padding: 14px 16px; border-radius: var(--r-btn); border: 1px solid rgba(14,21,18,.18); background: var(--paper-2); }
-.staff__form .btn { justify-content: center; opacity: .6; cursor: not-allowed; }
-.staff__card .link-arrow { color: #2f7a0a; }
 .proc__fig img[src*="local-aluva"] { object-position: 50% 36%; }
 .tl__img img[src*="local-aluva"] { object-position: 50% 34% !important; }
 
@@ -1084,7 +1074,7 @@ section:not(.section--paper) .tipo__diagram { background-color: var(--deep); }
    ========================================================================== */
 .h-giant, .h-xl, .h-lg, .h-md, .hero__title, .cover__title, .pro .pro-palabra, .next__t, .ftr__big,
 .pillar h3, .sys h3, .proc__item h3, .step__c h3, .tl__item h3, .term__head h3, .vit__body h3, .vit__label,
-.staff__card h1, .tipo__diagram .dg-name, .anat__list b {
+.tipo__diagram .dg-name, .anat__list b {
   text-transform: none;
   letter-spacing: -.02em;
 }

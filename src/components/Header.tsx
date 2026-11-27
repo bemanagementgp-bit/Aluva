@@ -6,10 +6,10 @@
 import Link from "next/link";
 import { useEffect, useRef, useState } from "react";
 import { usePathname } from "next/navigation";
-import { CONTACTO, LINEAS, waLink } from "@/content/site";
+import { APP_URL, CONTACTO, LINEAS, waLink } from "@/content/site";
 import { Chev, WA } from "./Icon";
 
-export type Seccion = "inicio" | "productos" | "pvc" | "aluminio" | "vidrieria" | "revestimientos" | "empresa" | "contacto" | "staff";
+export type Seccion = "inicio" | "productos" | "pvc" | "aluminio" | "vidrieria" | "revestimientos" | "empresa" | "contacto";
 
 export default function Header({ active }: { active: Seccion }) {
   // Contacto y Empresa abren con una seccion clara: la barra arranca blanca
@@ -85,7 +85,7 @@ export default function Header({ active }: { active: Seccion }) {
           </nav>
           <div className="hdr__cta">
             <Link className="btn btn--lime" href="/contacto">Pedí presupuesto <span className="arr">→</span></Link>
-            <Link className="hdr__staff" href="/staff" {...cur("staff")}>Staff</Link>
+            <a className="hdr__staff" href={APP_URL}>Staff</a>
             <button className="burger" type="button" aria-label={menu ? "Cerrar menú" : "Abrir menú"} aria-expanded={menu} onClick={() => setMenu((m) => !m)}><span /><span /></button>
           </div>
         </div>
@@ -109,7 +109,7 @@ export default function Header({ active }: { active: Seccion }) {
           <Link className="btn btn--lime" href="/contacto">Pedí presupuesto <span className="arr">→</span></Link>
           <div className="mnav__links">
             <a href={waLink()} target="_blank" rel="noopener"><WA /> WhatsApp</a>
-            <Link href="/staff">Acceso staff</Link>
+            <a href={APP_URL}>Acceso staff</a>
           </div>
           <span className="small">{CONTACTO.direccion} · {CONTACTO.horario}</span>
         </div>

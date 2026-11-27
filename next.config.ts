@@ -1,10 +1,12 @@
 import type { NextConfig } from "next";
 
+const APP_URL = "https://app.aluva.com.ar";
+
 // Las direcciones viejas del sitio en HTML (/pvc.html, /blindex.html…) redirigen a las nuevas.
 const viejas: [string, string][] = [
   ["index", "/"], ["productos", "/productos"], ["pvc", "/pvc"], ["aluminio", "/aluminio"],
   ["vidrieria", "/vidrieria"], ["templados", "/vidrieria"], ["blindex", "/vidrieria"],
-  ["empresa", "/empresa"], ["contacto", "/contacto"], ["staff", "/staff"],
+  ["empresa", "/empresa"], ["contacto", "/contacto"],
 ];
 
 /* Dos formas de publicar:
@@ -25,6 +27,9 @@ const nextConfig: NextConfig = {
         ...viejas.map(([v, n]) => ({ source: `/${v}.html`, destination: n, permanent: true })),
         { source: "/blindex", destination: "/vidrieria", permanent: true },
         { source: "/templados", destination: "/vidrieria", permanent: true },
+        // El acceso del equipo está en la app, aparte del sitio
+        { source: "/staff", destination: APP_URL, permanent: false },
+        { source: "/staff.html", destination: APP_URL, permanent: false },
       ];
     },
     async headers() {

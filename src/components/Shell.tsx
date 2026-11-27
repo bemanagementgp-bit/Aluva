@@ -4,7 +4,7 @@ import type { ReactNode } from "react";
 import Header, { type Seccion } from "./Header";
 import SiteEffects from "./SiteEffects";
 import { WA } from "./Icon";
-import { CONTACTO, LINEAS, waLink } from "@/content/site";
+import { APP_URL, CONTACTO, LINEAS, waLink } from "@/content/site";
 
 function Footer({ light }: { light: boolean }) {
   return (
@@ -30,7 +30,7 @@ function Footer({ light }: { light: boolean }) {
               <li><Link href="/empresa#servicio">Cómo trabajamos</Link></li>
               <li><Link href="/#profesionales">Profesionales</Link></li>
               <li><Link href="/contacto">Contacto</Link></li>
-              <li><Link href="/staff">Acceso staff</Link></li>
+              <li><a href={APP_URL}>Acceso staff</a></li>
             </ul>
           </div>
           <div>

@@ -14,6 +14,7 @@ DirectoryIndex index.html
 
   # La PWA vieja arrancaba en /login: ahora el acceso está en app.aluva.com.ar
   RewriteRule ^login/?$ https://app.aluva.com.ar/ [R=302,L]
+  RewriteRule ^staff(\.html)?/?$ https://app.aluva.com.ar/ [R=302,L]
 
   # Direcciones de la landing anterior (index.php) y del sitio en HTML
   RewriteRule ^(templados|blindex|vidriosymamparas)(\.html)?/?$ /vidrieria [R=301,L]
